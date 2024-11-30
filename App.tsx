@@ -1,3 +1,5 @@
+import './src/global.css'
+
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -20,7 +22,7 @@ function App(): React.JSX.Element {
         <StatusBar barStyle='dark-content' backgroundColor={'transparent'} />
         <PaddingTop />
         <Press>
-          <SemiBold style={{ fontSize: 27 }}>Testbuddy</SemiBold>
+          <SemiBold className='text-4xl text-gray-800 active:text-lime-500'>Testbuddy</SemiBold>
         </Press>
         <PaddingBottom />
       </SafeAreaProvider>
