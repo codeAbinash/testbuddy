@@ -7,9 +7,9 @@
 
 import Press from '@components/Press'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
-// import {PaddingBottom, PaddingTop} from '@components/SafePadding';
+import { SemiBold } from '@utils/fonts'
 import React from 'react'
-import { StatusBar, Text } from 'react-native'
+import { StatusBar } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -20,9 +20,7 @@ function App(): React.JSX.Element {
         <StatusBar barStyle='dark-content' backgroundColor={'transparent'} />
         <PaddingTop />
         <Press>
-          <Text style={{ textAlign: 'center', fontSize: 30, fontFamily: 'monospace', fontWeight: 'bold' }}>
-            Testbuddy
-          </Text>
+          <SemiBold style={{ fontSize: 27 }}>Testbuddy</SemiBold>
         </Press>
         <PaddingBottom />
       </SafeAreaProvider>
