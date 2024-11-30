@@ -14,4 +14,4 @@ module.exports = {
     '@tanstack/query/exhaustive-deps': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },
-};
+}

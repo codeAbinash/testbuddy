@@ -1,9 +1,8 @@
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
 
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-
-export const PaddingTop = () => <View style={styles.paddingTop} />;
-export const PaddingBottom = () => <View style={styles.paddingBottom} />;
+export const PaddingTop = () => <View style={styles.paddingTop} />
+export const PaddingBottom = () => <View style={styles.paddingBottom} />
 
 const styles = StyleSheet.create({
   paddingTop: {
@@ -12,4 +11,4 @@ const styles = StyleSheet.create({
   paddingBottom: {
     paddingBottom: 20,
   },
-});
+})
