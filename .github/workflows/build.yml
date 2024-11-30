@@ -54,22 +54,22 @@ jobs:
           name: tech-triangle-arm64-v8a
           path: android/app/build/outputs/apk/release/app-arm64-v8a-release.apk
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: tech-triangle-armeabi-v7a
-          path: android/app/build/outputs/apk/release/app-armeabi-v7a-release.apk
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: tech-triangle-armeabi-v7a
+      #     path: android/app/build/outputs/apk/release/app-armeabi-v7a-release.apk
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: tech-triangle-x86
-          path: android/app/build/outputs/apk/release/app-x86-release.apk
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: tech-triangle-x86
+      #     path: android/app/build/outputs/apk/release/app-x86-release.apk
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: tech-triangle-x86_64
-          path: android/app/build/outputs/apk/release/app-x86_64-release.apk
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: tech-triangle-x86_64
+      #     path: android/app/build/outputs/apk/release/app-x86_64-release.apk
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: tech-triangle-universal
-          path: android/app/build/outputs/apk/release/app-universal-release.apk
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: tech-triangle-universal
+      #     path: android/app/build/outputs/apk/release/app-universal-release.apk
