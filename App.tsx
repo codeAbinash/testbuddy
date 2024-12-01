@@ -35,7 +35,7 @@ const SMOOTH_ANIMATION: StackNavigationOptions = {
   gestureResponseDistance: H,
 }
 
-type RootStackParamList = {
+export type RootStackParamList = {
   Home: undefined
 }
 
