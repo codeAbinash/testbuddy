@@ -6,15 +6,16 @@ import './src/global.css'
  * @format
  */
 
-import Press from '@components/Press'
 import { AutoStatusBar } from '@components/StatusBar'
 import { NavigationContainer } from '@react-navigation/native'
 import { CardStyleInterpolators, createStackNavigator, type StackNavigationOptions } from '@react-navigation/stack'
+import Login from '@screens/Auth/Login'
+import Home from '@screens/Home'
+import Splash from '@screens/Splash'
 import { H, W } from '@utils/dimensions'
-import { SemiBold } from '@utils/fonts'
 import { DarkTheme, DefaultTheme } from '@utils/themes'
 import React from 'react'
-import { Dimensions, SafeAreaView, StatusBar, useColorScheme, View } from 'react-native'
+import { Dimensions, SafeAreaView, useColorScheme } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
@@ -37,6 +38,8 @@ const SMOOTH_ANIMATION: StackNavigationOptions = {
 
 export type RootStackParamList = {
   Home: undefined
+  Splash: undefined
+  Login: undefined
 }
 
 const GestureEnabled = { gestureEnabled: true }
@@ -44,19 +47,6 @@ const GestureEnabled = { gestureEnabled: true }
 const Stack = createStackNavigator<RootStackParamList>()
 
 const { width, height } = Dimensions.get('window')
-
-function HomeScreen() {
-  return (
-    <View className='flex-1 items-center justify-center'>
-      <StatusBar barStyle='dark-content' backgroundColor={'transparent'} />
-      <Press>
-        <SemiBold className='text-4xl text-gray-800 active:text-lime-500 dark:text-white dark:active:text-red-500'>
-          Testbuddy
-        </SemiBold>
-      </Press>
-    </View>
-  )
-}
 
 function App(): React.JSX.Element {
   const scheme = useColorScheme()
@@ -83,7 +73,9 @@ function Navigation(): React.JSX.Element {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       >
-        <Stack.Screen name='Home' component={HomeScreen} options={IOS_BOTTOM_STYLE} />
+        <Stack.Screen name='Splash' component={Splash} options={NO_ANIMATION} />
+        <Stack.Screen name='Home' component={Home} options={NO_ANIMATION} />
+        <Stack.Screen name='Login' component={Login} options={NO_ANIMATION} />
       </Stack.Navigator>
     </NavigationContainer>
   )
