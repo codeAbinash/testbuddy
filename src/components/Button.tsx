@@ -10,7 +10,10 @@ const Btn = React.memo(({ title, onPress, disabled, children, style, ...rest }: 
       activeOpacity={0.8}
       onPress={onPress}
       className='w-full bg-accent'
-      style={[{ borderRadius: 14.5, paddingVertical: 13.5, paddingHorizontal: 13.5, opacity: disabled ? 0.8 : 1 }, style]}
+      style={[
+        { borderRadius: 14.5, paddingVertical: 13.5, paddingHorizontal: 13.5, opacity: disabled ? 0.8 : 1 },
+        style,
+      ]}
       disabled={disabled}
       {...rest}
     >
