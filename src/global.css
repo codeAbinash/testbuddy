@@ -7,5 +7,5 @@
 }
 
 .text {
-  @apply text-accent dark:text-zinc-200;
+  @apply text-zinc-800 dark:text-zinc-200;
 }

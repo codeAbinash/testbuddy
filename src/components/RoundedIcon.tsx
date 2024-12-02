@@ -18,7 +18,6 @@ export default function RoundedIcon({ Icon, style, iconProps, ...props }: Rounde
         },
         style,
       ]}
-      className='bg-accent'
       {...props}
     >
       <Icon width={18} height={18} color={Colors.white} {...iconProps} />

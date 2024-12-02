@@ -7,17 +7,19 @@ import './src/global.css'
  */
 
 import { AutoStatusBar } from '@components/StatusBar'
+import { queryClient } from '@query/index'
 import { NavigationContainer } from '@react-navigation/native'
 import { CardStyleInterpolators, createStackNavigator, type StackNavigationOptions } from '@react-navigation/stack'
 import Login from '@screens/Auth/Login'
 import Home from '@screens/Home'
 import Splash from '@screens/Splash'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { H, W } from '@utils/dimensions'
 import { DarkTheme, DefaultTheme } from '@utils/themes'
+import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { Dimensions, SafeAreaView } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { useColorScheme } from 'nativewind'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -53,12 +55,14 @@ function App(): React.JSX.Element {
   const { colorScheme } = useColorScheme()
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView style={{ height: height, flex: 1 }}>
-        <AutoStatusBar scheme={colorScheme} />
-        <Navigation />
-      </SafeAreaView>
-    </GestureHandlerRootView>
+    <QueryClientProvider client={queryClient}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaView style={{ height: height, flex: 1 }}>
+          <AutoStatusBar scheme={colorScheme} />
+          <Navigation />
+        </SafeAreaView>
+      </GestureHandlerRootView>
+    </QueryClientProvider>
   )
 }
 
