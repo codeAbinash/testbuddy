@@ -11,6 +11,8 @@ import { queryClient } from '@query/index'
 import { NavigationContainer } from '@react-navigation/native'
 import { CardStyleInterpolators, createStackNavigator, type StackNavigationOptions } from '@react-navigation/stack'
 import Login from '@screens/Auth/Login'
+import Register from '@screens/Auth/Register'
+import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Home from '@screens/Home'
 import Splash from '@screens/Splash'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -37,12 +39,6 @@ const SMOOTH_ANIMATION: StackNavigationOptions = {
   gestureEnabled: true,
   gestureDirection: 'horizontal',
   gestureResponseDistance: H,
-}
-
-export type RootStackParamList = {
-  Home: undefined
-  Splash: undefined
-  Login: undefined
 }
 
 const GestureEnabled = { gestureEnabled: true }
@@ -79,12 +75,21 @@ function Navigation(): React.JSX.Element {
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       >
-        <Stack.Screen name='Splash' component={Splash} options={NO_ANIMATION} />
-        <Stack.Screen name='Home' component={Home} options={NO_ANIMATION} />
-        <Stack.Screen name='Login' component={Login} options={NO_ANIMATION} />
+        <Stack.Screen name='VerifyOtp' component={VerifyOtp} initialParams={{} as OtpParamList} />
+        <Stack.Screen name='Splash' component={Splash} options={SMOOTH_ANIMATION} />
+        <Stack.Screen name='Home' component={Home} options={SMOOTH_ANIMATION} />
+        <Stack.Screen name='Login' component={Login} options={SMOOTH_ANIMATION} />
+        <Stack.Screen name='Register' component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   )
+}
+export type RootStackParamList = {
+  VerifyOtp: OtpParamList
+  Home: undefined
+  Splash: undefined
+  Login: undefined
+  Register: undefined
 }
 
 export default App

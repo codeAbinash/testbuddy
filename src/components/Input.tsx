@@ -1,4 +1,4 @@
-import { PoppinsMedium } from '@utils/fonts'
+import { JosefinSansSemiBold } from '@utils/fonts'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { TextInput, type TextInputProps, View } from 'react-native'
@@ -22,7 +22,10 @@ export default function Input({ Left, Right, ...rest }: InputProps) {
           keyboardType='number-pad'
           className='text-zinc-900 dark:text-zinc-100'
           placeholderTextColor={colors.zinc[500]}
-          style={[PoppinsMedium, { fontSize: 12, paddingVertical: 0, flex: 1, paddingTop: 14.5, paddingBottom: 14.5 }]}
+          style={[
+            JosefinSansSemiBold,
+            { fontSize: 12.5, paddingVertical: 0, flex: 1, paddingTop: 13, paddingBottom: 17 },
+          ]}
           {...rest}
         />
         {Right}

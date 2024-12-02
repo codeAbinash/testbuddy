@@ -8,10 +8,12 @@ import LoginImage from '@images/login.svg'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
+import type { NavProp } from '@utils/types'
 import React, { useState } from 'react'
 import { Alert, View } from 'react-native'
+import { normalizePhoneNumber } from './utils'
 
-export default function Login() {
+export default function Login({ navigation }: NavProp) {
   const [mobile, setMobile] = useState('')
 
   const { mutate, isPending } = useMutation({
@@ -19,13 +21,16 @@ export default function Login() {
     mutationFn: api.sendOtp,
     onSuccess: (data) => {
       console.log(data)
+      navigation.navigate('VerifyOtp', { mobile })
+      // if (!data?.otpSent) return Alert.alert('Error', data?.message || 'Failed to send OTP')
+      // if (data.newUser) return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
     },
   })
 
-  const handelPress = () => {
+  const handlePress = () => {
     if (!mobile) return Alert.alert('Mobile number is required', 'Please enter your mobile number')
     console.log(mobile)
-    mutate({ mobile })
+    mutate({ mobile: normalizePhoneNumber(mobile) })
   }
 
   return (
@@ -51,36 +56,37 @@ export default function Login() {
               <Input
                 Left={<InputIcon Icon={SmartPhone01StrokeRoundedIcon} />}
                 placeholder='Mobile Number'
+                autoComplete='tel'
                 value={mobile}
                 onChangeText={setMobile}
                 keyboardType='phone-pad'
               />
             </View>
-            <Btn title={isPending ? 'Sending OTP...' : 'Send OTP'} onPress={handelPress} disabled={isPending} />
+            <Btn title={isPending ? 'Sending OTP...' : 'Send OTP'} onPress={handlePress} disabled={isPending} />
           </View>
           <View className='flex-row items-center justify-center gap-3'>
-            <View className='h-0.5 w-1/3 bg-zinc-300' />
-            <Medium className='text text-center text-xs opacity-80'>Or</Medium>
-            <View className='h-0.5 w-1/3 bg-zinc-300' />
+            <View className='w-2/5 rounded-full bg-zinc-200 dark:bg-zinc-800' style={{ height: 1.5 }} />
+            <Medium className='text text-center text-xs opacity-80'>or</Medium>
+            <View className='w-2/5 rounded-full bg-zinc-200 dark:bg-zinc-800' style={{ height: 1.5 }} />
           </View>
           <BtnTransparent
             children={
               <View className='flex-row items-center justify-center gap-5'>
-                <GoogleIcon height={23} width={23} />
+                <GoogleIcon height={22} width={22} />
                 <Medium style={{ fontSize: 12.4 }} className='text-center text-xs text-zinc-900 dark:text-zinc-100'>
                   Continue with Google
                 </Medium>
               </View>
             }
           />
+          <View>
+            <SemiBold className='text mb-2 mt-2 text-center text-[0.65rem]'>
+              By continuing, you agree to our <SemiBold className='text-blue-500'>Terms of Service</SemiBold> and{' '}
+              <SemiBold className='text-blue-500'>Privacy Policy</SemiBold>.
+            </SemiBold>
+          </View>
         </View>
         <View />
-        <View>
-          <SemiBold className='text mb-2 mt-2 text-center text-[0.65rem]'>
-            By continuing, you agree to our <SemiBold className='text-blue-500'>Terms of Service</SemiBold> and{' '}
-            <SemiBold className='text-blue-500'>Privacy Policy</SemiBold>.
-          </SemiBold>
-        </View>
       </View>
       <PaddingBottom />
     </>
