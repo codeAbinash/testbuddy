@@ -9,7 +9,7 @@ import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import React, { useState } from 'react'
-import { View } from 'react-native'
+import { Alert, View } from 'react-native'
 
 export default function Login() {
   const [mobile, setMobile] = useState('')
@@ -23,6 +23,7 @@ export default function Login() {
   })
 
   const handelPress = () => {
+    if (!mobile) return Alert.alert('Mobile number is required', 'Please enter your mobile number')
     console.log(mobile)
     mutate({ mobile })
   }
@@ -39,9 +40,9 @@ export default function Login() {
         </View>
         <View>
           <Bold className='text w-full text-center text-3xl'>Welcome to TestBuddy</Bold>
-          <Medium className='text w-full text-center text-sm opacity-80'>
+          <SemiBold className='text w-full text-center text-sm opacity-80'>
             Ultimate Destination for All Your Practice!
-          </Medium>
+          </SemiBold>
         </View>
         <View className='gap-7'>
           <View className='gap-5'>
@@ -75,10 +76,10 @@ export default function Login() {
         </View>
         <View />
         <View>
-          <Medium className='text mb-2 mt-2 text-center text-[0.6rem]'>
+          <SemiBold className='text mb-2 mt-2 text-center text-[0.65rem]'>
             By continuing, you agree to our <SemiBold className='text-blue-500'>Terms of Service</SemiBold> and{' '}
             <SemiBold className='text-blue-500'>Privacy Policy</SemiBold>.
-          </Medium>
+          </SemiBold>
         </View>
       </View>
       <PaddingBottom />

@@ -1,25 +1,25 @@
 import React from 'react'
 import { StyleSheet, Text, type TextProps } from 'react-native'
 
-export const PoppinsRegular = {
-  fontFamily: 'Poppins-Regular',
+export const JosefinSansRegular = {
+  fontFamily: 'JosefinSans-Regular',
 }
-export const PoppinsMedium = {
-  fontFamily: 'Poppins-Medium',
+export const JosefinSansMedium = {
+  fontFamily: 'JosefinSans-Medium',
 }
-export const PoppinsSemiBold = {
-  fontFamily: 'Poppins-SemiBold',
+export const JosefinSansSemiBold = {
+  fontFamily: 'JosefinSans-SemiBold',
 }
-export const PoppinsBold = {
-  fontFamily: 'Poppins-Bold',
+export const JosefinSansBold = {
+  fontFamily: 'JosefinSans-Bold',
 }
-export const PoppinsLight = {
-  fontFamily: 'Poppins-Light',
+export const JosefinSansLight = {
+  fontFamily: 'JosefinSans-Light',
 }
 
 export function Medium({ children, style, ...props }: TextProps) {
   return (
-    <Text style={[PoppinsMedium, style]} {...props}>
+    <Text style={[JosefinSansMedium, style]} {...props}>
       {children}
     </Text>
   )
@@ -27,7 +27,7 @@ export function Medium({ children, style, ...props }: TextProps) {
 
 export function Regular({ children, style, ...props }: TextProps) {
   return (
-    <Text style={[PoppinsRegular, style]} {...props}>
+    <Text style={[JosefinSansRegular, style]} {...props}>
       {children}
     </Text>
   )
@@ -35,7 +35,7 @@ export function Regular({ children, style, ...props }: TextProps) {
 
 export function SemiBold({ children, style, ...props }: TextProps) {
   return (
-    <Text style={[PoppinsSemiBold, style]} {...props}>
+    <Text style={[JosefinSansSemiBold, style]} {...props}>
       {children}
     </Text>
   )
@@ -43,7 +43,7 @@ export function SemiBold({ children, style, ...props }: TextProps) {
 
 export function Bold({ children, style, ...props }: TextProps) {
   return (
-    <Text style={[PoppinsBold, style]} {...props}>
+    <Text style={[JosefinSansBold, style]} {...props}>
       {children}
     </Text>
   )
@@ -51,7 +51,7 @@ export function Bold({ children, style, ...props }: TextProps) {
 
 export function Light({ children, style, ...props }: TextProps) {
   return (
-    <Text style={[PoppinsLight, style]} {...props}>
+    <Text style={[JosefinSansLight, style]} {...props}>
       {children}
     </Text>
   )
