@@ -4,9 +4,10 @@ import { Colors } from '@utils/colors'
 import { SemiBold } from '@utils/fonts'
 import { PaddingBottom } from '@components/SafePadding'
 import React, { type ReactNode } from 'react'
-import { TouchableOpacity, useColorScheme, View, type ColorSchemeName } from 'react-native'
+import { TouchableOpacity, View, type ColorSchemeName } from 'react-native'
 import colors from 'tailwindcss/colors'
 import HomeScreen from './HomeScreen'
+import { useColorScheme } from 'nativewind'
 
 const Tab = createBottomTabNavigator()
 
@@ -22,7 +23,7 @@ function BottomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 }
 
 function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
-  const theme = useColorScheme()
+  const { colorScheme } = useColorScheme()
   return (
     <View className='bg-white dark:bg-zinc-950'>
       <View style={{ flexDirection: 'row', paddingHorizontal: 10 }}>
@@ -66,10 +67,11 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
               className='flex items-center justify-center p-1'
               style={{ flex: 1, paddingTop: 13.5, paddingBottom: 8 }}
             >
-              {options.tabBarIcon && options.tabBarIcon({ focused: isFocused, color: getGrayColor(theme), size: 23 })}
+              {options.tabBarIcon &&
+                options.tabBarIcon({ focused: isFocused, color: getGrayColor(colorScheme), size: 23 })}
               <SemiBold
                 style={{
-                  color: isFocused ? Colors.accent : getGrayColor(theme),
+                  color: isFocused ? Colors.accent : getGrayColor(colorScheme),
                   marginTop: 3.5,
                   fontSize: 8.5,
                 }}

@@ -15,8 +15,9 @@ import Splash from '@screens/Splash'
 import { H, W } from '@utils/dimensions'
 import { DarkTheme, DefaultTheme } from '@utils/themes'
 import React from 'react'
-import { Dimensions, SafeAreaView, useColorScheme } from 'react-native'
+import { Dimensions, SafeAreaView } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { useColorScheme } from 'nativewind'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -49,12 +50,12 @@ const Stack = createStackNavigator<RootStackParamList>()
 const { width, height } = Dimensions.get('window')
 
 function App(): React.JSX.Element {
-  const scheme = useColorScheme()
+  const { colorScheme } = useColorScheme()
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={{ height: height, flex: 1 }}>
-        <AutoStatusBar scheme={scheme} />
+        <AutoStatusBar scheme={colorScheme} />
         <Navigation />
       </SafeAreaView>
     </GestureHandlerRootView>
@@ -62,8 +63,9 @@ function App(): React.JSX.Element {
 }
 
 function Navigation(): React.JSX.Element {
+  const { colorScheme } = useColorScheme()
   return (
-    <NavigationContainer theme={useColorScheme() === 'dark' ? DarkTheme : DefaultTheme}>
+    <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack.Navigator
         screenOptions={{
           gestureEnabled: false,
