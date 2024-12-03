@@ -15,6 +15,7 @@ import Register from '@screens/Auth/Register'
 import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Home from '@screens/Home'
 import Splash from '@screens/Splash'
+import Test from '@screens/Test'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { H, W } from '@utils/dimensions'
 import { DarkTheme, DefaultTheme } from '@utils/themes'
@@ -73,6 +74,7 @@ function Navigation(): React.JSX.Element {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
+      <Stack.Screen name='Test' component={Test} />
       <Stack.Screen name='Splash' component={Splash} />
       <Stack.Screen name='VerifyOtp' component={VerifyOtp} />
       <Stack.Screen name='Home' component={Home} options={SMOOTH_ANIMATION} />
@@ -82,6 +84,7 @@ function Navigation(): React.JSX.Element {
   )
 }
 export type RootStackParamList = {
+  Test: undefined
   VerifyOtp: OtpParamList
   Home: undefined
   Splash: undefined
