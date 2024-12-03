@@ -73,8 +73,8 @@ function Navigation(): React.JSX.Element {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
-      <Stack.Screen name='Splash' component={Splash} options={SMOOTH_ANIMATION} />
-      <Stack.Screen name='VerifyOtp' component={VerifyOtp} initialParams={{} as OtpParamList} />
+      <Stack.Screen name='Splash' component={Splash} />
+      <Stack.Screen name='VerifyOtp' component={VerifyOtp} />
       <Stack.Screen name='Home' component={Home} options={SMOOTH_ANIMATION} />
       <Stack.Screen name='Login' component={Login} options={SMOOTH_ANIMATION} />
       <Stack.Screen name='Register' component={Register} />

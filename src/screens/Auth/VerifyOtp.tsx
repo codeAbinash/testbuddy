@@ -6,7 +6,7 @@ import { Bold, JosefinSansSemiBold, Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import LottieView from 'lottie-react-native'
 import { useColorScheme } from 'nativewind'
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
 import colors from 'tailwindcss/colors'
@@ -19,11 +19,21 @@ export type OtpParamList = {
   mobile: string
 }
 
-export default function VerifyOtp({ route }: { navigation: StackNav; route: RouteProp<ParamList, 'VerifyOtp'> }) {
-  const { mobile } = route.params || {
-    mobile: '9876543210',
-  }
+type VerifyOtpProps = {
+  navigation: StackNav
+  route: RouteProp<ParamList, 'VerifyOtp'>
+}
+
+export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
+  const [otp, setOtp] = useState('')
+  const { mobile } = route.params
   const { colorScheme } = useColorScheme()
+
+  const verifyOtp = (otp: string) => {
+    console.log(`Verifying OTP: ${otp}`)
+    navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
+  }
+
   return (
     <View className='flex-1 justify-between px-7'>
       <PaddingTop />
@@ -40,7 +50,7 @@ export default function VerifyOtp({ route }: { navigation: StackNav; route: Rout
         <View className='gap-3'>
           <Bold className='text w-full text-center text-3xl'>Verify OTP</Bold>
           <Medium className='text w-full text-center text-sm opacity-80'>
-            We have send a verification code to {'\n'} +91-{mobile}{' '}
+            We have sent a verification code to {'\n'} {mobile}{' '}
             <SemiBold className='text-blue-500 active:underline'>change?</SemiBold>
           </Medium>
         </View>
@@ -51,8 +61,8 @@ export default function VerifyOtp({ route }: { navigation: StackNav; route: Rout
         focusStickBlinkingDuration={500}
         blurOnFilled
         hideStick
-        onTextChange={(text) => console.log(text)}
-        onFilled={(text) => console.log(`OTP is ${text}`)}
+        onTextChange={(text) => setOtp(text)}
+        onFilled={(text) => verifyOtp(text)}
         textInputProps={{
           accessibilityLabel: 'One-Time Password',
           selectionColor: 'transparent',
@@ -75,7 +85,7 @@ export default function VerifyOtp({ route }: { navigation: StackNav; route: Rout
         }}
       />
       <View className='gap-8'>
-        <Btn title='Verify OTP' />
+        <Btn title='Verify OTP' onPress={() => verifyOtp(otp)} />
         <Medium className='text w-full text-center text-sm opacity-80'>
           Didn't receive the code? <SemiBold className='text-blue-500 active:underline'>Resend</SemiBold>
         </Medium>
