@@ -20,7 +20,7 @@ import { H, W } from '@utils/dimensions'
 import { DarkTheme, DefaultTheme } from '@utils/themes'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
-import { Dimensions, SafeAreaView } from 'react-native'
+import { SafeAreaView } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
@@ -45,17 +45,17 @@ const GestureEnabled = { gestureEnabled: true }
 
 const Stack = createStackNavigator<RootStackParamList>()
 
-const { width, height } = Dimensions.get('window')
-
 function App(): React.JSX.Element {
   const { colorScheme } = useColorScheme()
 
   return (
     <QueryClientProvider client={queryClient}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaView style={{ height: height, flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }}>
           <AutoStatusBar scheme={colorScheme} />
-          <Navigation />
+          <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <Navigation />
+          </NavigationContainer>
         </SafeAreaView>
       </GestureHandlerRootView>
     </QueryClientProvider>
@@ -63,25 +63,22 @@ function App(): React.JSX.Element {
 }
 
 function Navigation(): React.JSX.Element {
-  const { colorScheme } = useColorScheme()
   return (
-    <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack.Navigator
-        screenOptions={{
-          gestureEnabled: false,
-          gestureDirection: 'horizontal',
-          gestureResponseDistance: W,
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        }}
-      >
-        <Stack.Screen name='Splash' component={Splash} options={SMOOTH_ANIMATION} />
-        <Stack.Screen name='VerifyOtp' component={VerifyOtp} initialParams={{} as OtpParamList} />
-        <Stack.Screen name='Home' component={Home} options={SMOOTH_ANIMATION} />
-        <Stack.Screen name='Login' component={Login} options={SMOOTH_ANIMATION} />
-        <Stack.Screen name='Register' component={Register} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        gestureEnabled: false,
+        gestureDirection: 'horizontal',
+        gestureResponseDistance: W,
+        headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}
+    >
+      <Stack.Screen name='Splash' component={Splash} options={SMOOTH_ANIMATION} />
+      <Stack.Screen name='VerifyOtp' component={VerifyOtp} initialParams={{} as OtpParamList} />
+      <Stack.Screen name='Home' component={Home} options={SMOOTH_ANIMATION} />
+      <Stack.Screen name='Login' component={Login} options={SMOOTH_ANIMATION} />
+      <Stack.Screen name='Register' component={Register} />
+    </Stack.Navigator>
   )
 }
 export type RootStackParamList = {

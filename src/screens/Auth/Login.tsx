@@ -36,7 +36,7 @@ export default function Login({ navigation }: NavProp) {
   return (
     <>
       <PaddingTop />
-      <View className='h-screen flex-1 justify-between gap-10 px-5'>
+      <View className='h-screen flex-1 justify-between gap-10 bg-white px-5 dark:bg-black'>
         <View />
         <View>
           <View className='items-center justify-center'>
