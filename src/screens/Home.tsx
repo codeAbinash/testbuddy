@@ -1,13 +1,23 @@
-import { Home01Icon } from '@assets/icons/icons'
-import { createBottomTabNavigator, type BottomTabBarProps } from '@react-navigation/bottom-tabs'
-import { Colors } from '@utils/colors'
-import { SemiBold } from '@utils/fonts'
+import {
+  AnalyticsUpIcon,
+  AnalyticsUpStrokeRoundedIcon,
+  BookOpen01Icon,
+  BookOpen01StrokeRoundedIcon,
+  Home01Icon,
+  Home01StrokeRoundedIcon,
+  LicenseDraftIcon,
+  LicenseDraftStrokeRoundedIcon,
+  UserIcon,
+  UserStrokeRoundedIcon,
+} from '@assets/icons/icons'
 import { PaddingBottom } from '@components/SafePadding'
+import { createBottomTabNavigator, type BottomTabBarProps } from '@react-navigation/bottom-tabs'
+import { SemiBold } from '@utils/fonts'
+import { useColorScheme } from 'nativewind'
 import React, { type ReactNode } from 'react'
 import { TouchableOpacity, View, type ColorSchemeName } from 'react-native'
 import colors from 'tailwindcss/colors'
 import HomeScreen from './HomeScreen'
-import { useColorScheme } from 'nativewind'
 
 const Tab = createBottomTabNavigator()
 
@@ -55,6 +65,8 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
             })
           }
 
+          const color = isFocused ? getFocusedColor(colorScheme) : getColor(colorScheme)
+
           return (
             <TouchableOpacity
               key={route.key}
@@ -67,17 +79,8 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
               className='flex items-center justify-center p-1'
               style={{ flex: 1, paddingTop: 13.5, paddingBottom: 8 }}
             >
-              {options.tabBarIcon &&
-                options.tabBarIcon({ focused: isFocused, color: getGrayColor(colorScheme), size: 23 })}
-              <SemiBold
-                style={{
-                  color: isFocused ? Colors.accent : getGrayColor(colorScheme),
-                  marginTop: 3.5,
-                  fontSize: 8.5,
-                }}
-              >
-                {label as ReactNode}
-              </SemiBold>
+              {options.tabBarIcon && options.tabBarIcon({ focused: isFocused, color, size: 23 })}
+              <SemiBold style={{ color, marginTop: 3.5, fontSize: 8.5 }}>{label as ReactNode}</SemiBold>
             </TouchableOpacity>
           )
         })}
@@ -87,85 +90,59 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   )
 }
 
-export function getGrayColor(theme: ColorSchemeName) {
-  return theme === 'dark' ? colors.gray[600] : colors.gray[400]
+export function getFocusedColor(theme: ColorSchemeName) {
+  return theme === 'dark' ? colors.zinc[200] : colors.zinc[800]
 }
+
+export function getColor(theme: ColorSchemeName) {
+  return theme === 'dark' ? colors.zinc[400] : colors.zinc[600]
+}
+
+const screens = [
+  { name: 'HomeScreen', label: 'Home', focusedIcon: Home01Icon, defaultIcon: Home01StrokeRoundedIcon },
+  { name: 'Learn', label: 'Learn', focusedIcon: BookOpen01Icon, defaultIcon: BookOpen01StrokeRoundedIcon },
+  { name: 'Tests', label: 'Tests', focusedIcon: LicenseDraftIcon, defaultIcon: LicenseDraftStrokeRoundedIcon },
+  { name: 'Analyse', label: 'Analyse', focusedIcon: AnalyticsUpIcon, defaultIcon: AnalyticsUpStrokeRoundedIcon },
+  { name: 'Profile', label: 'Profile', focusedIcon: UserIcon, defaultIcon: UserStrokeRoundedIcon },
+]
 
 const Home = () => {
   return (
     <>
-      <Tab.Navigator tabBar={BottomTabBar}>
-        <Tab.Screen
-          name='HomeScreen'
-          component={HomeScreen}
-          options={{
-            tabBarLabel: 'Home',
-            headerShown: false,
-            tabBarIcon: HomeIcon,
-          }}
-        />
-        {/* <Tab.Screen
-          name='TryItOut'
-          component={TyrItOut}
-          options={{
-            tabBarLabel: 'Try it out',
-            headerShown: false,
-            tabBarIcon: Try,
-          }}
-        /> */}
-        {/* <Tab.Screen
-          name='Explore'
-          component={ComingSoon}
-          options={{
-            tabBarLabel: 'Explore',
-            headerShown: false,
-            tabBarIcon: ExploreIcon,
-          }}
-        />
-        <Tab.Screen
-          name='Wallet'
-          component={ComingSoon}
-          options={{
-            tabBarLabel: 'Wallet',
-            headerShown: false,
-            tabBarIcon: WalletIcon,
-          }}
-        /> */}
+      <Tab.Navigator tabBar={BottomTabBar} screenOptions={{ animation: 'shift' }}>
+        {screens.map((screen) => (
+          <Tab.Screen
+            key={screen.name}
+            name={screen.name}
+            component={HomeScreen}
+            options={{
+              tabBarLabel: screen.label,
+              headerShown: false,
+              tabBarIcon: (props) => (
+                <TabIcon {...props} focusedIcon={screen.focusedIcon} defaultIcon={screen.defaultIcon} />
+              ),
+            }}
+          />
+        ))}
       </Tab.Navigator>
     </>
   )
 }
 
-function HomeIcon(props: { focused: boolean; color: string; size: number }) {
-  return props.focused ? (
-    <Home01Icon {...props} height={props.size} width={props.size} color={Colors.accent} />
-  ) : (
-    <Home01Icon {...props} height={props.size} width={props.size} />
-  )
+type TabIconT = {
+  focused: boolean
+  color: string
+  size: number
+  focusedIcon: React.ComponentType<any>
+  defaultIcon: React.ComponentType<any>
 }
 
-// function WalletIcon(props: { focused: boolean; color: string; size: number }) {
-//   return props.focused ? (
-//     <Wallet02SolidIcon {...props} height={props.size} width={props.size} color={Colors.accent} />
-//   ) : (
-//     <Wallet02Icon {...props} height={props.size} width={props.size} />
-//   )
-// }
-
-// function Try(props: { focused: boolean; color: string; size: number }) {
-//   return props.focused ? (
-//     <TestTube01SolidIcon {...props} height={props.size} width={props.size} color={Colors.accent} />
-//   ) : (
-//     <TestTube01Icon {...props} height={props.size} width={props.size} />
-//   )
-// }
-
-// function ExploreIcon(props: { focused: boolean; color: string; size: number }) {
-//   return props.focused ? (
-//     <Saturn01SolidIcon {...props} height={props.size} width={props.size} color={Colors.accent} />
-//   ) : (
-//     <Saturn01Icon {...props} height={props.size} width={props.size} />
-//   )
-// }
+function TabIcon({ focused, color, size, focusedIcon: FocusedIcon, defaultIcon: DefaultIcon }: TabIconT) {
+  return focused ? (
+    <FocusedIcon height={size} width={size} color={color} />
+  ) : (
+    <DefaultIcon height={size} width={size} color={color} />
+  )
+}
 
 export default Home
