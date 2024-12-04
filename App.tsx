@@ -17,6 +17,7 @@ import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Home from '@screens/Home'
 import Splash from '@screens/Splash'
 import Test from '@screens/Test'
+import Update, { type UpdateParamList } from '@screens/Update'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { H, W } from '@utils/dimensions'
 import { DarkTheme, DefaultTheme } from '@utils/themes'
@@ -80,11 +81,13 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Test' component={Test} />
+        <Stack.Screen name='Update' component={Update} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 export type RootStackParamList = {
+  Update: UpdateParamList
   Test: undefined
   VerifyOtp: OtpParamList
   Home: undefined

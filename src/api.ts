@@ -1,7 +1,7 @@
+import { API, versionName } from '@/constants'
 import { secureLs } from '@utils/storage'
 import axios from 'axios'
 
-const API = 'https://api.testbuddy.live/v1'
 axios.defaults.baseURL = API
 
 export function setAuthToken() {
@@ -15,7 +15,7 @@ export interface ServerResponse {
   message?: string
 }
 
-async function postApi<T>(path: string, data: any) {
+async function postApi<T>(path: string, data?: any) {
   type ServerT = T & ServerResponse
   try {
     if (data) return (await axios.post<ServerT>(path, data)).data
@@ -32,12 +32,25 @@ function handleError(error: any) {
   // throw new Error(singleError || DEFAULT_ERR)
 }
 
+export type checkForUpdatesT = {
+  updateRequired: boolean
+  critical: boolean
+  latestVersion: string
+  versionCode: number
+  message: string
+}
+
 const api = {
   sendOtp: (d: { mobile: string }) =>
     postApi<{
       newUser: boolean
       otpSent: boolean
     }>('auth/otp', d),
+  checkForUpdates: () =>
+    postApi<checkForUpdatesT>('app/version', {
+      platform: 'android',
+      versionName: versionName,
+    }),
 }
 
 export default api
