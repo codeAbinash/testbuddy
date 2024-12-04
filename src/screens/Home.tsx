@@ -90,11 +90,11 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   )
 }
 
-export function getFocusedColor(theme: ColorSchemeName) {
+function getFocusedColor(theme: ColorSchemeName) {
   return theme === 'dark' ? colors.zinc[200] : colors.zinc[800]
 }
 
-export function getColor(theme: ColorSchemeName) {
+function getColor(theme: ColorSchemeName) {
   return theme === 'dark' ? colors.zinc[400] : colors.zinc[600]
 }
 

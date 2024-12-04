@@ -1,16 +1,21 @@
+import api from '@/api'
+import authStore from '@/zustand/authStore'
 import popupStore from '@/zustand/popup'
 import Btn from '@components/Button'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import type { RouteProp } from '@react-navigation/native'
+import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Bold, JosefinSansSemiBold, Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
+import { print } from '@utils/utils'
 import LottieView from 'lottie-react-native'
 import { useColorScheme } from 'nativewind'
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
 import colors from 'tailwindcss/colors'
+import { normalizePhoneNumber } from './utils'
 
 type ParamList = {
   VerifyOtp: OtpParamList
@@ -30,12 +35,26 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
   const { mobile } = route.params
   const { colorScheme } = useColorScheme()
   const alert = popupStore((store) => store.alert)
+  const setToken = authStore((store) => store.setToken)
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['verifyOtp', mobile, otp],
+    mutationFn: api.verifyOtp,
+    onSuccess(data) {
+      print(data)
+      if (!data) return alert('Wrong OTP', 'Please enter the correct OTP sent to your mobile number.')
+      setToken(data.token)
+      if (data.newUser === true)
+        return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
+      navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
+    },
+  })
 
   const verifyOtp = (otp: string) => {
     if (!otp) return alert('OTP is required', 'Please enter the OTP sent to your mobile number.')
     if (otp.length < 4) return alert('Invalid OTP', 'Please enter a valid OTP. It should be 4 digits long.')
     console.log(`Verifying OTP: ${otp}`)
-    navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
+    mutate({ mobile: normalizePhoneNumber(mobile), otp })
+    // navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
   }
 
   return (
@@ -91,7 +110,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
         }}
       />
       <View className='gap-8'>
-        <Btn title='Verify OTP' onPress={() => verifyOtp(otp)} />
+        <Btn title={isPending ? 'Verifying...' : 'Verify OTP'} onPress={() => verifyOtp(otp)} disabled={isPending} />
         <Medium className='text w-full text-center text-sm opacity-80'>
           Didn't receive the code? <SemiBold className='text-blue-500 active:underline'>Resend</SemiBold>
         </Medium>
