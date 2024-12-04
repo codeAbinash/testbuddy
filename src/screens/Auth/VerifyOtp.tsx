@@ -12,7 +12,7 @@ import { print } from '@utils/utils'
 import LottieView from 'lottie-react-native'
 import { useColorScheme } from 'nativewind'
 import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, ToastAndroid, View } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
 import colors from 'tailwindcss/colors'
 import { normalizePhoneNumber } from './utils'
@@ -49,12 +49,36 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
     },
   })
 
+  const { mutate: resendOtp } = useMutation({
+    mutationKey: ['resendOtp', mobile],
+    mutationFn: api.sendOtp,
+    onSuccess(data) {
+      if (!data) return alert('Error', 'There was an error sending the OTP. Please try again.')
+      alert('OTP Sent', `We have sent a new OTP to your mobile number ${mobile}.`)
+    },
+  })
+
   const verifyOtp = (otp: string) => {
     if (!otp) return alert('OTP is required', 'Please enter the OTP sent to your mobile number.')
     if (otp.length < 4) return alert('Invalid OTP', 'Please enter a valid OTP. It should be 4 digits long.')
-    console.log(`Verifying OTP: ${otp}`)
     mutate({ mobile: normalizePhoneNumber(mobile), otp })
-    // navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
+  }
+
+  function handleResend() {
+    alert(
+      'Resend OTP',
+      `Please wait. The mobile number is ${mobile}. If incorrect, update it. Otherwise, click Resend.`,
+      [
+        { text: 'Cancel' },
+        {
+          text: 'Resend',
+          onPress() {
+            ToastAndroid.show('Resending OTP...', ToastAndroid.SHORT)
+            resendOtp({ mobile: normalizePhoneNumber(mobile) })
+          },
+        },
+      ],
+    )
   }
 
   return (
@@ -112,7 +136,10 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
       <View className='gap-8'>
         <Btn title={isPending ? 'Verifying...' : 'Verify OTP'} onPress={() => verifyOtp(otp)} disabled={isPending} />
         <Medium className='text w-full text-center text-sm opacity-80'>
-          Didn't receive the code? <SemiBold className='text-blue-500 active:underline'>Resend</SemiBold>
+          Didn't receive the code?{' '}
+          <SemiBold className='text-blue-500 active:underline' onPress={handleResend}>
+            Resend
+          </SemiBold>
         </Medium>
       </View>
       <View />

@@ -14,7 +14,7 @@ export default function HomeScreen({ navigation }: NavProp) {
   }
 
   return (
-    <View className='flex-1 items-center justify-center'>
+    <View className='flex-1 items-center justify-center bg-zinc-50 dark:bg-black'>
       <StatusBar barStyle='dark-content' backgroundColor={'transparent'} />
       <Press>
         <SemiBold className='text-4xl text-zinc-800 active:text-lime-500 dark:text-white dark:active:text-red-500'>
