@@ -2,6 +2,7 @@ import { secureLs } from '@utils/storage'
 import axios from 'axios'
 
 const API = 'https://api.testbuddy.live/v1'
+axios.defaults.baseURL = API
 
 export function setAuthToken() {
   const token = secureLs.getString('token')
@@ -14,16 +15,11 @@ export interface ServerResponse {
   message?: string
 }
 
-function url(path: string) {
-  return `${API}/${path}`
-}
-
 async function postApi<T>(path: string, data: any) {
   type ServerT = T & ServerResponse
   try {
-    const fullUrl = url(path)
-    if (data) return (await axios.post<ServerT>(fullUrl, data)).data
-    else return (await axios.post<ServerT>(fullUrl)).data
+    if (data) return (await axios.post<ServerT>(path, data)).data
+    else return (await axios.post<ServerT>(path)).data
   } catch (error: any) {
     handleError(error)
   }
