@@ -6,6 +6,7 @@ import './src/global.css'
  * @format
  */
 
+import { Popups } from '@components/Popup'
 import { AutoStatusBar } from '@components/StatusBar'
 import { queryClient } from '@query/index'
 import { NavigationContainer } from '@react-navigation/native'
@@ -44,19 +45,15 @@ const SMOOTH_ANIMATION: StackNavigationOptions = {
 
 const GestureEnabled = { gestureEnabled: true }
 
-const Stack = createStackNavigator<RootStackParamList>()
+export const Stack = createStackNavigator<RootStackParamList>()
 
 function App(): React.JSX.Element {
-  const { colorScheme } = useColorScheme()
-
   return (
     <QueryClientProvider client={queryClient}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <SafeAreaView style={{ flex: 1 }}>
-          <AutoStatusBar scheme={colorScheme} />
-          <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <Navigation />
-          </NavigationContainer>
+          <Navigation />
+          <Popups />
         </SafeAreaView>
       </GestureHandlerRootView>
     </QueryClientProvider>
@@ -64,23 +61,27 @@ function App(): React.JSX.Element {
 }
 
 function Navigation(): React.JSX.Element {
+  const { colorScheme } = useColorScheme()
   return (
-    <Stack.Navigator
-      screenOptions={{
-        gestureEnabled: false,
-        gestureDirection: 'horizontal',
-        gestureResponseDistance: W,
-        headerShown: false,
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-      }}
-    >
-      <Stack.Screen name='Test' component={Test} />
-      <Stack.Screen name='Splash' component={Splash} />
-      <Stack.Screen name='VerifyOtp' component={VerifyOtp} />
-      <Stack.Screen name='Home' component={Home} options={SMOOTH_ANIMATION} />
-      <Stack.Screen name='Login' component={Login} options={SMOOTH_ANIMATION} />
-      <Stack.Screen name='Register' component={Register} />
-    </Stack.Navigator>
+    <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <AutoStatusBar scheme={colorScheme} />
+      <Stack.Navigator
+        screenOptions={{
+          gestureEnabled: false,
+          gestureDirection: 'horizontal',
+          gestureResponseDistance: W,
+          headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
+      >
+        <Stack.Screen name='Splash' component={Splash} />
+        <Stack.Screen name='VerifyOtp' component={VerifyOtp} />
+        <Stack.Screen name='Home' component={Home} options={SMOOTH_ANIMATION} />
+        <Stack.Screen name='Login' component={Login} />
+        <Stack.Screen name='Register' component={Register} />
+        <Stack.Screen name='Test' component={Test} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 export type RootStackParamList = {

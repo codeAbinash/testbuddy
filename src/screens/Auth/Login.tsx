@@ -1,4 +1,5 @@
 import api from '@/api/api'
+import popupStore from '@/zustand/popup'
 import { GoogleIcon, SmartPhone01StrokeRoundedIcon } from '@assets/icons/icons'
 import Btn, { BtnTransparent } from '@components/Button'
 import Input, { InputIcon } from '@components/Input'
@@ -10,25 +11,26 @@ import { W } from '@utils/dimensions'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { NavProp } from '@utils/types'
 import React, { useState } from 'react'
-import { Alert, View } from 'react-native'
+import { View } from 'react-native'
 import { normalizePhoneNumber } from './utils'
 
 export default function Login({ navigation }: NavProp) {
   const [mobile, setMobile] = useState('')
+  const alert = popupStore((store) => store.alert)
 
   const { mutate, isPending } = useMutation({
     mutationKey: ['sendOtp'],
     mutationFn: api.sendOtp,
     onSuccess: (data) => {
       console.log(data)
+      if (!data?.otpSent) return alert('Error', data?.message || 'Failed to send OTP. Please try again.')
+      if (data.newUser) return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
       navigation.navigate('VerifyOtp', { mobile })
-      // if (!data?.otpSent) return Alert.alert('Error', data?.message || 'Failed to send OTP')
-      // if (data.newUser) return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
     },
   })
 
   const handlePress = () => {
-    if (!mobile) return Alert.alert('Mobile number is required', 'Please enter your mobile number')
+    if (!mobile) return alert('Mobile number is required', 'Please enter your mobile number.')
     console.log(mobile)
     mutate({ mobile: normalizePhoneNumber(mobile) })
   }

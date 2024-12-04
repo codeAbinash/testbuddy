@@ -1,3 +1,4 @@
+import popupStore from '@/zustand/popup'
 import Btn from '@components/Button'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import type { RouteProp } from '@react-navigation/native'
@@ -28,8 +29,11 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
   const [otp, setOtp] = useState('')
   const { mobile } = route.params
   const { colorScheme } = useColorScheme()
+  const alert = popupStore((store) => store.alert)
 
   const verifyOtp = (otp: string) => {
+    if (!otp) return alert('OTP is required', 'Please enter the OTP sent to your mobile number.')
+    if (otp.length < 4) return alert('Invalid OTP', 'Please enter a valid OTP. It should be 4 digits long.')
     console.log(`Verifying OTP: ${otp}`)
     navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
   }
@@ -51,7 +55,9 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
           <Bold className='text w-full text-center text-3xl'>Verify OTP</Bold>
           <Medium className='text w-full text-center text-sm opacity-80'>
             We have sent a verification code to {'\n'} {mobile}{' '}
-            <SemiBold className='text-blue-500 active:underline'>change?</SemiBold>
+            <SemiBold className='text-blue-500 active:underline' onPress={navigation.goBack}>
+              change?
+            </SemiBold>
           </Medium>
         </View>
       </View>
