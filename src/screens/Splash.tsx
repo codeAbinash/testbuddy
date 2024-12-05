@@ -1,4 +1,4 @@
-import api from '@/api'
+import api, { setAuthToken } from '@/api'
 import authStore from '@/zustand/authStore'
 import { navigationStore } from '@/zustand/navigationStore'
 import { useMutation } from '@tanstack/react-query'
