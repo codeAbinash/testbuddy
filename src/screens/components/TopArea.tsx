@@ -21,7 +21,6 @@ export default function TopArea() {
 
   return (
     <>
-      {/* <SideBar /> */}
       <View className='w-full px-5 pb-3 pt-1'>
         <PaddingTop />
         <View className='flex-row items-center justify-between'>
@@ -54,18 +53,5 @@ export default function TopArea() {
         </View>
       </View>
     </>
-  )
-}
-
-function SideBar() {
-  return (
-    <View
-      className='absolute left-0 top-0 w-2/3 bg-red-500 shadow-lg px-5'
-      style={{
-        height: H,
-      }}
-    >
-      <Medium>SideBar</Medium>
-    </View>
   )
 }

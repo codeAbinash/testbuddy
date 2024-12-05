@@ -46,7 +46,7 @@ const SMOOTH_ANIMATION: StackNavigationOptions = {
 
 const GestureEnabled = { gestureEnabled: true }
 
-export const Stack = createStackNavigator<RootStackParamList>()
+const Stack = createStackNavigator<RootStackParamList>()
 
 function App(): React.JSX.Element {
   return (
