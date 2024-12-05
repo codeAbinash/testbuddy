@@ -1,5 +1,5 @@
 import popupStore from '@/zustand/popup'
-import { H, W } from '@utils/dimensions'
+import { H } from '@utils/dimensions'
 import { Medium, SemiBold } from '@utils/fonts'
 import React from 'react'
 import { Modal, ScrollView, TouchableOpacity, View } from 'react-native'

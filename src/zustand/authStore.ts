@@ -18,6 +18,7 @@ const authStore = create<AuthStore>((set) => ({
   removeToken: () => {
     set({ token: undefined })
     secureLs.delete('token')
+    setAuthToken()
   },
 }))
 
