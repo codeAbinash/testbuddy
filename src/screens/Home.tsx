@@ -1,3 +1,4 @@
+import Sidebar from '@/zustand/sidebar'
 import {
   AnalyticsUpIcon,
   AnalyticsUpStrokeRoundedIcon,
@@ -107,10 +108,11 @@ const screens = [
   { name: 'Profile', label: 'Profile', focusedIcon: UserIcon, defaultIcon: UserStrokeRoundedIcon },
 ]
 
-const Home = () => {
+export default function Home() {
   return (
     <>
       <TopArea />
+      <Sidebar />
       <Tab.Navigator tabBar={BottomTabBar} screenOptions={{ animation: 'shift' }}>
         {screens.map((screen) => (
           <Tab.Screen
@@ -146,5 +148,3 @@ function TabIcon({ focused, color, size, focusedIcon: FocusedIcon, defaultIcon: 
     <DefaultIcon height={size} width={size} color={color} />
   )
 }
-
-export default Home

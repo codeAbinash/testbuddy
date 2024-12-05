@@ -1,4 +1,5 @@
 import api from '@/api'
+import sidebarStore from '@/zustand/sidebar'
 import { FireIcon, Menu02Icon, Notification03Icon, Search01Icon } from '@assets/icons/icons'
 import Press from '@components/Press'
 import { PaddingTop } from '@components/SafePadding'
@@ -12,6 +13,7 @@ import colors from 'tailwindcss/colors'
 
 export default function TopArea() {
   const { colorScheme } = useColorScheme()
+  const toggle = sidebarStore((state) => state.toggle)
   const { data } = useQuery({
     queryKey: ['profile'],
     queryFn: api.profile,
@@ -20,10 +22,10 @@ export default function TopArea() {
 
   return (
     <>
-      <View className='w-full px-5 pb-3 pt-1'>
+      <View className='w-full bg-white px-5 pb-3 pt-1 dark:bg-zinc-950'>
         <PaddingTop />
         <View className='flex-row items-center justify-between'>
-          <Press className='flex-shrink flex-row items-center gap-2'>
+          <Press className='flex-shrink flex-row items-center gap-2' onPress={toggle}>
             <Menu02Icon height={24} width={24} color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
             <View className='flex-shrink flex-row items-center justify-center gap-3'>
               <Image source={{ uri: data?.profilePic }} className='h-9 w-9 rounded-full' />
