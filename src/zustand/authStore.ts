@@ -1,3 +1,4 @@
+import { setAuthToken } from '@/api'
 import { secureLs } from '@utils/storage'
 import { create } from 'zustand'
 
@@ -12,6 +13,7 @@ const authStore = create<AuthStore>((set) => ({
   setToken: (token) => {
     set({ token })
     secureLs.set('token', token)
+    setAuthToken()
   },
   removeToken: () => {
     set({ token: undefined })

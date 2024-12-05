@@ -153,3 +153,5 @@ export function delayedFadeAnimationSearch(search: string, i: number) {
 export function delayedFadeAnimation(i: number) {
   return FadeIn.duration(250).delay(Math.min((i + 1) * 25, 500))
 }
+
+export const T_5_MIN = 5 * 60 * 1000

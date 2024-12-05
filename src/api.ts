@@ -40,29 +40,40 @@ export type checkForUpdatesT = {
   message: string
 }
 
-type VerifyOtpT = {
-  verified: boolean
-  newUser: boolean
-  user: User
-  token: string
-}
-
-type User = {
-  _id: string
-  mobile: string
-  emailVerified: boolean
-  profilePic: string
-  name: string
-  stream: string
-  std: string
-}
-
 function verifyOtp(d: { mobile: string; otp: string }) {
+  type VerifyOtpT = {
+    verified: boolean
+    newUser: boolean
+    user: {
+      _id: string
+      mobile: string
+      emailVerified: boolean
+      profilePic: string
+      name: string
+      stream: string
+      std: string
+    }
+    token: string
+  }
   return postApi<VerifyOtpT>('auth/verifyotp', d)
+}
+
+function profile() {
+  type Profile = {
+    _id: string
+    mobile: string
+    emailVerified: boolean
+    profilePic: string
+    name: string
+    stream: string
+    std: string
+  }
+  return postApi<Profile>('profile')
 }
 
 const api = {
   verifyOtp,
+  profile,
   sendOtp: (d: { mobile: string }) =>
     postApi<{
       newUser: boolean

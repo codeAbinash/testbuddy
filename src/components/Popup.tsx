@@ -1,5 +1,5 @@
 import popupStore from '@/zustand/popup'
-import { H } from '@utils/dimensions'
+import { H, W } from '@utils/dimensions'
 import { Medium, SemiBold } from '@utils/fonts'
 import React from 'react'
 import { Modal, ScrollView, TouchableOpacity, View } from 'react-native'
@@ -18,30 +18,39 @@ const Popup = React.memo<PopupT>(({ text, title, buttons, index }) => {
   const removePopup = popupStore((store) => store.removePopup)
 
   return (
-    <Modal animationType='fade' transparent={true} visible={true} hardwareAccelerated statusBarTranslucent>
-      <View className='flex-1 items-center justify-center bg-black/40'>
-        <View className='w-[85%] rounded-xl bg-white dark:bg-zinc-900'>
-          <View className='px-6 pt-5'>
-            <SemiBold className='text-lg text-black dark:text-white'>{title}</SemiBold>
-            <ScrollView style={{ maxHeight: H * 0.65, marginTop: 10 }}>
-              <Medium className='text-sm leading-4 text-black dark:text-white'>{text}</Medium>
-            </ScrollView>
-          </View>
-          <View className='mt-5 flex-row flex-wrap items-center justify-end px-4 pb-5'>
-            {buttons?.map((button, i) => (
-              <PopupButton
-                key={i}
-                text={button.text}
-                onPress={() => {
-                  button.onPress?.()
-                  removePopup(index)
-                }}
-              />
-            ))}
+    <View>
+      <Modal
+        animationType='fade'
+        transparent={true}
+        visible={true}
+        hardwareAccelerated
+        statusBarTranslucent
+        // onRequestClose={() => removePopup(index)}
+      >
+        <View className='flex-1 items-center justify-center bg-black/40 dark:bg-black/50'>
+          <View className='w-[85%] rounded-xl bg-white dark:bg-zinc-900'>
+            <View className='px-6 pt-5'>
+              <SemiBold className='text-lg text-black dark:text-white'>{title}</SemiBold>
+              <ScrollView style={{ maxHeight: H * 0.65, marginTop: 10 }}>
+                <Medium className='text-sm leading-4 text-black dark:text-white'>{text}</Medium>
+              </ScrollView>
+            </View>
+            <View className='mt-5 flex-row flex-wrap items-center justify-end px-4 pb-5'>
+              {buttons?.map((button, i) => (
+                <PopupButton
+                  key={i}
+                  text={button.text}
+                  onPress={() => {
+                    button.onPress?.()
+                    removePopup(index)
+                  }}
+                />
+              ))}
+            </View>
           </View>
         </View>
-      </View>
-    </Modal>
+      </Modal>
+    </View>
   )
 })
 
