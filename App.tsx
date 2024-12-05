@@ -1,4 +1,4 @@
-import './src/global.css'
+import './global.css'
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native

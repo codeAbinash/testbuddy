@@ -15,3 +15,7 @@ export { default as LicenseDraftIcon } from '@icons/license-draft-solid-rounded.
 export { default as LicenseDraftStrokeRoundedIcon } from '@icons/license-draft-stroke-rounded.svg'
 export { default as BookOpen01Icon } from '@icons/book-open-01-solid-rounded.svg'
 export { default as BookOpen01StrokeRoundedIcon } from '@icons/book-open-01-stroke-rounded.svg'
+export { default as Menu02Icon } from '@icons/menu-02-solid-rounded.svg'
+export { default as FireIcon } from '@icons/fire-solid-rounded.svg'
+export { default as Notification03Icon } from '@icons/notification-03-solid-rounded.svg'
+export { default as Search01Icon } from '@icons/search-01-solid-rounded.svg'

@@ -18,6 +18,7 @@ import React, { type ReactNode } from 'react'
 import { TouchableOpacity, View, type ColorSchemeName } from 'react-native'
 import colors from 'tailwindcss/colors'
 import HomeScreen from './HomeScreen'
+import TopArea from './components/TopArea'
 
 const Tab = createBottomTabNavigator()
 
@@ -109,6 +110,7 @@ const screens = [
 const Home = () => {
   return (
     <>
+      <TopArea />
       <Tab.Navigator tabBar={BottomTabBar} screenOptions={{ animation: 'shift' }}>
         {screens.map((screen) => (
           <Tab.Screen
