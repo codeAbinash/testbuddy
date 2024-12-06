@@ -3,8 +3,8 @@ import popupStore from '@/zustand/popupStore'
 import { GoogleIcon, SmartPhone01StrokeRoundedIcon } from '@assets/icons/icons'
 import Btn, { BtnTransparent } from '@components/Button'
 import Input, { InputIcon } from '@components/Input'
+import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
 import Label from '@components/Label'
-import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import LoginImage from '@images/login.svg'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
@@ -36,8 +36,7 @@ export default function Login({ navigation }: NavProp) {
   }
 
   return (
-    <>
-      <PaddingTop />
+    <KeyboardAvoid>
       <View className='h-screen flex-1 justify-between gap-10 bg-white px-5 dark:bg-black'>
         <View />
         <View>
@@ -90,7 +89,6 @@ export default function Login({ navigation }: NavProp) {
         </View>
         <View />
       </View>
-      <PaddingBottom />
-    </>
+    </KeyboardAvoid>
   )
 }

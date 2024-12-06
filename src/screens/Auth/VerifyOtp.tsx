@@ -2,7 +2,7 @@ import api from '@/api'
 import authStore from '@/zustand/authStore'
 import popupStore from '@/zustand/popupStore'
 import Btn from '@components/Button'
-import { PaddingBottom, PaddingTop } from '@components/SafePadding'
+import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
 import type { RouteProp } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
@@ -82,69 +82,69 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
   }
 
   return (
-    <View className='flex-1 justify-between px-7'>
-      <PaddingTop />
-      <View>
-        <LottieView
-          source={require('../../assets/animations/message.lottie')}
-          style={{ height: W * 0.75, width: W * 0.75, marginLeft: 'auto', marginRight: 'auto' }}
-          speed={0.7}
-          autoPlay
-          loop
-          hardwareAccelerationAndroid
-          cacheComposition
+    <KeyboardAvoid>
+      <View className='h-screen flex-1 justify-between px-7'>
+        <View>
+          <LottieView
+            source={require('../../assets/animations/message.lottie')}
+            style={{ height: W * 0.75, width: W * 0.75, marginLeft: 'auto', marginRight: 'auto' }}
+            speed={0.7}
+            autoPlay
+            loop
+            hardwareAccelerationAndroid
+            cacheComposition
+          />
+          <View className='gap-3'>
+            <Bold className='text w-full text-center text-3xl'>Verify OTP</Bold>
+            <Medium className='text w-full text-center text-sm opacity-80'>
+              We have sent a verification code to {'\n'} {mobile}{' '}
+              <SemiBold className='text-blue-500 active:underline' onPress={navigation.goBack}>
+                change?
+              </SemiBold>
+            </Medium>
+          </View>
+        </View>
+        <OtpInput
+          numberOfDigits={4}
+          focusColor={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]}
+          focusStickBlinkingDuration={500}
+          blurOnFilled
+          hideStick
+          onTextChange={(text) => setOtp(text)}
+          onFilled={(text) => verifyOtp(text)}
+          textInputProps={{
+            accessibilityLabel: 'One-Time Password',
+            selectionColor: 'transparent',
+          }}
+          theme={{
+            containerStyle: styles.container,
+            pinCodeContainerStyle: {
+              borderColor: colorScheme === 'dark' ? colors.zinc[700] : colors.zinc[300],
+              height: 'auto',
+              paddingTop: 11,
+              paddingBottom: 15,
+              width: 50,
+              borderWidth: 1.5,
+            },
+            pinCodeTextStyle: {
+              ...JosefinSansSemiBold,
+              fontSize: 18,
+              color: colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700],
+            },
+          }}
         />
-        <View className='gap-3'>
-          <Bold className='text w-full text-center text-3xl'>Verify OTP</Bold>
+        <View className='gap-8'>
+          <Btn title={isPending ? 'Verifying...' : 'Verify OTP'} onPress={() => verifyOtp(otp)} disabled={isPending} />
           <Medium className='text w-full text-center text-sm opacity-80'>
-            We have sent a verification code to {'\n'} {mobile}{' '}
-            <SemiBold className='text-blue-500 active:underline' onPress={navigation.goBack}>
-              change?
+            Didn't receive the code?{' '}
+            <SemiBold className='text-blue-500 active:underline' onPress={handleResend}>
+              Resend
             </SemiBold>
           </Medium>
         </View>
+        <View />
       </View>
-      <OtpInput
-        numberOfDigits={4}
-        focusColor={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]}
-        focusStickBlinkingDuration={500}
-        blurOnFilled
-        hideStick
-        onTextChange={(text) => setOtp(text)}
-        onFilled={(text) => verifyOtp(text)}
-        textInputProps={{
-          accessibilityLabel: 'One-Time Password',
-          selectionColor: 'transparent',
-        }}
-        theme={{
-          containerStyle: styles.container,
-          pinCodeContainerStyle: {
-            borderColor: colorScheme === 'dark' ? colors.zinc[700] : colors.zinc[300],
-            height: 'auto',
-            paddingTop: 11,
-            paddingBottom: 15,
-            width: 50,
-            borderWidth: 1.5,
-          },
-          pinCodeTextStyle: {
-            ...JosefinSansSemiBold,
-            fontSize: 18,
-            color: colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700],
-          },
-        }}
-      />
-      <View className='gap-8'>
-        <Btn title={isPending ? 'Verifying...' : 'Verify OTP'} onPress={() => verifyOtp(otp)} disabled={isPending} />
-        <Medium className='text w-full text-center text-sm opacity-80'>
-          Didn't receive the code?{' '}
-          <SemiBold className='text-blue-500 active:underline' onPress={handleResend}>
-            Resend
-          </SemiBold>
-        </Medium>
-      </View>
-      <View />
-      <PaddingBottom />
-    </View>
+    </KeyboardAvoid>
   )
 }
 
