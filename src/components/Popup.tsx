@@ -25,7 +25,7 @@ const Popup = React.memo<PopupT>(({ text, title, buttons, index }) => {
         visible={true}
         hardwareAccelerated
         statusBarTranslucent
-        // onRequestClose={() => removePopup(index)}
+        onRequestClose={() => removePopup(index)}
       >
         <View className='flex-1 items-center justify-center bg-black/40 dark:bg-black/50'>
           <View className='w-[85%] rounded-xl bg-white dark:bg-zinc-900'>

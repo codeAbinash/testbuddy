@@ -24,7 +24,7 @@ import {
   Share02Icon,
   Sun03Icon,
   TelegramIcon as TgIcon,
-  Time04Icon
+  Time04Icon,
 } from '@assets/icons/icons'
 import FacebookIcon from '@assets/icons/social/facebook.svg'
 import InstagramIcon from '@assets/icons/social/instagram.svg'
@@ -32,6 +32,9 @@ import TelegramIcon from '@assets/icons/social/telegram.svg'
 import WhatsappIcon from '@assets/icons/social/whatsapp.svg'
 
 import { versionCode, versionName } from '@/constants'
+import authStore from '@/zustand/authStore'
+import { navigationStore } from '@/zustand/navigationStore'
+import popupStore from '@/zustand/popupStore'
 import Press from '@components/Press'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import { Bold, Medium } from '@utils/fonts'
@@ -169,10 +172,26 @@ function AboutUs({ colorScheme: s }: { colorScheme: ColorScheme }) {
 }
 
 function End({ colorScheme: s }: { colorScheme: ColorScheme }) {
+  const alert = popupStore((store) => store.alert)
+  const removeToken = authStore((store) => store.removeToken)
+  const navigation = navigationStore((store) => store.navigation)
+  function logout() {
+    removeToken()
+    navigation?.reset({ index: 0, routes: [{ name: 'Login' }] })
+  }
   return (
     <View className='pb-10'>
       <Bold className='text mt-5 pb-2 text-lg'>Log Out</Bold>
-      <ListItem icon={<ListIcon Icon={LogoutCircle01Icon} scheme={s} />} title='Log out' />
+      <ListItem
+        icon={<ListIcon Icon={LogoutCircle01Icon} scheme={s} />}
+        title='Log out'
+        onPress={() => {
+          alert('Are you sure?', 'You will be logged out of the app', [
+            { text: 'Cancel' },
+            { text: 'Log out', onPress: logout },
+          ])
+        }}
+      />
       <View>
         <Medium className='text mt-5 pb-2 text-center text-lg'>Follow us on</Medium>
         <View className='mt-3 flex-row flex-wrap justify-center gap-7'>
