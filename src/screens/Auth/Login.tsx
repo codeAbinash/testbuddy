@@ -1,5 +1,5 @@
 import api from '@/api'
-import popupStore from '@/zustand/popup'
+import popupStore from '@/zustand/popupStore'
 import { GoogleIcon, SmartPhone01StrokeRoundedIcon } from '@assets/icons/icons'
 import Btn, { BtnTransparent } from '@components/Button'
 import Input, { InputIcon } from '@components/Input'

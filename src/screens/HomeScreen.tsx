@@ -1,6 +1,6 @@
 import api from '@/api'
 import authStore from '@/zustand/authStore'
-import popupStore from '@/zustand/popup'
+import popupStore from '@/zustand/popupStore'
 import Btn from '@components/Button'
 import Press from '@components/Press'
 import { useQuery } from '@tanstack/react-query'

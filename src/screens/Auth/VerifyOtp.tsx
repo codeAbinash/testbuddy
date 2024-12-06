@@ -1,6 +1,6 @@
 import api from '@/api'
 import authStore from '@/zustand/authStore'
-import popupStore from '@/zustand/popup'
+import popupStore from '@/zustand/popupStore'
 import Btn from '@components/Button'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import type { RouteProp } from '@react-navigation/native'

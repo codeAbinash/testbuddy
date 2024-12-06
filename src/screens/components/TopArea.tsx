@@ -1,5 +1,5 @@
 import api from '@/api'
-import sidebarStore from '@/zustand/sidebar'
+import sidebarStore from '@/zustand/sidebarStore'
 import { FireIcon, Menu02Icon, Notification03Icon, Search01Icon } from '@assets/icons/icons'
 import Press from '@components/Press'
 import { PaddingTop } from '@components/SafePadding'

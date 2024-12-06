@@ -1,4 +1,4 @@
-import popupStore from '@/zustand/popup'
+import popupStore from '@/zustand/popupStore'
 import Btn from '@components/Button'
 import { Medium } from '@utils/fonts'
 import type { NavProp } from '@utils/types'

@@ -1,4 +1,3 @@
-import Sidebar from '@/zustand/sidebar'
 import {
   AnalyticsUpIcon,
   AnalyticsUpStrokeRoundedIcon,
@@ -20,6 +19,7 @@ import { TouchableOpacity, View, type ColorSchemeName } from 'react-native'
 import colors from 'tailwindcss/colors'
 import HomeScreen from './HomeScreen'
 import TopArea from './components/TopArea'
+import Sidebar from './components/Sidebar'
 
 const Tab = createBottomTabNavigator()
 

@@ -1,4 +1,4 @@
-import popupStore from '@/zustand/popup'
+import popupStore from '@/zustand/popupStore'
 import { H } from '@utils/dimensions'
 import { Medium, SemiBold } from '@utils/fonts'
 import React from 'react'

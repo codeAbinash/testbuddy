@@ -19,3 +19,39 @@ export { default as Menu02Icon } from '@icons/menu-02-solid-rounded.svg'
 export { default as FireIcon } from '@icons/fire-solid-rounded.svg'
 export { default as Notification03Icon } from '@icons/notification-03-solid-rounded.svg'
 export { default as Search01Icon } from '@icons/search-01-solid-rounded.svg'
+export { default as PencilEdit01Icon } from '@icons/pencil-edit-01-solid-rounded.svg'
+export { default as PaintBrush01Icon } from '@icons/paint-brush-01-solid-rounded.svg'
+export { default as Pen01Icon } from '@icons/pen-01-solid-rounded.svg'
+
+export { default as ArrowRight01StrokeRoundedIcon } from '@icons/arrow-right-01-stroke-rounded.svg'
+export { default as PencilEdit01StrokeRoundedIcon } from '@icons/pencil-edit-01-stroke-rounded.svg'
+
+export { default as Cancel01StrokeRoundedIcon } from '@icons/cancel-01-stroke-rounded.svg'
+export { default as AllBookmarkStrokeRoundedIcon } from '@icons/all-bookmark-stroke-rounded.svg'
+export { default as AllBookmarkIcon } from '@icons/all-bookmark-solid-rounded.svg'
+export { default as BookOpen02Icon } from '@icons/book-open-02-solid-rounded.svg'
+export { default as Book02Icon } from '@icons/book-02-solid-rounded.svg'
+export { default as Book03Icon } from '@icons/book-03-solid-rounded.svg'
+export { default as BookEditIcon } from '@icons/book-edit-solid-rounded.svg'
+export { default as Book01Icon } from '@icons/book-01-solid-rounded.svg'
+export { default as Time04Icon } from '@icons/time-04-solid-rounded.svg'
+export { default as AnalyticsDownIcon } from '@icons/analytics-down-solid-rounded.svg'
+export { default as Bookmark03Icon } from '@icons/bookmark-03-solid-rounded.svg'
+export { default as GiftIcon } from '@icons/gift-solid-rounded.svg'
+export { default as Share02Icon } from '@icons/share-02-solid-rounded.svg'
+export { default as Settings03Icon } from '@icons/settings-03-solid-rounded.svg'
+export { default as InformationCircleIcon } from '@icons/information-circle-solid-rounded.svg'
+
+export { default as Sun03Icon } from '@icons/sun-03-solid-rounded.svg'
+export { default as Mail02Icon } from '@icons/mail-02-solid-rounded.svg'
+export { default as TelegramIcon } from '@icons/telegram-solid-rounded.svg'
+
+export { default as LogoutCircle01Icon } from '@icons/logout-circle-01-solid-rounded.svg'
+export { default as Mortarboard02Icon } from '@icons/mortarboard-02-solid-rounded.svg'
+export { default as PolicyIcon } from '@icons/policy-solid-rounded.svg'
+export { default as LicenseIcon } from '@icons/license-solid-rounded.svg'
+
+
+
+
+export { default as NewTwitterIcon } from '@icons/new-twitter-solid-rounded.svg'
