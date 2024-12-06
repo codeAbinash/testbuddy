@@ -10,7 +10,7 @@ import {
   Bookmark03Icon,
   BookOpen01Icon,
   BookOpen02Icon,
-  Cancel01StrokeRoundedIcon,
+  Cancel01Icon,
   GiftIcon,
   InformationCircleIcon,
   LicenseDraftIcon,
@@ -24,7 +24,7 @@ import {
   Share02Icon,
   Sun03Icon,
   TelegramIcon as TgIcon,
-  Time04Icon,
+  Time04Icon
 } from '@assets/icons/icons'
 import FacebookIcon from '@assets/icons/social/facebook.svg'
 import InstagramIcon from '@assets/icons/social/instagram.svg'
@@ -40,6 +40,7 @@ import React from 'react'
 import { Linking, Pressable, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import type { SvgProps } from 'react-native-svg'
+import colors from 'tailwindcss/colors'
 import ListItem, { ListIcon } from './ListItem'
 import SmallProfile from './SmallProfile'
 
@@ -76,19 +77,19 @@ export default function Sidebar() {
         </ScrollView>
         <PaddingBottom />
       </View>
-      <CloseButton />
+      <CloseButton scheme={colorScheme} />
     </Pressable>
   )
 }
-function CloseButton() {
+function CloseButton({ scheme }: { scheme: ColorScheme }) {
   const toggle = sidebarStore((state) => state.toggle)
   return (
     <View className='w-[20%]'>
       <PaddingTop />
       <View className='flex-row items-center justify-center'>
         <Press onPress={toggle} activeScale={0.9}>
-          <View className='rounded-full bg-zinc-100 p-3 dark:bg-zinc-950'>
-            <Cancel01StrokeRoundedIcon height={20} width={20} />
+          <View className='rounded-full bg-white p-3 dark:bg-zinc-800'>
+            <Cancel01Icon height={20} width={20} color={scheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
           </View>
         </Press>
       </View>

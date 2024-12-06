@@ -1,4 +1,5 @@
 import api from '@/api'
+import { defaultProfilePic } from '@/constants'
 import sidebarStore from '@/zustand/sidebarStore'
 import { FireIcon, Menu02Icon, Notification03Icon, Search01Icon } from '@assets/icons/icons'
 import Press from '@components/Press'
@@ -28,7 +29,7 @@ export default function TopArea() {
           <Press className='flex-shrink flex-row items-center gap-2' onPress={toggle}>
             <Menu02Icon height={24} width={24} color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
             <View className='flex-shrink flex-row items-center justify-center gap-3'>
-              <Image source={{ uri: data?.profilePic }} className='h-9 w-9 rounded-full' />
+              <Image source={{ uri: data?.profilePic || defaultProfilePic }} className='h-9 w-9 rounded-full' />
               <Medium className='text mr-2 flex-shrink' numberOfLines={1}>
                 Hi, {data?.name ?? 'User'}
               </Medium>

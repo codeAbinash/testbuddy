@@ -25,16 +25,13 @@ export default function HomeScreen({ navigation }: NavProp) {
   }
 
   function handlePress() {
-    alert('Logout','Are you sure you want to logout?',  [{ text: 'Cancel' }, { text: 'Logout', onPress: logout }])
+    alert('Logout', 'Are you sure you want to logout?', [{ text: 'Cancel' }, { text: 'Logout', onPress: logout }])
   }
 
   return (
     <>
       <StatusBar barStyle='dark-content' backgroundColor={'transparent'} />
-      <View className='flex-1 items-center justify-center bg-zinc-50 px-5 dark:bg-black gap-5'>
-        <View>
-          <Image source={{ uri: data?.profilePic }} className='h-24 w-24 rounded-full bg-zinc-300 dark:bg-zinc-700' />
-        </View>
+      <View className='flex-1 items-center justify-center gap-5 bg-zinc-50 px-5 dark:bg-black'>
         <Press>
           <SemiBold className='text-4xl text-zinc-800 active:text-lime-500 dark:text-white'>Testbuddy</SemiBold>
         </Press>

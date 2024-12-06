@@ -78,7 +78,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Splash' component={Splash} />
         <Stack.Screen name='VerifyOtp' component={VerifyOtp} />
         <Stack.Screen name='Home' component={Home} options={SMOOTH_ANIMATION} />
-        <Stack.Screen name='Login' component={Login} />
+        <Stack.Screen name='Login' component={Login} options={SMOOTH_ANIMATION} />
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Test' component={Test} />
         <Stack.Screen name='Update' component={Update} />

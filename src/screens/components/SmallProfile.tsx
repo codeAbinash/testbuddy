@@ -1,4 +1,5 @@
 import api from '@/api'
+import { defaultProfilePic } from '@/constants'
 import Press from '@components/Press'
 import { useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
@@ -19,7 +20,11 @@ const ProfileSection = ({
 }) => (
   <View className='mt-2 w-full flex-row justify-start gap-4 rounded-3xl bg-zinc-100 px-5 py-4 transition-colors active:bg-zinc-200 dark:bg-zinc-900 dark:active:bg-zinc-800'>
     <Press activeScale={0.95} className='items-center justify-center gap-1'>
-      <Image source={{ uri: profilePic }} className='rounded-full' style={{ height: 50, width: 50 }} />
+      <Image
+        source={{ uri: profilePic || defaultProfilePic }}
+        className='rounded-full'
+        style={{ height: 50, width: 50 }}
+      />
     </Press>
     <View className='flex-shrink gap-0.5'>
       <SemiBold className='text text-lg' numberOfLines={1}>
