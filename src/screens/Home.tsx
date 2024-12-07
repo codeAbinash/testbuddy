@@ -19,7 +19,7 @@ import { TouchableOpacity, View, type ColorSchemeName } from 'react-native'
 import colors from 'tailwindcss/colors'
 import HomeScreen from './HomeScreen'
 import TopArea from './components/TopArea'
-import Sidebar from './components/Sidebar'
+import type { DrawerProps } from '@utils/types'
 
 const Tab = createBottomTabNavigator()
 
@@ -108,11 +108,10 @@ const screens = [
   { name: 'Profile', label: 'Profile', focusedIcon: UserIcon, defaultIcon: UserStrokeRoundedIcon },
 ]
 
-export default function Home() {
+export default function Home({ navigation }: DrawerProps) {
   return (
     <>
-      <TopArea />
-      <Sidebar />
+      <TopArea navigation={navigation} />
       <Tab.Navigator tabBar={BottomTabBar} screenOptions={{ animation: 'shift' }}>
         {screens.map((screen) => (
           <Tab.Screen

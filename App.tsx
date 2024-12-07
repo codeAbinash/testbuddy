@@ -9,11 +9,17 @@ import './global.css'
 import { Popups } from '@components/Popup'
 import { AutoStatusBar } from '@components/StatusBar'
 import { queryClient } from '@query/index'
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  type DrawerContentComponentProps,
+} from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import { CardStyleInterpolators, createStackNavigator, type StackNavigationOptions } from '@react-navigation/stack'
 import Login from '@screens/Auth/Login'
 import Register from '@screens/Auth/Register'
 import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
+import Sidebar from '@screens/components/Sidebar'
 import Home from '@screens/Home'
 import Splash from '@screens/Splash'
 import Test from '@screens/Test'
@@ -47,6 +53,30 @@ const SMOOTH_ANIMATION: StackNavigationOptions = {
 const GestureEnabled = { gestureEnabled: true }
 
 const Stack = createStackNavigator<RootStackParamList>()
+const Drawer = createDrawerNavigator()
+
+function MyDrawer() {
+  return (
+    <Drawer.Navigator
+      initialRouteName='Home'
+      drawerContent={DrawerContent}
+      screenOptions={{
+        headerShown: false,
+        drawerType: 'front',
+      }}
+    >
+      <Drawer.Screen name='Home' component={Home} />
+    </Drawer.Navigator>
+  )
+}
+
+function DrawerContent(props: DrawerContentComponentProps) {
+  return (
+    <DrawerContentScrollView>
+      <Sidebar />
+    </DrawerContentScrollView>
+  )
+}
 
 function App(): React.JSX.Element {
   return (
@@ -77,10 +107,10 @@ function Navigation(): React.JSX.Element {
       >
         <Stack.Screen name='Splash' component={Splash} />
         <Stack.Screen name='VerifyOtp' component={VerifyOtp} />
-        <Stack.Screen name='Home' component={Home} options={SMOOTH_ANIMATION} />
+        <Stack.Screen name='HomeDrawer' component={MyDrawer} options={SMOOTH_ANIMATION} />
         <Stack.Screen name='Login' component={Login} options={SMOOTH_ANIMATION} />
         <Stack.Screen name='Register' component={Register} />
-        <Stack.Screen name='Test' component={Test} />
+        <Stack.Screen name='Test' component={Test} options={GestureEnabled} />
         <Stack.Screen name='Update' component={Update} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -90,7 +120,7 @@ export type RootStackParamList = {
   Update: UpdateParamList
   Test: undefined
   VerifyOtp: OtpParamList
-  Home: undefined
+  HomeDrawer: undefined
   Splash: undefined
   Login: undefined
   Register: undefined

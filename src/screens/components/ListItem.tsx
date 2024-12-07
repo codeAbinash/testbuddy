@@ -22,7 +22,7 @@ export default function ListItem({
       activeOpacity={0.7}
       onPress={onPress}
       // className='w-full flex-row justify-between gap-5 rounded-2xl bg-white px-3 py-3.5 transition-colors active:bg-zinc-100 dark:bg-zinc-950 dark:active:bg-zinc-900'
-      className='w-full flex-row justify-between gap-5 rounded-2xl px-3 py-3.5'
+      className='w-full flex-row justify-between gap-5 rounded-2xl px-3 py-3.5 pr-3'
     >
       <View className='flex-shrink flex-row items-center gap-3'>
         {icon}

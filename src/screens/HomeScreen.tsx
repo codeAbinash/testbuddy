@@ -1,10 +1,10 @@
 import Press from '@components/Press'
 import { SemiBold } from '@utils/fonts'
-import type { NavProp } from '@utils/types'
+import type { NavProps } from '@utils/types'
 import React from 'react'
 import { StatusBar, View } from 'react-native'
 
-export default function HomeScreen({ navigation }: NavProp) {
+export default function HomeScreen({ navigation }: NavProps) {
   return (
     <>
       <StatusBar barStyle='dark-content' backgroundColor={'transparent'} />

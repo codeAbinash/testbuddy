@@ -1,4 +1,3 @@
-import sidebarStore from '@/zustand/sidebarStore'
 import {
   AllBookmarkIcon,
   AnalyticsDownIcon,
@@ -10,7 +9,6 @@ import {
   Bookmark03Icon,
   BookOpen01Icon,
   BookOpen02Icon,
-  Cancel01Icon,
   GiftIcon,
   InformationCircleIcon,
   LicenseDraftIcon,
@@ -36,66 +34,28 @@ import authStore from '@/zustand/authStore'
 import { navigationStore } from '@/zustand/navigationStore'
 import popupStore from '@/zustand/popupStore'
 import Press from '@components/Press'
-import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import { Bold, Medium } from '@utils/fonts'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
-import { Linking, Pressable, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Linking, View } from 'react-native'
 import type { SvgProps } from 'react-native-svg'
-import colors from 'tailwindcss/colors'
 import ListItem, { ListIcon } from './ListItem'
 import SmallProfile from './SmallProfile'
 
 type ColorScheme = 'light' | 'dark' | undefined
 
 export default function Sidebar() {
-  const isOpen = sidebarStore((state) => state.isOpen)
-  const toggle = sidebarStore((state) => state.toggle)
   const { colorScheme } = useColorScheme()
   return (
-    <Pressable
-      onPress={toggle}
-      className='absolute left-0 top-0 z-10 h-full w-full flex-row bg-black/40'
-      style={{ opacity: isOpen ? 1 : 0, zIndex: isOpen ? 10 : -1 }}
-    >
-      <View className='w-[80%] flex-1 bg-white dark:bg-zinc-950'>
-        <PaddingTop />
-        <ScrollView
-          className='flex-1'
-          contentContainerClassName='px-4'
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-        >
-          <Pressable>
-            <SmallProfile colorScheme={colorScheme} />
-            <Stream colorScheme={colorScheme} />
-            <Tests colorScheme={colorScheme} />
-            <MyProgress colorScheme={colorScheme} />
-            <Rewards colorScheme={colorScheme} />
-            <Settings colorScheme={colorScheme} />
-            <AboutUs colorScheme={colorScheme} />
-            <End colorScheme={colorScheme} />
-          </Pressable>
-        </ScrollView>
-        <PaddingBottom />
-      </View>
-      <CloseButton scheme={colorScheme} />
-    </Pressable>
-  )
-}
-function CloseButton({ scheme }: { scheme: ColorScheme }) {
-  const toggle = sidebarStore((state) => state.toggle)
-  return (
-    <View className='w-[20%]'>
-      <PaddingTop />
-      <View className='flex-row items-center justify-center'>
-        <Press onPress={toggle} activeScale={0.9}>
-          <View className='rounded-full bg-white p-3 dark:bg-zinc-800'>
-            <Cancel01Icon height={20} width={20} color={scheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
-          </View>
-        </Press>
-      </View>
+    <View className='flex-1'>
+      <SmallProfile colorScheme={colorScheme} />
+      <Stream colorScheme={colorScheme} />
+      <Tests colorScheme={colorScheme} />
+      <MyProgress colorScheme={colorScheme} />
+      <Rewards colorScheme={colorScheme} />
+      <Settings colorScheme={colorScheme} />
+      <AboutUs colorScheme={colorScheme} />
+      <End colorScheme={colorScheme} />
     </View>
   )
 }

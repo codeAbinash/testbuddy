@@ -9,12 +9,12 @@ import LoginImage from '@images/login.svg'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
-import type { NavProp } from '@utils/types'
+import type { NavProps } from '@utils/types'
 import React, { useState } from 'react'
 import { View } from 'react-native'
 import { normalizePhoneNumber } from './utils'
 
-export default function Login({ navigation }: NavProp) {
+export default function Login({ navigation }: NavProps) {
   const [mobile, setMobile] = useState('')
   const alert = popupStore((store) => store.alert)
 

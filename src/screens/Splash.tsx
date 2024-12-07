@@ -1,12 +1,12 @@
-import api, { setAuthToken } from '@/api'
+import api from '@/api'
 import authStore from '@/zustand/authStore'
 import { navigationStore } from '@/zustand/navigationStore'
 import { useMutation } from '@tanstack/react-query'
-import type { NavProp } from '@utils/types'
+import type { NavProps } from '@utils/types'
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
 
-export default function Splash({ navigation }: NavProp) {
+export default function Splash({ navigation }: NavProps) {
   const { token } = authStore()
   const setNavigation = navigationStore((state) => state.setNavigation)
   const { mutate } = useMutation({
@@ -29,7 +29,7 @@ export default function Splash({ navigation }: NavProp) {
 
   useEffect(() => {
     if (!token) navigation.replace('Login')
-    else navigation.replace('Home')
+    else navigation.replace('HomeDrawer')
   }, [navigation, token])
 
   return <View className='flex-1 items-center justify-center'></View>

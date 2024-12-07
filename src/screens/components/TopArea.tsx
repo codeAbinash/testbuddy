@@ -1,20 +1,19 @@
 import api from '@/api'
 import { defaultProfilePic } from '@/constants'
-import sidebarStore from '@/zustand/sidebarStore'
 import { FireIcon, Menu02Icon, Notification03Icon, Search01Icon } from '@assets/icons/icons'
 import Press from '@components/Press'
 import { PaddingTop } from '@components/SafePadding'
 import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
+import type { DrawerProps } from '@utils/types'
 import { T_5_MIN } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { Image, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-export default function TopArea() {
+export default function TopArea({ navigation }: DrawerProps) {
   const { colorScheme } = useColorScheme()
-  const toggle = sidebarStore((state) => state.toggle)
   const { data } = useQuery({
     queryKey: ['profile'],
     queryFn: api.profile,
@@ -26,7 +25,7 @@ export default function TopArea() {
       <View className='w-full bg-white px-5 pb-3 pt-1 dark:bg-zinc-950'>
         <PaddingTop />
         <View className='flex-row items-center justify-between'>
-          <Press className='flex-shrink flex-row items-center gap-2' onPress={toggle}>
+          <Press className='flex-shrink flex-row items-center gap-2' onPress={navigation.openDrawer}>
             <Menu02Icon height={24} width={24} color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
             <View className='flex-shrink flex-row items-center justify-center gap-3'>
               <Image source={{ uri: data?.profilePic || defaultProfilePic }} className='h-9 w-9 rounded-full' />
