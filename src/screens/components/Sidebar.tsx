@@ -30,12 +30,13 @@ import TelegramIcon from '@assets/icons/social/telegram.svg'
 import WhatsappIcon from '@assets/icons/social/whatsapp.svg'
 
 import { versionCode, versionName } from '@/constants'
-import authStore from '@/zustand/authStore'
-import { navigationStore } from '@/zustand/navigationStore'
 import popupStore from '@/zustand/popupStore'
 import Press from '@components/Press'
 import type { DrawerContentComponentProps } from '@react-navigation/drawer'
+import { useNavigation } from '@react-navigation/native'
+import { logout } from '@screens/Auth/utils'
 import { Bold, Medium } from '@utils/fonts'
+import { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { Linking, View } from 'react-native'
@@ -134,12 +135,8 @@ function AboutUs({ colorScheme: s }: { colorScheme: ColorScheme }) {
 
 function End({ colorScheme: s }: { colorScheme: ColorScheme }) {
   const alert = popupStore((store) => store.alert)
-  const removeToken = authStore((store) => store.removeToken)
-  const navigation = navigationStore((store) => store.navigation)
-  function logout() {
-    removeToken()
-    navigation?.reset({ index: 0, routes: [{ name: 'Login' }] })
-  }
+  const navigation = useNavigation<StackNav>()
+
   return (
     <View className='pb-10'>
       <Bold className='text mt-5 pb-2 text-lg'>Log Out</Bold>
@@ -149,7 +146,7 @@ function End({ colorScheme: s }: { colorScheme: ColorScheme }) {
         onPress={() => {
           alert('Are you sure?', 'You will be logged out of the app', [
             { text: 'Cancel' },
-            { text: 'Log out', onPress: logout },
+            { text: 'Log out', onPress: () => logout(navigation) },
           ])
         }}
       />

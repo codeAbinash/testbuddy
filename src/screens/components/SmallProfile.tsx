@@ -1,35 +1,33 @@
 import api from '@/api'
 import { defaultProfilePic } from '@/constants'
-import authStore from '@/zustand/authStore'
 import popupStore from '@/zustand/popupStore'
 import { Logout03StrokeRoundedIcon } from '@assets/icons/icons'
 import Press from '@components/Press'
 import type { DrawerContentComponentProps } from '@react-navigation/drawer'
+import { logout } from '@screens/Auth/utils'
 import { useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
-import { T_5_MIN } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Image, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 export default function SmallProfile({ navigation }: { navigation: DrawerContentComponentProps['navigation'] }) {
   const { colorScheme } = useColorScheme()
-  const removeToken = authStore((state) => state.removeToken)
   const alert = popupStore((state) => state.alert)
-  const { data } = useQuery({
+  const { data, isFetched } = useQuery({
     queryKey: ['profile'],
     queryFn: api.profile,
   })
-  function logout() {
-    removeToken()
-    navigation?.reset({ index: 0, routes: [{ name: 'Login' }] })
-  }
+
+  useEffect(() => {
+    if (isFetched && data === undefined) logout(navigation)
+  }, [isFetched, data])
 
   const handleLogout = useCallback(() => {
     alert('Are you sure?', 'You will be logged out of the app.', [
       { text: 'Cancel' },
-      { text: 'Log out', onPress: logout },
+      { text: 'Log out', onPress: () => logout(navigation) },
     ])
   }, [])
 
