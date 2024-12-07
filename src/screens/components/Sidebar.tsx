@@ -34,6 +34,7 @@ import authStore from '@/zustand/authStore'
 import { navigationStore } from '@/zustand/navigationStore'
 import popupStore from '@/zustand/popupStore'
 import Press from '@components/Press'
+import type { DrawerContentComponentProps } from '@react-navigation/drawer'
 import { Bold, Medium } from '@utils/fonts'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
@@ -44,11 +45,11 @@ import SmallProfile from './SmallProfile'
 
 type ColorScheme = 'light' | 'dark' | undefined
 
-export default function Sidebar() {
+export default function Sidebar({ navigation }: { navigation: DrawerContentComponentProps['navigation'] }) {
   const { colorScheme } = useColorScheme()
   return (
     <View className='flex-1'>
-      <SmallProfile colorScheme={colorScheme} />
+      <SmallProfile navigation={navigation} />
       <Stream colorScheme={colorScheme} />
       <Tests colorScheme={colorScheme} />
       <MyProgress colorScheme={colorScheme} />

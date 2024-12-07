@@ -70,10 +70,10 @@ function MyDrawer() {
   )
 }
 
-function DrawerContent(props: DrawerContentComponentProps) {
+function DrawerContent({navigation}: DrawerContentComponentProps) {
   return (
     <DrawerContentScrollView>
-      <Sidebar />
+      <Sidebar navigation={navigation} />
     </DrawerContentScrollView>
   )
 }

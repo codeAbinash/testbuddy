@@ -56,3 +56,5 @@ export { default as LicenseIcon } from '@icons/license-solid-rounded.svg'
 
 export { default as NewTwitterIcon } from '@icons/new-twitter-solid-rounded.svg'
 export { default as Cancel01Icon } from '@icons/cancel-01-solid-rounded.svg'
+
+export { default as Logout03StrokeRoundedIcon } from '@icons/logout-03-stroke-rounded.svg'
