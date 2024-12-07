@@ -14,7 +14,8 @@ type PopupStore = {
 
 const popupStore = create<PopupStore>((set) => ({
   popups: [],
-  alert: (title, text, buttons = [{ text: 'OK' }]) => set((state) => ({ popups: [...state.popups, { title, text, buttons }] })),
+  alert: (title, text, buttons = [{ text: 'OK' }]) =>
+    set((state) => ({ popups: [...state.popups, { title, text, buttons }] })),
   removePopup: (index) => set((state) => ({ popups: state.popups.filter((_, i) => i !== index) })),
 }))
 

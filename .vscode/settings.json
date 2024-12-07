@@ -1,8 +1,4 @@
 {
-  "cSpell.words": [
-    "Analyse",
-    "Testbuddy",
-    "verifyotp"
-  ],
+  "cSpell.words": ["Analyse", "Testbuddy", "verifyotp"],
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

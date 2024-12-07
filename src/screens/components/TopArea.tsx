@@ -17,7 +17,6 @@ export default function TopArea({ navigation }: DrawerProps) {
   const { data } = useQuery({
     queryKey: ['profile'],
     queryFn: api.profile,
-    staleTime: T_5_MIN,
   })
 
   return (

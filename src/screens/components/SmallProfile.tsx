@@ -20,7 +20,6 @@ export default function SmallProfile({ navigation }: { navigation: DrawerContent
   const { data } = useQuery({
     queryKey: ['profile'],
     queryFn: api.profile,
-    staleTime: T_5_MIN,
   })
   function logout() {
     removeToken()

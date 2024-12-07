@@ -6,7 +6,6 @@ export { default as GoogleIcon } from '@icons/google.svg'
 
 export { default as MessageLock02StrokeRoundedIcon } from '@icons/message-lock-02-stroke-rounded.svg'
 
-
 export { default as AnalyticsUpIcon } from '@icons/analytics-up-solid-rounded.svg'
 export { default as AnalyticsUpStrokeRoundedIcon } from '@icons/analytics-up-stroke-rounded.svg'
 export { default as UserIcon } from '@icons/user-solid-rounded.svg'
@@ -50,9 +49,6 @@ export { default as LogoutCircle01Icon } from '@icons/logout-circle-01-solid-rou
 export { default as Mortarboard02Icon } from '@icons/mortarboard-02-solid-rounded.svg'
 export { default as PolicyIcon } from '@icons/policy-solid-rounded.svg'
 export { default as LicenseIcon } from '@icons/license-solid-rounded.svg'
-
-
-
 
 export { default as NewTwitterIcon } from '@icons/new-twitter-solid-rounded.svg'
 export { default as Cancel01Icon } from '@icons/cancel-01-solid-rounded.svg'
