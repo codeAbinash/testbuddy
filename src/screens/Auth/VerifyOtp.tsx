@@ -45,7 +45,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
       setToken(data.token)
       if (data.newUser === true)
         return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
-      navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
+      navigation.reset({ index: 0, routes: [{ name: 'HomeDrawer' }] })
     },
   })
 
