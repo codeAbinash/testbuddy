@@ -39,5 +39,5 @@ export default function ListItem({
 }
 
 export function ListIcon({ Icon, scheme }: { Icon: React.FC<SvgProps>; scheme: ColorScheme }) {
-  return <Icon height={18} width={18} color={scheme === 'dark' ? colors.zinc[400] : colors.zinc[600]} />
+  return <Icon height={18} width={18} color={scheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
 }
