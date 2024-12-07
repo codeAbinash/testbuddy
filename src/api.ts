@@ -71,9 +71,14 @@ function profile() {
   return postApi<Profile>('profile')
 }
 
+function homeScreen() {
+  return postApi('/page/home')
+}
+
 const api = {
   verifyOtp,
   profile,
+  homeScreen,
   sendOtp: (d: { mobile: string }) =>
     postApi<{
       newUser: boolean

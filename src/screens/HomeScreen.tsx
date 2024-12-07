@@ -1,20 +1,30 @@
-import Press from '@components/Press'
-import { SemiBold } from '@utils/fonts'
+import api from '@/api'
+import { useRefreshByUser } from '@/hooks/useRefreshByUser'
+import { useQuery } from '@tanstack/react-query'
+import { Medium } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
 import React from 'react'
-import { StatusBar, View } from 'react-native'
+import { RefreshControl, ScrollView, StatusBar } from 'react-native'
 
 export default function HomeScreen({ navigation }: NavProps) {
+  const { data, refetch } = useQuery({
+    queryKey: ['homeScreen'],
+    queryFn: api.homeScreen,
+  })
+  const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
+
   return (
     <>
       <StatusBar barStyle='dark-content' backgroundColor={'transparent'} />
-      <View className='flex-1 items-center justify-center gap-5 bg-zinc-50 px-5 dark:bg-black'>
-        <Press>
-          <SemiBold className='text-4xl text-zinc-800 transition-colors active:text-lime-500 dark:text-white'>
-            Testbuddy
-          </SemiBold>
-        </Press>
-      </View>
+      <ScrollView
+        className='bg-zinc-50 px-5 dark:bg-black'
+        contentContainerClassName=''
+        refreshControl={
+          <RefreshControl refreshing={isRefetchingByUser} onRefresh={refetchByUser} style={{ zIndex: 1000 }} />
+        }
+      >
+        <Medium className='text text-xs'>{JSON.stringify(data, null, 2)}</Medium>
+      </ScrollView>
     </>
   )
 }
