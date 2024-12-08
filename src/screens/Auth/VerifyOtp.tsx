@@ -104,7 +104,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
             <Bold className='text w-full text-center text-3xl'>Verify OTP</Bold>
             <Medium className='text w-full text-center text-sm opacity-80'>
               We have sent a verification code to {'\n'} {mobile}{' '}
-              <SemiBold className='text-blue-500 active:underline' onPress={navigation.goBack}>
+              <SemiBold className='link' onPress={navigation.goBack}>
                 change?
               </SemiBold>
             </Medium>
@@ -152,7 +152,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
           <Btn title={isPending ? 'Verifying...' : 'Verify OTP'} onPress={() => verifyOtp(otp)} disabled={isPending} />
           <Medium className='text w-full text-center text-sm opacity-80'>
             Didn't receive the code?{' '}
-            <SemiBold className='text-blue-500 active:underline' onPress={handleResend}>
+            <SemiBold className='link' onPress={handleResend}>
               Resend
             </SemiBold>
           </Medium>

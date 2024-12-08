@@ -1,5 +1,5 @@
 import api from '@/api'
-import { networkError, networkErrorMessage } from '@/constants'
+import { networkError, networkErrorMessage, privacyPolicyUrl, termsAndConditionsUrl } from '@/constants'
 import popupStore from '@/zustand/popupStore'
 import { GoogleIcon, SmartPhone01StrokeRoundedIcon } from '@assets/icons/icons'
 import Btn, { BtnTransparent } from '@components/Button'
@@ -83,10 +83,15 @@ export default function Login({ navigation }: NavProps) {
           />
           <View>
             <SemiBold className='text mb-2 mt-2 text-center text-[0.65rem]'>
-              By continuing, you agree to our <SemiBold className='text-blue-500'>Terms of Service</SemiBold> and{' '}
-              <SemiBold className='text-blue-500'
-                onPress={() => Linking.openURL('https://testbuddy.live/privacy')}
-              >Privacy Policy</SemiBold>.
+              By continuing, you agree to our{' '}
+              <SemiBold className='link' onPress={() => Linking.openURL(termsAndConditionsUrl)}>
+                Terms of Service
+              </SemiBold>{' '}
+              and{' '}
+              <SemiBold className='link' onPress={() => Linking.openURL(privacyPolicyUrl)}>
+                Privacy Policy
+              </SemiBold>
+              .
             </SemiBold>
           </View>
         </View>

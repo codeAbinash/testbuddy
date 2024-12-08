@@ -26,10 +26,26 @@ import {
 } from '@assets/icons/icons'
 import FacebookIcon from '@assets/icons/social/facebook.svg'
 import InstagramIcon from '@assets/icons/social/instagram.svg'
+import LinkedInIcon from '@assets/icons/social/linkedin.svg'
 import TelegramIcon from '@assets/icons/social/telegram.svg'
 import WhatsappIcon from '@assets/icons/social/whatsapp.svg'
+import YoutubeIcon from '@assets/icons/social/youtube.svg'
 
-import { versionCode, versionName } from '@/constants'
+import {
+  aboutUsUrl,
+  emailUrl,
+  facebookUrl,
+  instagramUrl,
+  linkedInUrl,
+  privacyPolicyUrl,
+  telegramUrl,
+  termsAndConditionsUrl,
+  twitterUrl,
+  versionCode,
+  versionName,
+  whatsappUrl,
+  youtubeUrl,
+} from '@/constants'
 import popupStore from '@/zustand/popupStore'
 import Press from '@components/Press'
 import type { DrawerContentComponentProps } from '@react-navigation/drawer'
@@ -124,10 +140,26 @@ function AboutUs({ colorScheme: s }: { colorScheme: ColorScheme }) {
   return (
     <View className='gap-0'>
       <Bold className='text mt-5 pb-2 text-lg'>About Us</Bold>
-      <ListItem icon={<ListIcon Icon={InformationCircleIcon} scheme={s} />} title='About Us' />
-      <ListItem icon={<ListIcon Icon={Mail02Icon} scheme={s} />} title='Contact Us' />
-      <ListItem icon={<ListIcon Icon={PolicyIcon} scheme={s} />} title='Privacy Policy' />
-      <ListItem icon={<ListIcon Icon={LicenseIcon} scheme={s} />} title='Terms & Conditions' />
+      <ListItem
+        icon={<ListIcon Icon={InformationCircleIcon} scheme={s} />}
+        title='About Us'
+        onPress={() => Linking.openURL(aboutUsUrl)}
+      />
+      <ListItem
+        icon={<ListIcon Icon={Mail02Icon} scheme={s} />}
+        title='Contact Us'
+        onPress={() => Linking.openURL(emailUrl)}
+      />
+      <ListItem
+        icon={<ListIcon Icon={PolicyIcon} scheme={s} />}
+        title='Privacy Policy'
+        onPress={() => Linking.openURL(privacyPolicyUrl)}
+      />
+      <ListItem
+        icon={<ListIcon Icon={LicenseIcon} scheme={s} />}
+        title='Terms & Conditions'
+        onPress={() => Linking.openURL(termsAndConditionsUrl)}
+      />
       <ListItem icon={<ListIcon Icon={TgIcon} scheme={s} />} title='Join our Telegram community' />
     </View>
   )
@@ -152,12 +184,14 @@ function End({ colorScheme: s }: { colorScheme: ColorScheme }) {
       />
       <View>
         <Medium className='text mt-5 pb-2 text-center text-lg'>Follow us on</Medium>
-        <View className='mt-3 flex-row flex-wrap justify-center gap-7'>
-          <SocialIcon link='https://twitter.com' Icon={NewTwitterIcon} color={s === 'dark' ? '#fff' : '#000'} />
-          <SocialIcon link='https://instagram.com' Icon={InstagramIcon} />
-          <SocialIcon link='https://wa.me' Icon={FacebookIcon} />
-          <SocialIcon link='https://wa.me' Icon={WhatsappIcon} />
-          <SocialIcon link='https://t.me' Icon={TelegramIcon} />
+        <View className='mt-3 flex-row flex-wrap justify-center gap-6'>
+          <SocialIcon link={twitterUrl} Icon={NewTwitterIcon} color={s === 'dark' ? '#fff' : '#000'} />
+          <SocialIcon link={instagramUrl} Icon={InstagramIcon} />
+          <SocialIcon link={facebookUrl} Icon={FacebookIcon} />
+          <SocialIcon link={linkedInUrl} Icon={LinkedInIcon} />
+          <SocialIcon link={youtubeUrl} Icon={YoutubeIcon} />
+          <SocialIcon link={whatsappUrl} Icon={WhatsappIcon} />
+          <SocialIcon link={telegramUrl} Icon={TelegramIcon} />
         </View>
       </View>
       <Medium className='text mt-5 text-center text-xs'>
@@ -170,7 +204,7 @@ function End({ colorScheme: s }: { colorScheme: ColorScheme }) {
 function SocialIcon({ link, Icon, color }: { color?: string; Icon: React.FC<SvgProps>; link: string }) {
   return (
     <Press onPress={() => Linking.openURL(link)}>
-      <Icon height={25} width={25} color={color} />
+      <Icon height={21} width={21} color={color} />
     </Press>
   )
 }

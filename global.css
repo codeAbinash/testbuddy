@@ -9,3 +9,7 @@
 .text {
   @apply text-zinc-800 dark:text-zinc-200;
 }
+
+.link {
+  @apply text-blue-500 active:underline;
+}

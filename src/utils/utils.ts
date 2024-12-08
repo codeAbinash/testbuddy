@@ -1,6 +1,7 @@
-import { Alert, Share } from 'react-native'
+import { Alert, Linking, Share } from 'react-native'
 import { FadeIn } from 'react-native-reanimated'
 import { SCREEN_TRANSITION } from './constants'
+import { Link } from '@react-navigation/native'
 
 export type TimeFormat = '12h' | '24h'
 

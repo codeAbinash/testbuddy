@@ -22,7 +22,7 @@ export default function Test({ navigation }: NavProps) {
       </Btn>
       <Medium className='mt-5 text-black dark:text-white'>
         Go to{' '}
-        <Medium className='text-blue-400 active:underline' onPressOut={() => navigation.navigate('Splash')}>
+        <Medium className='link' onPressOut={() => navigation.navigate('Splash')}>
           Splash Screen
         </Medium>
       </Medium>
