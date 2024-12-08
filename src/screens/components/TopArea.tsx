@@ -6,7 +6,6 @@ import { PaddingTop } from '@components/SafePadding'
 import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import type { DrawerProps } from '@utils/types'
-import { T_5_MIN } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { Image, View } from 'react-native'
@@ -21,7 +20,7 @@ export default function TopArea({ navigation }: DrawerProps) {
 
   return (
     <>
-      <View className='w-full bg-white px-5 pb-3 pt-1 dark:bg-zinc-950'>
+      <View className='w-full bg-white px-5 pb-2 pr-3 dark:bg-zinc-950'>
         <PaddingTop />
         <View className='flex-row items-center justify-between'>
           <Press className='flex-shrink flex-row items-center gap-2' onPress={navigation.openDrawer}>
@@ -33,19 +32,19 @@ export default function TopArea({ navigation }: DrawerProps) {
               </Medium>
             </View>
           </Press>
-          <View className='flex-row items-center justify-between gap-6'>
-            <Press activeScale={0.9} className='relative'>
+          <View className='flex-row items-center justify-between'>
+            <Press activeScale={0.9} className='px-3 py-2 pb-2.5' onPress={() => navigation.navigate('Search')}>
               <Search01Icon
                 height={20}
                 width={20}
                 color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]}
               />
             </Press>
-            <Press activeScale={0.9} className='relative'>
+            <Press activeScale={0.9} onPress={() => navigation.navigate('Streaks')} className='px-3 py-2 pb-2.5'>
               <FireIcon height={23} width={23} color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
               <NotificationCount count={36} />
             </Press>
-            <Press activeScale={0.9}>
+            <Press activeScale={0.9} onPress={() => navigation.navigate('Notifications')} className='px-3 py-2 pb-2.5'>
               <Notification03Icon
                 height={23}
                 width={23}
@@ -62,7 +61,7 @@ export default function TopArea({ navigation }: DrawerProps) {
 
 function NotificationCount({ count }: { count: number }) {
   return (
-    <View className='absolute -mt-1 ml-4 size-5 items-center justify-center rounded-full bg-red-500'>
+    <View className='absolute ml-7 mt-1 size-5 items-center justify-center rounded-full bg-red-500'>
       <Medium style={{ fontSize: 9 }} className='mb-1 text-center text-xs text-white'>
         {count > 99 ? '99+' : count}
       </Medium>

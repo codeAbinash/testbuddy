@@ -54,3 +54,6 @@ export { default as NewTwitterIcon } from '@icons/new-twitter-solid-rounded.svg'
 export { default as Cancel01Icon } from '@icons/cancel-01-solid-rounded.svg'
 
 export { default as Logout03StrokeRoundedIcon } from '@icons/logout-03-stroke-rounded.svg'
+
+export { default as ArrowLeft01StrokeRoundedIcon } from '@icons/arrow-left-01-stroke-rounded.svg'
+export { default as Settings03StrokeRoundedIcon } from '@icons/settings-03-stroke-rounded.svg'

@@ -21,7 +21,11 @@ import Register from '@screens/Auth/Register'
 import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Sidebar from '@screens/components/Sidebar'
 import Home from '@screens/Home'
+import Notifications from '@screens/Notifications'
+import Search from '@screens/Search'
+import Settings from '@screens/Settings'
 import Splash from '@screens/Splash'
+import Streaks from '@screens/Streaks'
 import Test from '@screens/Test'
 import Update, { type UpdateParamList } from '@screens/Update'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -112,11 +116,19 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Test' component={Test} options={GestureEnabled} />
         <Stack.Screen name='Update' component={Update} />
+        <Stack.Screen name='Notifications' component={Notifications} options={GestureEnabled} />
+        <Stack.Screen name='Streaks' component={Streaks} options={GestureEnabled} />
+        <Stack.Screen name='Search' component={Search} options={GestureEnabled} />
+        <Stack.Screen name='Settings' component={Settings} options={GestureEnabled} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 export type RootStackParamList = {
+  Settings: undefined
+  Search: undefined
+  Streaks: undefined
+  Notifications: undefined
   Update: UpdateParamList
   Test: undefined
   VerifyOtp: OtpParamList
