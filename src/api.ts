@@ -37,7 +37,7 @@ function handleError(error: any) {
   switch (error?.response?.status) {
     case 401:
       handleUnauthenticated()
-      return { message: error.response.data.message }
+      return { message: error.response.data.message, isAlert: true }
     case 400:
       return { message: error.response.data.message, statusCode: 400, isAlert: true }
     default:

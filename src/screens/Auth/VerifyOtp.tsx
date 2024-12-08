@@ -1,4 +1,5 @@
 import api from '@/api'
+import { networkError, networkErrorMessage } from '@/constants'
 import authStore from '@/zustand/authStore'
 import popupStore from '@/zustand/popupStore'
 import Btn from '@components/Button'
@@ -15,7 +16,6 @@ import { StyleSheet, ToastAndroid, View } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
 import colors from 'tailwindcss/colors'
 import { normalizePhoneNumber } from './utils'
-import { networkError, networkErrorMessage } from '@/constants'
 
 type ParamList = {
   VerifyOtp: OtpParamList
@@ -32,6 +32,7 @@ type VerifyOtpProps = {
 
 export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
   const [otp, setOtp] = useState('')
+  const [errorMessages, setErrorMessages] = useState('')
   const { mobile } = route.params
   const { colorScheme } = useColorScheme()
   const alert = popupStore((store) => store.alert)
@@ -41,9 +42,12 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
     mutationFn: api.verifyOtp,
     onSuccess(data) {
       if (!data) return alert(networkError, networkErrorMessage)
-      if (data.isAlert) return alert('Error', data.message || 'Failed to send OTP. Please try again.')
-      if (!data.verified)
-        return alert('Wrong OTP', data.message || 'Please enter the correct OTP sent to your mobile number.')
+      console.log(data)
+      // if (data.isAlert) return alert('Error', data.message || 'Failed to send OTP. Please try again.')
+      // if (!data.verified)
+      //   return alert('Wrong OTP', data.message || 'Please enter the correct OTP sent to your mobile number.')
+      if (data.isAlert || !data.verified)
+        setErrorMessages(data.message || 'Please enter the correct OTP sent to your mobile number.')
       setToken(data.token)
       if (data.newUser === true)
         return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
@@ -106,35 +110,44 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
             </Medium>
           </View>
         </View>
-        <OtpInput
-          numberOfDigits={4}
-          focusColor={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]}
-          focusStickBlinkingDuration={500}
-          blurOnFilled
-          hideStick
-          onTextChange={(text) => setOtp(text)}
-          onFilled={(text) => verifyOtp(text)}
-          textInputProps={{
-            accessibilityLabel: 'One-Time Password',
-            selectionColor: 'transparent',
-          }}
-          theme={{
-            containerStyle: styles.container,
-            pinCodeContainerStyle: {
-              borderColor: colorScheme === 'dark' ? colors.zinc[700] : colors.zinc[300],
-              height: 'auto',
-              paddingTop: 11,
-              paddingBottom: 15,
-              width: 50,
-              borderWidth: 1.5,
-            },
-            pinCodeTextStyle: {
-              ...JosefinSansSemiBold,
-              fontSize: 18,
-              color: colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700],
-            },
-          }}
-        />
+        <View>
+          <OtpInput
+            numberOfDigits={4}
+            focusColor={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]}
+            focusStickBlinkingDuration={500}
+            blurOnFilled
+            hideStick
+            onTextChange={(text) => {
+              setOtp(text)
+              setErrorMessages('')
+            }}
+            onFilled={(text) => verifyOtp(text)}
+            textInputProps={{
+              accessibilityLabel: 'One-Time Password',
+              selectionColor: 'transparent',
+            }}
+            theme={{
+              containerStyle: styles.container,
+              pinCodeContainerStyle: {
+                borderColor: colorScheme === 'dark' ? colors.zinc[700] : colors.zinc[300],
+                height: 'auto',
+                paddingTop: 11,
+                paddingBottom: 15,
+                width: 50,
+                borderWidth: 1.5,
+              },
+              pinCodeTextStyle: {
+                ...JosefinSansSemiBold,
+                fontSize: 18,
+                color: colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700],
+              },
+            }}
+          />
+
+          <Medium className='mt-5 text-center text-sm text-red-500' style={{ color: 'red' }}>
+            {errorMessages}
+          </Medium>
+        </View>
         <View className='gap-8'>
           <Btn title={isPending ? 'Verifying...' : 'Verify OTP'} onPress={() => verifyOtp(otp)} disabled={isPending} />
           <Medium className='text w-full text-center text-sm opacity-80'>

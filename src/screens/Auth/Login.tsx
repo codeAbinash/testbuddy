@@ -12,7 +12,7 @@ import { W } from '@utils/dimensions'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
 import React, { useState } from 'react'
-import { View } from 'react-native'
+import { Linking, View } from 'react-native'
 import { normalizePhoneNumber } from './utils'
 
 export default function Login({ navigation }: NavProps) {
@@ -24,8 +24,8 @@ export default function Login({ navigation }: NavProps) {
     mutationFn: api.sendOtp,
     onSuccess: (data) => {
       if (!data) return alert(networkError, networkErrorMessage)
-      if (data.isAlert) return alert('Error', data.message || 'Failed to send OTP. Please try again.')
-      if (!data?.otpSent) return alert('Error', data?.message || 'Failed to send OTP. Please try again.')
+      if (data.isAlert) return alert('Failed', data.message || 'Failed to send OTP. Please try again.')
+      if (!data?.otpSent) return alert('Failed', data?.message || 'Failed to send OTP. Please try again.')
       if (data.newUser) return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
       navigation.navigate('VerifyOtp', { mobile })
     },
@@ -84,7 +84,9 @@ export default function Login({ navigation }: NavProps) {
           <View>
             <SemiBold className='text mb-2 mt-2 text-center text-[0.65rem]'>
               By continuing, you agree to our <SemiBold className='text-blue-500'>Terms of Service</SemiBold> and{' '}
-              <SemiBold className='text-blue-500'>Privacy Policy</SemiBold>.
+              <SemiBold className='text-blue-500'
+                onPress={() => Linking.openURL('https://testbuddy.live/privacy')}
+              >Privacy Policy</SemiBold>.
             </SemiBold>
           </View>
         </View>
