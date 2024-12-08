@@ -1,4 +1,5 @@
 import api from '@/api'
+import { networkError, networkErrorMessage } from '@/constants'
 import popupStore from '@/zustand/popupStore'
 import { GoogleIcon, SmartPhone01StrokeRoundedIcon } from '@assets/icons/icons'
 import Btn, { BtnTransparent } from '@components/Button'
@@ -22,9 +23,9 @@ export default function Login({ navigation }: NavProps) {
     mutationKey: ['sendOtp'],
     mutationFn: api.sendOtp,
     onSuccess: (data) => {
-      console.log(data)
+      if (!data) return alert(networkError, 'Failed to send OTP. ' + networkErrorMessage)
       if (!data?.otpSent) return alert('Error', data?.message || 'Failed to send OTP. Please try again.')
-      // if (data.newUser) return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
+      if (data.newUser) return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
       navigation.navigate('VerifyOtp', { mobile })
     },
   })
@@ -53,11 +54,10 @@ export default function Login({ navigation }: NavProps) {
         <View className='gap-7'>
           <View className='gap-5'>
             <View>
-              <Label text='Mobile Number' />
+              <Label text='Your Mobile Number' />
               <Input
                 Left={<InputIcon Icon={SmartPhone01StrokeRoundedIcon} />}
-                placeholder='Mobile Number'
-                autoComplete='tel'
+                placeholder='Enter your mobile number'
                 value={mobile}
                 onChangeText={setMobile}
                 keyboardType='phone-pad'

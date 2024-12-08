@@ -1,6 +1,8 @@
 import { API, versionName } from '@/constants'
+import { logout } from '@screens/Auth/utils'
 import { secureLs } from '@utils/storage'
 import axios from 'axios'
+import { ToastAndroid } from 'react-native'
 
 axios.defaults.baseURL = API
 
@@ -18,18 +20,38 @@ export interface ServerResponse {
 async function postApi<T>(path: string, data?: any) {
   type ServerT = T & ServerResponse
   try {
-    if (data) return (await axios.post<ServerT>(path, data)).data
-    else return (await axios.post<ServerT>(path)).data
+    return (await axios.post<ServerT>(path, data)).data
   } catch (error: any) {
-    handleError(error)
+    return handleError(error) as ServerT
   }
 }
+
 function handleError(error: any) {
-  // if (error?.response?.status === 401 || error?.response.data.message === 'Unauthenticated.') ShowAlertAndRestart()
-  // console.log(JSON.stringify(error.response.data, null, 2))
-  // const errors = error?.response.data.errors
-  // const singleError = errors[Object.keys(errors)[0]][0]
-  // throw new Error(singleError || DEFAULT_ERR)
+  // Network error
+  if (!error?.response) {
+    handleNetworkError()
+    return { message: DEFAULT_ERR }
+  }
+
+  switch (error?.response?.status) {
+    case 401:
+      handleUnauthenticated()
+      return { message: error.response.data.message }
+    case 400:
+      return { message: error.response.data.message, statusCode: 400, status: false }
+    default:
+      return { message: 'Something Went Wrong!', statusCode: 500, status: false }
+  }
+}
+
+function handleNetworkError() {
+  ToastAndroid.show('No internet connection', ToastAndroid.SHORT)
+}
+
+function handleUnauthenticated() {
+  ToastAndroid.show('Session Expired.', ToastAndroid.SHORT)
+  console.log('Unauthenticated', 'Logging out')
+  !__DEV__ && logout()
 }
 
 export type checkForUpdatesT = {

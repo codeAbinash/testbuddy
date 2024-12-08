@@ -146,7 +146,7 @@ function End({ colorScheme: s }: { colorScheme: ColorScheme }) {
         onPress={() => {
           alert('Are you sure?', 'You will be logged out of the app', [
             { text: 'Cancel' },
-            { text: 'Log out', onPress: () => logout(navigation) },
+            { text: 'Log out', onPress: logout },
           ])
         }}
       />

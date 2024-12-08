@@ -30,7 +30,7 @@ export default function Splash({ navigation }: NavProps) {
 
   useEffect(() => {
     setNavigation(navigation)
-  }, [navigation, setNavigation])
+  }, [navigation])
 
   useEffect(() => {
     if (!token) navigation.replace('Login')

@@ -8,26 +8,22 @@ import { logout } from '@screens/Auth/utils'
 import { useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
 import { useColorScheme } from 'nativewind'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { Image, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 export default function SmallProfile({ navigation }: { navigation: DrawerContentComponentProps['navigation'] }) {
   const { colorScheme } = useColorScheme()
   const alert = popupStore((state) => state.alert)
-  const { data, isFetched } = useQuery({
+  const { data } = useQuery({
     queryKey: ['profile'],
     queryFn: api.profile,
   })
 
-  useEffect(() => {
-    if (isFetched && data === undefined) logout(navigation)
-  }, [isFetched, data])
-
   const handleLogout = useCallback(() => {
     alert('Are you sure?', 'You will be logged out of the app.', [
       { text: 'Cancel' },
-      { text: 'Log out', onPress: () => logout(navigation) },
+      { text: 'Log out', onPress: logout },
     ])
   }, [])
 

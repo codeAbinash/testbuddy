@@ -4,3 +4,5 @@ export const applicationId = 'com.testbuddy'
 export const playStoreUrl = `https://play.google.com/store/apps/details?id=${applicationId}`
 export const API = 'https://api.testbuddy.live/v1'
 export const defaultProfilePic = 'https://api.testbuddy.live/public/default/profile.jpeg'
+export const networkError = 'Network Error'
+export const networkErrorMessage = 'Please check your internet connection and try again.'

@@ -8,7 +8,6 @@ import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Bold, JosefinSansSemiBold, Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
-import { print } from '@utils/utils'
 import LottieView from 'lottie-react-native'
 import { useColorScheme } from 'nativewind'
 import React, { useState } from 'react'
@@ -16,6 +15,7 @@ import { StyleSheet, ToastAndroid, View } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
 import colors from 'tailwindcss/colors'
 import { normalizePhoneNumber } from './utils'
+import { networkError, networkErrorMessage } from '@/constants'
 
 type ParamList = {
   VerifyOtp: OtpParamList
@@ -40,8 +40,9 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
     mutationKey: ['verifyOtp', mobile, otp],
     mutationFn: api.verifyOtp,
     onSuccess(data) {
-      print(data)
-      if (!data) return alert('Wrong OTP', 'Please enter the correct OTP sent to your mobile number.')
+      if (!data) return alert(networkError, 'Failed to verify OTP. ' + networkErrorMessage)
+      if (!data.verified)
+        return alert('Wrong OTP', data.message || 'Please enter the correct OTP sent to your mobile number.')
       setToken(data.token)
       if (data.newUser === true)
         return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
@@ -60,7 +61,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
 
   const verifyOtp = (otp: string) => {
     if (!otp) return alert('OTP is required', 'Please enter the OTP sent to your mobile number.')
-    if (otp.length < 4) return alert('Invalid OTP', 'Please enter a valid OTP. It should be 4 digits long.')
+    if (otp.length !== 4) return alert('Invalid OTP', 'Please enter a valid OTP. It should be 4 digits long.')
     mutate({ mobile: normalizePhoneNumber(mobile), otp })
   }
 
