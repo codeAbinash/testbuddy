@@ -40,7 +40,8 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
     mutationKey: ['verifyOtp', mobile, otp],
     mutationFn: api.verifyOtp,
     onSuccess(data) {
-      if (!data) return alert(networkError, 'Failed to verify OTP. ' + networkErrorMessage)
+      if (!data) return alert(networkError, networkErrorMessage)
+      if (data.isAlert) return alert('Error', data.message || 'Failed to send OTP. Please try again.')
       if (!data.verified)
         return alert('Wrong OTP', data.message || 'Please enter the correct OTP sent to your mobile number.')
       setToken(data.token)

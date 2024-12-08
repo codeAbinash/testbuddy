@@ -23,7 +23,8 @@ export default function Login({ navigation }: NavProps) {
     mutationKey: ['sendOtp'],
     mutationFn: api.sendOtp,
     onSuccess: (data) => {
-      if (!data) return alert(networkError, 'Failed to send OTP. ' + networkErrorMessage)
+      if (!data) return alert(networkError, networkErrorMessage)
+      if (data.isAlert) return alert('Error', data.message || 'Failed to send OTP. Please try again.')
       if (!data?.otpSent) return alert('Error', data?.message || 'Failed to send OTP. Please try again.')
       if (data.newUser) return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
       navigation.navigate('VerifyOtp', { mobile })

@@ -15,6 +15,7 @@ setAuthToken()
 const DEFAULT_ERR = 'Error occurred. Please check your internet connection and try again'
 export interface ServerResponse {
   message?: string
+  isAlert?: boolean
 }
 
 async function postApi<T>(path: string, data?: any) {
@@ -30,7 +31,7 @@ function handleError(error: any) {
   // Network error
   if (!error?.response) {
     handleNetworkError()
-    return { message: DEFAULT_ERR }
+    return { message: DEFAULT_ERR, isAlert: true }
   }
 
   switch (error?.response?.status) {
@@ -38,14 +39,18 @@ function handleError(error: any) {
       handleUnauthenticated()
       return { message: error.response.data.message }
     case 400:
-      return { message: error.response.data.message, statusCode: 400, status: false }
+      return { message: error.response.data.message, statusCode: 400, isAlert: true }
     default:
-      return { message: 'Something Went Wrong!', statusCode: 500, status: false }
+      return {
+        message: 'Internal Server Error. Please try again later.',
+        statusCode: 500,
+        isAlert: true,
+      }
   }
 }
 
 function handleNetworkError() {
-  ToastAndroid.show('No internet connection', ToastAndroid.SHORT)
+  ToastAndroid.show('Network Error', ToastAndroid.SHORT)
 }
 
 function handleUnauthenticated() {
