@@ -45,11 +45,30 @@ function homeScreen() {
 }
 
 function notifications() {
-  return postApi('notifications')
+  type Notification = {
+    _id: string
+    body: string
+    createdAt: Date
+    notificationType: string
+    redirectTo: string
+  }
+  return postApi<Notification[]>('notifications')
+}
+
+function notificationsPage() {
+  type Notification = {
+    _id: string
+    body: string
+    createdAt: Date
+    notificationType: string
+    redirectTo: string
+  }
+  return postApi<Notification[]>('page/notifications')
 }
 
 const api = {
-  notifications: notifications,
+  notificationsPage,
+  notifications,
   verifyOtp,
   profile,
   homeScreen,

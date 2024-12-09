@@ -116,10 +116,10 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Test' component={Test} options={GestureEnabled} />
         <Stack.Screen name='Update' component={Update} />
-        <Stack.Screen name='Notifications' component={Notifications} options={GestureEnabled} />
-        <Stack.Screen name='Streaks' component={Streaks} options={GestureEnabled} />
-        <Stack.Screen name='Search' component={Search} options={GestureEnabled} />
-        <Stack.Screen name='Settings' component={Settings} options={GestureEnabled} />
+        <Stack.Screen name='Notifications' component={Notifications} />
+        <Stack.Screen name='Streaks' component={Streaks}  />
+        <Stack.Screen name='Search' component={Search}  />
+        <Stack.Screen name='Settings' component={Settings}  />
       </Stack.Navigator>
     </NavigationContainer>
   )

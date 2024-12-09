@@ -17,6 +17,11 @@ export default function TopArea({ navigation }: DrawerProps) {
     queryFn: api.profile,
   })
 
+  const notifications = useQuery({
+    queryKey: ['notifications'],
+    queryFn: api.notifications,
+  })
+
   return (
     <>
       <View className='w-full bg-white px-5 pb-2 pr-3 dark:bg-zinc-950'>
@@ -49,7 +54,7 @@ export default function TopArea({ navigation }: DrawerProps) {
                 width={23}
                 color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]}
               />
-              <NotificationCount count={266} />
+              <NotificationCount count={notifications.data?.length || 0} />
             </Press>
           </View>
         </View>
@@ -59,6 +64,7 @@ export default function TopArea({ navigation }: DrawerProps) {
 }
 
 function NotificationCount({ count }: { count: number }) {
+  if (!count) return null
   return (
     <View className='absolute ml-7 mt-1 size-5 items-center justify-center rounded-full bg-red-500'>
       <Medium style={{ fontSize: 9 }} className='mb-1 text-center text-xs text-white'>
