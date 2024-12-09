@@ -1,3 +1,4 @@
+import { Lottie } from '@components/Lottie'
 import './global.css'
 /**
  * Sample React Native App
@@ -6,9 +7,11 @@ import './global.css'
  * @format
  */
 
+import Animations from '@assets/animations/animations'
 import { Popups } from '@components/Popup'
 import { AutoStatusBar } from '@components/StatusBar'
 import { queryClient } from '@query/index'
+import { useNetInfo } from '@react-native-community/netinfo'
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -30,10 +33,11 @@ import Test from '@screens/Test'
 import Update, { type UpdateParamList } from '@screens/Update'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { H, W } from '@utils/dimensions'
+import { Medium, SemiBold } from '@utils/fonts'
 import { DarkTheme, DefaultTheme } from '@utils/themes'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
-import { SafeAreaView } from 'react-native'
+import { Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
@@ -95,11 +99,28 @@ function App(): React.JSX.Element {
   )
 }
 
+const {} = Dimensions.get('screen')
+function NoInternet() {
+  return (
+    <View
+      className='screen-bg absolute top-0 z-10 flex-1 items-center justify-center px-5 pb-10'
+      style={{ height: H, width: W }}
+    >
+      <Lottie source={Animations.astronaut} style={{ width: W * 0.8, height: W * 0.8 }} />
+      <SemiBold className='text mt-5 text-center text-xl opacity-90'>No Internet Connection</SemiBold>
+      <Medium className='text text-center opacity-70'>Please check your internet connection</Medium>
+    </View>
+  )
+}
+
 function Navigation(): React.JSX.Element {
   const { colorScheme } = useColorScheme()
+  const netInfo = useNetInfo()
+
   return (
     <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <AutoStatusBar scheme={colorScheme} />
+      {!netInfo.isConnected ? <NoInternet /> : null}
       <Stack.Navigator
         screenOptions={{
           gestureEnabled: false,
@@ -117,9 +138,9 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Test' component={Test} options={GestureEnabled} />
         <Stack.Screen name='Update' component={Update} />
         <Stack.Screen name='Notifications' component={Notifications} />
-        <Stack.Screen name='Streaks' component={Streaks}  />
-        <Stack.Screen name='Search' component={Search}  />
-        <Stack.Screen name='Settings' component={Settings}  />
+        <Stack.Screen name='Streaks' component={Streaks} />
+        <Stack.Screen name='Search' component={Search} />
+        <Stack.Screen name='Settings' component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   )
