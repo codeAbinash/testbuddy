@@ -1,4 +1,4 @@
-import { setAuthToken } from '@/api'
+import { setAuthToken } from '@query/api'
 import { secureLs } from '@utils/storage'
 import { create } from 'zustand'
 

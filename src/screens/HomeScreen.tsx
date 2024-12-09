@@ -1,10 +1,9 @@
-import api from '@/api'
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
+import api from '@query/apis'
 import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import React from 'react'
 import { RefreshControl, ScrollView, StatusBar } from 'react-native'
 import colors from 'tailwindcss/colors'
 

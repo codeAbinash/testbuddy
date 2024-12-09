@@ -1,7 +1,8 @@
 import NetInfo from '@react-native-community/netinfo'
 import { useFocusEffect } from '@react-navigation/native'
-import { onlineManager, QueryClient, type NotifyOnChangeProps } from '@tanstack/react-query'
-import React from 'react'
+import { focusManager, onlineManager, QueryClient, type NotifyOnChangeProps } from '@tanstack/react-query'
+import React, { useEffect } from 'react'
+import { AppState, Platform, type AppStateStatus } from 'react-native'
 
 // Online Status Manager
 onlineManager.setEventListener((setOnline) => {
@@ -11,15 +12,15 @@ onlineManager.setEventListener((setOnline) => {
 })
 
 // Refetch on App Focus
-// function onAppStateChange(status: AppStateStatus) {
-//   if (Platform.OS !== 'web') {
-//     focusManager.setFocused(status === 'active')
-//   }
-// }
-// useEffect(() => {
-//   const subscription = AppState.addEventListener('change', onAppStateChange)
-//   return () => subscription.remove()
-// }, [])
+function onAppStateChange(status: AppStateStatus) {
+  if (Platform.OS !== 'web') {
+    focusManager.setFocused(status === 'active')
+  }
+}
+useEffect(() => {
+  const subscription = AppState.addEventListener('change', onAppStateChange)
+  return () => subscription.remove()
+}, [])
 
 // Refetch on Screen Focus
 export function useRefreshOnFocus<T>(refetch: () => Promise<T>) {
@@ -79,7 +80,13 @@ export function useQueryFocusAware() {
   return () => focusedRef.current
 }
 
-export const queryClient = new QueryClient()
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnReconnect: true,
+    },
+  },
+})
 
 // export const queryClient = new QueryClient({
 //   defaultOptions: {

@@ -1,4 +1,7 @@
 {
   "cSpell.words": ["Analyse", "Testbuddy", "verifyotp"],
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "editor.codeActionsOnSave": {
+    "source.organizeimports": "always"
+  }
 }

@@ -2,7 +2,6 @@ import popupStore from '@/zustand/popupStore'
 import Btn from '@components/Button'
 import { Medium } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
-import React from 'react'
 import { View } from 'react-native'
 
 export default function Test({ navigation }: NavProps) {

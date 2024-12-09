@@ -1,4 +1,3 @@
-import React from 'react'
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollViewProps, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { PaddingBottom, PaddingTop } from './SafePadding'

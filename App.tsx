@@ -76,7 +76,7 @@ function MyDrawer() {
 
 function DrawerContent({ navigation }: DrawerContentComponentProps) {
   return (
-    <DrawerContentScrollView>
+    <DrawerContentScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
       <Sidebar navigation={navigation} />
     </DrawerContentScrollView>
   )

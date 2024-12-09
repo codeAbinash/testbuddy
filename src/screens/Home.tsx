@@ -13,13 +13,13 @@ import {
 import { PaddingBottom } from '@components/SafePadding'
 import { createBottomTabNavigator, type BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import { SemiBold } from '@utils/fonts'
+import type { DrawerProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import React, { type ReactNode } from 'react'
 import { TouchableOpacity, View, type ColorSchemeName } from 'react-native'
 import colors from 'tailwindcss/colors'
 import HomeScreen from './HomeScreen'
 import TopArea from './components/TopArea'
-import type { DrawerProps } from '@utils/types'
 
 const Tab = createBottomTabNavigator()
 

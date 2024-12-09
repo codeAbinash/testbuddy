@@ -1,13 +1,12 @@
-import type { checkForUpdatesT } from '@/api'
 import { playStoreUrl, versionName } from '@/constants'
 import Btn from '@components/Button'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
+import type { checkForUpdatesT } from '@query/apis'
 import type { RouteProp } from '@react-navigation/native'
 import { W } from '@utils/dimensions'
 import { Bold, Medium } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import LottieView from 'lottie-react-native'
-import React from 'react'
 import { Linking, View } from 'react-native'
 
 type ParamList = {

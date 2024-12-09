@@ -1,13 +1,13 @@
-import api from '@/api'
 import authStore from '@/zustand/authStore'
 import { navigationStore } from '@/zustand/navigationStore'
 import AppIcon from '@assets/icon.svg'
 import AppIconLight from '@assets/icon_light.svg'
+import api from '@query/apis'
 import { useMutation } from '@tanstack/react-query'
 import { SemiBold } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { View } from 'react-native'
 
 export default function Splash({ navigation }: NavProps) {
