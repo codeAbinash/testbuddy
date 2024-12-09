@@ -1,12 +1,13 @@
 import { playStoreUrl, versionName } from '@/constants'
+import Animations from '@assets/animations/animations'
 import Btn from '@components/Button'
+import { Lottie } from '@components/Lottie'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import type { checkForUpdatesT } from '@query/apis'
 import type { RouteProp } from '@react-navigation/native'
 import { W } from '@utils/dimensions'
 import { Bold, Medium } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
-import LottieView from 'lottie-react-native'
 import { Linking, View } from 'react-native'
 
 type ParamList = {
@@ -26,15 +27,7 @@ export default function Update({ route, navigation }: UpdateProps) {
     <>
       <View className='flex-1 items-center justify-between bg-white px-6 dark:bg-black'>
         <PaddingTop />
-        <LottieView
-          source={require('../assets/animations/update.lottie')}
-          style={{ height: W * 0.85, width: W * 0.85, marginLeft: 'auto', marginRight: 'auto' }}
-          speed={0.7}
-          autoPlay
-          loop
-          hardwareAccelerationAndroid
-          cacheComposition
-        />
+        <Lottie source={Animations.update} size={W * 0.85} speed={0.7} />
         <View className='gap-5'>
           <Bold className='text text-center' style={{ fontSize: 25 }}>
             Update Available {latestVersion}

@@ -1,15 +1,16 @@
 import { networkError, networkErrorMessage } from '@/constants'
 import authStore from '@/zustand/authStore'
 import popupStore from '@/zustand/popupStore'
+import Animations from '@assets/animations/animations'
 import Btn from '@components/Button'
 import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
+import { Lottie } from '@components/Lottie'
 import api from '@query/apis'
 import type { RouteProp } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Bold, JosefinSansSemiBold, Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
-import LottieView from 'lottie-react-native'
 import { useColorScheme } from 'nativewind'
 import { useState } from 'react'
 import { StyleSheet, ToastAndroid, View } from 'react-native'
@@ -91,15 +92,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
     <KeyboardAvoid>
       <View className='h-screen flex-1 justify-between px-7'>
         <View>
-          <LottieView
-            source={require('../../assets/animations/message.lottie')}
-            style={{ height: W * 0.75, width: W * 0.75, marginLeft: 'auto', marginRight: 'auto' }}
-            speed={0.7}
-            autoPlay
-            loop
-            hardwareAccelerationAndroid
-            cacheComposition
-          />
+          <Lottie source={Animations.message} speed={0.7} size={W * 0.75} />
           <View className='gap-3'>
             <Bold className='text w-full text-center text-3xl'>Verify OTP</Bold>
             <Medium className='text w-full text-center text-sm opacity-80'>
