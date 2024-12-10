@@ -43,7 +43,6 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
     mutationFn: api.verifyOtp,
     onSuccess(data) {
       if (!data) return alert(networkError, networkErrorMessage)
-      console.log(data)
       // if (data.isAlert) return alert('Error', data.message || 'Failed to send OTP. Please try again.')
       // if (!data.verified)
       //   return alert('Wrong OTP', data.message || 'Please enter the correct OTP sent to your mobile number.')

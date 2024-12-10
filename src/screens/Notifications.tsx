@@ -6,9 +6,7 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
-import { print } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
-import { useEffect } from 'react'
 import { RefreshControl, ScrollView, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { Lottie } from '../components/Lottie'
@@ -20,10 +18,6 @@ export default function Notifications({ navigation }: NavProps) {
     queryKey: ['notificationsPage'],
     queryFn: api.notificationsPage,
   })
-
-  useEffect(() => {
-    print(data)
-  }, [])
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
 

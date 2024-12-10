@@ -33,7 +33,6 @@ export default function Login({ navigation }: NavProps) {
 
   const handlePress = () => {
     if (!mobile) return alert('Mobile number is required', 'Please enter your mobile number.')
-    console.log(mobile)
     mutate({ mobile: normalizePhoneNumber(mobile) })
   }
 
