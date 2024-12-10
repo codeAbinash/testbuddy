@@ -1,7 +1,6 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import Animations from '@assets/animations/animations'
 import { PaddingBottom } from '@components/SafePadding'
-import api from '@query/apis'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
@@ -11,6 +10,7 @@ import { RefreshControl, ScrollView, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { Lottie } from '../components/Lottie'
 import BackHeader from './BackHeader'
+import api from '@query/api'
 
 export default function Notifications({ navigation }: NavProps) {
   const { colorScheme } = useColorScheme()

@@ -1,60 +1,87 @@
-import { API } from '@/constants'
-import { logout } from '@screens/Auth/utils'
-import { secureLs } from '@utils/storage'
-import axios from 'axios'
-import { ToastAndroid } from 'react-native'
+import { postApi } from '.'
+import { versionName } from '../constants'
 
-axios.defaults.baseURL = API
-
-export function setAuthToken() {
-  const token = secureLs.getString('token')
-  if (token) axios.defaults.headers.common.Authorization = 'Bearer ' + token
-}
-setAuthToken()
-
-const DEFAULT_ERR = 'Error occurred. Please check your internet connection and try again'
-export interface ServerResponse {
-  message?: string
-  isAlert?: boolean
+export type checkForUpdatesT = {
+  updateRequired: boolean
+  critical: boolean
+  latestVersion: string
+  versionCode: number
+  message: string
 }
 
-export async function postApi<T>(path: string, data?: any) {
-  type ServerT = T & ServerResponse
-  try {
-    return (await axios.post<ServerT>(path, data)).data
-  } catch (error: any) {
-    return handleError(error) as ServerT
+function verifyOtp(d: { mobile: string; otp: string }) {
+  type VerifyOtpT = {
+    verified: boolean
+    newUser: boolean
+    user: {
+      _id: string
+      mobile: string
+      emailVerified: boolean
+      profilePic: string
+      name: string
+      stream: string
+      std: string
+    }
+    token: string
   }
+  return postApi<VerifyOtpT>('auth/verifyotp', d)
 }
 
-function handleError(error: any) {
-  // Network error
-  if (!error?.response) {
-    handleNetworkError()
-    return { message: DEFAULT_ERR, isAlert: true }
+function profile() {
+  type Profile = {
+    _id: string
+    mobile: string
+    emailVerified: boolean
+    profilePic: string
+    name: string
+    stream: string
+    std: string
   }
+  return postApi<Profile>('profile')
+}
 
-  switch (error?.response?.status) {
-    case 401:
-      handleUnauthenticated()
-      return { message: error.response.data.message, isAlert: true }
-    case 400:
-      return { message: error.response.data.message, statusCode: 400, isAlert: true }
-    default:
-      return {
-        message: 'Internal Server Error. Please try again later.',
-        statusCode: 500,
-        isAlert: true,
-      }
+function homeScreen() {
+  return postApi('page/home')
+}
+
+function notifications() {
+  type Notification = {
+    _id: string
+    body: string
+    createdAt: Date
+    notificationType: string
+    redirectTo: string
   }
+  return postApi<Notification[]>('notifications')
 }
 
-function handleNetworkError() {
-  ToastAndroid.show('Network Error', ToastAndroid.SHORT)
+function notificationsPage() {
+  type Notification = {
+    _id: string
+    body: string
+    createdAt: Date
+    notificationType: string
+    redirectTo: string
+  }
+  return postApi<Notification[]>('page/notifications')
 }
 
-function handleUnauthenticated() {
-  ToastAndroid.show('Session Expired.', ToastAndroid.SHORT)
-  console.log('Unauthenticated', 'Logging out')
-  logout()
+const api = {
+  notificationsPage,
+  notifications,
+  verifyOtp,
+  profile,
+  homeScreen,
+  sendOtp: (d: { mobile: string }) =>
+    postApi<{
+      newUser: boolean
+      otpSent: boolean
+    }>('auth/otp', d),
+  checkForUpdates: () =>
+    postApi<checkForUpdatesT>('app/version', {
+      platform: 'android',
+      versionName: versionName,
+    }),
 }
+
+export default api

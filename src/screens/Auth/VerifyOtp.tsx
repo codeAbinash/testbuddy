@@ -5,7 +5,6 @@ import Animations from '@assets/animations/animations'
 import Btn from '@components/Button'
 import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
 import { Lottie } from '@components/Lottie'
-import api from '@query/apis'
 import type { RouteProp } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
@@ -17,6 +16,7 @@ import { StyleSheet, ToastAndroid, View } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
 import colors from 'tailwindcss/colors'
 import { normalizePhoneNumber } from './utils'
+import api from '@query/api'
 
 type ParamList = {
   VerifyOtp: OtpParamList

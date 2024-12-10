@@ -1,5 +1,5 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
-import api from '@query/apis'
+import api from '@query/api'
 import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import type { NavProps } from '@utils/types'

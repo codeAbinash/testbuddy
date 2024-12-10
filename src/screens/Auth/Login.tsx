@@ -6,7 +6,6 @@ import Input, { InputIcon } from '@components/Input'
 import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
 import Label from '@components/Label'
 import LoginImage from '@images/login.svg'
-import api from '@query/apis'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
@@ -14,6 +13,7 @@ import type { NavProps } from '@utils/types'
 import { useState } from 'react'
 import { Linking, View } from 'react-native'
 import { normalizePhoneNumber } from './utils'
+import api from '@query/api'
 
 export default function Login({ navigation }: NavProps) {
   const [mobile, setMobile] = useState('')

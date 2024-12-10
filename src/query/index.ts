@@ -1,8 +1,12 @@
+import { API } from '@/constants'
 import NetInfo from '@react-native-community/netinfo'
 import { useFocusEffect } from '@react-navigation/native'
+import { logout } from '@screens/Auth/utils'
 import { focusManager, onlineManager, QueryClient, type NotifyOnChangeProps } from '@tanstack/react-query'
+import { secureLs } from '@utils/storage'
+import axios from 'axios'
 import React, { useEffect } from 'react'
-import { AppState, Platform, type AppStateStatus } from 'react-native'
+import { AppState, Platform, ToastAndroid, type AppStateStatus } from 'react-native'
 
 // Online Status Manager
 onlineManager.setEventListener((setOnline) => {
@@ -124,3 +128,58 @@ export const queryClient = new QueryClient({
 //     },
 //   ])
 // }
+
+axios.defaults.baseURL = API
+
+export function setAuthToken() {
+  const token = secureLs.getString('token')
+  if (token) axios.defaults.headers.common.Authorization = 'Bearer ' + token
+}
+setAuthToken()
+
+const DEFAULT_ERR = 'Error occurred. Please check your internet connection and try again'
+export interface ServerResponse {
+  message?: string
+  isAlert?: boolean
+}
+
+export async function postApi<T>(path: string, data?: any) {
+  type ServerT = T & ServerResponse
+  try {
+    return (await axios.post<ServerT>(path, data)).data
+  } catch (error: any) {
+    return handleError(error) as ServerT
+  }
+}
+
+function handleError(error: any) {
+  // Network error
+  if (!error?.response) {
+    handleNetworkError()
+    return { message: DEFAULT_ERR, isAlert: true }
+  }
+
+  switch (error?.response?.status) {
+    case 401:
+      handleUnauthenticated()
+      return { message: error.response.data.message, isAlert: true }
+    case 400:
+      return { message: error.response.data.message, statusCode: 400, isAlert: true }
+    default:
+      return {
+        message: 'Internal Server Error. Please try again later.',
+        statusCode: 500,
+        isAlert: true,
+      }
+  }
+}
+
+function handleNetworkError() {
+  ToastAndroid.show('Network Error', ToastAndroid.SHORT)
+}
+
+function handleUnauthenticated() {
+  ToastAndroid.show('Session Expired.', ToastAndroid.SHORT)
+  console.log('Unauthenticated', 'Logging out')
+  logout()
+}
