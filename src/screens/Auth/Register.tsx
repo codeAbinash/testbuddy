@@ -53,7 +53,7 @@ export default function Register({ navigation, route }: RegisterProps) {
                 keyboardType='phone-pad'
                 value={mobile}
                 editable={false}
-                className='opacity-70'
+                className='opacity-70 text'
               />
             </View>
             <View>

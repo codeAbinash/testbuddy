@@ -19,7 +19,7 @@ export default function Input({ Left, Right, ...rest }: InputProps) {
         {Left}
         <TextInput
           placeholder='Default Placeholder'
-          className='text-zinc-900 dark:text-zinc-100'
+          className='text'
           placeholderTextColor={colors.zinc[500]}
           style={[
             JosefinSansSemiBold,
