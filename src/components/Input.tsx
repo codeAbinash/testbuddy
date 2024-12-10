@@ -18,8 +18,7 @@ export default function Input({ Left, Right, ...rest }: InputProps) {
       >
         {Left}
         <TextInput
-          placeholder='Sample '
-          keyboardType='number-pad'
+          placeholder='Default Placeholder'
           className='text-zinc-900 dark:text-zinc-100'
           placeholderTextColor={colors.zinc[500]}
           style={[

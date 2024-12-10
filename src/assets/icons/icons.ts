@@ -57,3 +57,7 @@ export { default as Logout03StrokeRoundedIcon } from '@icons/logout-03-stroke-ro
 
 export { default as ArrowLeft01StrokeRoundedIcon } from '@icons/arrow-left-01-stroke-rounded.svg'
 export { default as Settings03StrokeRoundedIcon } from '@icons/settings-03-stroke-rounded.svg'
+export { default as Mortarboard01StrokeRoundedIcon } from '@icons/mortarboard-01-stroke-rounded.svg'
+export { default as Share02StrokeRoundedIcon } from '@icons/share-02-stroke-rounded.svg'
+export { default as Mail02StrokeRoundedIcon } from '@icons/mail-02-stroke-rounded.svg'
+export { default as StudentsStrokeRoundedIcon } from '@icons/students-stroke-rounded.svg'

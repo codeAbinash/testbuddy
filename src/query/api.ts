@@ -36,6 +36,7 @@ function profile() {
     name: string
     stream: string
     std: string
+    newUser: boolean
   }
   return postApi<Profile>('profile')
 }

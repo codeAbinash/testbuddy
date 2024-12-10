@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import type { DrawerProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
+import { useEffect } from 'react'
 import { Image, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
@@ -22,6 +23,14 @@ export default function TopArea({ navigation }: DrawerProps) {
     queryFn: api.notifications,
   })
 
+  useEffect(() => {
+    if (data) {
+      if (data.newUser) {
+        navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile: data.mobile } }] })
+      }
+    }
+  }, [data])
+
   return (
     <>
       <View className='w-full bg-white px-5 pb-2 pr-3 dark:bg-zinc-950'>
@@ -32,7 +41,7 @@ export default function TopArea({ navigation }: DrawerProps) {
             <View className='flex-shrink flex-row items-center justify-center gap-3'>
               <Image source={{ uri: data?.profilePic || defaultProfilePic }} className='h-9 w-9 rounded-full' />
               <Medium className='text mr-2 flex-shrink' numberOfLines={1}>
-                Hi, {data?.name ?? 'User'}
+                Hi, {data?.name.split(' ')[0] ?? 'User'}
               </Medium>
             </View>
           </Press>

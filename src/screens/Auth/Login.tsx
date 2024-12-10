@@ -1,4 +1,4 @@
-import { networkError, networkErrorMessage, privacyPolicyUrl, termsAndConditionsUrl } from '@/constants'
+import { networkError, networkErrorMessage } from '@/constants'
 import popupStore from '@/zustand/popupStore'
 import { GoogleIcon, SmartPhone01StrokeRoundedIcon } from '@assets/icons/icons'
 import Btn, { BtnTransparent } from '@components/Button'
@@ -6,14 +6,15 @@ import Input, { InputIcon } from '@components/Input'
 import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
 import Label from '@components/Label'
 import LoginImage from '@images/login.svg'
+import api from '@query/api'
+import TermsAndConditions from '@screens/components/TermsAndConditions'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
 import { useState } from 'react'
-import { Linking, View } from 'react-native'
+import { View } from 'react-native'
 import { normalizePhoneNumber } from './utils'
-import api from '@query/api'
 
 export default function Login({ navigation }: NavProps) {
   const [mobile, setMobile] = useState('')
@@ -26,7 +27,6 @@ export default function Login({ navigation }: NavProps) {
       if (!data) return alert(networkError, networkErrorMessage)
       if (data.isAlert) return alert('Failed', data.message || 'Failed to send OTP. Please try again.')
       if (!data?.otpSent) return alert('Failed', data?.message || 'Failed to send OTP. Please try again.')
-      if (data.newUser) return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
       navigation.navigate('VerifyOtp', { mobile })
     },
   })
@@ -54,10 +54,10 @@ export default function Login({ navigation }: NavProps) {
         <View className='gap-7'>
           <View className='gap-5'>
             <View>
-              <Label text='Your Mobile Number' />
+              <Label text='Mobile Number' />
               <Input
                 Left={<InputIcon Icon={SmartPhone01StrokeRoundedIcon} />}
-                placeholder='Enter your mobile number'
+                placeholder='e.g. 9876543210'
                 value={mobile}
                 onChangeText={setMobile}
                 keyboardType='phone-pad'
@@ -80,19 +80,7 @@ export default function Login({ navigation }: NavProps) {
               </View>
             }
           />
-          <View>
-            <SemiBold className='text mb-2 mt-2 text-center text-[0.65rem]'>
-              By continuing, you agree to our{' '}
-              <SemiBold className='link' onPress={() => Linking.openURL(termsAndConditionsUrl)}>
-                Terms of Service
-              </SemiBold>{' '}
-              and{' '}
-              <SemiBold className='link' onPress={() => Linking.openURL(privacyPolicyUrl)}>
-                Privacy Policy
-              </SemiBold>
-              .
-            </SemiBold>
-          </View>
+          <TermsAndConditions />
         </View>
         <View />
       </View>

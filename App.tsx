@@ -7,10 +7,10 @@ import './global.css'
  * @format
  */
 
+import { queryClient } from '@/query'
 import Animations from '@assets/animations/animations'
 import { Popups } from '@components/Popup'
 import { AutoStatusBar } from '@components/StatusBar'
-import { queryClient } from '@query/index'
 import { useNetInfo } from '@react-native-community/netinfo'
 import {
   createDrawerNavigator,
@@ -20,7 +20,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native'
 import { CardStyleInterpolators, createStackNavigator, type StackNavigationOptions } from '@react-navigation/stack'
 import Login from '@screens/Auth/Login'
-import Register from '@screens/Auth/Register'
+import Register, { type RegisterParamList } from '@screens/Auth/Register'
 import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Sidebar from '@screens/components/Sidebar'
 import Home from '@screens/Home'
@@ -37,7 +37,7 @@ import { Medium, SemiBold } from '@utils/fonts'
 import { DarkTheme, DefaultTheme } from '@utils/themes'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
-import { Dimensions, SafeAreaView, View } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
@@ -99,7 +99,6 @@ function App(): React.JSX.Element {
   )
 }
 
-const {} = Dimensions.get('screen')
 function NoInternet() {
   return (
     <View
@@ -132,9 +131,9 @@ function Navigation(): React.JSX.Element {
       >
         <Stack.Screen name='Splash' component={Splash} />
         <Stack.Screen name='VerifyOtp' component={VerifyOtp} />
+        <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='HomeDrawer' component={MyDrawer} options={SMOOTH_ANIMATION} />
         <Stack.Screen name='Login' component={Login} options={SMOOTH_ANIMATION} />
-        <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Test' component={Test} options={GestureEnabled} />
         <Stack.Screen name='Update' component={Update} />
         <Stack.Screen name='Notifications' component={Notifications} />
@@ -156,7 +155,7 @@ export type RootStackParamList = {
   HomeDrawer: undefined
   Splash: undefined
   Login: undefined
-  Register: undefined
+  Register: RegisterParamList
 }
 
 export default App
