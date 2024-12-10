@@ -48,7 +48,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
       //   return alert('Wrong OTP', data.message || 'Please enter the correct OTP sent to your mobile number.')
       if (data.isAlert || !data.verified)
         setErrorMessages(data.message || 'Please enter the correct OTP sent to your mobile number.')
-      setToken(data.token)
+      if (data.token) setToken(data.token)
       if (data.newUser === true)
         return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
       navigation.reset({ index: 0, routes: [{ name: 'HomeDrawer' }] })

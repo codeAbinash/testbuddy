@@ -30,7 +30,7 @@ export const e = console.error
 
 // each message string will be displayed on a new line
 export const showAlert = (title: string, messages?: string[]) => {
-  const message = messages?.reduce((acc, s) => (s.length > 0 ? `${acc}\n${s}` : acc))
+  const message = messages?.reduce((acc, s) => (s.length > 0 ? `${acc}\n${s}` : acc), '')
   Alert.alert(title, message, [{ text: 'OK' }])
 }
 
@@ -155,3 +155,13 @@ export function delayedFadeAnimation(i: number) {
 }
 
 export const T_5_MIN = 5 * 60 * 1000
+
+/**
+ * 
+ * @param name full name
+ * @returns first name
+ */
+export function getFirstName(name: string | undefined) {
+  if (!name) return ''
+  return name.split(' ')[0]
+}

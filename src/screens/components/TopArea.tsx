@@ -6,6 +6,7 @@ import api from '@query/api'
 import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import type { DrawerProps } from '@utils/types'
+import { getFirstName } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
 import { useEffect } from 'react'
 import { Image, View } from 'react-native'
@@ -41,7 +42,7 @@ export default function TopArea({ navigation }: DrawerProps) {
             <View className='flex-shrink flex-row items-center justify-center gap-3'>
               <Image source={{ uri: data?.profilePic || defaultProfilePic }} className='h-9 w-9 rounded-full' />
               <Medium className='text mr-2 flex-shrink' numberOfLines={1}>
-                Hi, {data?.name.split(' ')[0] ?? 'User'}
+                Hi, {getFirstName(data?.name) ?? 'User'}
               </Medium>
             </View>
           </Press>
