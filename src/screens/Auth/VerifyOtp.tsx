@@ -5,6 +5,7 @@ import Animations from '@assets/animations/animations'
 import Btn from '@components/Button'
 import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
 import { Lottie } from '@components/Lottie'
+import api from '@query/api'
 import type { RouteProp } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
@@ -16,7 +17,6 @@ import { StyleSheet, ToastAndroid, View } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
 import colors from 'tailwindcss/colors'
 import { normalizePhoneNumber } from './utils'
-import api from '@query/api'
 
 type ParamList = {
   VerifyOtp: OtpParamList
@@ -47,7 +47,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
       // if (!data.verified)
       //   return alert('Wrong OTP', data.message || 'Please enter the correct OTP sent to your mobile number.')
       if (data.isAlert || !data.verified)
-        setErrorMessages(data.message || 'Please enter the correct OTP sent to your mobile number.')
+        return setErrorMessages(data.message || 'Please enter the correct OTP sent to your mobile number.')
       if (data.token) setToken(data.token)
       if (data.newUser === true)
         return navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile } }] })
@@ -117,6 +117,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
             textInputProps={{
               accessibilityLabel: 'One-Time Password',
               selectionColor: 'transparent',
+              caretHidden: true,
             }}
             theme={{
               containerStyle: styles.container,
@@ -136,7 +137,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
             }}
           />
 
-          <Medium className='mt-5 text-center text-sm text-red-500' style={{ color: 'red' }}>
+          <Medium className='mt-5 text-center text-sm text-red-500'>
             {errorMessages}
           </Medium>
         </View>

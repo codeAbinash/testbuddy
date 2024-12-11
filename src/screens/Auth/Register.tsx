@@ -51,14 +51,19 @@ export default function Register({ navigation, route }: RegisterProps) {
                 Left={<InputIcon Icon={SmartPhone01StrokeRoundedIcon} />}
                 placeholder='e.g. 9876543210'
                 keyboardType='phone-pad'
+                autoComplete='tel'
                 value={mobile}
                 editable={false}
-                className='text opacity-70'
+                className='text opacity-90'
               />
             </View>
             <View>
               <Label text='Full Name' />
-              <Input Left={<InputIcon Icon={UserStrokeRoundedIcon} />} placeholder='e.g. John Doe' />
+              <Input
+                Left={<InputIcon Icon={UserStrokeRoundedIcon} />}
+                placeholder='e.g. John Doe'
+                autoComplete='name'
+              />
             </View>
             <View>
               <Label text='Std' />
@@ -77,6 +82,7 @@ export default function Register({ navigation, route }: RegisterProps) {
                 Left={<InputIcon Icon={Mail02StrokeRoundedIcon} />}
                 placeholder='e.g. example@example.com'
                 keyboardType='email-address'
+                autoComplete='email'
               />
             </View>
             <View>
@@ -87,6 +93,7 @@ export default function Register({ navigation, route }: RegisterProps) {
         </View>
         <View className='gap-3'>
           <Btn title={'Continue'} />
+          {/* <Btn title={'Logout'} onPress={logout}/> */}
           <TermsAndConditions />
         </View>
       </View>

@@ -61,6 +61,7 @@ export default function Login({ navigation }: NavProps) {
                 value={mobile}
                 onChangeText={setMobile}
                 keyboardType='phone-pad'
+                autoComplete='tel'
               />
             </View>
             <Btn title={isPending ? 'Sending OTP...' : 'Send OTP'} onPress={handlePress} disabled={isPending} />

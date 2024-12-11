@@ -21,6 +21,7 @@ export default function Input({ Left, Right, ...rest }: InputProps) {
           placeholder='Default Placeholder'
           className='text'
           placeholderTextColor={colors.zinc[500]}
+          importantForAutofill='yes'
           style={[
             JosefinSansSemiBold,
             { fontSize: 12.5, paddingVertical: 0, flex: 1, paddingTop: 13, paddingBottom: 17 },
