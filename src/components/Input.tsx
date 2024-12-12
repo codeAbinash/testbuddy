@@ -22,10 +22,7 @@ export default function Input({ Left, Right, ...rest }: InputProps) {
           className='text'
           placeholderTextColor={colors.zinc[500]}
           importantForAutofill='yes'
-          style={[
-            JosefinSansSemiBold,
-            { fontSize: 12.5, paddingVertical: 0, flex: 1, paddingTop: 13, paddingBottom: 17 },
-          ]}
+          style={[JosefinSansSemiBold, { fontSize: 12.5, flex: 1, paddingTop: 13, paddingBottom: 17 }]}
           {...rest}
         />
         {Right}

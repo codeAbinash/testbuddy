@@ -157,7 +157,7 @@ export function delayedFadeAnimation(i: number) {
 export const T_5_MIN = 5 * 60 * 1000
 
 /**
- * 
+ *
  * @param name full name
  * @returns first name
  */

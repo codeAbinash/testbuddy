@@ -1,20 +1,29 @@
 import {
+  AmbulanceStrokeRoundedIcon,
+  BookOpen01StrokeRoundedIcon,
   Mail02StrokeRoundedIcon,
   Mortarboard01StrokeRoundedIcon,
+  Mortarboard02StrokeRoundedIcon,
+  PhysicsStrokeRoundedIcon,
   Share02StrokeRoundedIcon,
   SmartPhone01StrokeRoundedIcon,
   StudentsStrokeRoundedIcon,
   UserStrokeRoundedIcon,
+  WindPowerStrokeRoundedIcon,
 } from '@assets/icons/icons'
 import Btn from '@components/Button'
+import DropdownExtended, { type DropdownData } from '@components/DropdownExtendex'
 import Input, { InputIcon } from '@components/Input'
 import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
 import Label from '@components/Label'
 import type { RouteProp } from '@react-navigation/native'
 import TermsAndConditions from '@screens/components/TermsAndConditions'
-import { Bold, SemiBold } from '@utils/fonts'
+import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
+import { useColorScheme } from 'nativewind'
+import { useState } from 'react'
 import { View } from 'react-native'
+import { logout } from './utils'
 
 type ParamList = {
   Register: RegisterParamList
@@ -29,8 +38,30 @@ type RegisterProps = {
   navigation: StackNav
 }
 
+const Stream: DropdownData[] = [
+  { label: 'Engineering', value: 'engineering', Icon: WindPowerStrokeRoundedIcon },
+  { label: 'Medical', value: 'medical', Icon: AmbulanceStrokeRoundedIcon },
+]
+const Std: DropdownData[] = [
+  { label: '11th', value: '11th', Icon: Mortarboard02StrokeRoundedIcon },
+  { label: '12th', value: '12th', Icon: Mortarboard01StrokeRoundedIcon },
+  { label: 'Dropper', value: 'dropper', Icon: BookOpen01StrokeRoundedIcon },
+]
+
 export default function Register({ navigation, route }: RegisterProps) {
+  const { colorScheme } = useColorScheme()
   const { mobile } = route.params
+
+  const [fName, setFName] = useState('')
+  const [std, setStd] = useState('')
+  const [stream, setStream] = useState('')
+  const [email, setEmail] = useState('')
+  const [referral, setReferral] = useState('')
+
+  function handleSubmit() {
+    console.log(fName, std, stream, email, referral)
+  }
+
   return (
     <KeyboardAvoid>
       <View className='min-h-screen flex-1 gap-10 p-5 dark:bg-black'>
@@ -63,18 +94,36 @@ export default function Register({ navigation, route }: RegisterProps) {
                 Left={<InputIcon Icon={UserStrokeRoundedIcon} />}
                 placeholder='e.g. John Doe'
                 autoComplete='name'
+                value={fName}
+                onChangeText={setFName}
               />
             </View>
             <View>
               <Label text='Std' />
-              <Input
-                Left={<InputIcon Icon={Mortarboard01StrokeRoundedIcon} />}
-                placeholder='e.g. 11th, 12th, dropper'
+              <DropdownExtended
+                Left={<InputIcon Icon={StudentsStrokeRoundedIcon} />}
+                placeholder='e.g. 11th or 12th or Dropper'
+                data={Std}
+                maxHeight={150}
+                labelField='label'
+                valueField='value'
+                value={std}
+                onChange={(item) => setStd(item.value)}
+                colorScheme={colorScheme}
               />
             </View>
             <View>
               <Label text='Stream' />
-              <Input Left={<InputIcon Icon={StudentsStrokeRoundedIcon} />} placeholder='e.g. Engineering or Medical' />
+              <DropdownExtended
+                Left={<InputIcon Icon={PhysicsStrokeRoundedIcon} />}
+                placeholder='e.g. Engineering or Medical'
+                data={Stream}
+                labelField='label'
+                valueField='value'
+                value={stream}
+                onChange={(item) => setStream(item.value)}
+                colorScheme={colorScheme}
+              />
             </View>
             <View>
               <Label text='Email' />
@@ -83,18 +132,29 @@ export default function Register({ navigation, route }: RegisterProps) {
                 placeholder='e.g. example@example.com'
                 keyboardType='email-address'
                 autoComplete='email'
+                value={email}
+                onChangeText={setEmail}
               />
             </View>
             <View>
               <Label text='Referral Code' />
-              <Input Left={<InputIcon Icon={Share02StrokeRoundedIcon} />} placeholder='e.g. D4P98A' />
+              <Input
+                Left={<InputIcon Icon={Share02StrokeRoundedIcon} />}
+                placeholder='e.g. D4P98A'
+                value={referral}
+                onChangeText={setReferral}
+              />
             </View>
           </View>
         </View>
         <View className='gap-3'>
-          <Btn title={'Continue'} />
-          {/* <Btn title={'Logout'} onPress={logout}/> */}
+          <Btn title={'Continue'} onPress={handleSubmit} />
           <TermsAndConditions />
+          {__DEV__ && (
+            <Medium className='link text-center text-xs' onPress={logout}>
+              Log out
+            </Medium>
+          )}
         </View>
       </View>
     </KeyboardAvoid>

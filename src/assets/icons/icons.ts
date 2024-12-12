@@ -61,3 +61,8 @@ export { default as Mortarboard01StrokeRoundedIcon } from '@icons/mortarboard-01
 export { default as Share02StrokeRoundedIcon } from '@icons/share-02-stroke-rounded.svg'
 export { default as Mail02StrokeRoundedIcon } from '@icons/mail-02-stroke-rounded.svg'
 export { default as StudentsStrokeRoundedIcon } from '@icons/students-stroke-rounded.svg'
+export { default as StudentStrokeRoundedIcon } from '@icons/student-stroke-rounded.svg'
+export { default as Mortarboard02StrokeRoundedIcon } from '@icons/mortarboard-02-stroke-rounded.svg'
+export { default as AmbulanceStrokeRoundedIcon } from '@icons/ambulance-stroke-rounded.svg'
+export { default as WindPowerStrokeRoundedIcon } from '@icons/wind-power-stroke-rounded.svg'
+export { default as PhysicsStrokeRoundedIcon } from '@icons/physics-stroke-rounded.svg'

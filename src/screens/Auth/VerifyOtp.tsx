@@ -137,9 +137,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
             }}
           />
 
-          <Medium className='mt-5 text-center text-sm text-red-500'>
-            {errorMessages}
-          </Medium>
+          <Medium className='mt-5 text-center text-sm text-red-500'>{errorMessages}</Medium>
         </View>
         <View className='gap-8'>
           <Btn title={isPending ? 'Verifying...' : 'Verify OTP'} onPress={() => verifyOtp(otp)} disabled={isPending} />

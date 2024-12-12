@@ -88,9 +88,18 @@ function Stream({ colorScheme: s }: { colorScheme: ColorScheme }) {
 }
 
 function Tests({ colorScheme: s }: { colorScheme: ColorScheme }) {
+  const navigation = useNavigation<StackNav>()
+
   return (
     <View className='gap-0'>
       <Bold className='text mt-5 pb-2 text-lg'>Tests</Bold>
+      {__DEV__ && (
+        <ListItem
+          icon={<ListIcon Icon={LicenseDraftIcon} scheme={s} />}
+          title='Test Screen'
+          onPress={() => navigation.navigate('Test')}
+        />
+      )}
       <ListItem icon={<ListIcon Icon={LicenseDraftIcon} scheme={s} />} title='JEE Mains PYQs' />
       <ListItem icon={<ListIcon Icon={LicenseDraftIcon} scheme={s} />} title='JEE Advanced PYQs' />
       <ListItem icon={<ListIcon Icon={BookOpen01Icon} scheme={s} />} title='Chapter Wise PYQs' />

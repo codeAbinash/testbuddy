@@ -1,42 +1,52 @@
-import popupStore from '@/zustand/popupStore'
-import Btn from '@components/Button'
+import { Mail02StrokeRoundedIcon, StudentsStrokeRoundedIcon, UserStrokeRoundedIcon } from '@assets/icons/icons'
+import DropdownExtended from '@components/DropdownExtendex'
+import Input, { InputIcon } from '@components/Input'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
-import { Medium } from '@utils/fonts'
-import type { NavProps } from '@utils/types'
-import { View } from 'react-native'
+import { useColorScheme } from 'nativewind'
+import { useState } from 'react'
+import { ScrollView, View } from 'react-native'
+import type { SvgProps } from 'react-native-svg'
 
-export default function Test({ navigation }: NavProps) {
-  const alert = popupStore((store) => store.alert)
-
-  return (
-    <View className='flex-1 px-5'>
-      <PaddingTop />
-      <Medium className='mb-5 text-center text-base text-black dark:text-white'>
-        This is a test Screen. Functional and state based custom Modal Alert testing for this application.
-      </Medium>
-      <View className='relative'>
-        <Btn onPress={() => {}}>Open Modal</Btn>
-        <View className='absolute z-10 mt-12 flex w-full bg-red-500'>
-          <Medium>Hello World Lorem This is Abinash Karmakar THis is the code the best code ever written</Medium>
-        </View>
-      </View>
-      <Medium className='mt-5 text-black dark:text-white'>
-        Go to{' '}
-        <Medium className='link' onPressOut={() => navigation.navigate('Splash')}>
-          Splash Screen
-        </Medium>
-      </Medium>
-      <PaddingBottom />
-    </View>
-  )
+type Data = {
+  label: string
+  value: string
+  Icon: React.FC<SvgProps>
 }
+const data: Data[] = [
+  { label: 'Engineering', value: 'engineering', Icon: StudentsStrokeRoundedIcon },
+  { label: 'Medical', value: 'medical', Icon: UserStrokeRoundedIcon },
+]
+// const data: Data[] = [
+//   { label: 'Item 1', value: '1' },
+//   { label: 'Item 2', value: '2' },
+//   { label: 'Item 3', value: '3' },
+//   { label: 'Item 4', value: '4' },
+//   { label: 'Item 5', value: '5' },
+//   { label: 'Item 6', value: '6' },
+//   { label: 'Item 7', value: '7' },
+//   { label: 'Item 8', value: '8' },
+// ]
 
-function Dropdown() {
+export default function Test() {
+  const [value, setValue] = useState<null | string>(null)
+  const { colorScheme } = useColorScheme()
+
   return (
-    <View className='relative'>
-      <View className='absolute z-10 mt-12 flex w-full bg-red-500'>
-        <Medium>Hello World Lorem This is Abinash Karmakar THis is the code the best code ever written</Medium>
+    <ScrollView className='flex-1 p-5'>
+      <PaddingTop />
+      <View className='gap-3'>
+        <Input placeholder='Input' Left={<InputIcon Icon={Mail02StrokeRoundedIcon} />} />
+        <DropdownExtended<Data>
+          colorScheme={colorScheme}
+          value={value}
+          onChange={(item) => setValue(item?.value ?? null)}
+          data={data}
+          labelField={'label'}
+          valueField={'value'}
+          Left={<InputIcon Icon={Mail02StrokeRoundedIcon} />}
+        />
       </View>
-    </View>
+      <PaddingBottom />
+    </ScrollView>
   )
 }
