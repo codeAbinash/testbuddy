@@ -71,16 +71,14 @@ export default function Login({ navigation }: NavProps) {
             <Medium className='text text-center text-xs opacity-80'>or</Medium>
             <View className='w-2/5 rounded-full bg-zinc-200 dark:bg-zinc-800' style={{ height: 1.5 }} />
           </View>
-          <BtnTransparent
-            children={
-              <View className='flex-row items-center justify-center gap-5'>
-                <GoogleIcon height={22} width={22} />
-                <Medium style={{ fontSize: 12.4 }} className='text-center text-xs text-zinc-900 dark:text-zinc-100'>
-                  Continue with Google
-                </Medium>
-              </View>
-            }
-          />
+          <BtnTransparent>
+            <View className='flex-row items-center justify-center gap-5'>
+              <GoogleIcon height={22} width={22} />
+              <Medium style={{ fontSize: 12.4 }} className='text-center text-xs text-zinc-900 dark:text-zinc-100'>
+                Continue with Google
+              </Medium>
+            </View>
+          </BtnTransparent>
           <TermsAndConditions />
         </View>
         <View />

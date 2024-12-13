@@ -1,0 +1,36 @@
+{
+  "root": true,
+  "extends": "@react-native",
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["import", "typescript", "unicorn", "@tanstack/query"],
+  "env": {
+    "browser": false
+  },
+  "globals": {
+    "foo": "readonly"
+  },
+  "settings": {},
+  "rules": {
+    "eqeqeq": "warn",
+    "import/no-cycle": "error",
+    "eslint/no-unused-vars": "off",
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-unused-vars": "off",
+    "react-native/no-inline-styles": "off",
+    "react/react-in-jsx-scope": "off",
+    "jsx-quotes": ["warn", "prefer-single"],
+    "react/self-closing-comp": "warn",
+    "semi": ["warn", "never"],
+    "curly": ["off", "never"],
+    "@tanstack/query/exhaustive-deps": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["*.test.ts", "*.spec.ts"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
+  ]
+}
