@@ -28,3 +28,10 @@ export function KeyboardAvoid(props: ScrollViewProps) {
     </View>
   )
 }
+export function KeyboardAvoidWithoutPadding(props: ScrollViewProps) {
+  return (
+    <View className='flex-1'>
+      <KeyboardAvoidingContainer {...props}></KeyboardAvoidingContainer>
+    </View>
+  )
+}

@@ -1,32 +1,28 @@
 import { networkError, networkErrorMessage } from '@/constants'
 import popupStore from '@/zustand/popupStore'
 import {
-  AmbulanceStrokeRoundedIcon,
-  BookOpen01StrokeRoundedIcon,
   Mail02StrokeRoundedIcon,
-  Mortarboard01StrokeRoundedIcon,
-  Mortarboard02StrokeRoundedIcon,
   PhysicsStrokeRoundedIcon,
   Share02StrokeRoundedIcon,
   SmartPhone01StrokeRoundedIcon,
   StudentsStrokeRoundedIcon,
   UserStrokeRoundedIcon,
-  WindPowerStrokeRoundedIcon,
 } from '@assets/icons/icons'
 import Btn from '@components/Button'
-import DropdownExtended, { type DropdownData } from '@components/DropdownExtended'
+import DropdownExtended from '@components/DropdownExtended'
 import Input, { InputIcon } from '@components/Input'
 import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
 import Label from '@components/Label'
 import api from '@query/api'
 import type { RouteProp } from '@react-navigation/native'
 import TermsAndConditions from '@screens/components/TermsAndConditions'
+import { Std, Stream } from '@screens/utils'
 import { useMutation } from '@tanstack/react-query'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { useState } from 'react'
-import { ToastAndroid, View } from 'react-native'
+import { Pressable, ToastAndroid, View } from 'react-native'
 import { logout } from './utils'
 
 type ParamList = {
@@ -41,16 +37,6 @@ type RegisterProps = {
   route: RouteProp<ParamList, 'Register'>
   navigation: StackNav
 }
-
-const Stream: DropdownData[] = [
-  { label: 'Engineering', value: 'engineering', Icon: WindPowerStrokeRoundedIcon },
-  { label: 'Medical', value: 'medical', Icon: AmbulanceStrokeRoundedIcon },
-]
-const Std: DropdownData[] = [
-  { label: '11th', value: '11th', Icon: Mortarboard02StrokeRoundedIcon },
-  { label: '12th', value: '12th', Icon: Mortarboard01StrokeRoundedIcon },
-  { label: 'Dropper', value: 'dropper', Icon: BookOpen01StrokeRoundedIcon },
-]
 
 export default function Register({ navigation, route }: RegisterProps) {
   const { colorScheme } = useColorScheme()
@@ -69,10 +55,10 @@ export default function Register({ navigation, route }: RegisterProps) {
     },
   })
 
-  const [fName, setFName] = useState(__DEV__ ? 'John Doe' : '')
-  const [std, setStd] = useState(__DEV__ ? '11th' : '')
-  const [stream, setStream] = useState(__DEV__ ? 'engineering' : '')
-  const [email, setEmail] = useState(__DEV__ ? 'codeAbinash@gmail.com' : '')
+  const [fName, setFName] = useState('')
+  const [std, setStd] = useState('')
+  const [stream, setStream] = useState('')
+  const [email, setEmail] = useState('')
   const [referral, setReferral] = useState('')
 
   function handleSubmit() {
@@ -106,7 +92,7 @@ export default function Register({ navigation, route }: RegisterProps) {
         </View>
         <View>
           <View className='gap-3'>
-            <View>
+            <Pressable onPress={() => ToastAndroid.show('Mobile number cannot be changed', ToastAndroid.SHORT)}>
               <Label text='Mobile Number' />
               <Input
                 Left={<InputIcon Icon={SmartPhone01StrokeRoundedIcon} />}
@@ -115,9 +101,9 @@ export default function Register({ navigation, route }: RegisterProps) {
                 autoComplete='tel'
                 value={mobile}
                 editable={false}
-                className='text opacity-90'
+                className='text opacity-70'
               />
-            </View>
+            </Pressable>
             <View>
               <Label text='Full Name' />
               <Input

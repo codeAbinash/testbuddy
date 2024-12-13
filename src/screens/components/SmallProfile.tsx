@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
 import { useColorScheme } from 'nativewind'
 import { useCallback } from 'react'
-import { Image, View } from 'react-native'
+import { Image, Pressable, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 export default function SmallProfile({ navigation }: { navigation: DrawerContentComponentProps['navigation'] }) {
@@ -28,7 +28,10 @@ export default function SmallProfile({ navigation }: { navigation: DrawerContent
   }, [])
 
   return (
-    <View className='w-full flex-row justify-between rounded-3xl bg-zinc-100 p-0 pl-4 transition-colors active:bg-zinc-200 dark:bg-zinc-900 dark:active:bg-zinc-800'>
+    <Pressable
+      className='w-full flex-row justify-between rounded-3xl bg-zinc-100 p-0 pl-4 transition-colors active:bg-zinc-200 dark:bg-zinc-900 dark:active:bg-zinc-800'
+      onPress={() => navigation.navigate('EditProfile')}
+    >
       <View className='flex-shrink flex-row items-center justify-center gap-4'>
         <Press activeScale={0.95} className='items-center justify-center gap-1'>
           <Image
@@ -39,12 +42,10 @@ export default function SmallProfile({ navigation }: { navigation: DrawerContent
         </Press>
         <View className='flex-shrink gap-0.5'>
           <SemiBold className='text text-base' numberOfLines={1}>
-            {/* {data?.name} */}
-            Abinash Karmakar
+            {data?.name}
           </SemiBold>
           <Medium className='text text-sm opacity-80' numberOfLines={1}>
-            {/* {data?.stream} */}
-            Dropper | Targeting 2025
+            {data?.std}
           </Medium>
         </View>
       </View>
@@ -55,6 +56,6 @@ export default function SmallProfile({ navigation }: { navigation: DrawerContent
           color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]}
         />
       </Press>
-    </View>
+    </Pressable>
   )
 }

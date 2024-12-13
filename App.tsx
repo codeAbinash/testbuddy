@@ -25,6 +25,7 @@ import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Sidebar from '@screens/components/Sidebar'
 import Home from '@screens/Home'
 import Notifications from '@screens/Notifications'
+import EditProfile from '@screens/Profile/EditProfile'
 import Search from '@screens/Search'
 import Settings from '@screens/Settings'
 import Splash from '@screens/Splash'
@@ -140,11 +141,13 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Streaks' component={Streaks} />
         <Stack.Screen name='Search' component={Search} />
         <Stack.Screen name='Settings' component={Settings} />
+        <Stack.Screen name='EditProfile' component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 export type RootStackParamList = {
+  EditProfile: undefined
   Settings: undefined
   Search: undefined
   Streaks: undefined

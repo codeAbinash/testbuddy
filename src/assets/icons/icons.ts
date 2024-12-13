@@ -66,3 +66,8 @@ export { default as Mortarboard02StrokeRoundedIcon } from '@icons/mortarboard-02
 export { default as AmbulanceStrokeRoundedIcon } from '@icons/ambulance-stroke-rounded.svg'
 export { default as WindPowerStrokeRoundedIcon } from '@icons/wind-power-stroke-rounded.svg'
 export { default as PhysicsStrokeRoundedIcon } from '@icons/physics-stroke-rounded.svg'
+export { default as CheckmarkBadge01StrokeRoundedIcon } from '@icons/checkmark-badge-01-stroke-rounded.svg'
+export { default as PaintBrush01StrokeRoundedIcon } from '@icons/paint-brush-01-stroke-rounded.svg'
+export { default as MapsLocation01StrokeRoundedIcon } from '@icons/maps-location-01-stroke-rounded.svg'
+export { default as City03StrokeRoundedIcon } from '@icons/city-03-stroke-rounded.svg'
+export { default as BirthdayCakeStrokeRoundedIcon } from '@icons/birthday-cake-stroke-rounded.svg'
