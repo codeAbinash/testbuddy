@@ -1,6 +1,7 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import Animations from '@assets/animations/animations'
 import { PaddingBottom } from '@components/SafePadding'
+import api from '@query/api'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
@@ -10,7 +11,6 @@ import { RefreshControl, ScrollView, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { Lottie } from '../components/Lottie'
 import BackHeader from './BackHeader'
-import api from '@query/api'
 
 export default function Notifications({ navigation }: NavProps) {
   const { colorScheme } = useColorScheme()
@@ -67,7 +67,14 @@ export default function Notifications({ navigation }: NavProps) {
   )
 }
 
-function Screen({ message, animation, name, size }: { message?: string; animation: any; name: string; size?: number }) {
+type ScreenProps = {
+  message?: string
+  animation: any
+  name: string
+  size?: number
+}
+
+export function Screen({ message, animation, name, size }: ScreenProps) {
   return (
     <View className='screen-bg flex-1 justify-between'>
       <BackHeader title={name} />

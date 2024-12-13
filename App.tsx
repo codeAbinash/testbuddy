@@ -21,6 +21,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { CardStyleInterpolators, createStackNavigator, type StackNavigationOptions } from '@react-navigation/stack'
 import Login from '@screens/Auth/Login'
 import Register, { type RegisterParamList } from '@screens/Auth/Register'
+import VerifyEmail, { VerifyEmailParamList } from '@screens/Auth/VerifyEmail'
 import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Sidebar from '@screens/components/Sidebar'
 import Home from '@screens/Home'
@@ -142,6 +143,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Search' component={Search} />
         <Stack.Screen name='Settings' component={Settings} />
         <Stack.Screen name='EditProfile' component={EditProfile} />
+        <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
       </Stack.Navigator>
     </NavigationContainer>
   )
@@ -154,6 +156,7 @@ export type RootStackParamList = {
   Notifications: undefined
   Update: UpdateParamList
   Test: undefined
+  VerifyEmail: VerifyEmailParamList
   VerifyOtp: OtpParamList
   HomeDrawer: undefined
   Splash: undefined

@@ -48,9 +48,11 @@ import {
 } from '@/constants'
 import popupStore from '@/zustand/popupStore'
 import Press from '@components/Press'
+import api from '@query/api'
 import type { DrawerContentComponentProps } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { logout } from '@screens/Auth/utils'
+import { useQuery } from '@tanstack/react-query'
 import { Bold, Medium } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
@@ -64,10 +66,15 @@ type ColorScheme = 'light' | 'dark' | undefined
 
 export default function Sidebar({ navigation }: { navigation: DrawerContentComponentProps['navigation'] }) {
   const { colorScheme } = useColorScheme()
+  const { data } = useQuery({
+    queryKey: ['profile'],
+    queryFn: api.profile,
+  })
+
   return (
     <View className='flex-1'>
-      <SmallProfile navigation={navigation} />
-      <Stream colorScheme={colorScheme} />
+      <SmallProfile navigation={navigation} data={data} />
+      <Stream colorScheme={colorScheme} stream={data?.stream} navigation={navigation} />
       <Tests colorScheme={colorScheme} />
       <MyProgress colorScheme={colorScheme} />
       <Rewards colorScheme={colorScheme} />
@@ -78,11 +85,22 @@ export default function Sidebar({ navigation }: { navigation: DrawerContentCompo
   )
 }
 
-function Stream({ colorScheme: s }: { colorScheme: ColorScheme }) {
+type StreamProps = {
+  colorScheme: ColorScheme
+  stream: string | undefined
+  navigation: DrawerContentComponentProps['navigation']
+}
+
+function Stream({ colorScheme: s, stream, navigation }: StreamProps) {
   return (
     <View className='gap-0'>
       <Bold className='text mt-5 pb-2 text-lg'>Stream</Bold>
-      <ListItem icon={<ListIcon scheme={s} Icon={Mortarboard02Icon} />} title='Change Stream' subtitle='Engineering' />
+      <ListItem
+        icon={<ListIcon scheme={s} Icon={Mortarboard02Icon} />}
+        title='Change Stream'
+        subtitle={stream}
+        onPress={() => navigation.navigate('EditProfile')}
+      />
     </View>
   )
 }

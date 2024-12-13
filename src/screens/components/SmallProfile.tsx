@@ -5,20 +5,20 @@ import Press from '@components/Press'
 import api from '@query/api'
 import type { DrawerContentComponentProps } from '@react-navigation/drawer'
 import { logout } from '@screens/Auth/utils'
-import { useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
 import { useColorScheme } from 'nativewind'
 import { useCallback } from 'react'
 import { Image, Pressable, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-export default function SmallProfile({ navigation }: { navigation: DrawerContentComponentProps['navigation'] }) {
+type SmallProfileProps = {
+  navigation: DrawerContentComponentProps['navigation']
+  data: Awaited<ReturnType<typeof api.profile>> | undefined
+}
+
+export default function SmallProfile({ navigation, data }: SmallProfileProps) {
   const { colorScheme } = useColorScheme()
   const alert = popupStore((state) => state.alert)
-  const { data } = useQuery({
-    queryKey: ['profile'],
-    queryFn: api.profile,
-  })
 
   const handleLogout = useCallback(() => {
     alert('Are you sure?', 'You will be logged out of the app.', [

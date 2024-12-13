@@ -90,7 +90,12 @@ function updateProfile(data: {
   return postApi<UpdateProfile>('updateprofile', data)
 }
 
+function sendEmailOtp(data: { email: string }) {
+  return postApi('authchange/sendotp', data)
+}
+
 const api = {
+  sendEmailOtp,
   updateProfile,
   notificationsPage,
   notifications,
