@@ -1,3 +1,5 @@
+import { networkError, networkErrorMessage } from '@/constants'
+import popupStore from '@/zustand/popupStore'
 import {
   AmbulanceStrokeRoundedIcon,
   BookOpen01StrokeRoundedIcon,
@@ -12,17 +14,19 @@ import {
   WindPowerStrokeRoundedIcon,
 } from '@assets/icons/icons'
 import Btn from '@components/Button'
-import DropdownExtended, { type DropdownData } from '@components/DropdownExtendex'
+import DropdownExtended, { type DropdownData } from '@components/DropdownExtended'
 import Input, { InputIcon } from '@components/Input'
 import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
 import Label from '@components/Label'
+import api from '@query/api'
 import type { RouteProp } from '@react-navigation/native'
 import TermsAndConditions from '@screens/components/TermsAndConditions'
+import { useMutation } from '@tanstack/react-query'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { useState } from 'react'
-import { View } from 'react-native'
+import { ToastAndroid, View } from 'react-native'
 import { logout } from './utils'
 
 type ParamList = {
@@ -51,14 +55,40 @@ const Std: DropdownData[] = [
 export default function Register({ navigation, route }: RegisterProps) {
   const { colorScheme } = useColorScheme()
   const { mobile } = route.params
+  const { alert } = popupStore()
 
-  const [fName, setFName] = useState('')
-  const [std, setStd] = useState('')
-  const [stream, setStream] = useState('')
-  const [email, setEmail] = useState('')
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['updateProfile'],
+    mutationFn: api.updateProfile,
+    onSuccess: (data) => {
+      if (!data) return alert(networkError, `Network error: ${networkErrorMessage}`)
+      if (data.isAlert) return alert('Failed', data.message || 'Failed to update profile. Please try again.')
+      if (!data.name) return alert('Failed', `Error: ${data.message || 'Something went wrong. Please try again.'}`)
+      ToastAndroid.show('Profile updated successfully', ToastAndroid.SHORT)
+      navigation.reset({ index: 0, routes: [{ name: 'HomeDrawer' }] })
+    },
+  })
+
+  const [fName, setFName] = useState(__DEV__ ? 'John Doe' : '')
+  const [std, setStd] = useState(__DEV__ ? '11th' : '')
+  const [stream, setStream] = useState(__DEV__ ? 'engineering' : '')
+  const [email, setEmail] = useState(__DEV__ ? 'codeAbinash@gmail.com' : '')
   const [referral, setReferral] = useState('')
 
   function handleSubmit() {
+    const finalName = fName.trim()
+    const finalEmail = email.trim()
+    const finalReferral = referral.trim()
+    if (!finalName) return alert('Invalid Input', 'Please enter your name')
+    if (finalName.length < 3) return alert('Invalid Input', 'Name should be at least 3 characters long')
+    if (!std) return alert('Invalid Input', 'Please select your standard')
+    if (!stream) return alert('Invalid Input', 'Please select your stream')
+    if (!finalEmail) return alert('Invalid Input', 'Please enter your email')
+    if (!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(finalEmail))
+      return alert('Invalid Input', 'Please enter a valid email')
+
+    mutate({ name: finalName, email: finalEmail, std, stream, referralKey: finalReferral })
+
     console.log(fName, std, stream, email, referral)
   }
 
@@ -148,7 +178,7 @@ export default function Register({ navigation, route }: RegisterProps) {
           </View>
         </View>
         <View className='gap-3'>
-          <Btn title={'Continue'} onPress={handleSubmit} />
+          <Btn title={isPending ? 'Loading...' : 'Continue'} onPress={handleSubmit} disabled={isPending} />
           <TermsAndConditions />
           {__DEV__ && (
             <Medium className='link text-center text-xs' onPress={logout}>

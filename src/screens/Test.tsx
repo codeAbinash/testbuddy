@@ -1,5 +1,5 @@
 import { Mail02StrokeRoundedIcon, StudentsStrokeRoundedIcon, UserStrokeRoundedIcon } from '@assets/icons/icons'
-import DropdownExtended from '@components/DropdownExtendex'
+import DropdownExtended from '@components/DropdownExtended'
 import Input, { InputIcon } from '@components/Input'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import { useColorScheme } from 'nativewind'

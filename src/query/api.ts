@@ -67,7 +67,31 @@ function notificationsPage() {
   return postApi<Notification[]>('page/notifications')
 }
 
+function updateProfile(data: {
+  name?: string
+  gender?: string
+  std?: string
+  email?: string
+  bio?: string
+  stream?: string
+  referralKey?: string
+  birthday?: string
+}) {
+  type UpdateProfile = {
+    name?: string
+    stream?: string
+    std?: string
+    email?: string
+    emailVerified?: boolean
+    primary?: string
+    profilePic?: string
+    gender?: string
+  }
+  return postApi<UpdateProfile>('updateprofile', data)
+}
+
 const api = {
+  updateProfile,
   notificationsPage,
   notifications,
   verifyOtp,
