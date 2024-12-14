@@ -3,9 +3,7 @@ export { default as SmartPhone01StrokeRoundedIcon } from '@icons/smart-phone-01-
 export { default as Home01StrokeRoundedIcon } from '@icons/home-01-stroke-rounded.svg'
 export { default as SmartPhone01Icon } from '@icons/smart-phone-01-solid-rounded.svg'
 export { default as GoogleIcon } from '@icons/google.svg'
-
 export { default as MessageLock02StrokeRoundedIcon } from '@icons/message-lock-02-stroke-rounded.svg'
-
 export { default as AnalyticsUpIcon } from '@icons/analytics-up-solid-rounded.svg'
 export { default as AnalyticsUpStrokeRoundedIcon } from '@icons/analytics-up-stroke-rounded.svg'
 export { default as UserIcon } from '@icons/user-solid-rounded.svg'
@@ -21,10 +19,8 @@ export { default as Search01Icon } from '@icons/search-01-solid-rounded.svg'
 export { default as PencilEdit01Icon } from '@icons/pencil-edit-01-solid-rounded.svg'
 export { default as PaintBrush01Icon } from '@icons/paint-brush-01-solid-rounded.svg'
 export { default as Pen01Icon } from '@icons/pen-01-solid-rounded.svg'
-
 export { default as ArrowRight01StrokeRoundedIcon } from '@icons/arrow-right-01-stroke-rounded.svg'
 export { default as PencilEdit01StrokeRoundedIcon } from '@icons/pencil-edit-01-stroke-rounded.svg'
-
 export { default as Cancel01StrokeRoundedIcon } from '@icons/cancel-01-stroke-rounded.svg'
 export { default as AllBookmarkStrokeRoundedIcon } from '@icons/all-bookmark-stroke-rounded.svg'
 export { default as AllBookmarkIcon } from '@icons/all-bookmark-solid-rounded.svg'
@@ -40,21 +36,16 @@ export { default as GiftIcon } from '@icons/gift-solid-rounded.svg'
 export { default as Share02Icon } from '@icons/share-02-solid-rounded.svg'
 export { default as Settings03Icon } from '@icons/settings-03-solid-rounded.svg'
 export { default as InformationCircleIcon } from '@icons/information-circle-solid-rounded.svg'
-
 export { default as Sun03Icon } from '@icons/sun-03-solid-rounded.svg'
 export { default as Mail02Icon } from '@icons/mail-02-solid-rounded.svg'
 export { default as TelegramIcon } from '@icons/telegram-solid-rounded.svg'
-
 export { default as LogoutCircle01Icon } from '@icons/logout-circle-01-solid-rounded.svg'
 export { default as Mortarboard02Icon } from '@icons/mortarboard-02-solid-rounded.svg'
 export { default as PolicyIcon } from '@icons/policy-solid-rounded.svg'
 export { default as LicenseIcon } from '@icons/license-solid-rounded.svg'
-
 export { default as NewTwitterIcon } from '@icons/new-twitter-solid-rounded.svg'
 export { default as Cancel01Icon } from '@icons/cancel-01-solid-rounded.svg'
-
 export { default as Logout03StrokeRoundedIcon } from '@icons/logout-03-stroke-rounded.svg'
-
 export { default as ArrowLeft01StrokeRoundedIcon } from '@icons/arrow-left-01-stroke-rounded.svg'
 export { default as Settings03StrokeRoundedIcon } from '@icons/settings-03-stroke-rounded.svg'
 export { default as Mortarboard01StrokeRoundedIcon } from '@icons/mortarboard-01-stroke-rounded.svg'
@@ -71,3 +62,6 @@ export { default as PaintBrush01StrokeRoundedIcon } from '@icons/paint-brush-01-
 export { default as MapsLocation01StrokeRoundedIcon } from '@icons/maps-location-01-stroke-rounded.svg'
 export { default as City03StrokeRoundedIcon } from '@icons/city-03-stroke-rounded.svg'
 export { default as BirthdayCakeStrokeRoundedIcon } from '@icons/birthday-cake-stroke-rounded.svg'
+export { default as BubbleChatNotificationStrokeRoundedIcon } from '@icons/bubble-chat-notification-stroke-rounded.svg'
+export { default as Message01StrokeRoundedIcon } from '@icons/message-01-stroke-rounded.svg'
+export { default as NotificationSquareStrokeRoundedIcon } from '@icons/notification-square-stroke-rounded.svg'

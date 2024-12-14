@@ -53,7 +53,7 @@ function notifications() {
     _id?: string
     body?: string
     createdAt?: Date
-    notificationType?: string
+    notificationType?: 'group' | 'general' | 'specific'
     redirectTo?: string
   }
   return postApi<Notification[]>('notifications')
@@ -64,7 +64,7 @@ function notificationsPage() {
     _id?: string
     body?: string
     createdAt?: Date
-    notificationType?: string
+    notificationType?: 'group' | 'general' | 'specific'
     redirectTo?: string
   }
   return postApi<Notification[]>('page/notifications')
