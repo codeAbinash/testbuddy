@@ -79,13 +79,13 @@ export default function EditProfile({ navigation }: NavProps) {
     },
   })
 
-  function handelSendOtp() {
+  function handleSendOtp() {
     const e = email.trim()
     if (!e) return ToastAndroid.show('Please enter a valid email', ToastAndroid.SHORT)
     sendEmailOtp({ email: e })
   }
 
-  function handelSubmit() {
+  function handleSubmit() {
     const finalName = fName.trim()
     const finalEmail = email.trim()
     if (!finalName) return alert('Invalid Input', 'Please enter your name')
@@ -190,7 +190,7 @@ export default function EditProfile({ navigation }: NavProps) {
                     profile?.emailVerified ? (
                       <InputIcon Icon={CheckmarkBadge01StrokeRoundedIcon} iconProps={{ color: colors.green[500] }} />
                     ) : (
-                      <Press onPress={handelSendOtp}>
+                      <Press onPress={handleSendOtp}>
                         <Medium className='text-sm text-orange-500'>Verify</Medium>
                       </Press>
                     )
@@ -212,7 +212,7 @@ export default function EditProfile({ navigation }: NavProps) {
               <View className='mt-5'>
                 <Btn
                   title={isUpdating ? 'Updating...' : 'Update Profile'}
-                  onPress={handelSubmit}
+                  onPress={handleSubmit}
                   disabled={isUpdating}
                 />
               </View>
@@ -264,6 +264,7 @@ function LocationSelector({ state, setState, city, setCity, colorScheme }: Locat
           // dropdownPosition='top'
           mode='modal'
           autoScroll={false}
+          renderItem={StateRenderItem}
         />
       </View>
       <View>
@@ -282,8 +283,28 @@ function LocationSelector({ state, setState, city, setCity, colorScheme }: Locat
           onChange={(item) => setCity(item.value)}
           colorScheme={colorScheme}
           mode='modal'
+          renderItem={CityRenderItem}
         />
       </View>
     </>
+  )
+}
+
+
+function StateRenderItem<T extends DropdownData>(item: T) {
+  return (
+    <View className='flex-row items-center gap-3 px-5' style={{ borderRadius: 14.5, height: 49.5 }}>
+      <InputIcon  Icon={MapsLocation01StrokeRoundedIcon}/>
+      <Medium className='text text-base'>{item.label}</Medium>
+    </View>
+  )
+}
+
+function CityRenderItem<T extends DropdownData>(item: T) {
+  return (
+    <View className='flex-row items-center gap-3 px-5' style={{ borderRadius: 14.5, height: 49.5 }}>
+      <InputIcon  Icon={City03StrokeRoundedIcon}/>
+      <Medium className='text text-base'>{item.label}</Medium>
+    </View>
   )
 }

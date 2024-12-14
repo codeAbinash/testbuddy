@@ -50,7 +50,7 @@ export default function DropdownExtended<T extends DropdownData>({ colorScheme, 
         containerStyle={{
           flex: 1,
           borderRadius: 14.5,
-          marginBottom: bottom,
+          marginBottom: bottom + 10,
           width: rest.mode === 'modal' ? W - 20 : 'auto',
           borderWidth: 0.5,
           overflow: 'hidden',
