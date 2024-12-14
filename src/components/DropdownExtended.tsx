@@ -6,11 +6,13 @@ import { DropdownProps } from 'react-native-element-dropdown/lib/typescript/comp
 import type { SvgProps } from 'react-native-svg'
 import colors from 'tailwindcss/colors'
 import { InputIcon } from './Input'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { W } from '@utils/dimensions'
 
 export type DropdownData = {
   label: string
   value: string
-  Icon: React.FC<SvgProps>
+  Icon?: React.FC<SvgProps>
 }
 
 export type DropdownExtendedT<T> = {
@@ -20,6 +22,7 @@ export type DropdownExtendedT<T> = {
 } & DropdownProps<T>
 
 export default function DropdownExtended<T extends DropdownData>({ colorScheme, Left, ...rest }: DropdownExtendedT<T>) {
+  const bottom = useSafeAreaInsets().bottom
   return (
     <View
       style={{ borderRadius: 14.5 }}
@@ -42,12 +45,13 @@ export default function DropdownExtended<T extends DropdownData>({ colorScheme, 
         maxHeight={100}
         placeholder='Select item'
         searchPlaceholder='Search...'
-        autoScroll
         fontFamily={JosefinSansMedium.fontFamily}
         activeColor={colorScheme === 'dark' ? colors.zinc[800] : colors.zinc[200]}
         containerStyle={{
           flex: 1,
           borderRadius: 14.5,
+          marginBottom: bottom,
+          width: rest.mode === 'modal' ? W - 20 : 'auto',
           borderWidth: 0.5,
           overflow: 'hidden',
           borderColor: colorScheme === 'dark' ? colors.zinc[700] : 'transparent',
@@ -63,7 +67,7 @@ export default function DropdownExtended<T extends DropdownData>({ colorScheme, 
 function renderItem<T extends DropdownData>(item: T) {
   return (
     <View className='flex-row items-center gap-3 px-5' style={{ borderRadius: 14.5, height: 49.5 }}>
-      <InputIcon Icon={item.Icon} />
+      {item.Icon && <InputIcon Icon={item.Icon} />}
       <Medium className='text text-sm'>{item.label}</Medium>
     </View>
   )

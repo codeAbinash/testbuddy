@@ -37,6 +37,9 @@ function profile() {
     stream?: string
     std?: string
     newUser?: boolean
+    email?: string
+    state?: string
+    city?: string
   }
   return postApi<Profile>('profile')
 }
@@ -76,6 +79,8 @@ function updateProfile(data: {
   stream?: string
   referralKey?: string
   birthday?: string
+  state?: string
+  city?: string
 }) {
   type UpdateProfile = {
     name?: string

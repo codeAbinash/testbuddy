@@ -21,3 +21,6 @@ export const emailUrl = 'mailto:support@testbuddy.live'
 export const aboutUsUrl = 'https://testbuddy.live/'
 export const privacyPolicyUrl = 'https://testbuddy.live/privacy'
 export const termsAndConditionsUrl = 'https://testbuddy.live/terms'
+
+export const citySearchAPIToken = 'R0p4ZEB4Q8I5ljgzuTYPTDPCNL36mWZK7Kf9NkOZkJuj4wH6LeajXKAWHD8dBaWCXKM'
+export const userEmail = 'codeAbinash2@gmail.com'

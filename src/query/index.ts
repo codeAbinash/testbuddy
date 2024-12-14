@@ -183,3 +183,21 @@ function handleUnauthenticated() {
   console.log('Unauthenticated', 'Logging out')
   logout()
 }
+
+// export const citySearch = axios.create({
+//   baseURL: 'https://www.universal-tutorial.com/api/getaccesstoken',
+//   headers: {
+//     Accept: 'application/json',
+//     'api-token': citySearchAPIToken,
+//     'user-email': userEmail,
+//   },
+// })
+
+export const citySearch = axios.create({
+  baseURL: 'https://www.universal-tutorial.com/api/',
+  headers: {
+    Accept: 'application/json',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJjb2RlQWJpbmFzaDJAZ21haWwuY29tIiwiYXBpX3Rva2VuIjoiUjBwNFpFQjRROEk1bGpnenVUWVBURFBDTkwzNm1XWks3S2Y5TmtPWmtKdWo0d0g2TGVhalhLQVdIRDhkQmFXQ1hLTSJ9LCJleHAiOjE3MzQyMzE5NjF9.MsW8P025TFyn6I3Rwtr4kedyjaavU7qVUmHMGy00j3Y',
+  },
+})
