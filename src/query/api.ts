@@ -99,7 +99,16 @@ function sendEmailOtp(data: { email: string }) {
   return postApi('authchange/sendotp', data)
 }
 
+function updateProfilePic(data: FormData) {
+  return postApi('profilepic', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+}
+
 const api = {
+  updateProfilePic,
   sendEmailOtp,
   updateProfile,
   notificationsPage,

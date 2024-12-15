@@ -7,10 +7,10 @@ import './global.css'
  * @format
  */
 
-import { queryClient } from '@/query'
 import Animations from '@assets/animations/animations'
 import { Popups } from '@components/Popup'
 import { AutoStatusBar } from '@components/StatusBar'
+import { queryClient } from '@query/query'
 import { useNetInfo } from '@react-native-community/netinfo'
 import {
   createDrawerNavigator,

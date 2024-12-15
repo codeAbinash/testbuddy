@@ -19,7 +19,6 @@ import { Loading } from '@components/Loading'
 import Press from '@components/Press'
 import { PaddingBottom } from '@components/SafePadding'
 import api from '@query/api'
-import { citySearch, queryClient } from '@query/index'
 import BackHeader from '@screens/BackHeader'
 import { Std, Stream } from '@screens/utils'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -30,6 +29,8 @@ import { useEffect, useState } from 'react'
 import { Pressable, ToastAndroid, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import ProfilePicture from './components/ProfilePicture'
+import { citySearch } from '@query/axios'
+import { queryClient } from '@query/query'
 
 async function searchAllStates() {
   const states = (await (await citySearch.get('states/india')).data) as ({ state_name: string } & DropdownData)[]

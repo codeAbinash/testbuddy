@@ -1,6 +1,6 @@
 import authStore from '@/zustand/authStore'
 import { navigationStore } from '@/zustand/navigationStore'
-import { queryClient } from '@query/index'
+import { queryClient } from '@query/query'
 
 export function normalizePhoneNumber(phoneNumber: string): string {
   return phoneNumber.startsWith('+91') ? phoneNumber : '+91' + phoneNumber
