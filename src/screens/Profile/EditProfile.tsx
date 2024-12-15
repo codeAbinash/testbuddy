@@ -32,12 +32,12 @@ import colors from 'tailwindcss/colors'
 import ProfilePicture from './components/ProfilePicture'
 
 async function searchAllStates() {
-  const cities = (await (await citySearch.get('states/India')).data) as ({ state_name: string } & DropdownData)[]
-  for (const city of cities) {
-    city.label = city.state_name
-    city.value = city.state_name
+  const states = (await (await citySearch.get('states/india')).data) as ({ state_name: string } & DropdownData)[]
+  for (const state of states) {
+    state.label = state.state_name
+    state.value = state.state_name
   }
-  return cities
+  return states
 }
 
 async function searchCity(state: string) {
@@ -65,7 +65,7 @@ export default function EditProfile({ navigation }: NavProps) {
   const { data: profile, isPending } = useQuery({ queryKey: ['profile'], queryFn: api.profile })
   const { mutate: sendEmailOtp } = useMutation({ mutationKey: ['sendOtp', mobile], mutationFn: api.sendEmailOtp })
   const { mutate: updateProfile, isPending: isUpdating } = useMutation({
-    mutationKey: ['sendOtp', mobile],
+    mutationKey: ['updateProfile'],
     mutationFn: api.updateProfile,
     onSuccess(data) {
       if (!data) return alert('Failed', 'Failed to update profile. Please try again.')
@@ -240,7 +240,6 @@ function LocationSelector({ state, setState, city, setCity, colorScheme }: Locat
 
   useEffect(() => {
     if (state) {
-      console.log('searching city', state)
       searchCity(state).then((data) => {
         setCities(data)
       })
@@ -290,11 +289,10 @@ function LocationSelector({ state, setState, city, setCity, colorScheme }: Locat
   )
 }
 
-
 function StateRenderItem<T extends DropdownData>(item: T) {
   return (
     <View className='flex-row items-center gap-3 px-5' style={{ borderRadius: 14.5, height: 49.5 }}>
-      <InputIcon  Icon={MapsLocation01StrokeRoundedIcon}/>
+      <InputIcon Icon={MapsLocation01StrokeRoundedIcon} />
       <Medium className='text text-base'>{item.label}</Medium>
     </View>
   )
@@ -303,7 +301,7 @@ function StateRenderItem<T extends DropdownData>(item: T) {
 function CityRenderItem<T extends DropdownData>(item: T) {
   return (
     <View className='flex-row items-center gap-3 px-5' style={{ borderRadius: 14.5, height: 49.5 }}>
-      <InputIcon  Icon={City03StrokeRoundedIcon}/>
+      <InputIcon Icon={City03StrokeRoundedIcon} />
       <Medium className='text text-base'>{item.label}</Medium>
     </View>
   )

@@ -12,9 +12,7 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
-import { print } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
-import { useEffect } from 'react'
 import { Linking, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { Lottie } from '../components/Lottie'
@@ -28,10 +26,6 @@ export default function Notifications({ navigation }: NavProps) {
     queryKey: ['notificationsPage'],
     queryFn: api.notificationsPage,
   })
-
-  useEffect(() => {
-    print(data)
-  }, [])
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
 
@@ -69,7 +63,7 @@ export default function Notifications({ navigation }: NavProps) {
         }
       />
       <ScrollView
-        contentContainerClassName='pb-3 px-4 bg-white dark:bg-black '
+        contentContainerClassName='px-4 pt-2'
         refreshControl={
           <RefreshControl
             refreshing={isRefetchingByUser}
@@ -100,7 +94,7 @@ function Notification({ noti }: { noti: Notification }) {
         <NotificationIcon noti={noti} />
         <View className='shrink'>
           <Medium className='text flex-shrink text-sm'>{noti.body}</Medium>
-          <Medium className='text text-sm opacity-60'>{new Date(noti.createdAt || '').toLocaleString()} </Medium>
+          <Medium className='text text-sm opacity-60'>{new Date(noti.createdAt || '').toLocaleString()}</Medium>
         </View>
       </View>
     </TouchableOpacity>
@@ -131,7 +125,7 @@ export function Screen({ message, animation, name, size }: ScreenProps) {
       <BackHeader title={name} />
       <View className='items-center justify-center'>
         <Lottie size={size} source={animation} />
-        <Medium className='text text-center text-sm opacity-80'>{message} </Medium>
+        <Medium className='text text-center text-sm opacity-80'>{message}</Medium>
       </View>
       <View />
       <View />
