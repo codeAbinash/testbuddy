@@ -40,6 +40,8 @@ function profile() {
     email?: string
     state?: string
     city?: string
+    birthday?: string
+    bio?: string
   }
   return postApi<Profile>('profile')
 }

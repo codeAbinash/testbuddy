@@ -2,69 +2,50 @@ import popupStore from '@/zustand/popupStore'
 import {
   BirthdayCakeStrokeRoundedIcon,
   CheckmarkBadge01StrokeRoundedIcon,
-  City03StrokeRoundedIcon,
   Mail02StrokeRoundedIcon,
-  MapsLocation01StrokeRoundedIcon,
   PhysicsStrokeRoundedIcon,
   SmartPhone01StrokeRoundedIcon,
   StudentsStrokeRoundedIcon,
   UserStrokeRoundedIcon,
 } from '@assets/icons/icons'
 import Btn from '@components/Button'
-import DropdownExtended, { DropdownData } from '@components/DropdownExtended'
-import Input, { InputIcon } from '@components/Input'
+import DropdownExtended from '@components/DropdownExtended'
+import Input, { InputIcon, TouchableInput } from '@components/Input'
 import { KeyboardAvoidWithoutPadding } from '@components/KeyboardAvoidingContainer'
 import Label from '@components/Label'
 import { Loading } from '@components/Loading'
 import Press from '@components/Press'
 import { PaddingBottom } from '@components/SafePadding'
 import api from '@query/api'
+import { queryClient } from '@query/query'
+import { DateTimePickerAndroid, DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import BackHeader from '@screens/BackHeader'
 import { Std, Stream } from '@screens/utils'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
-import type { ColorScheme, NavProps } from '@utils/types'
+import type { NavProps } from '@utils/types'
+import { toLocalDateString } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
 import { useEffect, useState } from 'react'
 import { Pressable, ToastAndroid, View } from 'react-native'
 import colors from 'tailwindcss/colors'
+import { LocationSelector } from './components/LocationSelector'
 import ProfilePicture from './components/ProfilePicture'
-import { citySearch } from '@query/axios'
-import { queryClient } from '@query/query'
-
-async function searchAllStates() {
-  const states = (await (await citySearch.get('states/india')).data) as ({ state_name: string } & DropdownData)[]
-  for (const state of states) {
-    state.label = state.state_name
-    state.value = state.state_name
-  }
-  return states
-}
-
-async function searchCity(state: string) {
-  const cities = await (await citySearch.get(`cities/${state}`)).data
-  for (const city of cities) {
-    city.label = city.city_name
-    city.value = city.city_name
-  }
-  return cities
-}
 
 export default function EditProfile({ navigation }: NavProps) {
-  const { colorScheme } = useColorScheme()
-  const alert = popupStore((store) => store.alert)
-
   const [fName, setFName] = useState('')
   const [std, setStd] = useState('')
   const [stream, setStream] = useState('')
   const [email, setEmail] = useState('')
   const [mobile, setMobile] = useState('')
-  const [dob, setDob] = useState('')
+  const [dob, setDob] = useState<Date>()
   const [state, setState] = useState('')
   const [city, setCity] = useState('')
+  const { colorScheme } = useColorScheme()
+
+  const alert = popupStore((store) => store.alert)
 
   const { data: profile, isPending } = useQuery({ queryKey: ['profile'], queryFn: api.profile })
-  const { mutate: sendEmailOtp } = useMutation({ mutationKey: ['sendOtp', mobile], mutationFn: api.sendEmailOtp })
   const { mutate: updateProfile, isPending: isUpdating } = useMutation({
     mutationKey: ['updateProfile'],
     mutationFn: api.updateProfile,
@@ -79,12 +60,6 @@ export default function EditProfile({ navigation }: NavProps) {
       })
     },
   })
-
-  function handleSendOtp() {
-    const e = email.trim()
-    if (!e) return ToastAndroid.show('Please enter a valid email', ToastAndroid.SHORT)
-    sendEmailOtp({ email: e })
-  }
 
   function handleSubmit() {
     const finalName = fName.trim()
@@ -101,6 +76,7 @@ export default function EditProfile({ navigation }: NavProps) {
     if (finalEmail) updateObj.email = finalEmail
     if (state) updateObj.state = state
     if (city) updateObj.city = city
+    if (dob) updateObj.birthday = dob.toISOString()
     updateProfile(updateObj)
   }
 
@@ -113,8 +89,23 @@ export default function EditProfile({ navigation }: NavProps) {
       setEmail(profile.email || '')
       setState(profile.state || '')
       setCity(profile.city || '')
+      setDob(profile.birthday ? new Date(profile.birthday) : undefined)
     }
   }, [profile])
+
+  function handleDateSelect() {
+    DateTimePickerAndroid.open({
+      value: dob || new Date(),
+      mode: 'date',
+      display: 'default',
+      onChange: handleDateChange,
+    })
+  }
+  function handleDateChange(_event: DateTimePickerEvent, selectedDate?: Date) {
+    if (selectedDate) {
+      setDob(selectedDate)
+    }
+  }
 
   return (
     <>
@@ -187,20 +178,17 @@ export default function EditProfile({ navigation }: NavProps) {
                   autoComplete='email'
                   value={email}
                   onChangeText={setEmail}
-                  Right={
-                    profile?.emailVerified ? (
-                      <InputIcon Icon={CheckmarkBadge01StrokeRoundedIcon} iconProps={{ color: colors.green[500] }} />
-                    ) : (
-                      <Press onPress={handleSendOtp}>
-                        <Medium className='text-sm text-orange-500'>Verify</Medium>
-                      </Press>
-                    )
-                  }
+                  Right={<EmailRightComponent profile={profile} email={email} />}
                 />
               </View>
               <View>
                 <Label text='Date of Birth' />
-                <Input Left={<InputIcon Icon={BirthdayCakeStrokeRoundedIcon} />} placeholder='e.g. 01/01/2000' />
+                <TouchableInput
+                  Left={<InputIcon Icon={BirthdayCakeStrokeRoundedIcon} />}
+                  placeholder='e.g. 01/01/2000'
+                  value={dob ? toLocalDateString(dob) : ''}
+                  onPress={handleDateSelect}
+                />
               </View>
               <LocationSelector
                 state={state}
@@ -226,84 +214,25 @@ export default function EditProfile({ navigation }: NavProps) {
   )
 }
 
-type LocationSelectorProps = {
-  state: string
-  setState: (state: string) => void
-  city: string
-  setCity: (city: string) => void
-  colorScheme: ColorScheme
+type EmailRightComponentProps = {
+  profile: Awaited<ReturnType<typeof api.profile>> | undefined
+  email: string
 }
 
-function LocationSelector({ state, setState, city, setCity, colorScheme }: LocationSelectorProps) {
-  const [cities, setCities] = useState<DropdownData[]>([])
+function EmailRightComponent({ profile, email }: EmailRightComponentProps) {
+  const { mutate } = useMutation({ mutationKey: ['sendOtp', email], mutationFn: api.sendEmailOtp })
 
-  const { data: states } = useQuery({ queryKey: ['states'], queryFn: searchAllStates })
+  function sendEmailOtp() {
+    const e = email.trim()
+    if (!e) return ToastAndroid.show('Please enter a valid email', ToastAndroid.SHORT)
+    mutate({ email: e })
+  }
 
-  useEffect(() => {
-    if (state) {
-      searchCity(state).then((data) => {
-        setCities(data)
-      })
-    }
-  }, [state])
-  return (
-    <>
-      <View>
-        <Label text='State' />
-        <DropdownExtended
-          Left={<InputIcon Icon={MapsLocation01StrokeRoundedIcon} />}
-          placeholder='e.g. Maharashtra or West Bengal'
-          data={states || []}
-          labelField='label'
-          valueField='value'
-          value={state}
-          // maxHeight={400}
-          onChange={(item) => setState(item.value)}
-          colorScheme={colorScheme}
-          search
-          // dropdownPosition='top'
-          mode='modal'
-          autoScroll={false}
-          renderItem={StateRenderItem}
-        />
-      </View>
-      <View>
-        <Label text='City' />
-        <DropdownExtended
-          Left={<InputIcon Icon={City03StrokeRoundedIcon} />}
-          placeholder='e.g. Mumbai or Kolkata'
-          data={cities}
-          maxHeight={400}
-          labelField='label'
-          autoScroll={false}
-          valueField='value'
-          // dropdownPosition='top'
-          search
-          value={city}
-          onChange={(item) => setCity(item.value)}
-          colorScheme={colorScheme}
-          mode='modal'
-          renderItem={CityRenderItem}
-        />
-      </View>
-    </>
-  )
-}
-
-function StateRenderItem<T extends DropdownData>(item: T) {
-  return (
-    <View className='flex-row items-center gap-3 px-5' style={{ borderRadius: 14.5, height: 49.5 }}>
-      <InputIcon Icon={MapsLocation01StrokeRoundedIcon} />
-      <Medium className='text text-base'>{item.label}</Medium>
-    </View>
-  )
-}
-
-function CityRenderItem<T extends DropdownData>(item: T) {
-  return (
-    <View className='flex-row items-center gap-3 px-5' style={{ borderRadius: 14.5, height: 49.5 }}>
-      <InputIcon Icon={City03StrokeRoundedIcon} />
-      <Medium className='text text-base'>{item.label}</Medium>
-    </View>
+  return profile?.emailVerified ? (
+    <InputIcon Icon={CheckmarkBadge01StrokeRoundedIcon} iconProps={{ color: colors.green[500] }} />
+  ) : (
+    <Press onPress={sendEmailOtp}>
+      <Medium className='text-sm text-orange-500'>Verify</Medium>
+    </Press>
   )
 }

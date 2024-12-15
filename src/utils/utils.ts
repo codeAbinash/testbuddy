@@ -52,6 +52,10 @@ export function getLocalDate() {
   return new Date().toLocaleString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })
 }
 
+export function toLocalDateString(date: Date) {
+  return date.toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' })
+}
+
 export function getS(data: any) {
   return data > 1 ? 's' : ''
 }

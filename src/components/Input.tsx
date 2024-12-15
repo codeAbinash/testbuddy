@@ -1,7 +1,7 @@
 import { JosefinSansSemiBold } from '@utils/fonts'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
-import { TextInput, type TextInputProps, View } from 'react-native'
+import { TextInput, type TextInputProps, TouchableOpacity, View } from 'react-native'
 import type { SvgProps } from 'react-native-svg'
 import colors from 'tailwindcss/colors'
 
@@ -39,5 +39,13 @@ export function InputIcon({ Icon, iconProps }: InputIconProps) {
   const { colorScheme } = useColorScheme()
   return (
     <Icon height={23} width={23} color={colorScheme === 'dark' ? colors.zinc[400] : colors.zinc[600]} {...iconProps} />
+  )
+}
+
+export function TouchableInput({ Left, Right, onPress, ...rest }: InputProps) {
+  return (
+    <TouchableOpacity className='group' activeOpacity={0.7} onPress={onPress}>
+      <Input Left={Left} Right={Right} editable={false} {...rest} />
+    </TouchableOpacity>
   )
 }
