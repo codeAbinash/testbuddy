@@ -99,7 +99,7 @@ function Stream({ colorScheme: s, stream, navigation }: StreamProps) {
         icon={<ListIcon scheme={s} Icon={Mortarboard02Icon} />}
         title='Change Stream'
         subtitle={stream}
-        onPress={() => navigation.navigate('EditProfile')}
+        onPress={() => navigation.navigate('ChangeStream')}
       />
     </View>
   )

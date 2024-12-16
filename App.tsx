@@ -41,6 +41,7 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import ChangeStream from '@screens/Profile/ChangeStream'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -144,11 +145,13 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Settings' component={Settings} />
         <Stack.Screen name='EditProfile' component={EditProfile} />
         <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
+        <Stack.Screen name='ChangeStream' component={ChangeStream} options={IOS_BOTTOM_STYLE} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 export type RootStackParamList = {
+  ChangeStream: undefined
   EditProfile: undefined
   Settings: undefined
   Search: undefined
