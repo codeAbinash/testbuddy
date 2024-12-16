@@ -53,54 +53,56 @@ export default function ChangeStream({ navigation }: NavProps) {
   return (
     <>
       <StatusBar barStyle='default' />
-      <View className='flex-1 justify-between bg-white p-5 pb-3 dark:bg-zinc-950'>
-        <View>
+      <View className='flex-1 justify-between bg-white dark:bg-zinc-950'>
+        <View className='px-5 pt-5'>
           <View className='mx-auto h-1.5 w-28 justify-between rounded-full bg-zinc-200 dark:bg-zinc-800' />
           <SemiBold className='text mt-3 text-center text-lg'>Change Stream</SemiBold>
         </View>
         <View>
           <Lottie
             source={require('../../assets/animations/lottie/student.lottie')}
-            style={{ width: '100%', height: W * 0.75 }}
+            style={{ width: '100%', height: W * 0.9 }}
           />
-          <View className='gap-5'>
-            <View>
-              <Label text='Std' />
-              <DropdownExtended
-                Left={<InputIcon Icon={StudentsStrokeRoundedIcon} />}
-                placeholder='e.g. 11th or 12th or Dropper'
-                data={Std}
-                maxHeight={150}
-                labelField='label'
-                valueField='value'
-                value={std}
-                onChange={(item) => setStd(item.value)}
-                colorScheme={colorScheme}
-              />
+          <View className='p-5 pb-3'>
+            <View className='gap-5'>
+              <View>
+                <Label text='Std' />
+                <DropdownExtended
+                  Left={<InputIcon Icon={StudentsStrokeRoundedIcon} />}
+                  placeholder='e.g. 11th or 12th or Dropper'
+                  data={Std}
+                  maxHeight={150}
+                  labelField='label'
+                  valueField='value'
+                  value={std}
+                  onChange={(item) => setStd(item.value)}
+                  colorScheme={colorScheme}
+                />
+              </View>
+              <View>
+                <Label text='Stream' />
+                <DropdownExtended
+                  Left={<InputIcon Icon={PhysicsStrokeRoundedIcon} />}
+                  placeholder='e.g. Engineering or Medical'
+                  data={Stream}
+                  labelField='label'
+                  valueField='value'
+                  value={stream}
+                  onChange={(item) => setStream(item.value)}
+                  colorScheme={colorScheme}
+                />
+              </View>
             </View>
-            <View>
-              <Label text='Stream' />
-              <DropdownExtended
-                Left={<InputIcon Icon={PhysicsStrokeRoundedIcon} />}
-                placeholder='e.g. Engineering or Medical'
-                data={Stream}
-                labelField='label'
-                valueField='value'
-                value={stream}
-                onChange={(item) => setStream(item.value)}
-                colorScheme={colorScheme}
-              />
-            </View>
+            <Medium className='text mb-10 mt-10 text-center text-sm opacity-80'>
+              Change your stream to get the best content for your preparation. You can change your stream anytime.
+            </Medium>
+            <Btn
+              title={isPending || isUpdating ? 'Updating...' : 'Save Changes'}
+              onPress={handleSubmit}
+              disabled={isPending || isUpdating || !std || !stream}
+            />
           </View>
-          <Medium className='text mt-10 text-center text-sm opacity-80'>
-            Change your stream to get the best content for your preparation. You can change your stream anytime.
-          </Medium>
         </View>
-        <Btn
-          title={isPending || isUpdating ? 'Updating...' : 'Save Changes'}
-          onPress={handleSubmit}
-          disabled={isPending || isUpdating || !std || !stream}
-        />
       </View>
       <PaddingBottom />
     </>
