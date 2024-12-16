@@ -77,7 +77,7 @@ export default function Sidebar({ navigation }: { navigation: DrawerContentCompo
       <Stream colorScheme={colorScheme} stream={data?.stream} navigation={navigation} />
       <Tests colorScheme={colorScheme} />
       <MyProgress colorScheme={colorScheme} />
-      <Rewards colorScheme={colorScheme} />
+      <Rewards colorScheme={colorScheme} navigation={navigation} />
       <Settings colorScheme={colorScheme} />
       <AboutUs colorScheme={colorScheme} />
       <End colorScheme={colorScheme} />
@@ -143,12 +143,24 @@ function MyProgress({ colorScheme: s }: { colorScheme: ColorScheme }) {
   )
 }
 
-function Rewards({ colorScheme: s }: { colorScheme: ColorScheme }) {
+type RewardProps = {
+  colorScheme: ColorScheme
+  navigation: DrawerContentComponentProps['navigation']
+}
+function Rewards({ colorScheme: s, navigation }: RewardProps) {
   return (
     <View className='gap-0'>
       <Bold className='text mt-5 pb-2 text-lg'>Rewards</Bold>
-      <ListItem icon={<ListIcon Icon={Share02Icon} scheme={s} />} title='Refer a friend' />
-      <ListItem icon={<ListIcon Icon={GiftIcon} scheme={s} />} title='My Rewards' />
+      <ListItem
+        icon={<ListIcon Icon={Share02Icon} scheme={s} />}
+        title='Refer a friend'
+        onPress={() => navigation.navigate('Refer')}
+      />
+      <ListItem
+        icon={<ListIcon Icon={GiftIcon} scheme={s} />}
+        title='My Rewards'
+        onPress={() => navigation.navigate('MyRewards')}
+      />
     </View>
   )
 }

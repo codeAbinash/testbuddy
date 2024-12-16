@@ -26,7 +26,10 @@ import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Sidebar from '@screens/components/Sidebar'
 import Home from '@screens/Home'
 import Notifications from '@screens/Notifications'
+import ChangeStream from '@screens/Profile/ChangeStream'
 import EditProfile from '@screens/Profile/EditProfile'
+import MyRewards from '@screens/Rewards/MyRewards'
+import Refer from '@screens/Rewards/Refer'
 import Search from '@screens/Search'
 import Settings from '@screens/Settings'
 import Splash from '@screens/Splash'
@@ -41,7 +44,6 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import ChangeStream from '@screens/Profile/ChangeStream'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -146,11 +148,16 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='EditProfile' component={EditProfile} />
         <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
         <Stack.Screen name='ChangeStream' component={ChangeStream} options={IOS_BOTTOM_STYLE} />
+        <Stack.Screen name='Refer' component={Refer} />
+        <Stack.Screen name='MyRewards' component={MyRewards} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
+
 export type RootStackParamList = {
+  MyRewards: undefined
+  Refer: undefined
   ChangeStream: undefined
   EditProfile: undefined
   Settings: undefined
