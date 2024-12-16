@@ -88,7 +88,7 @@ function Notification({ noti }: { noti: Notification }) {
     <TouchableOpacity
       onPress={() => Linking.openURL(noti.redirectTo || '')}
       activeOpacity={0.8}
-      className='flex-shrink justify-center border border-x-0 border-t-0 border-b-zinc-200 px-2.5 py-4 dark:border-b-zinc-800'
+      className='flex-shrink justify-center border border-x-0 border-t-0 border-b-zinc-100 px-2.5 py-4 dark:border-b-zinc-900'
     >
       <View className='flex-row items-center gap-4'>
         <NotificationIcon noti={noti} />
@@ -106,7 +106,7 @@ function NotificationIcon({ noti }: { noti: Notification }) {
     case 'specific':
       return <Message01StrokeRoundedIcon color={colors.green[500]} height={25} width={25} />
     case 'group':
-      return <BubbleChatNotificationStrokeRoundedIcon color={colors.rose[500]} height={25} width={25} />
+      return <BubbleChatNotificationStrokeRoundedIcon color={colors.amber[500]} height={25} width={25} />
     case 'general':
       return <NotificationSquareStrokeRoundedIcon color={colors.blue[500]} height={25} width={25} />
   }
