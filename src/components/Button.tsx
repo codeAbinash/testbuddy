@@ -18,7 +18,7 @@ const Btn = React.memo(({ title, onPress, disabled, children, style, ...rest }: 
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
-      className='w-full bg-accent dark:bg-zinc-200'
+      className='w-full bg-accent dark:bg-zinc-100'
       style={[styles.container, { opacity: disabled ? 0.5 : 1 }, style]}
       disabled={disabled}
       {...rest}

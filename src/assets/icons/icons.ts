@@ -65,3 +65,4 @@ export { default as BirthdayCakeStrokeRoundedIcon } from '@icons/birthday-cake-s
 export { default as BubbleChatNotificationStrokeRoundedIcon } from '@icons/bubble-chat-notification-stroke-rounded.svg'
 export { default as Message01StrokeRoundedIcon } from '@icons/message-01-stroke-rounded.svg'
 export { default as NotificationSquareStrokeRoundedIcon } from '@icons/notification-square-stroke-rounded.svg'
+export { default as Share08StrokeRoundedIcon } from '@icons/share-08-stroke-rounded.svg'
