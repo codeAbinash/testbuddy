@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios'
 
 export const citySearch = axios.create({
   baseURL: 'https://www.universal-tutorial.com/api/',

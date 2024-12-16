@@ -1,5 +1,4 @@
 import popupStore from '@/zustand/popupStore'
-import Student from '@assets/animations/json/student.json'
 import { PhysicsStrokeRoundedIcon, StudentsStrokeRoundedIcon } from '@assets/icons/icons'
 import Btn from '@components/Button'
 import DropdownExtended from '@components/DropdownExtended'
@@ -32,7 +31,7 @@ export default function ChangeStream({ navigation }: NavProps) {
       if (!data) return alert('Failed', 'Failed to update profile. Please try again.')
       if (data.isAlert) return alert('Failed', data.message || 'Failed to update profile. Please try again.')
       if (!data.name) return alert('Failed', data.message || 'Something went wrong. Please try again.')
-      ToastAndroid.show('Profile updated successfully', ToastAndroid.SHORT)
+      ToastAndroid.show('Changes saved successfully', ToastAndroid.SHORT)
       navigation.goBack()
       queryClient.invalidateQueries({ queryKey: ['profile'] })
     },
@@ -57,10 +56,13 @@ export default function ChangeStream({ navigation }: NavProps) {
       <View className='flex-1 justify-between bg-white p-5 pb-3 dark:bg-zinc-950'>
         <View>
           <View className='mx-auto h-1.5 w-28 justify-between rounded-full bg-zinc-200 dark:bg-zinc-800' />
-          <SemiBold className='mt-5 text-center text-lg'>Change Stream</SemiBold>
+          <SemiBold className='text mt-3 text-center text-lg'>Change Stream</SemiBold>
         </View>
         <View>
-          <Lottie source={require('../../assets/animations/lottie/student.lottie')} style={{ width: '100%', height: W * 0.75 }} />
+          <Lottie
+            source={require('../../assets/animations/lottie/student.lottie')}
+            style={{ width: '100%', height: W * 0.75 }}
+          />
           <View className='gap-5'>
             <View>
               <Label text='Std' />
@@ -90,7 +92,7 @@ export default function ChangeStream({ navigation }: NavProps) {
               />
             </View>
           </View>
-          <Medium className='text mt-10 text-center text-sm'>
+          <Medium className='text mt-10 text-center text-sm opacity-80'>
             Change your stream to get the best content for your preparation. You can change your stream anytime.
           </Medium>
         </View>
