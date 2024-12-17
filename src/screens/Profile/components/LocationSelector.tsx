@@ -9,36 +9,35 @@ import { ColorScheme } from '@utils/types'
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 
+type State = { name: string; iso2: string; id: number } & DropdownData
 async function searchAllStates() {
-  const states = (await (await citySearch.get('states/india')).data) as ({ state_name: string } & DropdownData)[]
+  const states = (await (await citySearch.get('/countries/IN/states')).data) as State[]
   for (const state of states) {
-    state.label = state.state_name
-    state.value = state.state_name
+    state.label = state.name
+    state.value = state.name
   }
   return states
 }
 
+type City = { name: string } & DropdownData
 async function searchCity(state: string) {
-  const cities = await (await citySearch.get(`cities/${state}`)).data
+  const cities = (await (await citySearch.get(`/countries/IN/states/${state}/cities`)).data) as City[]
   for (const city of cities) {
-    city.label = city.city_name
-    city.value = city.city_name
+    city.label = city.name
+    city.value = city.name
   }
   return cities
 }
 
 export function LocationSelector({ state, setState, city, setCity, colorScheme }: LocationSelectorProps) {
   const [cities, setCities] = useState<DropdownData[]>([])
-
   const { data: states } = useQuery({ queryKey: ['states'], queryFn: searchAllStates })
 
   useEffect(() => {
-    if (state) {
-      searchCity(state).then((data) => {
-        setCities(data)
-      })
-    }
+    const stateCode = states?.find((s) => s.label === state)?.iso2
+    if (stateCode) searchCity(stateCode).then(setCities)
   }, [state])
+
   return (
     <>
       <View>
