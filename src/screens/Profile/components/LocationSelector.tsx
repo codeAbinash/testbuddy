@@ -34,9 +34,10 @@ export function LocationSelector({ state, setState, city, setCity, colorScheme }
   const { data: states } = useQuery({ queryKey: ['states'], queryFn: searchAllStates })
 
   useEffect(() => {
+    if (!state || !states) return
     const stateCode = states?.find((s) => s.label === state)?.iso2
     if (stateCode) searchCity(stateCode).then(setCities)
-  }, [state])
+  }, [state, states])
 
   return (
     <>
