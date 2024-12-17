@@ -24,6 +24,7 @@ import Register, { type RegisterParamList } from '@screens/Auth/Register'
 import VerifyEmail, { VerifyEmailParamList } from '@screens/Auth/VerifyEmail'
 import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Sidebar from '@screens/components/Sidebar'
+import Example from '@screens/Example'
 import Home from '@screens/Home'
 import Notifications from '@screens/Notifications'
 import ChangeStream from '@screens/Profile/ChangeStream'
@@ -34,7 +35,7 @@ import Search from '@screens/Search'
 import Settings from '@screens/Settings'
 import Splash from '@screens/Splash'
 import Streaks from '@screens/Streaks'
-import Test from '@screens/Test'
+import Test, { TestParamList } from '@screens/Test/Test'
 import Update, { type UpdateParamList } from '@screens/Update'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { H, W } from '@utils/dimensions'
@@ -139,7 +140,8 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='HomeDrawer' component={MyDrawer} options={SMOOTH_ANIMATION} />
         <Stack.Screen name='Login' component={Login} options={SMOOTH_ANIMATION} />
-        <Stack.Screen name='Test' component={Test} options={GestureEnabled} />
+        <Stack.Screen name='Example' component={Example} options={GestureEnabled} />
+        <Stack.Screen name='Test' component={Test} />
         <Stack.Screen name='Update' component={Update} />
         <Stack.Screen name='Notifications' component={Notifications} />
         <Stack.Screen name='Streaks' component={Streaks} />
@@ -165,7 +167,8 @@ export type RootStackParamList = {
   Streaks: undefined
   Notifications: undefined
   Update: UpdateParamList
-  Test: undefined
+  Test: TestParamList
+  Example: undefined
   VerifyEmail: VerifyEmailParamList
   VerifyOtp: OtpParamList
   HomeDrawer: undefined

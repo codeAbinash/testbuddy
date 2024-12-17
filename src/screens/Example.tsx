@@ -2,13 +2,11 @@ import { Mail02StrokeRoundedIcon } from '@assets/icons/icons'
 import Btn from '@components/Button'
 import Input, { InputIcon } from '@components/Input'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
-import { useColorScheme } from 'nativewind'
 import { useState } from 'react'
 import { Image, ScrollView, View } from 'react-native'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 
-export default function Test() {
-  const { colorScheme } = useColorScheme()
+export default function Example() {
   const [image, setImage] = useState<null | string>(null)
 
   function handlePress() {

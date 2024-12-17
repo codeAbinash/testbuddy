@@ -1,4 +1,4 @@
-import { setAuthToken } from '@query/index'
+import { setAuthToken } from '@query/exe'
 import { secureLs } from '@utils/storage'
 import { create } from 'zustand'
 

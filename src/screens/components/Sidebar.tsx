@@ -114,8 +114,8 @@ function Tests({ colorScheme: s }: { colorScheme: ColorScheme }) {
       {__DEV__ && (
         <ListItem
           icon={<ListIcon Icon={LicenseDraftIcon} scheme={s} />}
-          title='Test Screen'
-          onPress={() => navigation.navigate('Test')}
+          title='Example Screen'
+          onPress={() => navigation.navigate('Example')}
         />
       )}
       <ListItem icon={<ListIcon Icon={LicenseDraftIcon} scheme={s} />} title='JEE Mains PYQs' />
