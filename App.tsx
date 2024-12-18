@@ -140,7 +140,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='HomeDrawer' component={MyDrawer} options={SMOOTH_ANIMATION} />
         <Stack.Screen name='Login' component={Login} options={SMOOTH_ANIMATION} />
-        <Stack.Screen name='Example' component={Example} options={GestureEnabled} />
+        <Stack.Screen name='Example' component={Example} />
         <Stack.Screen name='Test' component={Test} />
         <Stack.Screen name='Update' component={Update} />
         <Stack.Screen name='Notifications' component={Notifications} />
