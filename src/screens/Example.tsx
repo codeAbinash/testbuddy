@@ -2,8 +2,7 @@ import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import { useColorScheme } from 'nativewind'
 import { useMemo } from 'react'
 import { ScrollView } from 'react-native'
-//@ts-ignore
-import MathJax from 'react-native-mathjax'
+import MathJax from './Test/MathJax'
 
 export default function Example() {
   const { colorScheme } = useColorScheme()
