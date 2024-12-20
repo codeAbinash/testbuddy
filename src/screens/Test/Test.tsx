@@ -66,14 +66,16 @@ export default function Test({ navigation, route }: TestProps) {
       />
       <ModalOptions open={open} isOpen={isOpen} />
       <ScrollView contentContainerClassName='px-5 py-3 gap-10 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
-        <View className='gap-5'>
+        <View>
           {<Math colorScheme={colorScheme} html={qn} />}
           <Math colorScheme={colorScheme} html={op1} />
           <Math colorScheme={colorScheme} html={op2} />
           <Math colorScheme={colorScheme} html={op3} />
           <Math colorScheme={colorScheme} html={op4} />
-          <Btn title='Prev' onPress={() => setQnNo((prev) => prev - 1)} />
-          <Btn title='Next' onPress={() => setQnNo((prev) => prev + 1)} />
+          <View className='gap-5'>
+            <Btn title='Prev' onPress={() => setQnNo((prev) => prev - 1)} />
+            <Btn title='Next' onPress={() => setQnNo((prev) => prev + 1)} />
+          </View>
         </View>
         <PaddingBottom />
       </ScrollView>

@@ -25,6 +25,11 @@ export const css = `
     min-height: 100px;
   }
   * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 1rem;
+    line-height: 1.5rem;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
@@ -45,11 +50,11 @@ const defaultOptions = {
   jax: ['input/TeX', 'output/HTML-CSS'],
   tex2jax: {
     inlineMath: [
-      ['$', '$'],
+      ['$$', '$$'],
       ['\\(', '\\)'],
     ],
     displayMath: [
-      ['$$', '$$'],
+      ['$', '$'],
       ['\\[', '\\]'],
     ],
     processEscapes: true,
