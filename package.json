@@ -19,7 +19,6 @@
     "prettier:fix": "prettier --write ."
   },
   "dependencies": {
-    "@expensify/react-native-live-markdown": "^0.1.210",
     "@react-native-community/datetimepicker": "^8.2.0",
     "@react-native-community/netinfo": "^11.4.1",
     "@react-navigation/bottom-tabs": "^7.1.3",
