@@ -20,18 +20,16 @@ const MathJax = memo<MathJaxProps>(({ html, mathJaxOptions, colorScheme, ...rest
 
   return (
     <Animated.View style={style}>
-      {html && (
-        <WebView
-          scrollEnabled={false}
-          onMessage={handleMessage}
-          source={{ html: wrappedHtml }}
-          style={{ backgroundColor: colorScheme === 'dark' ? 'black' : colors.zinc[50] }}
-          overScrollMode='never'
-          scalesPageToFit={true}
-          bounces={false}
-          {...rest}
-        />
-      )}
+      <WebView
+        scrollEnabled={false}
+        onMessage={handleMessage}
+        source={{ html: wrappedHtml }}
+        style={{ backgroundColor: colorScheme === 'dark' ? 'black' : colors.zinc[50] }}
+        overScrollMode='never'
+        scalesPageToFit={true}
+        bounces={false}
+        {...rest}
+      />
     </Animated.View>
   )
 })

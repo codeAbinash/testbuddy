@@ -20,19 +20,17 @@ export const css = `
   }
   img {
     width: 100%;
-    height: auto;
     object-fit: contain;
     min-height: 100px;
   }
-  * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-size: 1rem;
+  body{
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  *{
+    font-size: 1.03rem;
     line-height: 1.5rem;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
+    user-select: none;
   }
 </style>`
 

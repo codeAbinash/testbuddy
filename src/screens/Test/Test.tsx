@@ -6,7 +6,7 @@ import BackHeader from '@screens/BackHeader'
 import { useQuery } from '@tanstack/react-query'
 import type { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { ModalOptions } from './Components/ModalOptions'
@@ -26,15 +26,16 @@ type TestProps = {
   navigation: StackNav
 }
 
-// const useQuestion = (data: any, qnNo: number) => {
-//   const [qn, setQn] = useState('')
-//   useEffect(() => {
-//     setQn('')
-//     const timer = setTimeout(() => setQn(data?.test.sections[0]?.questions[qnNo]?.questionContent || ''), 0)
-//     return () => clearTimeout(timer)
-//   }, [qnNo, data])
-//   return [qn as string, setQn]
-// }
+function useAllQn(data: any) {
+  return useMemo(
+    () => [
+      ...(data?.test.sections[0]?.questions || []),
+      ...(data?.test.sections[1]?.questions || []),
+      ...(data?.test.sections[2]?.questions || []),
+    ],
+    [data],
+  )
+}
 
 export default function Test({ navigation, route }: TestProps) {
   const { colorScheme } = useColorScheme()
@@ -47,15 +48,21 @@ export default function Test({ navigation, route }: TestProps) {
   })
 
   const [qnNo, setQnNo] = useState(0)
-  // const qn = useMemo(() => data?.test.sections[0]?.questions[qnNo]?.questionContent, [data, qnNo])
-  // const qn = data?.test.sections[0]?.questions[qnNo]?.questionContent
+  const allQn = useAllQn(data)
 
-  // const [qn] = useQuestion(data, qnNo) as [string]
-  const qn = data?.test.sections[0]?.questions[qnNo]?.questionContent || ''
-  const op1 = data?.test.sections[0]?.questions[qnNo]?.options[0]?.content || ''
-  const op2 = data?.test.sections[0]?.questions[qnNo]?.options[1]?.content || ''
-  const op3 = data?.test.sections[0]?.questions[qnNo]?.options[2]?.content || ''
-  const op4 = data?.test.sections[0]?.questions[qnNo]?.options[3]?.content || ''
+  const qn = allQn[qnNo]?.questionContent
+  const op1 = allQn[qnNo]?.options[0]?.content
+  const op2 = allQn[qnNo]?.options[1]?.content
+  const op3 = allQn[qnNo]?.options[2]?.content
+  const op4 = allQn[qnNo]?.options[3]?.content
+
+  function handleNext() {
+    setQnNo((prevQnNo) => (prevQnNo + 1) % allQn.length)
+  }
+
+  function handlePrev() {
+    setQnNo((prevQnNo) => (prevQnNo - 1 + allQn.length) % allQn.length)
+  }
 
   return (
     <>
@@ -65,17 +72,17 @@ export default function Test({ navigation, route }: TestProps) {
         Right={<MoreOption colorScheme={colorScheme} onPress={() => isOpen(true)} />}
       />
       <ModalOptions open={open} isOpen={isOpen} />
-      <ScrollView contentContainerClassName='px-5 py-3 gap-10 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
-        <View>
+      <ScrollView contentContainerClassName='py-3 gap-5 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
+        <View className='px-3'>
           {<Math colorScheme={colorScheme} html={qn} />}
           <Math colorScheme={colorScheme} html={op1} />
           <Math colorScheme={colorScheme} html={op2} />
           <Math colorScheme={colorScheme} html={op3} />
           <Math colorScheme={colorScheme} html={op4} />
-          <View className='gap-5'>
-            <Btn title='Prev' onPress={() => setQnNo((prev) => prev - 1)} />
-            <Btn title='Next' onPress={() => setQnNo((prev) => prev + 1)} />
-          </View>
+        </View>
+        <View className='gap-5 px-5'>
+          <Btn title='Prev' onPress={handlePrev} />
+          <Btn title='Next' onPress={handleNext} />
         </View>
         <PaddingBottom />
       </ScrollView>
