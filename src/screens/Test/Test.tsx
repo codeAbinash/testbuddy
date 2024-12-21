@@ -1,19 +1,20 @@
-import { Clock01Icon } from '@assets/icons/icons'
+import { ArrowLeft01StrokeRoundedIcon } from '@assets/icons/icons'
 import { SmallBtn } from '@components/Button'
-import { PaddingBottom } from '@components/SafePadding'
+import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import api from '@query/api'
 import { RouteProp } from '@react-navigation/native'
-import BackHeader from '@screens/BackHeader'
 import { useQuery } from '@tanstack/react-query'
-import { Medium } from '@utils/fonts'
-import type { StackNav } from '@utils/types'
+import { SemiBold } from '@utils/fonts'
+import type { ColorScheme, StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { useMemo, useState } from 'react'
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import colors from 'tailwindcss/colors'
 import { ModalOptions } from './Components/ModalOptions'
 import { MoreOption } from './Components/MoreOption'
+import { QuestionHeading } from './Components/QuestionHeading'
+import { SectionDetails } from './Components/SectionDetails'
 import Math from './Math/MathJax'
 
 type ParamList = {
@@ -69,11 +70,7 @@ export default function Test({ navigation, route }: TestProps) {
 
   return (
     <>
-      <BackHeader
-        title={data?.test.testTitle || 'Loading...'}
-        navigation={navigation}
-        Right={<MoreOption colorScheme={colorScheme} onPress={() => isOpen(true)} />}
-      />
+      <Header navigation={navigation} data={data} colorScheme={colorScheme} isOpen={isOpen} />
       <ModalOptions open={open} isOpen={isOpen} />
       <SectionDetails qnNo={qnNo} allQn={allQn} />
       <ScrollView contentContainerClassName='py-3 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
@@ -98,29 +95,45 @@ export default function Test({ navigation, route }: TestProps) {
   )
 }
 
-function QuestionHeading({ qnNo, allQn }: { qnNo: number; allQn: any }) {
+function Header({
+  navigation,
+  data,
+  colorScheme,
+  isOpen,
+}: {
+  navigation: StackNav
+  data: any
+  colorScheme: ColorScheme
+  isOpen: (open: boolean) => void
+}) {
   return (
-    <View className='flex-row justify-between px-6'>
-      <Medium className='text text-sm'>
-        Question: {qnNo + 1}
-        {'  '}|{'  '}Marks: <Medium className='text-green-500'>+{allQn[qnNo]?.marks}</Medium>{' '}
-        <Medium className='text-red-500'>-{allQn[qnNo]?.negMarks}</Medium>
-      </Medium>
-      <View className='flex-row items-center justify-center gap-1.5'>
-        <Clock01Icon width={14} height={14} color={colors.zinc[500]} />
-        <Medium className='text mb-0.5 text-sm'>05:01:05</Medium>
+    <View className='bg-white dark:bg-zinc-950'>
+      <PaddingTop />
+      <View className='flex-row items-center' style={{ gap: 10 }}>
+        <TouchableOpacity className='p-2 pb-2.5 pr-0' onPress={() => navigation.goBack()} activeOpacity={0.7}>
+          <ArrowLeft01StrokeRoundedIcon
+            width={26}
+            height={26}
+            color={colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]}
+          />
+        </TouchableOpacity>
+        <View className='flex-1 flex-col'>
+          <View className='flex-row justify-between gap-1'>
+            <SemiBold
+              style={{ fontSize: 11, flex: 1, lineHeight: 16 }}
+              className='-mt-0.5 text-zinc-800 dark:text-zinc-200'
+              numberOfLines={2}
+            >
+              {data?.test.testTitle || 'Loading...'}{' '}
+              <SemiBold className='capitalize text-zinc-500'>({data?.test.language})</SemiBold>
+            </SemiBold>
+            <View className='justify-center'>
+              <SmallBtn title='Submit' style={{ paddingHorizontal: 16, paddingVertical: 4.5, borderRadius: 10 }} />
+            </View>
+          </View>
+        </View>
+        <MoreOption colorScheme={colorScheme} onPress={() => isOpen(true)} />
       </View>
-    </View>
-  )
-}
-
-function SectionDetails({ qnNo, allQn }: { qnNo: number; allQn: any }) {
-  return (
-    <View className='flex-row items-center justify-between bg-white px-5 pb-2 dark:bg-zinc-950'>
-      <Medium className='text text-sm capitalize'>
-        Section {allQn[qnNo]?.section}: {allQn[qnNo]?.subject} | Attempted 5/90
-      </Medium>
-      <SmallBtn title='Submit' style={{ paddingHorizontal: 17, paddingVertical: 5, borderRadius: 8 }}></SmallBtn>
     </View>
   )
 }
