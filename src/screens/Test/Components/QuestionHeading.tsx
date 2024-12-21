@@ -1,20 +1,29 @@
 import { Clock01Icon } from '@assets/icons/icons'
-import { Medium } from '@utils/fonts'
+import { Medium, SemiBold } from '@utils/fonts'
+import { ColorScheme } from '@utils/types'
 import { View } from 'react-native'
 import colors from 'tailwindcss/colors'
+import { Question } from '../types'
 
-export function QuestionHeading({ qnNo, allQn }: { qnNo: number; allQn: any }) {
+type QuestionHeadingProps = {
+  qnNo: number
+  allQn: Question[]
+  colorScheme: ColorScheme
+}
+
+export function QuestionHeading({ qnNo, allQn, colorScheme }: QuestionHeadingProps) {
   return (
     <View className='flex-row justify-between px-6'>
       <Medium className='text text-sm'>
         Question: {qnNo + 1}
-        {'  '}|{'  '}Marks: <Medium className='text-green-500'>+{allQn[qnNo]?.marks}</Medium>{' '}
-        <Medium className='text-red-500'>-{allQn[qnNo]?.negMarks}</Medium>
+        {'  '}|{'  '}Marks: <Medium className='text-green-600 dark:text-green-500'>+{allQn[qnNo]?.marks}</Medium>{' '}
+        <Medium className='text-rose-500'>-{allQn[qnNo]?.negMarks}</Medium>
       </Medium>
-
-      <View className='flex-row items-center justify-center gap-1.5'>
-        <Clock01Icon width={14} height={14} color={colors.zinc[500]} />
-        <Medium className='text mb-0.5 text-sm'>05:01:05</Medium>
+      <View className='flex-row items-center gap-1 opacity-80'>
+        <Clock01Icon width={13} height={13} color={colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]} />
+        <SemiBold className='text mb-1 gap-5 text-sm' style={{ fontSize: 12, fontVariant: ['tabular-nums'] }}>
+          02m 12s
+        </SemiBold>
       </View>
     </View>
   )

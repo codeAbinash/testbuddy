@@ -111,62 +111,62 @@ function updateProfilePic(data: FormData) {
 
 function startTest(data: { testId: string }) {
   type Test = {
-    completed: boolean
-    status: string
-    test: TestClass
-    testSeriesId: string
-    resumeEnabled: boolean
-    currQuestion: string
-    totalTimeCompleted: number
-    totalTimeLeft: number
+    completed?: boolean
+    status?: string
+    test?: TestClass
+    testSeriesId?: string
+    resumeEnabled?: boolean
+    currQuestion?: string
+    totalTimeCompleted?: number
+    totalTimeLeft?: number
   }
 
   type TestClass = {
-    _id: string
-    exam: string
-    testTitle: string
-    testName: string
-    testDescription: string
-    qCount: number
-    attemptTime: number
-    maxMarks: number
-    subjects: string[]
-    language: string
-    instructions: string
-    sectionPartition: boolean
-    sections: Section[]
+    _id?: string
+    exam?: string
+    testTitle?: string
+    testName?: string
+    testDescription?: string
+    qCount?: number
+    attemptTime?: number
+    maxMarks?: number
+    subjects?: string[]
+    language?: string
+    instructions?: string
+    sectionPartition?: boolean
+    sections?: Section[]
   }
 
   type Section = {
-    qCount: number
-    questions: Question[]
-    subject: string
-    _id: string
+    qCount?: number
+    questions?: Question[]
+    subject?: string
+    _id?: string
   }
 
   type Question = {
-    _id: string
-    questionKey: string
-    language: string
-    questionType: string
-    section: string
-    questionContent: string
-    options: Option[]
-    marks: number
-    negMarks: number
-    isPartialMarks: boolean
-    subject: string
-    paperTitle: string
-    questionId: string
-    marked: boolean
-    visited: boolean
-    totalTimeSpent: number
-    isBookMarked: boolean
+    _id?: string
+    questionKey?: string
+    language?: string
+    questionType?: string
+    section?: string
+    questionContent?: string
+    options?: Option[]
+    marks?: number
+    negMarks?: number
+    isPartialMarks?: boolean
+    subject?: string
+    paperTitle?: string
+    questionId?: string
+    marked?: boolean
+    visited?: boolean
+    totalTimeSpent?: number
+    isBookMarked?: boolean
   }
 
   type Option = {
-    option: string
-    content: string
+    option?: string
+    content?: string
   }
 
   return postApi<Test>('test/start', data)

@@ -6,7 +6,7 @@ import colors from 'tailwindcss/colors'
 
 export function MoreOption({ colorScheme, ...rest }: { colorScheme: ColorScheme } & TouchableOpacityProps) {
   return (
-    <Press {...rest} className='p-2 pr-4'>
+    <Press {...rest} className='p-2 pr-5'>
       <More03Icon width={22} height={22} color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
     </Press>
   )

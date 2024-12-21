@@ -72,7 +72,7 @@ export const SmallBtn = React.memo(({ title, onPress, children, style, variant =
       activeOpacity={0.7}
       onPress={onPress}
       className={`flex items-center justify-center ${bg}`}
-      style={[{ borderRadius: 12, paddingVertical: 11 }, style]}
+      style={[{ borderRadius: 11, paddingVertical: 10 }, style]}
     >
       <SemiBold style={[{ fontSize: 11.5 }]} className={`mb-1 text-center ${color}`}>
         {title}
