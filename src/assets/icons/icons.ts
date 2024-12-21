@@ -67,3 +67,5 @@ export { default as Message01StrokeRoundedIcon } from '@icons/message-01-stroke-
 export { default as NotificationSquareStrokeRoundedIcon } from '@icons/notification-square-stroke-rounded.svg'
 export { default as Share08StrokeRoundedIcon } from '@icons/share-08-stroke-rounded.svg'
 export { default as More03Icon } from '@icons/more-03-solid-rounded.svg'
+export { default as Clock01Icon } from '@icons/clock-01-solid-rounded.svg'
+

@@ -49,3 +49,35 @@ export const BtnTransparent = React.memo(({ title, onPress, children, style }: B
     </TouchableOpacity>
   )
 })
+
+type SmallBtnProps = ButtonProps & {
+  variant?: 'primary' | 'secondary'
+}
+
+const SmallBtnBgClassName = {
+  primary: 'bg-accent dark:bg-zinc-100',
+  secondary: 'bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800',
+}
+
+const SmallBtnTextClassName = {
+  primary: 'text-white dark:text-zinc-800',
+  secondary: 'text-accent dark:text-white',
+}
+
+export const SmallBtn = React.memo(({ title, onPress, children, style, variant = 'primary' }: SmallBtnProps) => {
+  const bg = SmallBtnBgClassName[variant]
+  const color = SmallBtnTextClassName[variant]
+  return (
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={onPress}
+      className={`flex items-center justify-center ${bg}`}
+      style={[{ borderRadius: 12, paddingVertical: 11 }, style]}
+    >
+      <SemiBold style={[{ fontSize: 11.5 }]} className={`mb-1 text-center ${color}`}>
+        {title}
+      </SemiBold>
+      {children}
+    </TouchableOpacity>
+  )
+})
