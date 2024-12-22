@@ -35,6 +35,7 @@ import Search from '@screens/Search'
 import Settings from '@screens/Settings'
 import Splash from '@screens/Splash'
 import Streaks from '@screens/Streaks'
+import Instructions from '@screens/Test/Instructions'
 import Test, { TestParamList } from '@screens/Test/Test'
 import Update, { type UpdateParamList } from '@screens/Update'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -152,12 +153,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='ChangeStream' component={ChangeStream} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='Refer' component={Refer} />
         <Stack.Screen name='MyRewards' component={MyRewards} />
+        <Stack.Screen name='Instructions' component={Instructions} options={IOS_BOTTOM_STYLE} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  Instructions: undefined
   MyRewards: undefined
   Refer: undefined
   ChangeStream: undefined

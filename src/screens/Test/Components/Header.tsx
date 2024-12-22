@@ -6,17 +6,18 @@ import { ColorScheme, StackNav } from '@utils/types'
 import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
-import { Test } from '../types'
 import { MoreOption } from './MoreOption'
+import testStore from '../zustand/testStore'
 
 type HeaderProps = {
   navigation: StackNav
-  data: Test
   colorScheme: ColorScheme
   isOpen: (open: boolean) => void
 }
 
-export const Header = React.memo<HeaderProps>(({ navigation, data, colorScheme, isOpen }) => {
+export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, isOpen }) => {
+  const data = testStore((store) => store.testData)
+
   return (
     <View className='bg-white dark:bg-zinc-950'>
       <PaddingTop />
@@ -36,7 +37,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, data, colorScheme, 
               numberOfLines={2}
             >
               {data?.test?.testTitle || 'Loading...'}{' '}
-              <SemiBold className='capitalize dark:text-zinc-400 text-zinc-500'>({data?.test?.language})</SemiBold>
+              <SemiBold className='capitalize text-zinc-500 dark:text-zinc-400'>({data?.test?.language})</SemiBold>
             </SemiBold>
             <View className='justify-center'>
               <SmallBtn title='Submit' style={{ paddingHorizontal: 17, paddingVertical: 5, borderRadius: 9 }} />

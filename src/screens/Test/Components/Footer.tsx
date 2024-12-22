@@ -3,18 +3,19 @@ import { PaddingBottom } from '@components/SafePadding'
 import { ColorScheme } from '@utils/types'
 import React from 'react'
 import { View } from 'react-native'
-import { Question } from '../types'
+import currentQnStore from '../zustand/currentQn'
+import testStore from '../zustand/testStore'
 import { SectionDetails } from './SectionDetails'
 
 type FooterProps = {
-  qnNo: number
-  allQn: Question[]
   colorScheme: ColorScheme
   handleNext: () => void
   handlePrev: () => void
 }
 
-export const Footer = React.memo<FooterProps>(({ qnNo, allQn, colorScheme, handleNext, handlePrev }) => {
+export const Footer = React.memo<FooterProps>(({ colorScheme, handleNext, handlePrev }) => {
+  const allQn = testStore((store) => store.allQn)
+  const qnNo = currentQnStore((store) => store.qnNo)
   return (
     <View
       className='border-gray-100 bg-white dark:border-zinc-800 dark:bg-zinc-950'

@@ -12,8 +12,8 @@ export const css = `
     text-align: center !important;
     line-height: normal !important;
   }
-  .MuiDialogContent-root > div > ul{
-    margin: 10px !important;
+  ul {
+    padding-inline-start: 10px;
   }
   .MathJax_Display{
     font-size: 1.5em !important;
@@ -72,7 +72,6 @@ export function getWrappedHtml(content: string, scheme: ColorScheme) {
       body, html {
         background-color: ${scheme === 'light' ? colors.zinc[50] : 'black'};
         color: ${scheme === 'light' ? colors.zinc[900] : colors.zinc[50]};
-        padding: 10px;
         margin: 0;
       }
     </style>

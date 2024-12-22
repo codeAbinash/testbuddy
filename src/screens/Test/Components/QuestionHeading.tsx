@@ -4,7 +4,7 @@ import { ColorScheme } from '@utils/types'
 import React from 'react'
 import { View } from 'react-native'
 import colors from 'tailwindcss/colors'
-import { Question } from '../types'
+import { Question } from '../zustand/testStore'
 
 type QuestionHeadingProps = {
   qnNo: number

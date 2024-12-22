@@ -3,16 +3,15 @@ import { RouteProp } from '@react-navigation/native'
 import { useQuery } from '@tanstack/react-query'
 import type { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { useState } from 'react'
-import { View } from 'react-native'
+import { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Footer } from './Components/Footer'
 import { Header } from './Components/Header'
 import { ModalOptions } from './Components/ModalOptions'
 import { QuestionHeading } from './Components/QuestionHeading'
-import Math from './Math/MathJax'
-import useAllQn from './hooks/useAllQn'
-import { Question } from './types'
+import QuestionDisplayArea from './Components/QuestionDisplayArea'
+import currentQnStore from './zustand/currentQn'
+import testStore from './zustand/testStore'
 
 type ParamList = {
   Test: TestParamList
@@ -29,45 +28,39 @@ export default function Test({ navigation, route }: TestProps) {
   const { colorScheme } = useColorScheme()
   const { testId } = route.params
 
+  const setTestData = testStore((store) => store.setTestData)
+  const allQn = testStore((store) => store.allQn)
+  const qnNo = currentQnStore((store) => store.qnNo)
+  const setQnNo = currentQnStore((store) => store.setQnNo)
+
   const { data } = useQuery({
     queryKey: ['test', testId],
     queryFn: () => api.startTest({ testId }),
   })
 
-  const [open, isOpen] = useState(false)
-  const [qnNo, setQnNo] = useState(0)
-  const allQn: Question[] = data ? useAllQn(data) : []
+  useEffect(() => {
+    if (data) setTestData(data)
+  }, [data, setTestData])
 
-  const qn = allQn?.[qnNo]?.questionContent
-  const options = allQn?.[qnNo]?.options ?? []
-  const op1 = options[0]?.content ?? ''
-  const op2 = options[1]?.content ?? ''
-  const op3 = options[2]?.content ?? ''
-  const op4 = options[3]?.content ?? ''
+  const [open, isOpen] = useState(false)
 
   function handleNext() {
-    setQnNo((prevQnNo) => (prevQnNo + 1) % allQn.length)
+    setQnNo((qnNo + 1) % allQn.length)
   }
 
   function handlePrev() {
-    setQnNo((prevQnNo) => (prevQnNo - 1 + allQn.length) % allQn.length)
+    setQnNo((qnNo - 1 + allQn.length) % allQn.length)
   }
 
   return (
     <>
-      <Header navigation={navigation} data={data} colorScheme={colorScheme} isOpen={isOpen} />
-      <ModalOptions open={open} isOpen={isOpen} />
+      <Header navigation={navigation} colorScheme={colorScheme} isOpen={isOpen} />
+      <ModalOptions open={open} isOpen={isOpen} colorScheme={colorScheme} />
       <ScrollView contentContainerClassName='py-3 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
         <QuestionHeading qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />
-        <View className='px-3'>
-          {<Math colorScheme={colorScheme} html={qn} />}
-          <Math colorScheme={colorScheme} html={op1} />
-          <Math colorScheme={colorScheme} html={op2} />
-          <Math colorScheme={colorScheme} html={op3} />
-          <Math colorScheme={colorScheme} html={op4} />
-        </View>
+        <QuestionDisplayArea colorScheme={colorScheme} />
       </ScrollView>
-      <Footer qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} handleNext={handleNext} handlePrev={handlePrev} />
+      <Footer colorScheme={colorScheme} handleNext={handleNext} handlePrev={handlePrev} />
     </>
   )
 }
