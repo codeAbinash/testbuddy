@@ -14,7 +14,7 @@ type QuestionHeadingProps = {
 
 export const QuestionHeading = React.memo<QuestionHeadingProps>(({ qnNo, allQn, colorScheme }) => {
   return (
-    <View className='flex-row justify-between px-6'>
+    <View className='flex-row justify-between px-5'>
       <Medium className='text text-sm'>
         Question: {qnNo + 1}
         {'  '}|{'  '}Marks: <Medium className='text-green-600 dark:text-green-500'>+{allQn[qnNo]?.marks}</Medium>{' '}

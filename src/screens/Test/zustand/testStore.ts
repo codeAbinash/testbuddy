@@ -14,6 +14,7 @@ type TestStore = {
 
 const testStore = create<TestStore>((set) => ({
   testData: null,
+  allQn: [],
   setTestData: (test) => {
     set({
       testData: test,
@@ -24,9 +25,6 @@ const testStore = create<TestStore>((set) => ({
       ],
     })
   },
-  allQn: [],
 }))
-
-
 
 export default testStore

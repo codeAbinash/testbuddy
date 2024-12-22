@@ -20,7 +20,7 @@ export default function Instructions({ navigation }: NavProps) {
           <TopBar />
           <SemiBold className='text mb-2 mt-1 text-center text-lg'>Instructions</SemiBold>
         </View>
-        <ScrollView className='flex-1' contentContainerClassName='px-5 bg-zinc-50 py-5 dark:bg-black'>
+        <ScrollView className='flex-1' contentContainerClassName='px-5 bg-zinc-50 dark:bg-black'>
           <MathJax
             html={data?.test?.instructions}
             colorScheme={colorScheme}

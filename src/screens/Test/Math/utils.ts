@@ -73,6 +73,7 @@ export function getWrappedHtml(content: string, scheme: ColorScheme) {
         background-color: ${scheme === 'light' ? colors.zinc[50] : 'black'};
         color: ${scheme === 'light' ? colors.zinc[900] : colors.zinc[50]};
         margin: 0;
+        padding: 10px 0px;
       }
     </style>
     <script type="text/x-mathjax-config">
