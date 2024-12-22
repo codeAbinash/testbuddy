@@ -68,3 +68,5 @@ export { default as NotificationSquareStrokeRoundedIcon } from '@icons/notificat
 export { default as Share08StrokeRoundedIcon } from '@icons/share-08-stroke-rounded.svg'
 export { default as More03Icon } from '@icons/more-03-solid-rounded.svg'
 export { default as Clock01Icon } from '@icons/clock-01-solid-rounded.svg'
+export { default as GridViewIcon } from '@icons/grid-view-solid-rounded.svg'
+export { default as ListViewIcon } from '@icons/list-view-solid-rounded.svg'
