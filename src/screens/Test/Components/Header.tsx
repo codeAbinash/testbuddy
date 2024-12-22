@@ -3,10 +3,11 @@ import { SmallBtn } from '@components/Button'
 import { PaddingTop } from '@components/SafePadding'
 import { SemiBold } from '@utils/fonts'
 import { ColorScheme, StackNav } from '@utils/types'
+import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
-import { MoreOption } from './MoreOption'
 import { Test } from '../types'
+import { MoreOption } from './MoreOption'
 
 type HeaderProps = {
   navigation: StackNav
@@ -15,7 +16,7 @@ type HeaderProps = {
   isOpen: (open: boolean) => void
 }
 
-export function Header({ navigation, data, colorScheme, isOpen }: HeaderProps) {
+export const Header = React.memo<HeaderProps>(({ navigation, data, colorScheme, isOpen }) => {
   return (
     <View className='bg-white dark:bg-zinc-950'>
       <PaddingTop />
@@ -35,7 +36,7 @@ export function Header({ navigation, data, colorScheme, isOpen }: HeaderProps) {
               numberOfLines={2}
             >
               {data?.test?.testTitle || 'Loading...'}{' '}
-              <SemiBold className='capitalize text-zinc-500'>({data?.test?.language})</SemiBold>
+              <SemiBold className='capitalize dark:text-zinc-400 text-zinc-500'>({data?.test?.language})</SemiBold>
             </SemiBold>
             <View className='justify-center'>
               <SmallBtn title='Submit' style={{ paddingHorizontal: 17, paddingVertical: 5, borderRadius: 9 }} />
@@ -46,4 +47,4 @@ export function Header({ navigation, data, colorScheme, isOpen }: HeaderProps) {
       </View>
     </View>
   )
-}
+})

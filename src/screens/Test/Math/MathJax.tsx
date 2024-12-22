@@ -1,11 +1,11 @@
-import { memo, useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { WebView } from 'react-native-webview'
 import { WebViewEvent } from 'react-native-webview/lib/WebViewTypes'
 import colors from 'tailwindcss/colors'
 import { getWrappedHtml, MathJaxProps } from './utils'
 
-const MathJax = memo<MathJaxProps>(({ html, mathJaxOptions, colorScheme, ...rest }) => {
+const MathJax = React.memo<MathJaxProps>(({ html, mathJaxOptions, colorScheme, ...rest }) => {
   const height = useSharedValue(0)
   const wrappedHtml = useMemo(() => getWrappedHtml(html || '', colorScheme), [html, mathJaxOptions, colorScheme])
   const style = useAnimatedStyle(() => ({ height: height.value }), [height.value, html])

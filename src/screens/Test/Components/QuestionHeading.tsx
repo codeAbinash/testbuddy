@@ -1,6 +1,7 @@
 import { Clock01Icon } from '@assets/icons/icons'
 import { Medium, SemiBold } from '@utils/fonts'
 import { ColorScheme } from '@utils/types'
+import React from 'react'
 import { View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { Question } from '../types'
@@ -11,7 +12,7 @@ type QuestionHeadingProps = {
   colorScheme: ColorScheme
 }
 
-export function QuestionHeading({ qnNo, allQn, colorScheme }: QuestionHeadingProps) {
+export const QuestionHeading = React.memo<QuestionHeadingProps>(({ qnNo, allQn, colorScheme }) => {
   return (
     <View className='flex-row justify-between px-6'>
       <Medium className='text text-sm'>
@@ -27,4 +28,4 @@ export function QuestionHeading({ qnNo, allQn, colorScheme }: QuestionHeadingPro
       </View>
     </View>
   )
-}
+})

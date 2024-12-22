@@ -1,9 +1,10 @@
 import { SmallBtn } from '@components/Button'
 import { PaddingBottom } from '@components/SafePadding'
 import { ColorScheme } from '@utils/types'
+import React from 'react'
 import { View } from 'react-native'
-import { SectionDetails } from './SectionDetails'
 import { Question } from '../types'
+import { SectionDetails } from './SectionDetails'
 
 type FooterProps = {
   qnNo: number
@@ -13,7 +14,7 @@ type FooterProps = {
   handlePrev: () => void
 }
 
-export function Footer({ qnNo, allQn, colorScheme, handleNext, handlePrev }: FooterProps) {
+export const Footer = React.memo<FooterProps>(({ qnNo, allQn, colorScheme, handleNext, handlePrev }) => {
   return (
     <View
       className='border-gray-100 bg-white dark:border-zinc-800 dark:bg-zinc-950'
@@ -28,4 +29,4 @@ export function Footer({ qnNo, allQn, colorScheme, handleNext, handlePrev }: Foo
       <PaddingBottom />
     </View>
   )
-}
+})

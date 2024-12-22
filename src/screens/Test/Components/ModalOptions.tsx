@@ -1,10 +1,11 @@
-import { PaddingTop, PaddingBottom } from "@components/SafePadding";
-import { H } from "@utils/dimensions";
-import { Medium } from "@utils/fonts";
-import { View, Modal, TouchableOpacity, ScrollView, TouchableWithoutFeedback } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { PaddingBottom, PaddingTop } from '@components/SafePadding'
+import { H } from '@utils/dimensions'
+import { Medium } from '@utils/fonts'
+import React from 'react'
+import { Modal, ScrollView, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-export function ModalOptions({ open, isOpen }: { open: boolean; isOpen: (open: boolean) => void }) {
+export const ModalOptions = React.memo<{ open: boolean; isOpen: (open: boolean) => void }>(({ open, isOpen }) => {
   const { bottom, top } = useSafeAreaInsets()
   return (
     <View>
@@ -39,4 +40,4 @@ export function ModalOptions({ open, isOpen }: { open: boolean; isOpen: (open: b
       </Modal>
     </View>
   )
-}
+})
