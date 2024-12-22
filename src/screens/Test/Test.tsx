@@ -28,13 +28,13 @@ type TestProps = {
 export default function Test({ navigation, route }: TestProps) {
   const { colorScheme } = useColorScheme()
   const { testId } = route.params
-  const [open, isOpen] = useState(false)
 
   const { data } = useQuery({
     queryKey: ['test', testId],
     queryFn: () => api.startTest({ testId }),
   })
 
+  const [open, isOpen] = useState(false)
   const [qnNo, setQnNo] = useState(0)
   const allQn: Question[] = data ? useAllQn(data) : []
 
