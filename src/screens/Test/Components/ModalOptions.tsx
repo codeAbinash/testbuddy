@@ -18,11 +18,10 @@ type ModalOptionsProps = {
 
 export const ModalOptions = React.memo<ModalOptionsProps>(({ open, isOpen, colorScheme }) => {
   const { bottom, top } = useSafeAreaInsets()
-  if (!open) return null
   return (
     <View>
       <Modal
-        animationType='slide'
+        animationType='fade'
         transparent={true}
         visible={open}
         hardwareAccelerated
@@ -48,7 +47,7 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ open, isOpen, color
                 <QuestionInformation />
                 <GridViewQuestions />
                 <View className='p-3.5 pt-2'>
-                  <SmallBtn title='Submit Test' />
+                  <SmallBtn title='Submit Test' style={{ paddingVertical: 11 }} />
                 </View>
               </TouchableOpacity>
             </ScrollView>
