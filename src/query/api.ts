@@ -148,7 +148,7 @@ function startTest(data: { testId: string }) {
     _id?: string
     questionKey?: string
     language?: string
-    questionType?: string
+    questionType?: 'mcq' | 'numerical'
     section?: string
     questionContent?: string
     options?: Option[]

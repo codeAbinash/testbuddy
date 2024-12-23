@@ -1,3 +1,5 @@
+import Input from '@components/Input'
+import Label from '@components/Label'
 import { ColorScheme } from '@utils/types'
 import { View } from 'react-native'
 import MathJax from '../Math/MathJax'
@@ -9,6 +11,7 @@ export default function QuestionDisplayArea({ colorScheme }: { colorScheme: Colo
   const qnNo = currentQnStore((store) => store.qnNo)
 
   const qn = allQn?.[qnNo]?.questionContent
+  const qnType = allQn?.[qnNo]?.questionType
   const options = allQn?.[qnNo]?.options ?? []
   const op1 = options[0]?.content ?? ''
   const op2 = options[1]?.content ?? ''
@@ -18,10 +21,19 @@ export default function QuestionDisplayArea({ colorScheme }: { colorScheme: Colo
   return (
     <View className='px-5'>
       <MathJax colorScheme={colorScheme} html={qn} />
-      <MathJax colorScheme={colorScheme} html={op1} />
-      <MathJax colorScheme={colorScheme} html={op2} />
-      <MathJax colorScheme={colorScheme} html={op3} />
-      <MathJax colorScheme={colorScheme} html={op4} />
+      {qnType === 'mcq' ? (
+        <>
+          <MathJax colorScheme={colorScheme} html={op1} />
+          <MathJax colorScheme={colorScheme} html={op2} />
+          <MathJax colorScheme={colorScheme} html={op3} />
+          <MathJax colorScheme={colorScheme} html={op4} />
+        </>
+      ) : (
+        <View>
+          <Label text='Type your answer below' />
+          <Input placeholder='Type your answer here' keyboardType='numeric' />
+        </View>
+      )}
     </View>
   )
 }
