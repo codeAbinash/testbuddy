@@ -13,9 +13,9 @@ const SubjectGrid = React.memo<{ section: Section; start: number }>(({ section, 
     <View className='mb-4'>
       <SemiBold className='text px-0.5 text-sm capitalize'>{section.subject}</SemiBold>
       <View className='mt-2 flex-row flex-wrap justify-between gap-2.5'>
-        {section.questions?.map((_, i) => (
+        {section.questions?.map((qn, i) => (
           <Question
-            key={i}
+            key={qn.questionId}
             qnNo={start + i}
             isActive={qnNo === start + i}
             onPress={() => {
