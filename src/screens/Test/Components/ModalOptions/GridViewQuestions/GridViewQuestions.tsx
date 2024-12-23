@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
-import testStore from '../../zustand/testStore'
 import SubjectGrid from './SubjectGrid'
+import testStore from '@screens/Test/zustand/testStore'
 
 const GridViewQuestions = React.memo((props) => {
   const data = testStore((store) => store.testData)

@@ -5,11 +5,11 @@ import { ColorScheme } from '@utils/types'
 import React from 'react'
 import { Modal, ScrollView, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import modalStore from '../zustand/modalStore'
+import modalStore from '../../zustand/modalStore'
 import GridList from './GridList'
-import GridViewQuestions from './GridViewQuestions/GridViewQuestions'
 import QuestionInformation from './QuestionInformation'
 import ViewInstructions from './ViewInstructions'
+import GridViewQuestions from './GridViewQuestions/GridViewQuestions'
 
 type ModalOptionsProps = {
   colorScheme: ColorScheme
