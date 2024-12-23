@@ -7,17 +7,17 @@ import colors from 'tailwindcss/colors'
 
 type ViewInstructionsProps = {
   colorScheme: ColorScheme
-  isOpen: (open: boolean) => void
+  setOpen: (open: boolean) => void
 }
 
-export default function ViewInstructions({ colorScheme, isOpen }: ViewInstructionsProps) {
+export default function ViewInstructions({ colorScheme, setOpen }: ViewInstructionsProps) {
   const navigation = useNavigation<StackNav>()
   return (
     <TouchableOpacity
       className='w-full flex-row items-center justify-start px-4 py-2'
       activeOpacity={0.7}
       onPress={() => {
-        isOpen(false)
+        setOpen(false)
         navigation.navigate('Instructions')
       }}
     >

@@ -42,7 +42,6 @@ export default function Test({ navigation, route }: TestProps) {
     if (data) setTestData(data)
   }, [data, setTestData])
 
-  const [open, isOpen] = useState(false)
 
   function handleNext() {
     setQnNo((qnNo + 1) % allQn.length)
@@ -54,8 +53,8 @@ export default function Test({ navigation, route }: TestProps) {
 
   return (
     <>
-      <Header navigation={navigation} colorScheme={colorScheme} isOpen={isOpen} />
-      <ModalOptions open={open} isOpen={isOpen} colorScheme={colorScheme} />
+      <Header navigation={navigation} colorScheme={colorScheme}/>
+      <ModalOptions colorScheme={colorScheme} />
       <ScrollView contentContainerClassName='py-3 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
         <QuestionHeading qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />
         <QuestionDisplayArea colorScheme={colorScheme} />

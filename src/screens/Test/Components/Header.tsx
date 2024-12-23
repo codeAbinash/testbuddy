@@ -6,17 +6,18 @@ import { ColorScheme, StackNav } from '@utils/types'
 import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
+import modalStore from '../zustand/modalStore'
 import testStore from '../zustand/testStore'
 import { MoreOption } from './MoreOption'
 
 type HeaderProps = {
   navigation: StackNav
   colorScheme: ColorScheme
-  isOpen: (open: boolean) => void
 }
 
-export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, isOpen }) => {
+export const Header = React.memo<HeaderProps>(({ navigation, colorScheme }) => {
   const data = testStore((store) => store.testData)
+  const setOpen = modalStore((store) => store.setOpen)
 
   return (
     <View className='bg-white dark:bg-zinc-950'>
@@ -44,7 +45,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, isOpen
             </View>
           </View>
         </View>
-        <MoreOption colorScheme={colorScheme} onPress={() => isOpen(true)} />
+        <MoreOption colorScheme={colorScheme} onPress={() => setOpen(true)} />
       </View>
     </View>
   )
