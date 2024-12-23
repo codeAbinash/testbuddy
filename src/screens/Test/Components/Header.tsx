@@ -6,8 +6,8 @@ import { ColorScheme, StackNav } from '@utils/types'
 import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
-import { MoreOption } from './MoreOption'
 import testStore from '../zustand/testStore'
+import { MoreOption } from './MoreOption'
 
 type HeaderProps = {
   navigation: StackNav

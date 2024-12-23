@@ -6,7 +6,7 @@ import React from 'react'
 import { Modal, ScrollView, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import GridList from './GridList'
-import GridViewQuestions from './GridViewQuestions'
+import GridViewQuestions from './GridViewQuestions/GridViewQuestions'
 import QuestionInformation from './QuestionInformation'
 import ViewInstructions from './ViewInstructions'
 

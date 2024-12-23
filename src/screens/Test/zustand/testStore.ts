@@ -2,9 +2,8 @@ import api from '@query/api'
 import { create } from 'zustand'
 
 export type Test = Awaited<ReturnType<typeof api.startTest>> | undefined
-export type Question = NonNullable<
-  NonNullable<NonNullable<NonNullable<Test>['test']>['sections']>[number]['questions']
->[number]
+export type Section = NonNullable<NonNullable<NonNullable<Test>['test']>['sections']>[number]
+export type Question = NonNullable<Section['questions']>[number]
 
 type TestStore = {
   testData: Test | null

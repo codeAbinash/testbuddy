@@ -21,7 +21,7 @@ export const css = `
   img {
     width: 100%;
     object-fit: contain;
-    min-height: 100px;
+    min-height: 120px;
   }
   body{
     margin: 0 !important;
