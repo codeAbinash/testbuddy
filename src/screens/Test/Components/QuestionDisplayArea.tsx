@@ -54,9 +54,14 @@ function McqOptions({ colorScheme }: { colorScheme: ColorScheme }) {
   const selected = qn?.markedAnswer ? qn?.markedAnswer.charCodeAt(0) - 65 : -1
 
   function onSelect(i: number) {
-    const question = allQn?.[qnNo]
-    if (!question) return
-    question.markedAnswer = String.fromCharCode(65 + i)
+    if (!qn) return
+    qn.markedAnswer = String.fromCharCode(65 + i)
+    setAllQn([...allQn])
+  }
+
+  function clearSelection() {
+    if (!qn) return
+    qn.markedAnswer = ''
     setAllQn([...allQn])
   }
 
@@ -81,6 +86,9 @@ function McqOptions({ colorScheme }: { colorScheme: ColorScheme }) {
           </View>
         </TouchableOpacity>
       ))}
+      <TouchableOpacity className='mt-6' activeOpacity={0.6} onPress={clearSelection}>
+        <Medium className='text text-sm underline'>Clear selection</Medium>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -88,10 +96,7 @@ function McqOptions({ colorScheme }: { colorScheme: ColorScheme }) {
 function MultiCorrectOptions({ colorScheme }: { colorScheme: ColorScheme }) {
   const allQn = testStore((store) => store.allQn)
   const qnNo = currentQnStore((store) => store.qnNo)
-  const qnType = allQn?.[qnNo]?.questionType
   const options = allQn?.[qnNo]?.options ?? []
-
-  if (qnType !== 'multi-correct') return null
 
   return (
     <View>
