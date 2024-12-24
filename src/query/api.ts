@@ -148,7 +148,7 @@ function startTest(data: { testId: string }) {
     _id?: string
     questionKey?: string
     language?: string
-    questionType?: 'mcq' | 'numerical'
+    questionType?: 'mcq' | 'numerical' | 'multi-correct'
     section?: string
     questionContent?: string
     options?: Option[]
@@ -162,6 +162,7 @@ function startTest(data: { testId: string }) {
     visited?: boolean
     totalTimeSpent?: number
     isBookMarked?: boolean
+    markedAnswer?: string
   }
 
   type Option = {

@@ -63,7 +63,7 @@ export default function Test({ navigation, route }: TestProps) {
     }
     const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress)
     return () => backHandler.remove()
-  }, [])
+  }, [alert, navigation, clearTestData, setQnNo])
 
   function handleNext() {
     setQnNo((qnNo + 1) % allQn.length)

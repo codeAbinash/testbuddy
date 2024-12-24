@@ -53,7 +53,7 @@ export default function ProfilePicture({ picture, scheme }: { picture?: string; 
             blurRadius={isPending ? 10 : 0}
           />
           <Press
-            className='absolute rounded-full border border-transparent bg-white p-2.5 shadow dark:border-gray-800 dark:bg-zinc-900'
+            className='absolute rounded-full border border-transparent bg-white p-2.5 shadow dark:border-zinc-800 dark:bg-zinc-900'
             style={{ bottom: '5%', right: '1%' }}
             onPress={handlePress}
           >

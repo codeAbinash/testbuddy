@@ -18,7 +18,7 @@ export const Footer = React.memo<FooterProps>(({ colorScheme, handleNext, handle
   const qnNo = currentQnStore((store) => store.qnNo)
   return (
     <View
-      className='border-gray-100 bg-white dark:border-zinc-800 dark:bg-zinc-950'
+      className='border-zinc-100 bg-white dark:border-zinc-800 dark:bg-zinc-950'
       style={{ borderWidth: 0, borderTopWidth: 1 }}
     >
       <SectionDetails qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />

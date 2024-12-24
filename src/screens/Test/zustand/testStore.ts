@@ -9,6 +9,8 @@ type TestStore = {
   testData: Test | null
   setTestData: (test: Test) => void
   allQn: Question[]
+  setAllQn: (allQn: Question[]) => void
+  clearTestData: () => void
 }
 
 const testStore = create<TestStore>((set) => ({
@@ -24,6 +26,8 @@ const testStore = create<TestStore>((set) => ({
       ],
     })
   },
+  setAllQn: (allQn) => set({ allQn }),
+  clearTestData: () => set({ testData: null, allQn: [] }),
 }))
 
 export default testStore
