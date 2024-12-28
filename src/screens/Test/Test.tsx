@@ -51,7 +51,7 @@ export default function Test({ navigation, route }: TestProps) {
       alert('Exit test?', 'Do you want to exit the test?', [
         { text: 'Cancel' },
         {
-          text: 'YES',
+          text: 'Exit',
           onPress: () => {
             navigation.goBack()
             clearTestData()
