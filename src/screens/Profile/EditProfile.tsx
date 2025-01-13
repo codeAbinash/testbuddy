@@ -11,7 +11,7 @@ import {
 import Btn from '@components/Button'
 import DropdownExtended from '@components/DropdownExtended'
 import Input, { InputIcon, TouchableInput } from '@components/Input'
-import { KeyboardAvoidWithoutPadding } from '@components/KeyboardAvoidingContainer'
+import { KeyboardAvoid } from '@components/KeyboardAvoid'
 import Label from '@components/Label'
 import { Loading } from '@components/Loading'
 import Press from '@components/Press'
@@ -113,7 +113,7 @@ export default function EditProfile({ navigation }: NavProps) {
       {isPending ? (
         <Loading colorScheme={colorScheme} />
       ) : (
-        <KeyboardAvoidWithoutPadding>
+        <KeyboardAvoid>
           <View className='screen-bg flex-1 gap-5 px-5 py-3'>
             <ProfilePicture picture={profile?.profilePic} scheme={colorScheme} />
             <View className='gap-3'>
@@ -208,7 +208,7 @@ export default function EditProfile({ navigation }: NavProps) {
             </View>
             <PaddingBottom />
           </View>
-        </KeyboardAvoidWithoutPadding>
+        </KeyboardAvoid>
       )}
     </>
   )

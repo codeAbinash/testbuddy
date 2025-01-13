@@ -11,7 +11,7 @@ import {
 import Btn from '@components/Button'
 import DropdownExtended from '@components/DropdownExtended'
 import Input, { InputIcon } from '@components/Input'
-import { KeyboardAvoid } from '@components/KeyboardAvoidingContainer'
+import { KeyboardAvoid } from '@components/KeyboardAvoid'
 import Label from '@components/Label'
 import api from '@query/api'
 import type { RouteProp } from '@react-navigation/native'

@@ -1,8 +1,8 @@
+import NetInfo from '@react-native-community/netinfo'
 import { useFocusEffect } from '@react-navigation/native'
 import { focusManager, NotifyOnChangeProps, onlineManager, QueryClient } from '@tanstack/react-query'
 import React, { useEffect } from 'react'
-import { AppStateStatus, Platform, AppState } from 'react-native'
-import NetInfo from '@react-native-community/netinfo'
+import { AppState, AppStateStatus, Platform } from 'react-native'
 
 // Online Status Manager
 onlineManager.setEventListener((setOnline) => {
