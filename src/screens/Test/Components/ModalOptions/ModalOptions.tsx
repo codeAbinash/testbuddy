@@ -1,17 +1,20 @@
 import { SmallBtn } from '@components/Button'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
+import currentQnStore from '@screens/Test/zustand/currentQn'
+import testStore from '@screens/Test/zustand/testStore'
 import { H } from '@utils/dimensions'
+import { Medium } from '@utils/fonts'
 import { ColorScheme } from '@utils/types'
 import React from 'react'
 import { Modal, ScrollView, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import modalStore from '../../zustand/modalStore'
+import modalStore, { ViewMode } from '../../zustand/modalStore'
 import GridList from './GridList'
-import QuestionInformation from './QuestionInformation'
-import ViewInstructions from './ViewInstructions'
 import GridViewQuestions from './GridViewQuestions/GridViewQuestions'
+import Question from './GridViewQuestions/Question'
+import ViewInstructions from './ViewInstructions'
 
-type ModalOptionsProps = {
+export type ModalOptionsProps = {
   colorScheme: ColorScheme
 }
 
@@ -19,6 +22,9 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme }) => {
   const { bottom, top } = useSafeAreaInsets()
   const setOpen = modalStore((store) => store.setOpen)
   const open = modalStore((store) => store.open)
+  const viewMode = modalStore((store) => store.viewMode)
+
+  // const selected
   return (
     <View>
       <Modal
@@ -45,8 +51,8 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme }) => {
               <TouchableOpacity activeOpacity={1}>
                 <GridList colorScheme={colorScheme} />
                 <ViewInstructions colorScheme={colorScheme} setOpen={setOpen} />
-                <QuestionInformation />
-                <GridViewQuestions />
+                {viewMode === ViewMode.Grid ? <GridViewQuestions /> : <ListViewQuestions />}
+                {/* <GridViewQuestions /> */}
                 <View className='p-3.5 pt-2'>
                   <SmallBtn title='Submit Test' style={{ paddingVertical: 11 }} />
                 </View>
@@ -56,6 +62,36 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme }) => {
           <PaddingBottom />
         </TouchableOpacity>
       </Modal>
+    </View>
+  )
+})
+
+const ListViewQuestions = React.memo(() => {
+  const allQn = testStore((store) => store.allQn)
+  const { setQnNo, qnNo } = currentQnStore()
+  const setOpen = modalStore((store) => store.setOpen)
+  const qn = allQn[qnNo]
+
+  return (
+    <View className='px-4'>
+      {allQn.map((qn, i) => (
+        <View key={qn.questionId} className='flex-row items-center justify-between gap-4 border-b border-zinc-300 py-2'>
+          <Question
+            qnNo={i}
+            isActive={qnNo === i}
+            isBookmarked={qn.isBookMarked || false}
+            visited={qn.visited || false}
+            isAnswered={!!qn.markedAnswer}
+            onPress={() => {
+              setQnNo(i)
+              setOpen(false)
+            }}
+          />
+          <Medium numberOfLines={1} className='flex-shrink flex-grow-0 text-sm'>
+            {qn.questionContent ? qn.questionContent.trim() : ''}
+          </Medium>
+        </View>
+      ))}
     </View>
   )
 })
