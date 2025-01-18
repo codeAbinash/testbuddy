@@ -18,6 +18,7 @@ const SubjectGrid = React.memo<{ section: Section; start: number }>(({ section, 
             key={qn.questionId}
             qnNo={start + i}
             isActive={qnNo === start + i}
+            isBookmarked={qn.isBookMarked || false}
             onPress={() => {
               setOpen(false)
               setQnNo(start + i)

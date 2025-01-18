@@ -119,10 +119,7 @@ const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorSch
     (i: number) => {
       if (!qn) return
 
-      let markedAnswer: string[] = []
-      if (!qn.markedAnswer) markedAnswer = []
-      else markedAnswer = qn.markedAnswer.split(',')
-
+      let markedAnswer: string[] = qn.markedAnswer ? qn.markedAnswer.split(',') : []
       const char = String.fromCharCode(65 + i)
       const index = markedAnswer.indexOf(char)
       if (index === -1) markedAnswer.push(char)

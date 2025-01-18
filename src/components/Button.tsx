@@ -81,3 +81,19 @@ export const SmallBtn = React.memo(({ title, onPress, children, style, variant =
     </TouchableOpacity>
   )
 })
+
+export function ColoredSmallBtn({ title, onPress, children, style, color }: SmallBtnProps & { color: string }) {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={onPress}
+      className={`flex items-center justify-center`}
+      style={[{ borderRadius: 11, paddingVertical: 10, backgroundColor: color }, style]}
+    >
+      <SemiBold style={[{ fontSize: 11.5 }]} className={`mb-1 text-center text-white`}>
+        {title}
+      </SemiBold>
+      {children}
+    </TouchableOpacity>
+  )
+}
