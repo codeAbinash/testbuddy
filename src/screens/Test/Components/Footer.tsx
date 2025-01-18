@@ -2,7 +2,7 @@ import { ColoredSmallBtn, SmallBtn } from '@components/Button'
 import { PaddingBottom } from '@components/SafePadding'
 import { ColorScheme } from '@utils/types'
 import React, { useCallback } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
@@ -21,9 +21,8 @@ export const Footer = React.memo<FooterProps>(({ colorScheme, handleNext, handle
   const isBookmarked = allQn?.[qnNo]?.isBookMarked
 
   const toggleBookmark = useCallback(() => {
-    const question = allQn?.[qnNo]
-    if (!question) return
-    question.isBookMarked = !question.isBookMarked
+    if (!allQn[qnNo]) return
+    allQn[qnNo].isBookMarked = !allQn[qnNo].isBookMarked
     setAllQn([...allQn])
   }, [allQn, qnNo, setAllQn])
 
@@ -45,14 +44,4 @@ export const Footer = React.memo<FooterProps>(({ colorScheme, handleNext, handle
       <PaddingBottom />
     </View>
   )
-})
-
-const styles = StyleSheet.create({
-  red: {
-    backgroundColor: colors.red[500],
-    flex: 1,
-  },
-  normal: {
-    flex: 1,
-  },
 })

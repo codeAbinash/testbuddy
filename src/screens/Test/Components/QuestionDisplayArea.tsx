@@ -2,7 +2,7 @@ import Input from '@components/Input'
 import Label from '@components/Label'
 import { Medium } from '@utils/fonts'
 import { ColorScheme } from '@utils/types'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import MathJax from '../Math/MathJax'
 import currentQnStore from '../zustand/currentQn'
@@ -13,6 +13,13 @@ export default function QuestionDisplayArea({ colorScheme }: { colorScheme: Colo
   const qnNo = currentQnStore((store) => store.qnNo)
   const qn = allQn?.[qnNo]?.questionContent
   const qnType = allQn?.[qnNo]?.questionType
+  const setAllQn = testStore((store) => store.setAllQn)
+
+  useEffect(() => {
+    if (allQn[qnNo]) allQn[qnNo].visited = true
+    setAllQn([...allQn])
+  }, [qn])
+
   return (
     <View className='px-5 pb-14'>
       <MathJax colorScheme={colorScheme} html={qn} />
