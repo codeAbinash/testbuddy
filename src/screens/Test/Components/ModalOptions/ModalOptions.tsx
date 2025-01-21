@@ -52,7 +52,6 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme }) => {
                 <GridList colorScheme={colorScheme} />
                 <ViewInstructions colorScheme={colorScheme} setOpen={setOpen} />
                 {viewMode === ViewMode.Grid ? <GridViewQuestions /> : <ListViewQuestions />}
-                {/* <GridViewQuestions /> */}
                 <View className='p-3.5 pt-2'>
                   <SmallBtn title='Submit Test' style={{ paddingVertical: 11 }} />
                 </View>
@@ -70,12 +69,11 @@ const ListViewQuestions = React.memo(() => {
   const allQn = testStore((store) => store.allQn)
   const { setQnNo, qnNo } = currentQnStore()
   const setOpen = modalStore((store) => store.setOpen)
-  const qn = allQn[qnNo]
 
   return (
     <View className='px-4'>
       {allQn.map((qn, i) => (
-        <View key={qn.questionId} className='flex-row items-center justify-between gap-4 border-b border-zinc-300 py-2'>
+        <View key={qn.questionId} className='flex-row items-center justify-between gap-4 py-1.5'>
           <Question
             qnNo={i}
             isActive={qnNo === i}
@@ -87,7 +85,7 @@ const ListViewQuestions = React.memo(() => {
               setOpen(false)
             }}
           />
-          <Medium numberOfLines={1} className='flex-shrink flex-grow-0 text-sm'>
+          <Medium numberOfLines={1} className='text flex-shrink flex-grow-0 text-sm'>
             {qn.questionContent ? qn.questionContent.trim() : ''}
           </Medium>
         </View>
