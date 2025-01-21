@@ -37,14 +37,14 @@ export default function Test({ navigation, route }: TestProps) {
   const alert = popupStore((store) => store.alert)
   const clearTestData = testStore((store) => store.clearTestData)
 
-  const { data } = useQuery({
+  const { data, isSuccess } = useQuery({
     queryKey: ['test', testId],
     queryFn: () => api.startTest({ testId }),
   })
 
   useEffect(() => {
-    if (data) setTestData(data)
-  }, [data, setTestData])
+    if (isSuccess && data) setTestData(data)
+  }, [isSuccess])
 
   useEffect(() => {
     const onBackPress = () => {
@@ -73,7 +73,7 @@ export default function Test({ navigation, route }: TestProps) {
     setQnNo((qnNo - 1 + allQn.length) % allQn.length)
   }
 
-  return (
+return (
     <>
       <Header navigation={navigation} colorScheme={colorScheme} />
       <ModalOptions colorScheme={colorScheme} />
