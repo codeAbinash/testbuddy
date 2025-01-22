@@ -24,6 +24,7 @@ export const Footer = React.memo<FooterProps>(({ colorScheme, handleNext, handle
     if (!allQn[qnNo]) return
     allQn[qnNo].isBookMarked = !allQn[qnNo].isBookMarked
     setAllQn([...allQn])
+    console.log('TIME UPDATE')
   }, [allQn, qnNo, setAllQn])
 
   return (
