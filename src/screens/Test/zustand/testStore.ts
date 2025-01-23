@@ -8,6 +8,7 @@ export type Question = NonNullable<Section['questions']>[number]
 type TestStore = {
   testData: Test | null
   setTestData: (test: Test) => void
+  setTest: (test: Test) => void
   allQn: Question[]
   setAllQn: (allQn: Question[]) => void
   clearTestData: () => void
@@ -15,8 +16,9 @@ type TestStore = {
 
 const testStore = create<TestStore>((set) => ({
   testData: null,
+  setTestData: (test) => set({ testData: test }),
   allQn: [],
-  setTestData: (test) => {
+  setTest: (test) => {
     set({
       testData: test,
       allQn: [

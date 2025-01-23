@@ -20,6 +20,16 @@ export default function QuestionDisplayArea({ colorScheme }: { colorScheme: Colo
     if (!qn) return
     if (allQn[qnNo]) allQn[qnNo].visited = true
     setAllQn([...allQn])
+
+    // Update total time spent on question
+    const timer = setInterval(() => {
+      if (!allQn[qnNo]) return
+      allQn[qnNo].totalTimeSpent! += 1
+      setAllQn([...allQn])
+    }, 1000)
+
+    // Clear timer on question change
+    return () => clearInterval(timer)
   }, [qn])
 
   useEffect(() => {

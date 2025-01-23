@@ -1,5 +1,5 @@
-import { Medium } from '@utils/fonts'
-import { View } from 'react-native'
+import { Medium } from '@utils/fonts';
+import { View } from 'react-native';
 
 export default function QuestionInformation() {
   // const allQn = testStore((store) => store.allQn)
@@ -14,7 +14,7 @@ export default function QuestionInformation() {
         <SmallQuestion text='Not Attempted' bgCn='bg-zinc-500' />
         <SmallQuestion text='Answered' bgCn='bg-green-500' />
         <SmallQuestion text='Not Answered' bgCn='bg-orange-500' />
-        <SmallQuestion text='Marked for Review' bgCn='bg-rose-500' />
+        {/* <SmallQuestion text='Marked for Review' bgCn='bg-rose-500' /> */}
       </View>
     </View>
   )

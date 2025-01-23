@@ -30,7 +30,7 @@ export default function Test({ navigation, route }: TestProps) {
   const { colorScheme } = useColorScheme()
   const { testId } = route.params
 
-  const setTestData = testStore((store) => store.setTestData)
+  const setTest = testStore((store) => store.setTest)
   const allQn = testStore((store) => store.allQn)
   const qnNo = currentQnStore((store) => store.qnNo)
   const setQnNo = currentQnStore((store) => store.setQnNo)
@@ -43,7 +43,7 @@ export default function Test({ navigation, route }: TestProps) {
   })
 
   useEffect(() => {
-    if (isSuccess && data) setTestData(data)
+    if (isSuccess && data) setTest(data)
   }, [isSuccess])
 
   useEffect(() => {

@@ -169,3 +169,18 @@ export function getFirstName(name: string | undefined) {
   if (!name) return ''
   return name.split(' ')[0]
 }
+
+export function secToMinSec(seconds: number | undefined) {
+  if (!seconds) return ''
+  const minutes = Math.floor(seconds / 60)
+  const secs = seconds % 60
+  return `${minutes}m ${secs}s`
+}
+
+export function secToHrMinSec(seconds: number) {
+  if (!seconds) return ''
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const secs = seconds % 60
+  return `${hours}h ${minutes}m ${secs}s`
+}
