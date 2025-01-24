@@ -1,25 +1,53 @@
-import { Medium } from "@utils/fonts"
-import { ColorScheme } from "@utils/types"
-import React, { useCallback } from "react"
-import { View, TouchableOpacity } from "react-native"
-import MathJax from "../Math/MathJax"
-import currentQnStore from "../zustand/currentQn"
-import testStore from "../zustand/testStore"
+import api from '@query/api'
+import { useMutation } from '@tanstack/react-query'
+import { Medium } from '@utils/fonts'
+import { ColorScheme } from '@utils/types'
+import { print, timeDiffFromNow } from '@utils/utils'
+import React, { useCallback } from 'react'
+import { TouchableOpacity, View } from 'react-native'
+import MathJax from '../Math/MathJax'
+import currentQnStore from '../zustand/currentQn'
+import testStore from '../zustand/testStore'
+import timeStore from '../zustand/timeStore'
 
 const McqOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) => {
+  const testSeriesId = testStore((store) => store.testData?.testSeriesId)
   const allQn = testStore((store) => store.allQn)
   const setAllQn = testStore((store) => store.setAllQn)
   const qnNo = currentQnStore((store) => store.qnNo)
   const qn = allQn?.[qnNo]
   const options = qn?.options ?? []
   const selected = qn?.markedAnswer ? qn?.markedAnswer.charCodeAt(0) - 65 : -1
+  const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
+
+  const { mutate } = useMutation({
+    mutationKey: ['updateTest', testSeriesId, qnNo],
+    mutationFn: api.updateTest,
+    onSuccess: print,
+  })
+
+  function mutateTest() {
+    mutate({
+      resData: [
+        {
+          question: qn!.questionId!,
+          action: 'answer-update',
+          time: timeDiffFromNow(lastApiCallTime),
+          marked: true,
+          markedAnswer: qn!.markedAnswer,
+          nextQuestion: allQn[qnNo + 1]?.questionId!,
+        },
+      ],
+      testSeriesId: testSeriesId!,
+    })
+  }
 
   const onSelect = useCallback(
     (i: number) => {
       if (!qn) return
       qn.markedAnswer = String.fromCharCode(65 + i)
       setAllQn([...allQn])
-      console.log('UPDATE - API')
+      mutateTest()
     },
     [allQn, qn, setAllQn],
   )
@@ -28,7 +56,7 @@ const McqOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) =>
     if (!qn) return
     qn.markedAnswer = ''
     setAllQn([...allQn])
-    console.log('UPDATE - API')
+    mutateTest()
   }, [allQn, qn, setAllQn])
 
   return (

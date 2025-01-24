@@ -1,10 +1,14 @@
+import api from '@query/api'
+import { useMutation } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import { ColorScheme } from '@utils/types'
-import React, { useMemo, useCallback } from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { print, timeDiffFromNow } from '@utils/utils'
+import React, { useCallback, useMemo } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 import MathJax from '../Math/MathJax'
 import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
+import timeStore from '../zustand/timeStore'
 
 const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) => {
   const allQn = testStore((store) => store.allQn)
@@ -13,6 +17,29 @@ const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorSch
   const qn = allQn?.[qnNo]
   const marked = useMemo(() => qn?.markedAnswer?.split(',') ?? [], [qn?.markedAnswer])
   const setAllQn = testStore((store) => store.setAllQn)
+  const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
+  const testSeriesId = testStore((store) => store.testData?.testSeriesId)
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['updateTest', testSeriesId, qnNo],
+    mutationFn: api.updateTest,
+    onSuccess: print,
+  })
+  function mutateTest() {
+    mutate({
+      resData: [
+        {
+          question: qn!.questionId!,
+          action: 'answer-update',
+          time: timeDiffFromNow(lastApiCallTime),
+          marked: true,
+          markedAnswer: qn!.markedAnswer,
+          nextQuestion: allQn[qnNo + 1]?.questionId!,
+        },
+      ],
+      testSeriesId: testSeriesId!,
+    })
+  }
 
   const onSelect = useCallback(
     (i: number) => {
@@ -26,7 +53,7 @@ const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorSch
 
       qn.markedAnswer = markedAnswer.join(',')
       setAllQn([...allQn])
-      console.log('UPDATE - API')
+      mutateTest()
     },
     [allQn, qn, setAllQn],
   )
@@ -35,7 +62,7 @@ const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorSch
     if (!qn) return
     qn.markedAnswer = ''
     setAllQn([...allQn])
-    console.log('UPDATE - API')
+    mutateTest()
   }, [allQn, qn, setAllQn])
 
   return (

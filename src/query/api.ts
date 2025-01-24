@@ -1,3 +1,4 @@
+import timeStore from '@screens/Test/zustand/timeStore'
 import { postApi } from '.'
 import { versionName } from '../constants'
 
@@ -173,6 +174,25 @@ function startTest(data: { testId: string }) {
   return postApi<Test>('test/start', data)
 }
 
+export type UpdateTestT = {
+  testSeriesId: string
+  resData: {
+    question: string
+    action: 'answer-update' | 'time-update' | 'submit-test' | 'question-change'
+    time: number
+    marked: boolean
+    nextQuestion: string
+    markedAnswer?: string
+    isBookMarked?: boolean
+  }[]
+}
+
+function updateTest(data: UpdateTestT) {
+  const now = new Date().getTime()
+  timeStore.getState().setLastApiCallTime(now)
+  return postApi('test/update', data)
+}
+
 const api = {
   startTest,
   updateProfilePic,
@@ -193,6 +213,7 @@ const api = {
       platform: 'android',
       versionName: versionName,
     }),
+  updateTest,
 }
 
 export default api

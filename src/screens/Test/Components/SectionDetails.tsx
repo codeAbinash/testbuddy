@@ -13,9 +13,9 @@ export const SectionDetails = React.memo<{ qnNo: number; allQn: any; colorScheme
     const setTestData = testStore((store) => store.setTestData)
     useEffect(() => {
       // Update the total time spent on the test
-      const timer = setInterval(() => {
-        setTestData({ ...testData, totalTimeCompleted: (testData?.totalTimeCompleted || 0) + 60 })
-      }, 60000)
+      const timer = setTimeout(() => {
+        setTestData({ ...testData, totalTimeCompleted: (testData?.totalTimeCompleted || 0) + 1 })
+      }, 1000)
       return () => clearInterval(timer)
     }, [testData])
 

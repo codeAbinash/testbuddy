@@ -6,6 +6,8 @@ export type Section = NonNullable<NonNullable<NonNullable<Test>['test']>['sectio
 export type Question = NonNullable<Section['questions']>[number]
 
 type TestStore = {
+  testId: string
+  setTestId: (testId: string) => void
   testData: Test | null
   setTestData: (test: Test) => void
   setTest: (test: Test) => void
@@ -15,6 +17,8 @@ type TestStore = {
 }
 
 const testStore = create<TestStore>((set) => ({
+  testId: '',
+  setTestId: (testId) => set({ testId }),
   testData: null,
   setTestData: (test) => set({ testData: test }),
   allQn: [],

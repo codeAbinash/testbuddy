@@ -184,3 +184,7 @@ export function secToHrMinSec(seconds: number) {
   const secs = seconds % 60
   return `${hours}h ${minutes}m ${secs}s`
 }
+
+export function timeDiffFromNow(time: number) {
+  return Math.floor((new Date().getTime() - time) / 1000)
+}

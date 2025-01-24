@@ -1,8 +1,9 @@
 import popupStore from '@/zustand/popupStore'
 import api from '@query/api'
 import { RouteProp } from '@react-navigation/native'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import type { StackNav } from '@utils/types'
+import { print, timeDiffFromNow } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
 import { useEffect } from 'react'
 import { BackHandler } from 'react-native'
@@ -14,6 +15,7 @@ import QuestionDisplayArea from './Components/QuestionDisplayArea'
 import { QuestionHeading } from './Components/QuestionHeading'
 import currentQnStore from './zustand/currentQn'
 import testStore from './zustand/testStore'
+import timeStore from './zustand/timeStore'
 
 type ParamList = {
   Test: TestParamList
@@ -31,21 +33,53 @@ export default function Test({ navigation, route }: TestProps) {
   const { testId } = route.params
 
   const setTest = testStore((store) => store.setTest)
+  const testData = testStore((store) => store.testData)
   const allQn = testStore((store) => store.allQn)
   const qnNo = currentQnStore((store) => store.qnNo)
   const setQnNo = currentQnStore((store) => store.setQnNo)
   const alert = popupStore((store) => store.alert)
   const clearTestData = testStore((store) => store.clearTestData)
+  const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
 
   const { data, isSuccess } = useQuery({
     queryKey: ['test', testId],
     queryFn: () => api.startTest({ testId }),
   })
 
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['updateTest', testId, qnNo],
+    mutationFn: api.updateTest,
+    onSuccess: print,
+  })
+
+  useEffect(() => {}, [testId])
+
   useEffect(() => {
     if (isSuccess && data) setTest(data)
   }, [isSuccess])
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!allQn[qnNo]) return
+      console.log('IDLE TIMER')
+      mutate({
+        resData: [
+          {
+            question: allQn[qnNo].questionId!,
+            action: 'time-update',
+            time: timeDiffFromNow(lastApiCallTime),
+            marked: true,
+            isBookMarked: allQn[qnNo].isBookMarked!,
+            nextQuestion: allQn[qnNo + 1]?.questionId!,
+          },
+        ],
+        testSeriesId: testData?.testSeriesId!,
+      })
+    }, 50000)
+    return () => clearInterval(timer)
+  }, [lastApiCallTime])
+
+  // Handle back press
   useEffect(() => {
     const onBackPress = () => {
       alert('Exit test?', 'Do you want to exit the test?', [
@@ -73,7 +107,7 @@ export default function Test({ navigation, route }: TestProps) {
     setQnNo((qnNo - 1 + allQn.length) % allQn.length)
   }
 
-return (
+  return (
     <>
       <Header navigation={navigation} colorScheme={colorScheme} />
       <ModalOptions colorScheme={colorScheme} />
@@ -81,7 +115,7 @@ return (
         <QuestionHeading qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />
         <QuestionDisplayArea colorScheme={colorScheme} />
       </ScrollView>
-      <Footer colorScheme={colorScheme} handleNext={handleNext} handlePrev={handlePrev} />
+      <Footer colorScheme={colorScheme} handleNext={handleNext} handlePrev={handlePrev} testId={testId} />
     </>
   )
 }

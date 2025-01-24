@@ -1,9 +1,13 @@
+import api from '@query/api'
+import { useMutation } from '@tanstack/react-query'
 import { ColorScheme } from '@utils/types'
+import { print, timeDiffFromNow } from '@utils/utils'
 import { useEffect } from 'react'
 import { View } from 'react-native'
 import MathJax from '../Math/MathJax'
 import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
+import timeStore from '../zustand/timeStore'
 import McqOptions from './McqOptions'
 import MultiCorrectOptions from './MultiCorrectOptions'
 import NumericalOptions from './NumericalOptions'
@@ -15,6 +19,14 @@ export default function QuestionDisplayArea({ colorScheme }: { colorScheme: Colo
   const qnType = allQn?.[qnNo]?.questionType
   const setAllQn = testStore((store) => store.setAllQn)
   const lastOpenedQn = currentQnStore((store) => store.lastOpenedQn)
+  const testSeriesId = testStore((store) => store.testData?.testSeriesId)
+  const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['updateTest', testSeriesId, qnNo],
+    mutationFn: api.updateTest,
+    onSuccess: print,
+  })
 
   useEffect(() => {
     if (!qn) return
@@ -33,7 +45,21 @@ export default function QuestionDisplayArea({ colorScheme }: { colorScheme: Colo
   }, [qn])
 
   useEffect(() => {
-    console.log('QUESTION CHANGE', lastOpenedQn)
+    if (!allQn[lastOpenedQn]) return
+    mutate({
+      resData: [
+        {
+          question: allQn[lastOpenedQn].questionId!,
+          action: 'question-change' as const,
+          time: timeDiffFromNow(lastApiCallTime),
+          marked: true,
+          isBookMarked: allQn[lastOpenedQn].isBookMarked!,
+          markedAnswer: allQn[lastOpenedQn].markedAnswer || '',
+          nextQuestion: allQn[lastOpenedQn + 1]?.questionId!,
+        },
+      ],
+      testSeriesId: testSeriesId!,
+    })
   }, [lastOpenedQn])
 
   return (

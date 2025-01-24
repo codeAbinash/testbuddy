@@ -1,11 +1,15 @@
-import Input from "@components/Input"
-import Label from "@components/Label"
-import { Medium } from "@utils/fonts"
-import { ColorScheme } from "@utils/types"
-import React, { useCallback } from "react"
-import { TouchableOpacity, View } from "react-native"
-import currentQnStore from "../zustand/currentQn"
-import testStore from "../zustand/testStore"
+import Input from '@components/Input'
+import Label from '@components/Label'
+import api from '@query/api'
+import { useMutation } from '@tanstack/react-query'
+import { Medium } from '@utils/fonts'
+import { ColorScheme } from '@utils/types'
+import { print, timeDiffFromNow } from '@utils/utils'
+import React, { useCallback } from 'react'
+import { TouchableOpacity, View } from 'react-native'
+import currentQnStore from '../zustand/currentQn'
+import testStore from '../zustand/testStore'
+import timeStore from '../zustand/timeStore'
 
 const NumericalOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) => {
   const allQn = testStore((store) => store.allQn)
@@ -13,6 +17,29 @@ const NumericalOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme
   const setAllQn = testStore((store) => store.setAllQn)
   const qn = allQn?.[qnNo]
   const text = qn?.markedAnswer
+  const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
+  const testSeriesId = testStore((store) => store.testData?.testSeriesId)
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['updateTest', testSeriesId, qnNo],
+    mutationFn: api.updateTest,
+    onSuccess: print,
+  })
+  function mutateTest() {
+    mutate({
+      resData: [
+        {
+          question: qn!.questionId!,
+          action: 'answer-update',
+          time: timeDiffFromNow(lastApiCallTime),
+          marked: true,
+          markedAnswer: qn!.markedAnswer,
+          nextQuestion: allQn[qnNo + 1]?.questionId!,
+        },
+      ],
+      testSeriesId: testSeriesId!,
+    })
+  }
 
   const onChange = useCallback(
     (text: string) => {
@@ -20,7 +47,7 @@ const NumericalOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme
       if (!question) return
       question.markedAnswer = text
       setAllQn([...allQn])
-      console.log('UPDATE - API')
+      mutateTest()
     },
     [allQn, qnNo, setAllQn],
   )
