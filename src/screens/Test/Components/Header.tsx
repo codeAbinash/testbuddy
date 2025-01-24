@@ -7,8 +7,8 @@ import { useMutation } from '@tanstack/react-query'
 import { SemiBold } from '@utils/fonts'
 import { ColorScheme, StackNav } from '@utils/types'
 import { print, timeDiffFromNow } from '@utils/utils'
-import React from 'react'
-import { ToastAndroid, TouchableOpacity, View } from 'react-native'
+import React, { useEffect } from 'react'
+import { BackHandler, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import currentQnStore from '../zustand/currentQn'
 import modalStore from '../zustand/modalStore'
@@ -25,19 +25,40 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme }) => {
   const data = testStore((store) => store.testData)
   const setOpen = modalStore((store) => store.setOpen)
 
-  const open = modalStore((store) => store.open)
-  const viewMode = modalStore((store) => store.viewMode)
   const testSeriesId = testStore((store) => store.testData?.testSeriesId)
   const allQn = testStore((store) => store.allQn)
   const qnNo = currentQnStore((store) => store.qnNo)
   const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
   const alert = popupStore((store) => store.alert)
+  const clearTestData = testStore((store) => store.clearTestData)
+  const setQnNo = currentQnStore((store) => store.setQnNo)
 
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ['updateTest', testSeriesId, qnNo],
     mutationFn: api.updateTest,
     onSuccess: print,
   })
+
+  function onBackPress() {
+    alert('Exit test?', 'Do you want to exit the test?', [
+      { text: 'Cancel' },
+      {
+        text: 'Exit',
+        onPress: () => {
+          navigation.goBack()
+          clearTestData()
+          setQnNo(0)
+        },
+      },
+    ])
+    return true
+  }
+
+  // Handle back press
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress)
+    return () => backHandler.remove()
+  }, [alert, navigation, clearTestData, setQnNo])
 
   function mutateTest() {
     const qn = allQn?.[qnNo]
@@ -70,7 +91,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme }) => {
     <View className='bg-white dark:bg-zinc-950'>
       <PaddingTop />
       <View className='flex-row items-center' style={{ gap: 10 }}>
-        <TouchableOpacity className='pb-2.5 pl-2.5 pr-0 pt-2' onPress={() => navigation.goBack()} activeOpacity={0.7}>
+        <TouchableOpacity className='pb-2.5 pl-2.5 pr-0 pt-2' onPress={onBackPress} activeOpacity={0.7}>
           <ArrowLeft01StrokeRoundedIcon
             width={26}
             height={26}

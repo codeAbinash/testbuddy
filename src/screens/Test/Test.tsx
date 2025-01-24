@@ -6,7 +6,6 @@ import type { StackNav } from '@utils/types'
 import { print, timeDiffFromNow } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
 import { useEffect } from 'react'
-import { BackHandler } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Footer } from './Components/Footer'
 import { Header } from './Components/Header'
@@ -46,7 +45,7 @@ export default function Test({ navigation, route }: TestProps) {
     queryFn: () => api.startTest({ testId }),
   })
 
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ['updateTest', testId, qnNo],
     mutationFn: api.updateTest,
     onSuccess: print,
@@ -78,26 +77,6 @@ export default function Test({ navigation, route }: TestProps) {
     }, 50000)
     return () => clearInterval(timer)
   }, [lastApiCallTime])
-
-  // Handle back press
-  useEffect(() => {
-    const onBackPress = () => {
-      alert('Exit test?', 'Do you want to exit the test?', [
-        { text: 'Cancel' },
-        {
-          text: 'Exit',
-          onPress: () => {
-            navigation.goBack()
-            clearTestData()
-            setQnNo(0)
-          },
-        },
-      ])
-      return true
-    }
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress)
-    return () => backHandler.remove()
-  }, [alert, navigation, clearTestData, setQnNo])
 
   function handleNext() {
     setQnNo((qnNo + 1) % allQn.length)
