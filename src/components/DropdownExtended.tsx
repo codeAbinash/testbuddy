@@ -1,13 +1,13 @@
+import { W } from '@utils/dimensions'
 import { JosefinSansMedium, Medium } from '@utils/fonts'
 import { ColorScheme } from '@utils/types'
 import { StyleSheet, View } from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown'
 import { DropdownProps } from 'react-native-element-dropdown/lib/typescript/components/Dropdown/model'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import type { SvgProps } from 'react-native-svg'
 import colors from 'tailwindcss/colors'
 import { InputIcon } from './Input'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { W } from '@utils/dimensions'
 
 export type DropdownData = {
   label: string
@@ -47,16 +47,20 @@ export default function DropdownExtended<T extends DropdownData>({ colorScheme, 
         searchPlaceholder='Search...'
         fontFamily={JosefinSansMedium.fontFamily}
         activeColor={colorScheme === 'dark' ? colors.zinc[800] : colors.zinc[200]}
-        containerStyle={{
-          flex: 1,
-          borderRadius: 14.5,
-          marginBottom: bottom + 10,
-          width: rest.mode === 'modal' ? W - 20 : 'auto',
-          borderWidth: 0.5,
-          overflow: 'hidden',
-          borderColor: colorScheme === 'dark' ? colors.zinc[700] : 'transparent',
-          backgroundColor: colorScheme === 'dark' ? colors.zinc[900] : colors.zinc[50],
-        }}
+        containerStyle={[
+          {
+            borderRadius: 14.5,
+            marginBottom: bottom + 10,
+            borderWidth: 0.5,
+            overflow: 'hidden',
+            borderColor: colorScheme === 'dark' ? colors.zinc[700] : 'transparent',
+            backgroundColor: colorScheme === 'dark' ? colors.zinc[900] : colors.zinc[50],
+            width: W - 40,
+          },
+          rest.mode !== 'modal' && {
+            left: 20,
+          },
+        ]}
         renderItem={renderItem}
         {...rest}
       />
