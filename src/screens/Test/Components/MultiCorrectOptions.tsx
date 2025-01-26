@@ -1,10 +1,9 @@
-import api from '@query/api'
-import { useMutation } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import { ColorScheme } from '@utils/types'
-import { print, timeDiffFromNow } from '@utils/utils'
+import { timeDiffFromNow } from '@utils/utils'
 import React, { useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
+import useUpdateTestMutation from '../hooks/useUpdateTestMutation'
 import MathJax from '../Math/MathJax'
 import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
@@ -20,11 +19,8 @@ const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorSch
   const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
   const testSeriesId = testStore((store) => store.testData?.testSeriesId)
 
-  const { mutate, isPending } = useMutation({
-    mutationKey: ['updateTest', testSeriesId, qnNo],
-    mutationFn: api.updateTest,
-    onSuccess: print,
-  })
+  const { mutate } = useUpdateTestMutation(testSeriesId!)
+
   function mutateTest() {
     mutate({
       resData: [

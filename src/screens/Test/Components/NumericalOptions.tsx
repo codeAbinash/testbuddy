@@ -1,17 +1,15 @@
 import Input from '@components/Input'
 import Label from '@components/Label'
-import api from '@query/api'
-import { useMutation } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
-import { ColorScheme } from '@utils/types'
-import { print, timeDiffFromNow } from '@utils/utils'
+import { timeDiffFromNow } from '@utils/utils'
 import React, { useCallback } from 'react'
 import { TouchableOpacity, View } from 'react-native'
+import useUpdateTestMutation from '../hooks/useUpdateTestMutation'
 import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
 import timeStore from '../zustand/timeStore'
 
-const NumericalOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) => {
+const NumericalOptions = React.memo(() => {
   const allQn = testStore((store) => store.allQn)
   const qnNo = currentQnStore((store) => store.qnNo)
   const setAllQn = testStore((store) => store.setAllQn)
@@ -20,11 +18,8 @@ const NumericalOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme
   const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
   const testSeriesId = testStore((store) => store.testData?.testSeriesId)
 
-  const { mutate, isPending } = useMutation({
-    mutationKey: ['updateTest', testSeriesId, qnNo],
-    mutationFn: api.updateTest,
-    onSuccess: print,
-  })
+  const { mutate } = useUpdateTestMutation(testSeriesId!)
+
   function mutateTest() {
     mutate({
       resData: [

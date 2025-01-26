@@ -7,7 +7,9 @@ export type TimeFormat = '12h' | '24h'
 export async function shareText(message: string) {
   try {
     await Share.share({ message })
-  } catch (error) {}
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export function formattedDate(date: Date | null) {
@@ -70,7 +72,7 @@ export function screenDelay(fn: () => void, ms: number = SCREEN_TRANSITION) {
  * @param places  number of decimal places
  * @returns rounded number
  */
-function roundToDecimal(num: number, places: number) {
+export function roundToDecimal(num: number, places: number) {
   const factor = Math.pow(10, places)
   return Math.round(num * factor) / factor
 }

@@ -206,7 +206,6 @@ function AboutUs({ colorScheme: s }: { colorScheme: ColorScheme }) {
 
 function End({ colorScheme: s }: { colorScheme: ColorScheme }) {
   const alert = popupStore((store) => store.alert)
-  const navigation = useNavigation<StackNav>()
 
   return (
     <View className='pb-10'>

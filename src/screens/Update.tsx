@@ -21,8 +21,9 @@ type UpdateProps = {
   navigation: StackNav
 }
 
-export default function Update({ route, navigation }: UpdateProps) {
-  const { critical, message, latestVersion, updateRequired, versionCode: vCode } = route.params
+export default function Update({ route }: UpdateProps) {
+  // const { critical, message, latestVersion, updateRequired, versionCode: vCode } = route.params
+  const { latestVersion } = route.params
   return (
     <>
       <View className='flex-1 items-center justify-between bg-white px-6 dark:bg-black'>

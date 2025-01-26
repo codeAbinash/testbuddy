@@ -2,14 +2,13 @@ import popupStore from '@/zustand/popupStore'
 import { ArrowLeft01StrokeRoundedIcon } from '@assets/icons/icons'
 import { SmallBtn } from '@components/Button'
 import { PaddingTop } from '@components/SafePadding'
-import api from '@query/api'
-import { useMutation } from '@tanstack/react-query'
 import { SemiBold } from '@utils/fonts'
 import { ColorScheme, StackNav } from '@utils/types'
-import { print, timeDiffFromNow } from '@utils/utils'
+import { timeDiffFromNow } from '@utils/utils'
 import React, { useEffect } from 'react'
 import { BackHandler, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
+import useUpdateTestMutation from '../hooks/useUpdateTestMutation'
 import currentQnStore from '../zustand/currentQn'
 import modalStore from '../zustand/modalStore'
 import testStore from '../zustand/testStore'
@@ -33,11 +32,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme }) => {
   const clearTestData = testStore((store) => store.clearTestData)
   const setQnNo = currentQnStore((store) => store.setQnNo)
 
-  const { mutate } = useMutation({
-    mutationKey: ['updateTest', testSeriesId, qnNo],
-    mutationFn: api.updateTest,
-    onSuccess: print,
-  })
+  const { mutate } = useUpdateTestMutation(testSeriesId!)
 
   function onBackPress() {
     alert('Exit test?', 'Do you want to exit the test?', [

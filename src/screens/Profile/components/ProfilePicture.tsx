@@ -13,7 +13,7 @@ import { launchImageLibrary } from 'react-native-image-picker'
 export default function ProfilePicture({ picture, scheme }: { picture?: string; scheme: ColorScheme }) {
   const [image, setImage] = useState<null | string>(null)
   const alert = popupStore((state) => state.alert)
-  const { mutate, isPending, isSuccess, isError } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ['uploadProfilePicture'],
     mutationFn: api.updateProfilePic,
     onSuccess(data) {

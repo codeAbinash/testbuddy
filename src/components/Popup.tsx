@@ -75,7 +75,7 @@ const PopupButton = React.memo<{ text: string; onPress?: () => void }>(({ text, 
   )
 })
 
-export const Popups = React.memo((props) => {
+export const Popups = React.memo(() => {
   const popups = popupStore((store) => store.popups)
   return (
     <>

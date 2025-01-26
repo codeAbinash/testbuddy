@@ -1,10 +1,9 @@
-import api from '@query/api'
-import { useMutation } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import { ColorScheme } from '@utils/types'
-import { print, timeDiffFromNow } from '@utils/utils'
+import { timeDiffFromNow } from '@utils/utils'
 import React, { useCallback } from 'react'
 import { TouchableOpacity, View } from 'react-native'
+import useUpdateTestMutation from '../hooks/useUpdateTestMutation'
 import MathJax from '../Math/MathJax'
 import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
@@ -20,11 +19,7 @@ const McqOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) =>
   const selected = qn?.markedAnswer ? qn?.markedAnswer.charCodeAt(0) - 65 : -1
   const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
 
-  const { mutate } = useMutation({
-    mutationKey: ['updateTest', testSeriesId, qnNo],
-    mutationFn: api.updateTest,
-    onSuccess: print,
-  })
+  const { mutate } = useUpdateTestMutation(testSeriesId!)
 
   function mutateTest() {
     mutate({

@@ -1,9 +1,8 @@
-import popupStore from '@/zustand/popupStore'
 import api from '@query/api'
 import { RouteProp } from '@react-navigation/native'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import type { StackNav } from '@utils/types'
-import { print, timeDiffFromNow } from '@utils/utils'
+import { timeDiffFromNow } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
 import { useEffect } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -12,6 +11,7 @@ import { Header } from './Components/Header'
 import { ModalOptions } from './Components/ModalOptions/ModalOptions'
 import QuestionDisplayArea from './Components/QuestionDisplayArea'
 import { QuestionHeading } from './Components/QuestionHeading'
+import useUpdateTestMutation from './hooks/useUpdateTestMutation'
 import currentQnStore from './zustand/currentQn'
 import testStore from './zustand/testStore'
 import timeStore from './zustand/timeStore'
@@ -30,25 +30,18 @@ type TestProps = {
 export default function Test({ navigation, route }: TestProps) {
   const { colorScheme } = useColorScheme()
   const { testId } = route.params
-
   const setTest = testStore((store) => store.setTest)
-  const testData = testStore((store) => store.testData)
   const allQn = testStore((store) => store.allQn)
   const qnNo = currentQnStore((store) => store.qnNo)
   const setQnNo = currentQnStore((store) => store.setQnNo)
-  const alert = popupStore((store) => store.alert)
-  const clearTestData = testStore((store) => store.clearTestData)
   const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
+  const testSeriesId = testStore((store) => store.testData?.testSeriesId)
+
+  const { mutate } = useUpdateTestMutation(testSeriesId!)
 
   const { data, isSuccess } = useQuery({
     queryKey: ['test', testId],
     queryFn: () => api.startTest({ testId }),
-  })
-
-  const { mutate } = useMutation({
-    mutationKey: ['updateTest', testId, qnNo],
-    mutationFn: api.updateTest,
-    onSuccess: print,
   })
 
   useEffect(() => {}, [testId])
@@ -72,7 +65,7 @@ export default function Test({ navigation, route }: TestProps) {
             nextQuestion: allQn[qnNo + 1]?.questionId!,
           },
         ],
-        testSeriesId: testData?.testSeriesId!,
+        testSeriesId: testSeriesId!,
       })
     }, 50000)
     return () => clearInterval(timer)
@@ -94,7 +87,7 @@ export default function Test({ navigation, route }: TestProps) {
         <QuestionHeading qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />
         <QuestionDisplayArea colorScheme={colorScheme} />
       </ScrollView>
-      <Footer colorScheme={colorScheme} handleNext={handleNext} handlePrev={handlePrev} testId={testId} />
+      <Footer colorScheme={colorScheme} handleNext={handleNext} handlePrev={handlePrev} />
     </>
   )
 }

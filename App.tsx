@@ -54,6 +54,7 @@ const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   gestureResponseDistance: H,
 }
 
+// eslint-disable-next-line
 const NO_ANIMATION: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forNoAnimation,
 }
@@ -65,6 +66,7 @@ const SMOOTH_ANIMATION: StackNavigationOptions = {
   gestureResponseDistance: H,
 }
 
+// eslint-disable-next-line
 const GestureEnabled = { gestureEnabled: true }
 
 const Stack = createStackNavigator<RootStackParamList>()

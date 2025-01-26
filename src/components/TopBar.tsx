@@ -1,4 +1,3 @@
-import { SemiBold } from '@utils/fonts'
 import { View } from 'react-native'
 
 export default function TopBar() {

@@ -13,9 +13,10 @@
   "rules": {
     "eqeqeq": "warn",
     "import/no-cycle": "error",
-    "eslint/no-unused-vars": "off",
+    "eslint/no-unused-vars": "warn",
     "prettier/prettier": "error",
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "allow",
     "react-native/no-inline-styles": "off",
     "react/react-in-jsx-scope": "off",
     "jsx-quotes": ["warn", "prefer-single"],

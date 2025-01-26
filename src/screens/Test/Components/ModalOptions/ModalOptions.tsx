@@ -1,16 +1,15 @@
 import popupStore from '@/zustand/popupStore'
 import { SmallBtn } from '@components/Button'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
-import api from '@query/api'
 import { useNavigation } from '@react-navigation/native'
+import useUpdateTestMutation from '@screens/Test/hooks/useUpdateTestMutation'
 import currentQnStore from '@screens/Test/zustand/currentQn'
 import testStore from '@screens/Test/zustand/testStore'
 import timeStore from '@screens/Test/zustand/timeStore'
-import { useMutation } from '@tanstack/react-query'
 import { H, W } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
 import { ColorScheme, StackNav } from '@utils/types'
-import { print, timeDiffFromNow } from '@utils/utils'
+import { timeDiffFromNow } from '@utils/utils'
 import React from 'react'
 import { Modal, ScrollView, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import modalStore, { ViewMode } from '../../zustand/modalStore'
@@ -35,11 +34,7 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme }) => {
   const alert = popupStore((store) => store.alert)
   const navigation = useNavigation<StackNav>()
 
-  const { mutate, isPending } = useMutation({
-    mutationKey: ['updateTest', testSeriesId, qnNo],
-    mutationFn: api.updateTest,
-    onSuccess: print,
-  })
+  const { mutate } = useUpdateTestMutation(testSeriesId!)
 
   function mutateTest() {
     const qn = allQn?.[qnNo]

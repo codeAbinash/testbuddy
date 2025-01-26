@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import SubjectGrid from './SubjectGrid'
 import testStore from '@screens/Test/zustand/testStore'
 
-const GridViewQuestions = React.memo((props) => {
+const GridViewQuestions = React.memo(() => {
   const data = testStore((store) => store.testData)
   return (
     <View className='px-4'>
