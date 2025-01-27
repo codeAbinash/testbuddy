@@ -1,5 +1,5 @@
-import { Medium } from '@utils/fonts';
-import { View } from 'react-native';
+import { Medium } from '@utils/fonts'
+import { View } from 'react-native'
 
 export default function QuestionInformation() {
   // const allQn = testStore((store) => store.allQn)

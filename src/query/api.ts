@@ -120,6 +120,7 @@ function startTest(data: { testId: string }) {
     currQuestion?: string
     totalTimeCompleted?: number
     totalTimeLeft?: number
+    result?: Result
   }
 
   type TestClass = {
@@ -169,6 +170,63 @@ function startTest(data: { testId: string }) {
   type Option = {
     option?: string
     content?: string
+  }
+
+  interface Result {
+    totalQuestions?: number
+    correctAnswers?: number
+    attemptedQuestions?: number
+    markedQuestions?: number
+    visitedQuestions?: number
+    percentageCorrect?: number
+    totalPositiveMarks?: number
+    totalNegativeMarks?: number
+    marks?: number
+    scorecard?: Scorecard[]
+    difficultyAnalysis?: DifficultyAnalysis[]
+    timeSpentAnalysis?: TimeSpentAnalysis
+  }
+
+  interface DifficultyAnalysis {
+    subject?: string
+    levels?: {
+      level?: string
+      questions?: {
+        questionId?: string
+        qNumber?: number
+        status?: string
+      }[]
+    }[]
+  }
+
+  interface Scorecard {
+    sectionName?: string
+    totalQuestions?: number
+    correct?: number
+    incorrect?: number
+    attempted?: number
+    skipped?: number
+    accuracyPercentage?: number
+    attemptedPercentage?: number
+    percentile?: number
+  }
+
+  interface TimeSpentAnalysis {
+    totalTimeSpentOnCorrect?: number
+    totalTimeSpentOnIncorrect?: number
+    totalTimeSpentOnUnattempted?: number
+    questionWiseAnalysis?: QuestionWiseAnalysis[]
+  }
+
+  interface QuestionWiseAnalysis {
+    questionId?: string
+    myAnswer?: null | string
+    correctAnswer?: string[]
+    status?: string
+    difficultyLevel?: string
+    timeSpentByMe?: number
+    timeSpentByThoseWhoGotRight?: number
+    timeSpentByTopper?: number
   }
 
   return postApi<Test>('test/start', data)

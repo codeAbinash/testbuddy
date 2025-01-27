@@ -35,7 +35,10 @@ export default function HomeScreen({ navigation }: NavProps) {
             Welcome to the Test App! This is a test Test for testing purposes.
           </Medium>
           <Btn title='Start Test' onPress={() => navigation.navigate('Test', { testId: '66bbd61cc58453d49f06c7db' })} />
-          <Btn title='View Result' onPress={() => navigation.navigate('Result', { testId: '66bbd61cc58453d49f06c7db' })} />
+          <Btn
+            title='View Result'
+            onPress={() => navigation.navigate('Result', { testId: '66bbd61cc58453d49f06c7db' })}
+          />
         </View>
         {/* <Medium className='text text-xs'>{JSON.stringify(data, null, 2)}</Medium> */}
       </ScrollView>
