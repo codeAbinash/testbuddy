@@ -2,12 +2,15 @@ import { PaddingBottom } from '@components/SafePadding'
 import api from '@query/api'
 import { RouteProp } from '@react-navigation/native'
 import BackHeader from '@screens/BackHeader'
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
+import { W } from '@utils/dimensions'
 import { Medium, Regular, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import ColorBox from './ColorBox'
+import Scorecard from './components/Scorecard'
 
 type ParamList = {
   Result: ResultParamList
@@ -25,7 +28,7 @@ type ResultProps = {
 export default function Result({ navigation, route }: ResultProps) {
   const { testId } = route.params
 
-  const { data } = useSuspenseQuery({
+  const { data } = useQuery({
     queryKey: ['test', testId],
     queryFn: () => api.startTest({ testId }),
   })
@@ -44,58 +47,74 @@ export default function Result({ navigation, route }: ResultProps) {
           </Regular>
           <Medium className='text mt-3 text-center text-xl'>Your Marks</Medium>
         </View>
-        <View className='mx-auto w-4/5'>
+        <View className='mx-auto mt-2 w-4/5'>
           <Regular className='text text-center text-sm'>
             You have attempted {data?.result?.attemptedQuestions || 0} questions out of{' '}
             {data?.result?.totalQuestions || 0} and got {data?.result?.correctAnswers || 0} correct answers.
           </Regular>
         </View>
         <View>
+          <View style={{ width: W - 40 }} className='mx-auto mt-8 flex-row justify-between gap-4'>
+            <ColorBox
+              value={(data?.result?.totalPositiveMarks || 0) + 20}
+              label='Positive Marks'
+              bgColor='bg-green-500/20'
+              textColor='text-green-500'
+              animDelay={100}
+            />
+            <ColorBox
+              value={(data?.result?.totalNegativeMarks || 0) + 20}
+              label='Negative Marks'
+              bgColor='bg-red-500/20'
+              textColor='text-red-500'
+              animDelay={200}
+            />
+            <ColorBox
+              value={data?.result?.attemptedQuestions || 0}
+              label='Attempted Questions'
+              bgColor='bg-blue-500/20'
+              textColor='text-blue-500'
+              animDelay={300}
+            />
+            <ColorBox
+              value={data?.result?.correctAnswers || 0}
+              label='Correct Answers'
+              bgColor='bg-green-500/20'
+              textColor='text-green-500'
+              animDelay={400}
+            />
+            <ColorBox
+              value={data?.result?.percentageCorrect?.toFixed(2) || 0}
+              label='Percentage Correct'
+              bgColor='bg-yellow-500/20'
+              textColor='text-yellow-500'
+              animDelay={500}
+            />
+          </View>
+        </View>
+        {/* <View>
           <Medium className='text mt-5 text-xs'>
-            Total Questions: {data?.result?.totalQuestions || 0}
-            {'\n'}
-            Correct Answers: {data?.result?.correctAnswers || 0}
-            {'\n'}
-            Attempted Questions: {data?.result?.attemptedQuestions || 0}
-            {'\n'}
             Marked Questions: {data?.result?.markedQuestions || 0}
             {'\n'}
             Visited Questions: {data?.result?.visitedQuestions || 0}
-            {'\n'}
-            Percentage Correct: {data?.result?.percentageCorrect || 0}
-            {'\n'}
-            Total Positive Marks: {data?.result?.totalPositiveMarks || 0}
-            {'\n'}
-            Total Negative Marks: {data?.result?.totalNegativeMarks || 0}
-            {'\n'}
-            Marks: {data?.result?.marks || 0}
-            {'\n'}
           </Medium>
-        </View>
-        <View>
-          <SemiBold className='text mt-5 text-lg'>Scorecard</SemiBold>
+        </View> */}
+        <View className='gap-5'>
+          <SemiBold className='text mt-8 text-center text-lg'>Scorecard</SemiBold>
           {data?.result?.scorecard?.map((score, i) => (
-            <View key={i} className='mt-3'>
-              <Medium className='text text-sm capitalize'>{score.sectionName}</Medium>
-              <Medium className='text text-xs'>
-                Total Questions: {score.totalQuestions}
-                {'\n'}
-                Correct: {score.correct}
-                {'\n'}
-                Incorrect: {score.incorrect}
-                {'\n'}
-                Attempted: {score.attempted}
-                {'\n'}
-                Skipped: {score.skipped}
-                {'\n'}
-                Accuracy Percentage: {score.accuracyPercentage}
-                {'\n'}
-                Attempted Percentage: {score.attemptedPercentage}
-                {'\n'}
-                Percentile: {score.percentile}
-                {'\n'}
-              </Medium>
-            </View>
+            // <View key={i} className='mt-3'>
+            //   <Medium className='text text-sm capitalize'>{score.sectionName}</Medium>
+            //   <Medium className='text text-xs'>
+            //     Total Questions: {score.totalQuestions}
+            //     Accuracy Percentage: {score.accuracyPercentage}
+            //     {'\n'}
+            //     Attempted Percentage: {score.attemptedPercentage}
+            //     {'\n'}
+            //     Percentile: {score.percentile}
+            //     {'\n'}
+            //   </Medium>
+            // </View>
+            <Scorecard score={score} key={score.sectionName} i={i + 2} />
           ))}
         </View>
         <View>

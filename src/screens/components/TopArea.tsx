@@ -77,7 +77,7 @@ function NotificationCount({ count }: { count: number }) {
   if (!count) return null
   return (
     <View className='absolute ml-7 mt-1 size-5 items-center justify-center rounded-full bg-red-500'>
-      <Medium style={{ fontSize: 9 }} className='mb-1 text-center text-xs text-white'>
+      <Medium style={{ fontSize: 9 }} className='mt-0.5 text-center text-xs text-white'>
         {count > 99 ? '99+' : count}
       </Medium>
     </View>

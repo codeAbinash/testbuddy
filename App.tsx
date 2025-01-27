@@ -157,7 +157,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Refer' component={Refer} />
         <Stack.Screen name='MyRewards' component={MyRewards} />
         <Stack.Screen name='Instructions' component={Instructions} options={IOS_BOTTOM_STYLE} />
-        <Stack.Screen name='Result' component={Result} />
+        <Stack.Screen name='Result' component={Result} options={GestureEnabled} />
       </Stack.Navigator>
     </NavigationContainer>
   )
