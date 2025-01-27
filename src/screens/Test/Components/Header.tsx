@@ -2,6 +2,7 @@ import popupStore from '@/zustand/popupStore'
 import { ArrowLeft01StrokeRoundedIcon } from '@assets/icons/icons'
 import { SmallBtn } from '@components/Button'
 import { PaddingTop } from '@components/SafePadding'
+import { queryClient } from '@query/query'
 import { SemiBold } from '@utils/fonts'
 import { ColorScheme, StackNav } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
@@ -9,6 +10,7 @@ import React, { useEffect } from 'react'
 import { BackHandler, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import useUpdateTestMutation from '../hooks/useUpdateTestMutation'
+import { handleSubmit } from '../utils/utils'
 import currentQnStore from '../zustand/currentQn'
 import modalStore from '../zustand/modalStore'
 import testStore from '../zustand/testStore'
@@ -18,9 +20,10 @@ import { MoreOption } from './MoreOption'
 type HeaderProps = {
   navigation: StackNav
   colorScheme: ColorScheme
+  testId: string
 }
 
-export const Header = React.memo<HeaderProps>(({ navigation, colorScheme }) => {
+export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId }) => {
   const data = testStore((store) => store.testData)
   const setOpen = modalStore((store) => store.setOpen)
 
@@ -31,8 +34,13 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme }) => {
   const alert = popupStore((store) => store.alert)
   const clearTestData = testStore((store) => store.clearTestData)
   const setQnNo = currentQnStore((store) => store.setQnNo)
+  const removePopup = popupStore((store) => store.removePopup)
+  const popupsLen = popupStore((store) => store.popups.length)
 
-  const { mutate } = useUpdateTestMutation(testSeriesId!)
+  const { mutate } = useUpdateTestMutation(testSeriesId!, () => {
+    navigation.replace('Result', { testId })
+    removePopup(popupsLen - 1)
+  })
 
   function onBackPress() {
     alert('Exit test?', 'Do you want to exit the test?', [
@@ -43,17 +51,12 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme }) => {
           navigation.goBack()
           clearTestData()
           setQnNo(0)
+          queryClient.invalidateQueries({ queryKey: ['test', testId] })
         },
       },
     ])
     return true
   }
-
-  // Handle back press
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress)
-    return () => backHandler.remove()
-  }, [alert, navigation, clearTestData, setQnNo])
 
   function mutateTest() {
     const qn = allQn?.[qnNo]
@@ -72,16 +75,13 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme }) => {
     })
     setOpen(false)
     ToastAndroid.show('Test submitted successfully', ToastAndroid.SHORT)
-    navigation.goBack()
   }
 
-  function handleSubmit() {
-    alert('Submit test?', 'Are you sure you want to submit the test?', [
-      { text: 'No' },
-      { text: 'Yes', onPress: mutateTest },
-    ])
-  }
-
+  // Handle back press
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress)
+    return () => backHandler.remove()
+  }, [alert, navigation, clearTestData, setQnNo])
   return (
     <View className='bg-white dark:bg-zinc-950'>
       <PaddingTop />
@@ -107,7 +107,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme }) => {
               <SmallBtn
                 title='Submit'
                 style={{ paddingHorizontal: 17, paddingVertical: 5, borderRadius: 9 }}
-                onPress={handleSubmit}
+                onPress={() => handleSubmit(alert, mutateTest)}
               />
             </View>
           </View>

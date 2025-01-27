@@ -7,7 +7,7 @@ export type Popup = {
   noClose?: boolean
 }
 
-type PopupStore = {
+export type PopupStore = {
   popups: Popup[]
   alert: (title: string, text: string, buttons?: { text: string; onPress?: () => void }[], noClose?: boolean) => void
   removePopup: (index: number) => void

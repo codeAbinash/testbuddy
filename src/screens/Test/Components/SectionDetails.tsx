@@ -16,7 +16,7 @@ export const SectionDetails = React.memo<{ qnNo: number; allQn: any; colorScheme
       const timer = setTimeout(() => {
         setTestData({ ...testData, totalTimeCompleted: (testData?.totalTimeCompleted || 0) + 1 })
       }, 1000)
-      return () => clearInterval(timer)
+      return () => clearTimeout(timer)
     }, [testData])
 
     return (

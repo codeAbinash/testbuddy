@@ -3,6 +3,7 @@ import { SmallBtn } from '@components/Button'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import { useNavigation } from '@react-navigation/native'
 import useUpdateTestMutation from '@screens/Test/hooks/useUpdateTestMutation'
+import { handleSubmit } from '@screens/Test/utils/utils'
 import currentQnStore from '@screens/Test/zustand/currentQn'
 import testStore from '@screens/Test/zustand/testStore'
 import timeStore from '@screens/Test/zustand/timeStore'
@@ -21,9 +22,10 @@ import ViewInstructions from './ViewInstructions'
 
 export type ModalOptionsProps = {
   colorScheme: ColorScheme
+  testId: string
 }
 
-export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme }) => {
+export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme, testId }) => {
   const setOpen = modalStore((store) => store.setOpen)
   const open = modalStore((store) => store.open)
   const viewMode = modalStore((store) => store.viewMode)
@@ -32,11 +34,16 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme }) => {
   const qnNo = currentQnStore((store) => store.qnNo)
   const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
   const alert = popupStore((store) => store.alert)
+  const removePopup = popupStore((store) => store.removePopup)
+  const popupsLen = popupStore((store) => store.popups.length)
   const navigation = useNavigation<StackNav>()
 
-  const { mutate } = useUpdateTestMutation(testSeriesId!)
+  const { mutate } = useUpdateTestMutation(testSeriesId!, () => {
+    navigation.replace('Result', { testId })
+    removePopup(popupsLen - 1)
+  })
 
-  function mutateTest() {
+  async function mutateTest() {
     const qn = allQn?.[qnNo]
     mutate({
       resData: [
@@ -53,17 +60,8 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme }) => {
     })
     setOpen(false)
     ToastAndroid.show('Test submitted successfully', ToastAndroid.SHORT)
-    navigation.goBack()
   }
 
-  function handleSubmit() {
-    alert('Submit test?', 'Are you sure you want to submit the test?', [
-      { text: 'No' },
-      { text: 'Yes', onPress: mutateTest },
-    ])
-  }
-
-  // const selected
   return (
     <View>
       <Modal
@@ -93,7 +91,11 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme }) => {
                 <QuestionInformation />
                 {viewMode === ViewMode.Grid ? <GridViewQuestions /> : <ListViewQuestions />}
                 <View className='p-3.5 pt-2'>
-                  <SmallBtn title='Submit Test' style={{ paddingVertical: 11 }} onPress={handleSubmit} />
+                  <SmallBtn
+                    title='Submit Test'
+                    style={{ paddingVertical: 11 }}
+                    onPress={() => handleSubmit(alert, mutateTest)}
+                  />
                 </View>
               </TouchableOpacity>
               <PaddingBottom />

@@ -68,7 +68,7 @@ export default function Test({ navigation, route }: TestProps) {
         testSeriesId: testSeriesId!,
       })
     }, 50000)
-    return () => clearInterval(timer)
+    return () => clearTimeout(timer)
   }, [lastApiCallTime])
 
   function handleNext() {
@@ -81,8 +81,8 @@ export default function Test({ navigation, route }: TestProps) {
 
   return (
     <>
-      <Header navigation={navigation} colorScheme={colorScheme} />
-      <ModalOptions colorScheme={colorScheme} />
+      <Header navigation={navigation} colorScheme={colorScheme} testId={testId} />
+      <ModalOptions colorScheme={colorScheme} testId={testId} />
       <ScrollView contentContainerClassName='py-3 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
         <QuestionHeading qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />
         <QuestionDisplayArea colorScheme={colorScheme} />

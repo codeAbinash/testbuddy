@@ -36,6 +36,7 @@ import Settings from '@screens/Settings'
 import Splash from '@screens/Splash'
 import Streaks from '@screens/Streaks'
 import Instructions from '@screens/Test/Instructions'
+import Result, { ResultParamList } from '@screens/Test/Result/Result'
 import Test, { TestParamList } from '@screens/Test/Test'
 import Update, { type UpdateParamList } from '@screens/Update'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -156,12 +157,15 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Refer' component={Refer} />
         <Stack.Screen name='MyRewards' component={MyRewards} />
         <Stack.Screen name='Instructions' component={Instructions} options={IOS_BOTTOM_STYLE} />
+        <Stack.Screen name='Result' component={Result} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  Result: ResultParamList
+  Test: TestParamList
   Instructions: undefined
   MyRewards: undefined
   Refer: undefined
@@ -172,7 +176,6 @@ export type RootStackParamList = {
   Streaks: undefined
   Notifications: undefined
   Update: UpdateParamList
-  Test: TestParamList
   Example: undefined
   VerifyEmail: VerifyEmailParamList
   VerifyOtp: OtpParamList
