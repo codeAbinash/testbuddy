@@ -1,31 +1,31 @@
 import { PaddingBottom } from '@components/SafePadding'
+import TopBar from '@components/TopBar'
 import api from '@query/api'
 import { RouteProp } from '@react-navigation/native'
-import BackHeader from '@screens/BackHeader'
 import { useQuery } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Medium, Regular, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 import React, { useEffect } from 'react'
-import { View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import ColorBox from './ColorBox'
 import Scorecard from './components/Scorecard'
 
 type ParamList = {
-  Result: ResultParamList
+  Analysis: AnalysisParams
 }
 
-export type ResultParamList = {
+export type AnalysisParams = {
   testId: string
 }
 
-type ResultProps = {
-  route: RouteProp<ParamList, 'Result'>
+type AnalysisProps = {
+  route: RouteProp<ParamList, 'Analysis'>
   navigation: StackNav
 }
 
-export default function Result({ navigation, route }: ResultProps) {
+export default function Analysis({ route }: AnalysisProps) {
   const { testId } = route.params
 
   const { data } = useQuery({
@@ -39,7 +39,10 @@ export default function Result({ navigation, route }: ResultProps) {
 
   return (
     <>
-      <BackHeader title='Results' navigation={navigation} />
+      <StatusBar barStyle='default' />
+      <View className='pb-5'>
+        <TopBar />
+      </View>
       <ScrollView className='screen-bg flex-1 gap-5 px-5 py-5'>
         <View className='mt-10 rounded-xl'>
           <Regular className='text text-center text-8xl'>

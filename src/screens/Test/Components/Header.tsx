@@ -38,7 +38,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
   const popupsLen = popupStore((store) => store.popups.length)
 
   const { mutate } = useUpdateTestMutation(testSeriesId!, () => {
-    navigation.replace('Result', { testId })
+    navigation.replace('Analysis', { testId })
     removePopup(popupsLen - 1)
   })
 

@@ -36,7 +36,7 @@ import Settings from '@screens/Settings'
 import Splash from '@screens/Splash'
 import Streaks from '@screens/Streaks'
 import Instructions from '@screens/Test/Instructions'
-import Result, { ResultParamList } from '@screens/Test/Result/Result'
+import Analysis, { AnalysisParams } from '@screens/Test/Result/Analysis'
 import Test, { TestParamList } from '@screens/Test/Test'
 import Update, { type UpdateParamList } from '@screens/Update'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -47,6 +47,7 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Solution, { SolutionParamList } from '@screens/Test/Result/Solution'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -157,14 +158,16 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Refer' component={Refer} />
         <Stack.Screen name='MyRewards' component={MyRewards} />
         <Stack.Screen name='Instructions' component={Instructions} options={IOS_BOTTOM_STYLE} />
-        <Stack.Screen name='Result' component={Result} options={GestureEnabled} />
+        <Stack.Screen name='Analysis' component={Analysis} options={IOS_BOTTOM_STYLE} />
+        <Stack.Screen name='Solution' component={Solution} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
-  Result: ResultParamList
+  Solution: SolutionParamList
+  Analysis: AnalysisParams
   Test: TestParamList
   Instructions: undefined
   MyRewards: undefined

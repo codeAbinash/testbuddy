@@ -39,7 +39,7 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme, testId
   const navigation = useNavigation<StackNav>()
 
   const { mutate } = useUpdateTestMutation(testSeriesId!, () => {
-    navigation.replace('Result', { testId })
+    navigation.replace('Analysis', { testId })
     removePopup(popupsLen - 1)
   })
 
