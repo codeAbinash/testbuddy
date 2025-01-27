@@ -81,7 +81,7 @@ const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorSch
             }`}
           >
             <Medium
-              className={`mb-1 text-center text-sm ${marked.includes(String.fromCharCode(65 + i)) ? 'text-white dark:text-accent' : 'text'} `}
+              className={`mt-0.5 text-center text-sm ${marked.includes(String.fromCharCode(65 + i)) ? 'text-white dark:text-accent' : 'text'} `}
             >
               {String.fromCharCode(65 + i)}
             </Medium>

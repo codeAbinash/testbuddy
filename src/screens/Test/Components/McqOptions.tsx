@@ -4,10 +4,10 @@ import { timeDiffFromNow } from '@utils/utils'
 import React, { useCallback } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import useUpdateTestMutation from '../hooks/useUpdateTestMutation'
-import MathJax from '../Math/MathJax'
 import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
 import timeStore from '../zustand/timeStore'
+import MCQSelector from './MCQSelector'
 
 const McqOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) => {
   const testSeriesId = testStore((store) => store.testData?.testSeriesId)
@@ -57,23 +57,14 @@ const McqOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) =>
   return (
     <View className='gap-2'>
       {options.map((op, i) => (
-        <TouchableOpacity
+        <MCQSelector
           key={i}
-          className='flex-row items-center gap-5'
-          activeOpacity={0.6}
-          onPress={() => onSelect(i)}
-        >
-          <View
-            className={`size-8 items-center justify-center rounded-full ${selected === i ? 'bg-accent dark:bg-white' : 'border border-zinc-300 dark:border-zinc-700'}`}
-          >
-            <Medium className={`mb-1 text-center text-sm ${selected === i ? 'text-white dark:text-accent' : 'text'} `}>
-              {String.fromCharCode(65 + i)}
-            </Medium>
-          </View>
-          <View className='flex-1'>
-            <MathJax key={i} colorScheme={colorScheme} html={op.content} />
-          </View>
-        </TouchableOpacity>
+          content={op.content}
+          i={i}
+          selected={selected}
+          onSelect={onSelect}
+          colorScheme={colorScheme}
+        />
       ))}
       {qn?.markedAnswer && (
         <TouchableOpacity className='mt-6' activeOpacity={0.6} onPress={clearSelection}>
