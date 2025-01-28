@@ -159,7 +159,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='MyRewards' component={MyRewards} />
         <Stack.Screen name='Instructions' component={Instructions} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='Analysis' component={Analysis} options={IOS_BOTTOM_STYLE} />
-        <Stack.Screen name='Solution' component={Solution} />
+        <Stack.Screen name='Solution' component={Solution} options={GestureEnabled} />
       </Stack.Navigator>
     </NavigationContainer>
   )

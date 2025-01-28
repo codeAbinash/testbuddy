@@ -20,10 +20,7 @@ type SolutionProps = {
 export default function Solution({ navigation, route }: SolutionProps) {
   const { testId } = route.params
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.navigate('Analysis', { testId })
-    }, 0)
-    return () => clearTimeout(timer)
+    navigation.navigate('Analysis', { testId })
   }, [])
   return (
     <>
