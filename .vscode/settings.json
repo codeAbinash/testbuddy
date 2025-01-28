@@ -1,5 +1,14 @@
 {
-  "cSpell.words": ["Analyse", "authchange", "profilepic", "sendotp", "Testbuddy", "updateprofile", "verifyotp"],
+  "cSpell.words": [
+    "Analyse",
+    "authchange",
+    "profilepic",
+    "Questionwise",
+    "sendotp",
+    "Testbuddy",
+    "updateprofile",
+    "verifyotp"
+  ],
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "oxc.enable": true
   // "editor.codeActionsOnSave": {

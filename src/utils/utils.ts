@@ -172,19 +172,16 @@ export function getFirstName(name: string | undefined) {
   return name.split(' ')[0]
 }
 
-export function secToMinSec(seconds: number | undefined) {
-  if (!seconds) return ''
-  const minutes = Math.floor(seconds / 60)
-  const secs = seconds % 60
-  return `${minutes}m ${secs}s`
-}
-
 export function secToHrMinSec(seconds: number) {
   if (!seconds) return ''
   const hours = Math.floor(seconds / 3600)
   const minutes = Math.floor((seconds % 3600) / 60)
-  const secs = seconds % 60
-  return `${hours}h ${minutes}m ${secs}s`
+  const secs = Math.floor(seconds % 60)
+  let result = ''
+  if (hours > 0) result += `${hours}h `
+  if (minutes > 0) result += `${minutes}m `
+  if (secs > 0 || result === '') result += `${secs}s`
+  return result.trim()
 }
 
 export function timeDiffFromNow(time: number) {

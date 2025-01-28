@@ -44,9 +44,9 @@ export default function Scorecard({ score, i }: { score: Scorecard; i: number })
           />
         </TouchableOpacity>
       </View>
-      <View className='h-5 w-full flex-row overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-900'>
-        <View className='h-5 bg-green-500' style={{ width: `${(correct / total) * 100}%` }}></View>
-        <View className='h-5 bg-rose-500' style={{ width: `${(wrong / total) * 100}%` }}></View>
+      <View className='h-6 w-full flex-row overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-900'>
+        <View className='h-6 bg-green-500' style={{ width: `${(correct / total) * 100}%` }}></View>
+        <View className='h-6 bg-rose-500' style={{ width: `${(wrong / total) * 100}%` }}></View>
       </View>
       <View>
         <Medium className='text text-xs opacity-70'>

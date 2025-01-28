@@ -1,7 +1,7 @@
 import { Clock01Icon } from '@assets/icons/icons'
 import { Medium, SemiBold } from '@utils/fonts'
 import { ColorScheme } from '@utils/types'
-import { secToMinSec } from '@utils/utils'
+import { secToHrMinSec } from '@utils/utils'
 import React from 'react'
 import { View } from 'react-native'
 import colors from 'tailwindcss/colors'
@@ -24,7 +24,7 @@ export const QuestionHeading = React.memo<QuestionHeadingProps>(({ qnNo, allQn, 
       <View className='flex-row items-center gap-1 opacity-80'>
         <Clock01Icon width={13} height={13} color={colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]} />
         <SemiBold className='text mb-1 gap-5 text-sm' style={{ fontSize: 12, fontVariant: ['tabular-nums'] }}>
-          {secToMinSec(allQn[qnNo]?.totalTimeSpent || 0)}
+          {secToHrMinSec(allQn[qnNo]?.totalTimeSpent || 0)}
         </SemiBold>
       </View>
     </View>

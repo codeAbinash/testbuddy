@@ -16,11 +16,11 @@ export interface Result {
 export interface DifficultyAnalysis {
   subject?: string
   levels?: {
-    level?: string
+    level?: 'easy' | 'medium' | 'hard'
     questions?: {
       questionId?: string
       qNumber?: number
-      status?: string
+      status?: 'correct' | 'skipped' | 'incorrect'
     }[]
   }[]
 }
@@ -48,7 +48,7 @@ export interface QuestionWiseAnalysis {
   questionId?: string
   myAnswer?: null | string
   correctAnswer?: string[]
-  status?: string
+  status?: 'correct' | 'skipped' | 'incorrect'
   difficultyLevel?: string
   timeSpentByMe?: number
   timeSpentByThoseWhoGotRight?: number
