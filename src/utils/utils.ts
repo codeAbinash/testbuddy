@@ -1,6 +1,7 @@
-import { Alert, Share } from 'react-native'
+import { Alert, InteractionManager, Share } from 'react-native'
 import { FadeIn } from 'react-native-reanimated'
 import { SCREEN_TRANSITION } from './constants'
+import { useState, useEffect } from 'react'
 
 export type TimeFormat = '12h' | '24h'
 
@@ -186,4 +187,15 @@ export function secToHrMinSec(seconds: number) {
 
 export function timeDiffFromNow(time: number) {
   return Math.floor((new Date().getTime() - time) / 1000)
+}
+export function useInteraction() {
+  const [renderRest, setRenderRest] = useState(false)
+
+  useEffect(() => {
+    InteractionManager.runAfterInteractions(() => {
+      setRenderRest(true)
+    })
+  })
+
+  return renderRest
 }

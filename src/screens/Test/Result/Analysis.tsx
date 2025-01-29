@@ -2,6 +2,7 @@ import { PaddingBottom } from '@components/SafePadding'
 import TopBar from '@components/TopBar'
 import api from '@query/api'
 import { RouteProp } from '@react-navigation/native'
+import { useInteraction } from '@utils/utils'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { Medium, Regular, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
@@ -11,9 +12,9 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { ColorBoxes } from './ColorBox'
 import { Attempt, AttemptColors } from './components/Attempt'
 import Difficulty, { DifficultyColors } from './components/Difficulty'
+import QuestionWise from './components/QuestionWise'
 import Scorecard from './components/Scorecard'
 import TimeSpend from './components/TimeSpend'
-import QuestionWise from './components/QuestionWise'
 
 type ParamList = {
   Analysis: AnalysisParams
@@ -30,6 +31,7 @@ type AnalysisProps = {
 
 export default function Analysis({ route }: AnalysisProps) {
   const { testId } = route.params
+  const lazy = useInteraction()
 
   const { data } = useSuspenseQuery({
     queryKey: ['test', testId],
@@ -64,48 +66,28 @@ export default function Analysis({ route }: AnalysisProps) {
           <SemiBold className='text mb-3 text-center text-xl'>Scorecard</SemiBold>
           {data?.result?.scorecard?.map((score, i) => <Scorecard score={score} key={score.sectionName} i={i + 2} />)}
         </View>
-        <View className='gap-3'>
-          <SemiBold className='text text-center text-xl'>Difficulty Analysis</SemiBold>
-          {data?.result?.difficultyAnalysis?.map((diff, i) => <Difficulty diff={diff} key={i} />)}
-          <DifficultyColors />
-        </View>
-        <View className='gap-3.5'>
-          <SemiBold className='text text-center text-xl'>Time Spent Analysis</SemiBold>
-          <TimeSpend timeSpentAnalysis={data?.result?.timeSpentAnalysis} />
-          {/* <View>
-            {data?.result?.timeSpentAnalysis?.questionWiseAnalysis?.slice(0, 5).map((qn, i) => (
-              <View key={i} className='mt-3'>
-                <Medium className='text text-sm'>
-                  Question Id: {qn.questionId}
-                  {'\n'}
-                  My Answer: {qn.myAnswer}
-                  {'\n'}
-                  Correct Answer: {qn.correctAnswer}
-                  {'\n'}
-                  Status: {qn.status}
-                  {'\n'}
-                  Difficulty Level: {qn.difficultyLevel}
-                  {'\n'}
-                  Time Spent By Me: {qn.timeSpentByMe}
-                  {'\n'}
-                  Time Spent By Those Who Got Right: {qn.timeSpentByThoseWhoGotRight}
-                  {'\n'}
-                  Time Spent By Topper: {qn.timeSpentByTopper}
-                  {'\n'}
-                </Medium>
-              </View>
-            ))}
-          </View> */}
-        </View>
-        <View className='gap-3'>
-          <SemiBold className='text text-center text-xl'>Attempt Analysis</SemiBold>
-          {data.result?.difficultyAnalysis?.map((diff, i) => <Attempt diff={diff} key={i} />)}
-          <AttemptColors />
-        </View>
-        <View className='gap-3'>
-          <SemiBold className='text text-center text-xl'>Questionwise Analysis</SemiBold>
-          <QuestionWise q={data?.result?.timeSpentAnalysis?.questionWiseAnalysis} />
-        </View>
+        {lazy && (
+          <>
+            <View className='gap-3'>
+              <SemiBold className='text text-center text-xl'>Difficulty Analysis</SemiBold>
+              {data?.result?.difficultyAnalysis?.map((diff, i) => <Difficulty diff={diff} key={i} />)}
+              <DifficultyColors />
+            </View>
+            <View className='gap-3.5'>
+              <SemiBold className='text text-center text-xl'>Time Spent Analysis</SemiBold>
+              <TimeSpend timeSpentAnalysis={data?.result?.timeSpentAnalysis} />
+            </View>
+            <View className='gap-3'>
+              <SemiBold className='text text-center text-xl'>Attempt Analysis</SemiBold>
+              {data.result?.difficultyAnalysis?.map((diff, i) => <Attempt diff={diff} key={i} />)}
+              <AttemptColors />
+            </View>
+            <View className='gap-3'>
+              <SemiBold className='text text-center text-xl'>Questionwise Analysis</SemiBold>
+              <QuestionWise q={data?.result?.timeSpentAnalysis?.questionWiseAnalysis} />
+            </View>
+          </>
+        )}
         <PaddingBottom />
       </ScrollView>
     </>
