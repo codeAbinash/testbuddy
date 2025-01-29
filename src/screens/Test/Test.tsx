@@ -1,6 +1,4 @@
-import api from '@query/api'
 import { RouteProp } from '@react-navigation/native'
-import { useQuery } from '@tanstack/react-query'
 import type { StackNav } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
@@ -11,6 +9,7 @@ import { Header } from './Components/Header'
 import { ModalOptions } from './Components/ModalOptions/ModalOptions'
 import QuestionDisplayArea from './Components/QuestionDisplayArea'
 import { QuestionHeading } from './Components/QuestionHeading'
+import useTestQuery from './hooks/useTestQuery'
 import useUpdateTestMutation from './hooks/useUpdateTestMutation'
 import currentQnStore from './zustand/currentQn'
 import testStore from './zustand/testStore'
@@ -33,18 +32,12 @@ export default function Test({ navigation, route }: TestProps) {
   const setTest = testStore((store) => store.setTest)
   const allQn = testStore((store) => store.allQn)
   const qnNo = currentQnStore((store) => store.qnNo)
-  const setQnNo = currentQnStore((store) => store.setQnNo)
   const lastApiCallTime = timeStore((store) => store.lastApiCallTime)
   const testSeriesId = testStore((store) => store.testData?.testSeriesId)
 
   const { mutate } = useUpdateTestMutation(testSeriesId!)
 
-  const { data, isSuccess } = useQuery({
-    queryKey: ['test', testId],
-    queryFn: () => api.startTest({ testId }),
-  })
-
-  useEffect(() => {}, [testId])
+  const { data, isSuccess } = useTestQuery(testId)
 
   useEffect(() => {
     if (isSuccess && data) setTest(data)
@@ -71,23 +64,15 @@ export default function Test({ navigation, route }: TestProps) {
     return () => clearTimeout(timer)
   }, [lastApiCallTime])
 
-  function handleNext() {
-    setQnNo((qnNo + 1) % allQn.length)
-  }
-
-  function handlePrev() {
-    setQnNo((qnNo - 1 + allQn.length) % allQn.length)
-  }
-
   return (
     <>
-      <Header navigation={navigation} colorScheme={colorScheme} testId={testId} />
-      <ModalOptions colorScheme={colorScheme} testId={testId} />
+      <Header navigation={navigation} colorScheme={colorScheme} testId={testId} mode='test' />
+      <ModalOptions colorScheme={colorScheme} testId={testId} mode='test' />
       <ScrollView contentContainerClassName='py-3 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
         <QuestionHeading qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />
-        <QuestionDisplayArea colorScheme={colorScheme} />
+        <QuestionDisplayArea colorScheme={colorScheme} mode='test' />
       </ScrollView>
-      <Footer colorScheme={colorScheme} handleNext={handleNext} handlePrev={handlePrev} />
+      <Footer colorScheme={colorScheme} mode='test' />
     </>
   )
 }

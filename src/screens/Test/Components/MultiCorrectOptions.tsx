@@ -1,5 +1,5 @@
 import { Medium } from '@utils/fonts'
-import { ColorScheme } from '@utils/types'
+import { ColorScheme, mode } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import React, { useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -9,7 +9,7 @@ import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
 import timeStore from '../zustand/timeStore'
 
-const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) => {
+const MultiCorrectOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme; mode: mode }) => {
   const allQn = testStore((store) => store.allQn)
   const qnNo = currentQnStore((store) => store.qnNo)
   const options = allQn?.[qnNo]?.options ?? []
@@ -39,6 +39,7 @@ const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorSch
 
   const onSelect = useCallback(
     (i: number) => {
+      if (mode === 'solution') return
       if (!qn) return
 
       let markedAnswer: string[] = qn.markedAnswer ? qn.markedAnswer.split(',') : []
@@ -72,6 +73,7 @@ const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorSch
           className='flex-row items-center gap-5'
           activeOpacity={0.6}
           onPress={() => onSelect(i)}
+          disabled={mode === 'solution'}
         >
           <View
             className={`size-8 items-center justify-center rounded-full ${
@@ -91,7 +93,7 @@ const MultiCorrectOptions = React.memo(({ colorScheme }: { colorScheme: ColorSch
           </View>
         </TouchableOpacity>
       ))}
-      {qn?.markedAnswer && (
+      {mode === 'test' && qn?.markedAnswer && (
         <TouchableOpacity className='mt-6' activeOpacity={0.6} onPress={clearSelection}>
           <Medium className='text text-sm underline'>Clear selection</Medium>
         </TouchableOpacity>

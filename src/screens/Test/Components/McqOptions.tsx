@@ -1,5 +1,5 @@
 import { Medium } from '@utils/fonts'
-import { ColorScheme } from '@utils/types'
+import { ColorScheme, mode } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import React, { useCallback } from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -9,7 +9,7 @@ import testStore from '../zustand/testStore'
 import timeStore from '../zustand/timeStore'
 import MCQSelector from './MCQSelector'
 
-const McqOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) => {
+const McqOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme; mode: mode }) => {
   const testSeriesId = testStore((store) => store.testData?.testSeriesId)
   const allQn = testStore((store) => store.allQn)
   const setAllQn = testStore((store) => store.setAllQn)
@@ -39,6 +39,7 @@ const McqOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) =>
 
   const onSelect = useCallback(
     (i: number) => {
+      if (mode === 'solution') return
       if (!qn) return
       qn.markedAnswer = String.fromCharCode(65 + i)
       setAllQn([...allQn])
@@ -64,9 +65,10 @@ const McqOptions = React.memo(({ colorScheme }: { colorScheme: ColorScheme }) =>
           selected={selected}
           onSelect={onSelect}
           colorScheme={colorScheme}
+          mode={mode}
         />
       ))}
-      {qn?.markedAnswer && (
+      {mode === 'test' && qn?.markedAnswer && (
         <TouchableOpacity className='mt-6' activeOpacity={0.6} onPress={clearSelection}>
           <Medium className='text text-sm underline'>Clear selection</Medium>
         </TouchableOpacity>

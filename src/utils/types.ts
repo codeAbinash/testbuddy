@@ -15,4 +15,6 @@ export type Theme = {
 
 export type ColorScheme = 'light' | 'dark' | undefined
 
+export type mode = 'solution' | 'test'
+
 export type NU = null | undefined

@@ -8,24 +8,24 @@ import currentQnStore from '@screens/Test/zustand/currentQn'
 import testStore from '@screens/Test/zustand/testStore'
 import timeStore from '@screens/Test/zustand/timeStore'
 import { H, W } from '@utils/dimensions'
-import { Medium } from '@utils/fonts'
-import { ColorScheme, StackNav } from '@utils/types'
+import { ColorScheme, mode, StackNav } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import React from 'react'
 import { Modal, ScrollView, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import modalStore, { ViewMode } from '../../zustand/modalStore'
+import ListViewQuestions from '../ListViewQuestions'
 import GridList from './GridList'
 import GridViewQuestions from './GridViewQuestions/GridViewQuestions'
-import Question from './GridViewQuestions/Question'
 import QuestionInformation from './QuestionInformation'
 import ViewInstructions from './ViewInstructions'
 
 export type ModalOptionsProps = {
   colorScheme: ColorScheme
   testId: string
+  mode: mode
 }
 
-export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme, testId }) => {
+export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme, testId, mode }) => {
   const setOpen = modalStore((store) => store.setOpen)
   const open = modalStore((store) => store.open)
   const viewMode = modalStore((store) => store.viewMode)
@@ -90,48 +90,21 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme, testId
                 <ViewInstructions colorScheme={colorScheme} setOpen={setOpen} />
                 <QuestionInformation />
                 {viewMode === ViewMode.Grid ? <GridViewQuestions /> : <ListViewQuestions />}
-                <View className='p-3.5 pt-2'>
-                  <SmallBtn
-                    title='Submit Test'
-                    style={{ paddingVertical: 11 }}
-                    onPress={() => handleSubmit(alert, mutateTest)}
-                  />
-                </View>
+                {mode === 'test' && (
+                  <View className='p-3.5 pt-2'>
+                    <SmallBtn
+                      title='Submit Test'
+                      style={{ paddingVertical: 11 }}
+                      onPress={() => handleSubmit(alert, mutateTest)}
+                    />
+                  </View>
+                )}
               </TouchableOpacity>
               <PaddingBottom />
             </ScrollView>
           </View>
         </TouchableOpacity>
       </Modal>
-    </View>
-  )
-})
-
-const ListViewQuestions = React.memo(() => {
-  const allQn = testStore((store) => store.allQn)
-  const { setQnNo, qnNo } = currentQnStore()
-  const setOpen = modalStore((store) => store.setOpen)
-
-  return (
-    <View className='px-4'>
-      {allQn.map((qn, i) => (
-        <View key={qn.questionId} className='flex-row items-center justify-between gap-4 py-1.5'>
-          <Question
-            qnNo={i}
-            isActive={qnNo === i}
-            isBookmarked={qn.isBookMarked || false}
-            visited={qn.visited || false}
-            isAnswered={!!qn.markedAnswer}
-            onPress={() => {
-              setQnNo(i)
-              setOpen(false)
-            }}
-          />
-          <Medium numberOfLines={1} className='text flex-shrink flex-grow-0 text-sm'>
-            {qn.questionContent ? qn.questionContent.trim() : ''}
-          </Medium>
-        </View>
-      ))}
     </View>
   )
 })

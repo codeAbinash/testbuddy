@@ -4,7 +4,7 @@ import { SmallBtn } from '@components/Button'
 import { PaddingTop } from '@components/SafePadding'
 import { queryClient } from '@query/query'
 import { SemiBold } from '@utils/fonts'
-import { ColorScheme, StackNav } from '@utils/types'
+import { ColorScheme, mode, StackNav } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import React, { useEffect } from 'react'
 import { BackHandler, ToastAndroid, TouchableOpacity, View } from 'react-native'
@@ -21,9 +21,10 @@ type HeaderProps = {
   navigation: StackNav
   colorScheme: ColorScheme
   testId: string
+  mode: mode
 }
 
-export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId }) => {
+export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId, mode }) => {
   const data = testStore((store) => store.testData)
   const setOpen = modalStore((store) => store.setOpen)
 
@@ -82,6 +83,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
     const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress)
     return () => backHandler.remove()
   }, [alert, navigation, clearTestData, setQnNo])
+
   return (
     <View className='bg-white dark:bg-zinc-950'>
       <PaddingTop />
@@ -103,13 +105,15 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
               {data?.test?.testTitle || 'Loading...'}{' '}
               <SemiBold className='capitalize text-zinc-500 dark:text-zinc-400'>({data?.test?.language})</SemiBold>
             </SemiBold>
-            <View className='justify-center'>
-              <SmallBtn
-                title='Submit'
-                style={{ paddingHorizontal: 17, paddingVertical: 5, borderRadius: 9 }}
-                onPress={() => handleSubmit(alert, mutateTest)}
-              />
-            </View>
+            {mode === 'test' && (
+              <View className='justify-center'>
+                <SmallBtn
+                  title='Submit'
+                  style={{ paddingHorizontal: 17, paddingVertical: 5, borderRadius: 9 }}
+                  onPress={() => handleSubmit(alert, mutateTest)}
+                />
+              </View>
+            )}
           </View>
         </View>
         <MoreOption colorScheme={colorScheme} onPress={() => setOpen(true)} />

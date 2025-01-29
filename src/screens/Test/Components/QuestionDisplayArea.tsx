@@ -1,4 +1,4 @@
-import { ColorScheme } from '@utils/types'
+import { ColorScheme, mode } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import { useEffect } from 'react'
 import { View } from 'react-native'
@@ -11,7 +11,7 @@ import McqOptions from './McqOptions'
 import MultiCorrectOptions from './MultiCorrectOptions'
 import NumericalOptions from './NumericalOptions'
 
-export default function QuestionDisplayArea({ colorScheme }: { colorScheme: ColorScheme }) {
+export default function QuestionDisplayArea({ colorScheme, mode }: { colorScheme: ColorScheme; mode: mode }) {
   const allQn = testStore((store) => store.allQn)
   const qnNo = currentQnStore((store) => store.qnNo)
   const qn = allQn?.[qnNo]?.questionContent
@@ -24,6 +24,7 @@ export default function QuestionDisplayArea({ colorScheme }: { colorScheme: Colo
   const { mutate } = useUpdateTestMutation(testSeriesId!)
 
   useEffect(() => {
+    if (mode === 'solution') return
     if (!qn) return
     if (allQn[qnNo]) allQn[qnNo].visited = true
     setAllQn([...allQn])
@@ -40,6 +41,7 @@ export default function QuestionDisplayArea({ colorScheme }: { colorScheme: Colo
   }, [qn])
 
   useEffect(() => {
+    if (mode === 'solution') return
     if (!allQn[lastOpenedQn]) return
     mutate({
       resData: [
@@ -61,9 +63,9 @@ export default function QuestionDisplayArea({ colorScheme }: { colorScheme: Colo
     <View className='px-5 pb-14'>
       <MathJax colorScheme={colorScheme} html={qn} />
 
-      {qnType === 'mcq' && <McqOptions colorScheme={colorScheme} />}
-      {qnType === 'numerical' && <NumericalOptions />}
-      {qnType === 'multi-correct' && <MultiCorrectOptions colorScheme={colorScheme} />}
+      {qnType === 'mcq' && <McqOptions colorScheme={colorScheme} mode={mode} />}
+      {qnType === 'numerical' && <NumericalOptions mode={mode}/>}
+      {qnType === 'multi-correct' && <MultiCorrectOptions colorScheme={colorScheme} mode={mode} />}
     </View>
   )
 }

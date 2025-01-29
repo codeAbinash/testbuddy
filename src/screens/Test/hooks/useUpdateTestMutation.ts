@@ -1,6 +1,5 @@
 import api from '@query/api'
 import { useMutation } from '@tanstack/react-query'
-import { print } from '@utils/utils'
 import currentQnStore from '../zustand/currentQn'
 
 export default function useUpdateTestMutation(testSeriesId: string, onSuccess?: () => void) {
@@ -8,6 +7,6 @@ export default function useUpdateTestMutation(testSeriesId: string, onSuccess?: 
   return useMutation({
     mutationKey: ['updateTest', testSeriesId, qnNo],
     mutationFn: api.updateTest,
-    onSuccess: onSuccess || print,
+    onSuccess: onSuccess || console.log,
   })
 }

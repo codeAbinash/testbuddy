@@ -1,14 +1,13 @@
 import { PaddingBottom } from '@components/SafePadding'
 import TopBar from '@components/TopBar'
-import api from '@query/api'
 import { RouteProp } from '@react-navigation/native'
-import { useInteraction } from '@utils/utils'
-import { useSuspenseQuery } from '@tanstack/react-query'
 import { Medium, Regular, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
+import { useInteraction } from '@utils/utils'
 import React, { useEffect } from 'react'
 import { StatusBar, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import useTestQuery from '../hooks/useTestQuery'
 import { ColorBoxes } from './ColorBox'
 import { Attempt, AttemptColors } from './components/Attempt'
 import Difficulty, { DifficultyColors } from './components/Difficulty'
@@ -33,10 +32,7 @@ export default function Analysis({ route }: AnalysisProps) {
   const { testId } = route.params
   const lazy = useInteraction()
 
-  const { data } = useSuspenseQuery({
-    queryKey: ['test', testId],
-    queryFn: () => api.startTest({ testId }),
-  })
+  const { data } = useTestQuery(testId)
 
   useEffect(() => {
     console.log(data?.result?.timeSpentAnalysis?.questionWiseAnalysis)
@@ -79,7 +75,7 @@ export default function Analysis({ route }: AnalysisProps) {
             </View>
             <View className='gap-3'>
               <SemiBold className='text text-center text-xl'>Attempt Analysis</SemiBold>
-              {data.result?.difficultyAnalysis?.map((diff, i) => <Attempt diff={diff} key={i} />)}
+              {data?.result?.difficultyAnalysis?.map((diff, i) => <Attempt diff={diff} key={i} />)}
               <AttemptColors />
             </View>
             <View className='gap-3'>

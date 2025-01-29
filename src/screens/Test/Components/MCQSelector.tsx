@@ -1,5 +1,5 @@
 import { Medium } from '@utils/fonts'
-import { ColorScheme } from '@utils/types'
+import { ColorScheme, mode } from '@utils/types'
 import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import MathJax from '../Math/MathJax'
@@ -10,10 +10,17 @@ type MCQSelectorProps = {
   selected: number
   onSelect: (i: number) => void
   colorScheme: ColorScheme
+  mode: mode
 }
 
-const MCQSelector = React.memo(({ content, i, selected, onSelect, colorScheme }: MCQSelectorProps) => (
-  <TouchableOpacity key={i} className='flex-row items-center gap-5' activeOpacity={0.6} onPress={() => onSelect(i)}>
+const MCQSelector = React.memo(({ content, i, selected, onSelect, colorScheme, mode }: MCQSelectorProps) => (
+  <TouchableOpacity
+    key={i}
+    className='flex-row items-center gap-5'
+    activeOpacity={0.6}
+    onPress={() => onSelect(i)}
+    disabled={mode === 'solution'}
+  >
     <View
       className={`size-8 items-center justify-center rounded-full ${selected === i ? 'bg-accent dark:bg-white' : 'border border-zinc-300 dark:border-zinc-700'}`}
     >

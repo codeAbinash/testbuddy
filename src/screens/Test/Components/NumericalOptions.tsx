@@ -1,6 +1,7 @@
 import Input from '@components/Input'
 import Label from '@components/Label'
 import { Medium } from '@utils/fonts'
+import { mode } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import React, { useCallback } from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -9,7 +10,7 @@ import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
 import timeStore from '../zustand/timeStore'
 
-const NumericalOptions = React.memo(() => {
+const NumericalOptions = React.memo(({ mode }: { mode: mode }) => {
   const allQn = testStore((store) => store.allQn)
   const qnNo = currentQnStore((store) => store.qnNo)
   const setAllQn = testStore((store) => store.setAllQn)
@@ -38,6 +39,7 @@ const NumericalOptions = React.memo(() => {
 
   const onChange = useCallback(
     (text: string) => {
+      if (mode !== 'solution') return
       const question = allQn?.[qnNo]
       if (!question) return
       question.markedAnswer = text
@@ -50,8 +52,14 @@ const NumericalOptions = React.memo(() => {
   return (
     <View>
       <Label text='Type your answer below' />
-      <Input placeholder='Type your answer here' keyboardType='numeric' value={text} onChangeText={onChange} />
-      {qn?.markedAnswer && (
+      <Input
+        placeholder='Type your answer here'
+        keyboardType='numeric'
+        value={text}
+        onChangeText={onChange}
+        editable={mode === 'test'}
+      />
+      {mode === 'test' && qn?.markedAnswer && (
         <TouchableOpacity className='mt-6' activeOpacity={0.6} onPress={() => onChange('')}>
           <Medium className='text text-sm underline'>Clear answer</Medium>
         </TouchableOpacity>
