@@ -1,17 +1,19 @@
 import { AnalyticsUpStrokeRoundedIcon } from '@assets/icons/icons'
 import Press from '@components/Press'
 import { RouteProp, useNavigation } from '@react-navigation/native'
-import { StackNav } from '@utils/types'
+import { Bold } from '@utils/fonts'
+import { ColorScheme, StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { useEffect } from 'react'
+import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import Animated, { ZoomIn, ZoomOut } from 'react-native-reanimated'
 import { Footer } from '../Components/Footer'
 import { Header } from '../Components/Header'
 import { ModalOptions } from '../Components/ModalOptions/ModalOptions'
 import QuestionDisplayArea from '../Components/QuestionDisplayArea'
 import { QuestionHeading } from '../Components/QuestionHeading'
 import useTestQuery from '../hooks/useTestQuery'
+import MathJax from '../Math/MathJax'
 import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
 
@@ -40,32 +42,36 @@ export default function Solution({ navigation, route }: SolutionProps) {
     if (isSuccess && data) setTest(data)
   }, [isSuccess])
 
-  useEffect(() => {
-    navigation.navigate('Analysis', { testId })
-  }, [])
-
   return (
     <>
       <Header navigation={navigation} colorScheme={colorScheme} testId={testId} mode='solution' />
       <ModalOptions colorScheme={colorScheme} mode='solution' testId={testId} />
-      <ScrollView contentContainerClassName='py-3 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerClassName='py-3 screen-bg' contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
         <QuestionHeading qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />
         <QuestionDisplayArea colorScheme={colorScheme} mode='solution' />
-        <FabButton testId={testId} />
+        <Explanation colorScheme={colorScheme} />
       </ScrollView>
+      <FabButton testId={testId} />
       <Footer colorScheme={colorScheme} mode='solution' />
     </>
+  )
+}
+
+function Explanation({ colorScheme }: { colorScheme: ColorScheme }) {
+  const qnNo = currentQnStore((store) => store.qnNo)
+  const allQn = testStore((store) => store.allQn)
+  return (
+    <View className='mt-7 px-5'>
+      <Bold className='text mb-3 text-lg'>Explanation</Bold>
+      <MathJax html={allQn[qnNo]?.answerExplanation} colorScheme={colorScheme} />
+    </View>
   )
 }
 
 const FabButton = ({ testId }: { testId: string }) => {
   const navigation = useNavigation<StackNav>()
   return (
-    <Animated.View
-      entering={ZoomIn.duration(200)}
-      exiting={ZoomOut.duration(200)}
-      className='absolute bottom-7 right-5 z-10'
-    >
+    <View className='absolute bottom-32 right-5 z-10'>
       <Press
         style={{
           shadowColor: '#000',
@@ -85,6 +91,6 @@ const FabButton = ({ testId }: { testId: string }) => {
       >
         <AnalyticsUpStrokeRoundedIcon color={'white'} height={25} width={25} />
       </Press>
-    </Animated.View>
+    </View>
   )
 }

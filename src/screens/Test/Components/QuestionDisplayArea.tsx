@@ -60,7 +60,7 @@ export default function QuestionDisplayArea({ colorScheme, mode }: { colorScheme
   }, [lastOpenedQn])
 
   return (
-    <View className='px-5 pb-14'>
+    <View className='px-5'>
       <MathJax colorScheme={colorScheme} html={qn} />
 
       {qnType === 'mcq' && <McqOptions colorScheme={colorScheme} mode={mode} />}

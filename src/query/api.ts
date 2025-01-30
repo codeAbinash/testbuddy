@@ -166,6 +166,10 @@ function startTest(data: { testId: string }) {
     totalTimeSpent?: number
     isBookMarked?: boolean
     markedAnswer?: string
+    correct_options?: string[]
+    answerExplanation?: string
+    isCorrect?: boolean
+    answer?: string
   }
 
   type Option = {

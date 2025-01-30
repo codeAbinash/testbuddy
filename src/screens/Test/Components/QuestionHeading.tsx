@@ -23,7 +23,7 @@ export const QuestionHeading = React.memo<QuestionHeadingProps>(({ qnNo, allQn, 
       </Medium>
       <View className='flex-row items-center gap-1 opacity-80'>
         <Clock01Icon width={13} height={13} color={colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]} />
-        <SemiBold className='text mb-1 gap-5 text-sm' style={{ fontSize: 12, fontVariant: ['tabular-nums'] }}>
+        <SemiBold className='text mt-0.5 gap-5 text-sm' style={{ fontSize: 12, fontVariant: ['tabular-nums'] }}>
           {secToHrMinSec(allQn[qnNo]?.totalTimeSpent || 0)}
         </SemiBold>
       </View>

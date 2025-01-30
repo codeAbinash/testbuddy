@@ -8,9 +8,9 @@ import { DifficultyAnalysis } from '../types/result'
 
 const GRAPH_WIDTH = W - 40
 const GAP = 3
-const incorrect = colors.rose['500']
-const correct = colors.green['500']
-const skip = colors.zinc['500'] + '30'
+export const incorrect = colors.rose['500']
+export const correct = colors.green['500']
+export const skip = colors.zinc['500'] + '30'
 
 type allQns = NonNullable<NonNullable<NonNullable<DifficultyAnalysis['levels']>[0]['questions']>[0]>['status']
 

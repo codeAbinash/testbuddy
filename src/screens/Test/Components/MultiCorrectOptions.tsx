@@ -1,13 +1,14 @@
 import { Medium } from '@utils/fonts'
 import { ColorScheme, mode } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import useUpdateTestMutation from '../hooks/useUpdateTestMutation'
-import MathJax from '../Math/MathJax'
 import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
 import timeStore from '../zustand/timeStore'
+import AnswerSelectionIndicator from './AnswerSelectionIndicator'
+import MultiOptionSelector from './MultiOptionSelector'
 
 const MultiCorrectOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme; mode: mode }) => {
   const allQn = testStore((store) => store.allQn)
@@ -62,42 +63,35 @@ const MultiCorrectOptions = React.memo(({ colorScheme, mode }: { colorScheme: Co
     mutateTest()
   }, [allQn, qn, setAllQn])
 
+  useEffect(() => {
+    console.log(qn?.correct_options)
+  }, [])
+
   return (
     <View>
-      <Medium className='mb-5 rounded-xl bg-green-500/10 py-3 text-center text-sm text-green-500'>
-        Select all correct options
-      </Medium>
+      <View className='mb-10 flex-row items-center justify-center'>
+        <Medium className='rounded-full bg-blue-500/15 px-6 py-2 pt-2.5 text-center text-sm text-blue-500'>
+          Select all correct options
+        </Medium>
+      </View>
       {options.map((op, i) => (
-        <TouchableOpacity
+        <MultiOptionSelector
           key={i}
-          className='flex-row items-center gap-5'
-          activeOpacity={0.6}
-          onPress={() => onSelect(i)}
-          disabled={mode === 'solution'}
-        >
-          <View
-            className={`size-8 items-center justify-center rounded-full ${
-              marked.includes(String.fromCharCode(65 + i))
-                ? 'bg-accent dark:bg-white'
-                : 'border border-zinc-300 dark:border-zinc-700'
-            }`}
-          >
-            <Medium
-              className={`mt-0.5 text-center text-sm ${marked.includes(String.fromCharCode(65 + i)) ? 'text-white dark:text-accent' : 'text'} `}
-            >
-              {String.fromCharCode(65 + i)}
-            </Medium>
-          </View>
-          <View className='flex-1'>
-            <MathJax key={i} colorScheme={colorScheme} html={op.content} />
-          </View>
-        </TouchableOpacity>
+          i={i}
+          onSelect={onSelect}
+          mode={mode}
+          selected={marked}
+          qn={qn}
+          colorScheme={colorScheme}
+          op={op}
+        />
       ))}
       {mode === 'test' && qn?.markedAnswer && (
         <TouchableOpacity className='mt-6' activeOpacity={0.6} onPress={clearSelection}>
           <Medium className='text text-sm underline'>Clear selection</Medium>
         </TouchableOpacity>
       )}
+      {mode === 'solution' && <AnswerSelectionIndicator />}
     </View>
   )
 })

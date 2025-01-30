@@ -4,7 +4,7 @@ import { RouteProp } from '@react-navigation/native'
 import { Medium, Regular, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 import { useInteraction } from '@utils/utils'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { StatusBar, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import useTestQuery from '../hooks/useTestQuery'
@@ -33,10 +33,6 @@ export default function Analysis({ route }: AnalysisProps) {
   const lazy = useInteraction()
 
   const { data } = useTestQuery(testId)
-
-  useEffect(() => {
-    console.log(data?.result?.timeSpentAnalysis?.questionWiseAnalysis)
-  }, [data])
 
   return (
     <>

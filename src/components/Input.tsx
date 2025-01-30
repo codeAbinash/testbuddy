@@ -9,11 +9,11 @@ type InputProps = TextInputProps & {
   Left?: React.ReactNode
   Right?: React.ReactNode
 }
-export default function Input({ Left, Right, ...rest }: InputProps) {
+export default function Input({ Left, Right, style, ...rest }: InputProps) {
   return (
     <View className='group'>
       <View
-        className='w-full flex-row items-center gap-3 border border-zinc-200 bg-zinc-100 px-4 dark:border-zinc-800 dark:bg-zinc-900'
+        className='w-full flex-row items-center gap-2 border border-zinc-200 bg-zinc-100 px-4 dark:border-zinc-800 dark:bg-zinc-900'
         style={{ borderRadius: 14.5 }}
       >
         {Left}
@@ -22,7 +22,7 @@ export default function Input({ Left, Right, ...rest }: InputProps) {
           className='text'
           placeholderTextColor={colors.zinc[500]}
           importantForAutofill='yes'
-          style={[JosefinSansSemiBold, { fontSize: 12.5, flex: 1, paddingTop: 13, paddingBottom: 17 }]}
+          style={[JosefinSansSemiBold, { fontSize: 12.5, flex: 1, paddingTop: 13, paddingBottom: 17 }, style]}
           {...rest}
         />
         {Right}

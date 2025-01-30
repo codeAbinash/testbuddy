@@ -7,6 +7,7 @@ import useUpdateTestMutation from '../hooks/useUpdateTestMutation'
 import currentQnStore from '../zustand/currentQn'
 import testStore from '../zustand/testStore'
 import timeStore from '../zustand/timeStore'
+import AnswerSelectionIndicator from './AnswerSelectionIndicator'
 import MCQSelector from './MCQSelector'
 
 const McqOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme; mode: mode }) => {
@@ -66,6 +67,8 @@ const McqOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme
           onSelect={onSelect}
           colorScheme={colorScheme}
           mode={mode}
+          isCorrect={qn?.isCorrect}
+          correct_options={qn?.correct_options}
         />
       ))}
       {mode === 'test' && qn?.markedAnswer && (
@@ -73,6 +76,7 @@ const McqOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme
           <Medium className='text text-sm underline'>Clear selection</Medium>
         </TouchableOpacity>
       )}
+      {mode === 'solution' && <AnswerSelectionIndicator />}
     </View>
   )
 })
