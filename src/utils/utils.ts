@@ -1,7 +1,7 @@
+import { useEffect, useState } from 'react'
 import { Alert, InteractionManager, Share } from 'react-native'
 import { FadeIn } from 'react-native-reanimated'
 import { SCREEN_TRANSITION } from './constants'
-import { useState, useEffect } from 'react'
 
 export type TimeFormat = '12h' | '24h'
 
@@ -174,7 +174,7 @@ export function getFirstName(name: string | undefined) {
 }
 
 export function secToHrMinSec(seconds: number) {
-  if (!seconds) return ''
+  if (!seconds) return '0s'
   const hours = Math.floor(seconds / 3600)
   const minutes = Math.floor((seconds % 3600) / 60)
   const secs = Math.floor(seconds % 60)

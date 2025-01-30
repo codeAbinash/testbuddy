@@ -1,8 +1,11 @@
-import { RouteProp } from '@react-navigation/native'
+import { AnalyticsUpStrokeRoundedIcon } from '@assets/icons/icons'
+import Press from '@components/Press'
+import { RouteProp, useNavigation } from '@react-navigation/native'
 import { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { useEffect } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
+import Animated, { ZoomIn, ZoomOut } from 'react-native-reanimated'
 import { Footer } from '../Components/Footer'
 import { Header } from '../Components/Header'
 import { ModalOptions } from '../Components/ModalOptions/ModalOptions'
@@ -48,8 +51,40 @@ export default function Solution({ navigation, route }: SolutionProps) {
       <ScrollView contentContainerClassName='py-3 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
         <QuestionHeading qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />
         <QuestionDisplayArea colorScheme={colorScheme} mode='solution' />
+        <FabButton testId={testId} />
       </ScrollView>
       <Footer colorScheme={colorScheme} mode='solution' />
     </>
+  )
+}
+
+const FabButton = ({ testId }: { testId: string }) => {
+  const navigation = useNavigation<StackNav>()
+  return (
+    <Animated.View
+      entering={ZoomIn.duration(200)}
+      exiting={ZoomOut.duration(200)}
+      className='absolute bottom-7 right-5 z-10'
+    >
+      <Press
+        style={{
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 2,
+            height: 2,
+          },
+          elevation: 6,
+          shadowOpacity: 0.5,
+          height: 60,
+          width: 60,
+        }}
+        onPress={() => navigation.navigate('Analysis', { testId })}
+        activeOpacity={0.9}
+        activeScale={0.95}
+        className='items-center justify-center rounded-full bg-accent'
+      >
+        <AnalyticsUpStrokeRoundedIcon color={'white'} height={25} width={25} />
+      </Press>
+    </Animated.View>
   )
 }

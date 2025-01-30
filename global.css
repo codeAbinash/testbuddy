@@ -17,3 +17,11 @@
 .screen-bg {
   @apply bg-zinc-50 dark:bg-black;
 }
+
+.bgBlack {
+  @apply bg-zinc-100 dark:bg-zinc-100;
+}
+
+.textWhite {
+  @apply text-zinc-100 dark:text-zinc-900;
+}
