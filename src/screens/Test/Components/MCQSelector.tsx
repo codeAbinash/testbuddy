@@ -18,7 +18,7 @@ type MCQSelectorProps = {
 const MCQSelector = React.memo(
   ({ content, i, selected, onSelect, colorScheme, mode, isCorrect, correct_options }: MCQSelectorProps) => {
     const bgColor = getBgColor(selected, i, mode, isCorrect, correct_options)
-    const textColor = getTextColor(selected, i, mode, isCorrect, correct_options)
+    const textColor = getTextColor(selected, i, mode, correct_options)
 
     return (
       <TouchableOpacity
@@ -50,12 +50,12 @@ function getBgColor(selected: number, i: number, mode: mode, isCorrect?: boolean
   return bgColor
 }
 
-function getTextColor(selected: number, i: number, mode: mode, isCorrect?: boolean, correct_options?: string[]) {
+function getTextColor(selected: number, i: number, mode: mode, correct_options?: string[]) {
   const currChar = String.fromCharCode(65 + i)
   const isSelected = selected === i
   const isValidSelection = correct_options?.includes(currChar)
   if (mode === 'test') return isSelected ? 'text-white dark:text-accent' : 'text'
-  if (isSelected || isCorrect || isValidSelection) return 'text-white'
+  if (isSelected || isValidSelection) return 'text-white'
   return 'text'
 }
 

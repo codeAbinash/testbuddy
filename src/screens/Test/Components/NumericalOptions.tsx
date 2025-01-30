@@ -56,7 +56,7 @@ const NumericalOptions = React.memo(({ mode }: { mode: mode }) => {
     <View>
       <Label text='Type your answer below' />
       <Input
-        placeholder='Type your answer here'
+        placeholder={mode === 'test' ? 'Type your answer here' : 'You skipped this question'}
         keyboardType='numeric'
         value={text}
         onChangeText={onChange}

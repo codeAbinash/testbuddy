@@ -5,9 +5,9 @@ import colors from 'tailwindcss/colors'
 export default function AnswerSelectionIndicator() {
   return (
     <View className='mt-3 gap-2'>
-      <ColorIndicator text='Correct and selected' color={colors.green[500]} />
-      <ColorIndicator color={colors.blue[500]} text='Correct and not selected' />
-      <ColorIndicator color={colors.red[500]} text='Incorrect and selected' />
+      <ColorIndicator text='Correct and selected by you' color={colors.green[500]} />
+      <ColorIndicator color={colors.blue[500]} text='Correct and not selected by you' />
+      <ColorIndicator color={colors.red[500]} text='Incorrect and selected by you' />
     </View>
   )
 }
