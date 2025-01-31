@@ -64,7 +64,7 @@ export default function QuestionDisplayArea({ colorScheme, mode }: { colorScheme
       <MathJax colorScheme={colorScheme} html={qn} />
 
       {qnType === 'mcq' && <McqOptions colorScheme={colorScheme} mode={mode} />}
-      {qnType === 'numerical' && <NumericalOptions mode={mode}/>}
+      {qnType === 'numerical' && <NumericalOptions mode={mode} />}
       {qnType === 'multi-correct' && <MultiCorrectOptions colorScheme={colorScheme} mode={mode} />}
     </View>
   )

@@ -34,8 +34,9 @@ const QuestionWise = React.memo<{ q?: QuestionWiseAnalysis[] }>(({ q }) => {
       <TouchableOpacity
         className='mt-10 flex-row items-center justify-center'
         onPress={() => setShowMore((prev) => !prev)}
+        activeOpacity={0.7}
       >
-        <Medium className='black textWhite rounded-full px-8 py-2.5 pt-3 text-center text-sm'>
+        <Medium className='rounded-full bg-accent px-8 py-2.5 pt-3 text-center text-sm text-white dark:bg-white dark:text-black'>
           {showMore ? 'Show Less' : 'Show More'}
         </Medium>
       </TouchableOpacity>

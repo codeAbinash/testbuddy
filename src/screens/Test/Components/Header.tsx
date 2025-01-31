@@ -80,9 +80,10 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
 
   // Handle back press
   useEffect(() => {
+    if (mode === 'solution') return
     const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress)
     return () => backHandler.remove()
-  }, [alert, navigation, clearTestData, setQnNo])
+  }, [alert, navigation, clearTestData, setQnNo, mode, onBackPress])
 
   return (
     <View className='bg-white dark:bg-zinc-950'>

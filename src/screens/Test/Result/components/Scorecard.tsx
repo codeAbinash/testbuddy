@@ -3,7 +3,7 @@ import { InformationCircleStrokeRoundedIcon } from '@assets/icons/icons'
 import { Medium } from '@utils/fonts'
 import { useColorScheme } from 'nativewind'
 import { TouchableOpacity, View } from 'react-native'
-import Animated, { FadeIn, FadeInUp } from 'react-native-reanimated'
+import Animated, { FadeIn } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 import { type Scorecard } from '../types/result'
 

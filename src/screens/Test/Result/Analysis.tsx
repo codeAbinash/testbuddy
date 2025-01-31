@@ -1,11 +1,11 @@
-import { PaddingBottom } from '@components/SafePadding'
+import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import TopBar from '@components/TopBar'
 import { RouteProp } from '@react-navigation/native'
 import { Medium, Regular, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 import { useInteraction } from '@utils/utils'
 import React from 'react'
-import { StatusBar, View } from 'react-native'
+import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import useTestQuery from '../hooks/useTestQuery'
 import { ColorBoxes } from './ColorBox'
@@ -36,8 +36,8 @@ export default function Analysis({ route }: AnalysisProps) {
 
   return (
     <>
-      <StatusBar barStyle='default' />
-      <View className='pb-5'>
+      <View className='screen-bg pb-5'>
+        <PaddingTop />
         <TopBar />
       </View>
       <ScrollView className='screen-bg flex-1 px-5 py-5' contentContainerClassName='pb-10 gap-12'>
