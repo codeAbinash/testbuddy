@@ -41,6 +41,8 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
   const { mutate } = useUpdateTestMutation(testSeriesId!, () => {
     navigation.replace('Solution', { testId })
     removePopup(popupsLen - 1)
+    setQnNo(0)
+    clearTestData()
   })
 
   const onBackPress = React.useCallback(() => {

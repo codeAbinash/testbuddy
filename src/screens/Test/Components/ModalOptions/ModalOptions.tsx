@@ -37,10 +37,14 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme, testId
   const removePopup = popupStore((store) => store.removePopup)
   const popupsLen = popupStore((store) => store.popups.length)
   const navigation = useNavigation<StackNav>()
+  const clearTestData = testStore((store) => store.clearTestData)
+  const setQnNo = currentQnStore((store) => store.setQnNo)
 
   const { mutate } = useUpdateTestMutation(testSeriesId!, () => {
     navigation.replace('Solution', { testId })
     removePopup(popupsLen - 1)
+    setQnNo(0)
+    clearTestData()
   })
 
   async function mutateTest() {
