@@ -2,7 +2,7 @@ import { DocumentValidationStrokeRoundedIcon, MultiplicationSignIcon } from '@as
 import Input from '@components/Input'
 import Label from '@components/Label'
 import { Medium } from '@utils/fonts'
-import { mode } from '@utils/types'
+import { type mode } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import React, { useCallback } from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -41,14 +41,15 @@ const NumericalOptions = React.memo(({ mode }: { mode: mode }) => {
   }
 
   const onChange = useCallback(
-    (text: string) => {
+    (txt: string) => {
       if (mode === 'solution') return
       const question = allQn?.[qnNo]
       if (!question) return
-      question.markedAnswer = text
+      question.markedAnswer = txt
       setAllQn([...allQn])
       mutateTest()
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [allQn, qnNo, setAllQn],
   )
 

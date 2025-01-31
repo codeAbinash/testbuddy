@@ -30,6 +30,7 @@ export default function TopArea({ navigation }: DrawerProps) {
         navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile: data.mobile } }] })
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   return (

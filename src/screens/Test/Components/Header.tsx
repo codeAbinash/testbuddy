@@ -4,7 +4,7 @@ import { SmallBtn } from '@components/Button'
 import { PaddingTop } from '@components/SafePadding'
 import { queryClient } from '@query/query'
 import { SemiBold } from '@utils/fonts'
-import { ColorScheme, mode, StackNav } from '@utils/types'
+import { ColorScheme, type mode, StackNav } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import React, { useEffect } from 'react'
 import { BackHandler, ToastAndroid, TouchableOpacity, View } from 'react-native'
@@ -43,7 +43,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
     removePopup(popupsLen - 1)
   })
 
-  function onBackPress() {
+  const onBackPress = React.useCallback(() => {
     alert('Exit test?', 'Do you want to exit the test?', [
       { text: 'Cancel' },
       {
@@ -57,7 +57,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
       },
     ])
     return true
-  }
+  }, [alert, navigation, clearTestData, setQnNo, testId])
 
   function mutateTest() {
     const qn = allQn?.[qnNo]

@@ -1,8 +1,8 @@
 import NetInfo from '@react-native-community/netinfo'
 import { useFocusEffect } from '@react-navigation/native'
 import { focusManager, NotifyOnChangeProps, onlineManager, QueryClient } from '@tanstack/react-query'
-import React, { useEffect } from 'react'
-import { AppState, AppStateStatus, Platform } from 'react-native'
+import React from 'react'
+import { AppStateStatus, Platform } from 'react-native'
 
 // Online Status Manager
 onlineManager.setEventListener((setOnline) => {
@@ -17,10 +17,11 @@ function onAppStateChange(status: AppStateStatus) {
     focusManager.setFocused(status === 'active')
   }
 }
-useEffect(() => {
-  const subscription = AppState.addEventListener('change', onAppStateChange)
-  return () => subscription.remove()
-}, [])
+
+// useEffect(() => {
+//   const subscription = AppState.addEventListener('change', onAppStateChange)
+//   return () => subscription.remove()
+// }, [])
 
 // Refetch on Screen Focus
 export function useRefreshOnFocus<T>(refetch: () => Promise<T>) {

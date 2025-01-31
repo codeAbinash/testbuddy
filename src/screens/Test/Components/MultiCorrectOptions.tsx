@@ -1,7 +1,7 @@
 import { Medium } from '@utils/fonts'
-import { ColorScheme, mode } from '@utils/types'
+import { ColorScheme, type mode } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import useUpdateTestMutation from '../hooks/useUpdateTestMutation'
 import currentQnStore from '../zustand/currentQn'
@@ -53,6 +53,7 @@ const MultiCorrectOptions = React.memo(({ colorScheme, mode }: { colorScheme: Co
       setAllQn([...allQn])
       mutateTest()
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [allQn, qn, setAllQn],
   )
 
@@ -61,11 +62,8 @@ const MultiCorrectOptions = React.memo(({ colorScheme, mode }: { colorScheme: Co
     qn.markedAnswer = ''
     setAllQn([...allQn])
     mutateTest()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allQn, qn, setAllQn])
-
-  useEffect(() => {
-    console.log(qn?.correct_options)
-  }, [])
 
   return (
     <View>

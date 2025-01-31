@@ -50,9 +50,7 @@ export default function Update({ route }: UpdateProps) {
   )
 }
 
-{
-  /* <Medium className='mt-2 text-center text-zinc-900 opacity-70 dark:text-zinc-100' style={{ fontSize: 13 }}>
+/* <Medium className='mt-2 text-center text-zinc-900 opacity-70 dark:text-zinc-100' style={{ fontSize: 13 }}>
   The installed version is {versionName}({versionCode}) and the latest version is {latestVersion}({vCode}).
   Please update the application.
 </Medium> */
-}

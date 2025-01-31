@@ -1,6 +1,6 @@
 import { ColoredSmallBtn, SmallBtn } from '@components/Button'
 import { PaddingBottom } from '@components/SafePadding'
-import { ColorScheme, mode } from '@utils/types'
+import { ColorScheme, type mode } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import React, { useCallback } from 'react'
 import { View } from 'react-native'
@@ -45,6 +45,7 @@ export const Footer = React.memo<FooterProps>(({ colorScheme, mode }) => {
       ],
       testSeriesId: testSeriesId!,
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allQn, qnNo, setAllQn])
 
   function handleNext() {

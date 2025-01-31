@@ -41,6 +41,7 @@ export default function Test({ navigation, route }: TestProps) {
 
   useEffect(() => {
     if (isSuccess && data) setTest(data)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
   useEffect(() => {
@@ -62,6 +63,7 @@ export default function Test({ navigation, route }: TestProps) {
       })
     }, 50000)
     return () => clearTimeout(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastApiCallTime])
 
   return (

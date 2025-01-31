@@ -1,5 +1,5 @@
 import { Medium } from '@utils/fonts'
-import { ColorScheme, mode } from '@utils/types'
+import { ColorScheme, type mode } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
 import React, { useCallback } from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -46,6 +46,7 @@ const McqOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme
       setAllQn([...allQn])
       mutateTest()
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [allQn, qn, setAllQn],
   )
 
@@ -54,6 +55,7 @@ const McqOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme
     qn.markedAnswer = ''
     setAllQn([...allQn])
     mutateTest()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allQn, qn, setAllQn])
 
   return (

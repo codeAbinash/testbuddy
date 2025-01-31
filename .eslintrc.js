@@ -13,5 +13,6 @@ module.exports = {
     curly: ['off', 'never'],
     '@tanstack/query/exhaustive-deps': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'eslint-comments/no-unlimited-disable': 'off',
   },
 }

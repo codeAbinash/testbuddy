@@ -26,10 +26,12 @@ export default function Splash({ navigation }: NavProps) {
 
   useEffect(() => {
     mutate()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     setNavigation(navigation)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation])
 
   useEffect(() => {

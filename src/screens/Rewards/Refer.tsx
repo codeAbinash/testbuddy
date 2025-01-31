@@ -10,8 +10,8 @@ import { ScrollView } from 'react-native-gesture-handler'
 
 function shareWithFriends(referralCode: string) {
   Share.share({
-    message: ((referralCode: string) => {
-      return `Hey, I am using TestBuddy to prepare for my exams. Join me and get access to free study material, quizzes, and more. Use my referral code ${referralCode} to get started. Download the app now - ${playStoreUrl}`
+    message: ((code: string) => {
+      return `Hey, I am using TestBuddy to prepare for my exams. Join me and get access to free study material, quizzes, and more. Use my referral code ${code} to get started. Download the app now - ${playStoreUrl}`
     })(referralCode),
     title: 'Join me on TestBuddy',
     url: playStoreUrl,

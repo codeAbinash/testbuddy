@@ -40,6 +40,7 @@ export default function Solution({ navigation, route }: SolutionProps) {
 
   useEffect(() => {
     if (isSuccess && data) setTest(data)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
   return (

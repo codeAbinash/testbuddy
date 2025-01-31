@@ -68,6 +68,7 @@ const SMOOTH_ANIMATION: StackNavigationOptions = {
   gestureResponseDistance: H,
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const GestureEnabled = { gestureEnabled: true }
 
 const Stack = createStackNavigator<RootStackParamList>()

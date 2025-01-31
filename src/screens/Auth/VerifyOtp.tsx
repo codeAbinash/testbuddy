@@ -64,10 +64,10 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
     },
   })
 
-  const verifyOtp = (otp: string) => {
-    if (!otp) return alert('OTP is required', 'Please enter the OTP sent to your mobile number.')
-    if (otp.length !== 4) return alert('Invalid OTP', 'Please enter a valid OTP. It should be 4 digits long.')
-    mutate({ mobile: normalizePhoneNumber(mobile), otp })
+  const verifyOtp = (userOtp: string) => {
+    if (!userOtp) return alert('OTP is required', 'Please enter the OTP sent to your mobile number.')
+    if (userOtp.length !== 4) return alert('Invalid OTP', 'Please enter a valid OTP. It should be 4 digits long.')
+    mutate({ mobile: normalizePhoneNumber(mobile), otp: userOtp })
   }
 
   function handleResend() {
@@ -90,6 +90,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
   return (
     <KeyboardAvoid>
       <View className='h-screen flex-1 justify-between px-7'>
+        <View />
         <View>
           <Lottie source={Animations.message} speed={0.7} size={W * 0.75} />
           <View className='gap-3'>
@@ -113,7 +114,7 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
               setOtp(text)
               setErrorMessages('')
             }}
-            onFilled={(text) => verifyOtp(text)}
+            onFilled={verifyOtp}
             textInputProps={{
               accessibilityLabel: 'One-Time Password',
               selectionColor: 'transparent',

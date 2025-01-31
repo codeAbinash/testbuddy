@@ -1,5 +1,5 @@
 import { Medium } from '@utils/fonts'
-import { ColorScheme, mode } from '@utils/types'
+import { ColorScheme, type mode } from '@utils/types'
 import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import MathJax from '../Math/MathJax'

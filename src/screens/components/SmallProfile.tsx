@@ -25,6 +25,7 @@ export default function SmallProfile({ navigation, data }: SmallProfileProps) {
       { text: 'Cancel' },
       { text: 'Log out', onPress: logout },
     ])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

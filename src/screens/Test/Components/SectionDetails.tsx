@@ -1,6 +1,6 @@
 import { Clock01Icon } from '@assets/icons/icons'
 import { Medium, SemiBold } from '@utils/fonts'
-import { ColorScheme, mode } from '@utils/types'
+import { ColorScheme, type mode } from '@utils/types'
 import { secToHrMinSec } from '@utils/utils'
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
@@ -23,7 +23,7 @@ export const SectionDetails = React.memo<SectionDetailsProps>(({ qnNo, allQn, co
       setTestData({ ...testData, totalTimeCompleted: (testData?.totalTimeCompleted || 0) + 1 })
     }, 1000)
     return () => clearTimeout(timer)
-  }, [testData])
+  }, [mode, setTestData, testData])
 
   return (
     <View className='flex-row items-center justify-between bg-white px-5 pt-2 dark:bg-zinc-950'>
