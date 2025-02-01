@@ -43,9 +43,15 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
     removePopup(popupsLen - 1)
     setQnNo(0)
     clearTestData()
+    queryClient.invalidateQueries({ queryKey: ['test', testId] })
   })
 
   const onBackPress = React.useCallback(() => {
+    if (mode === 'solution') {
+      queryClient.invalidateQueries({ queryKey: ['test', testId] })
+      navigation.goBack()
+      return true
+    }
     alert('Exit test?', 'Do you want to exit the test?', [
       { text: 'Cancel' },
       {
@@ -59,7 +65,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
       },
     ])
     return true
-  }, [alert, navigation, clearTestData, setQnNo, testId])
+  }, [mode, alert, navigation, clearTestData, setQnNo, testId])
 
   function mutateTest() {
     const qn = allQn?.[qnNo]
@@ -82,7 +88,6 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
 
   // Handle back press
   useEffect(() => {
-    if (mode === 'solution') return
     const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress)
     return () => backHandler.remove()
   }, [alert, navigation, clearTestData, setQnNo, mode, onBackPress])

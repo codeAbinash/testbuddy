@@ -18,6 +18,7 @@ import GridList from './GridList'
 import GridViewQuestions from './GridViewQuestions/GridViewQuestions'
 import QuestionInformation from './QuestionInformation'
 import ViewInstructions from './ViewInstructions'
+import { queryClient } from '@query/query'
 
 export type ModalOptionsProps = {
   colorScheme: ColorScheme
@@ -45,6 +46,7 @@ export const ModalOptions = React.memo<ModalOptionsProps>(({ colorScheme, testId
     removePopup(popupsLen - 1)
     setQnNo(0)
     clearTestData()
+    queryClient.invalidateQueries({ queryKey: ['test', testId] })
   })
 
   async function mutateTest() {
