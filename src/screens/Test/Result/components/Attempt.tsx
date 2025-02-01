@@ -45,13 +45,3 @@ export const Attempt = React.memo<{ diff: DifficultyAnalysis }>(({ diff }) => {
     </View>
   )
 })
-
-export function AttemptColors() {
-  return (
-    <View className='mt-2 flex-row flex-wrap items-center justify-center gap-10'>
-      <ColorIndicator text='Correct' color={correct} />
-      <ColorIndicator text='Incorrect' color={incorrect} />
-      <ColorIndicator text='Not Attempted' color={skip} />
-    </View>
-  )
-}
