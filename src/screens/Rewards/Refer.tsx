@@ -40,14 +40,14 @@ export default function Refer({ navigation }: NavProps) {
                 onPress={() => copyToClipboard('ABINASH65445')}
                 activeOpacity={0.7}
               >
-                <SemiBold className='text pb-0.5 text-center text-sm'>{referralCode}</SemiBold>
+                <SemiBold className='text text-center text-sm'>{referralCode}</SemiBold>
               </TouchableOpacity>
               <TouchableOpacity
                 className='rounded-xl border bg-accent p-3 px-6 dark:bg-zinc-100'
                 activeOpacity={0.7}
                 onPress={() => copyToClipboard(referralCode)}
               >
-                <SemiBold className='pb-0.5 text-sm text-white dark:text-black'>Copy</SemiBold>
+                <SemiBold className='text-sm text-white dark:text-black'>Copy</SemiBold>
               </TouchableOpacity>
             </View>
           </View>

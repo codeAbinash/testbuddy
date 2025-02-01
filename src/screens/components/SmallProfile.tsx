@@ -34,7 +34,11 @@ export default function SmallProfile({ navigation, data }: SmallProfileProps) {
       onPress={() => navigation.navigate('EditProfile')}
     >
       <View className='flex-shrink flex-row items-center justify-center gap-4'>
-        <Press activeScale={0.95} className='items-center justify-center gap-1'>
+        <Press
+          activeScale={0.95}
+          className='items-center justify-center gap-1'
+          onPress={() => navigation.navigate('EditProfile')}
+        >
           <Image
             source={{ uri: data?.profilePic || defaultProfilePic }}
             className='rounded-full'
