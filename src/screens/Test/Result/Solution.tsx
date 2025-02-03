@@ -43,6 +43,13 @@ export default function Solution({ navigation, route }: SolutionProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate('Analysis', { testId })
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [navigation, testId])
+
   return (
     <>
       <Header navigation={navigation} colorScheme={colorScheme} testId={testId} mode='solution' />

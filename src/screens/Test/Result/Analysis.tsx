@@ -10,7 +10,7 @@ import useTestQuery from '../hooks/useTestQuery'
 import { ColorBoxes } from './ColorBox'
 import { AttemptColors, DifficultyV2 } from './components/Difficulty'
 import QuestionWise from './components/QuestionWise'
-import Scorecard from './components/Scorecard'
+import Scorecard, { ScoreboardTable } from './components/Scorecard'
 import TimeSpend from './components/TimeSpend'
 
 type ParamList = {
@@ -53,6 +53,7 @@ export default function Analysis({ route }: AnalysisProps) {
         <View className='gap-3'>
           <SemiBold className='text mb-3 text-center text-xl'>Scorecard</SemiBold>
           {data?.result?.scorecard?.map((score, i) => <Scorecard score={score} key={score.sectionName} i={i + 2} />)}
+          <ScoreboardTable board={data?.result?.scorecard!} />
         </View>
         <View className='gap-3.5'>
           <SemiBold className='text text-center text-xl'>Time Spent Analysis</SemiBold>
