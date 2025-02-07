@@ -11,7 +11,8 @@
     "verifyotp"
   ],
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "oxc.enable": true
+  "oxc.enable": true,
+  "postman.settings.dotenv-detection-notification-visibility": false
   // "editor.codeActionsOnSave": {
   //   "source.organizeimports": "always"
   // }
