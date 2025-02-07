@@ -18,7 +18,7 @@ import { useColorScheme } from 'nativewind'
 import React, { type ReactNode } from 'react'
 import { TouchableOpacity, View, type ColorSchemeName } from 'react-native'
 import colors from 'tailwindcss/colors'
-import HomeScreen from './HomeScreen'
+import HomeScreen from './HomeScreen/HomeScreen'
 import TopArea from './components/TopArea'
 
 const Tab = createBottomTabNavigator()
