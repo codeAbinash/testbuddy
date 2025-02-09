@@ -7,6 +7,9 @@ const Animations = {
   'rocket-light': require('./lottie/rocket-light.lottie'),
   'rocket-dark': require('./lottie/rocket-dark.lottie'),
   'no-data': require('./lottie/no-data.lottie'),
+  refer: require('./lottie/refer.lottie'),
+  formula: require('./lottie/formula.lottie'),
+  contact: require('./lottie/contact.lottie'),
 }
 
 export default Animations

@@ -1,20 +1,21 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import api from '@query/api'
+import SocialIcons from '@screens/HomeScreen/components/SocialIcons'
 import { useQuery } from '@tanstack/react-query'
 import type { NavProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { RefreshControl, ScrollView, StatusBar } from 'react-native'
 import colors from 'tailwindcss/colors'
 import CarouselElem from './components/CarouselElem'
+import ContactSection from './components/ContactSection'
 import ExploreExams from './components/ExploreExams'
 import ExploreTests from './components/ExploreTests'
+import FormulaSection from './components/FormulaSection'
+import ReferSection from './components/ReferSection'
 
 export default function HomeScreen({ navigation }: NavProps) {
   const { colorScheme } = useColorScheme()
-  const { data, refetch } = useQuery({
-    queryKey: ['homeScreen'],
-    queryFn: api.homeScreen,
-  })
+  const { data, refetch } = useQuery({ queryKey: ['homeScreen'], queryFn: api.homeScreen })
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
 
   return (
@@ -36,6 +37,10 @@ export default function HomeScreen({ navigation }: NavProps) {
         <CarouselElem carousel={carousel} />
         <ExploreExams />
         <ExploreTests />
+        <ReferSection navigation={navigation} />
+        <FormulaSection navigation={navigation} />
+        <ContactSection navigation={navigation} />
+        <SocialIcons />
       </ScrollView>
     </>
   )
@@ -51,23 +56,13 @@ export default function HomeScreen({ navigation }: NavProps) {
 </View> */
 
 const carousel = [
-  {
-    imgSrc: 'https://picsum.photos/800',
-  },
+  { imgSrc: 'https://picsum.photos/800' },
 
-  {
-    imgSrc: 'https://picsum.photos/802',
-  },
+  { imgSrc: 'https://picsum.photos/802' },
 
-  {
-    imgSrc: 'https://picsum.photos/803',
-  },
+  { imgSrc: 'https://picsum.photos/803' },
 
-  {
-    imgSrc: 'https://picsum.photos/804',
-  },
+  { imgSrc: 'https://picsum.photos/804' },
 
-  {
-    imgSrc: 'https://picsum.photos/806',
-  },
+  { imgSrc: 'https://picsum.photos/806' },
 ]

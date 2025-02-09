@@ -47,7 +47,6 @@ import {
   youtubeUrl,
 } from '@/constants'
 import popupStore from '@/zustand/popupStore'
-import Press from '@components/Press'
 import api from '@query/api'
 import type { DrawerContentComponentProps } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
@@ -56,9 +55,8 @@ import { useQuery } from '@tanstack/react-query'
 import { Bold, Medium } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import React from 'react'
 import { Linking, View } from 'react-native'
-import type { SvgProps } from 'react-native-svg'
+import { SocialIcon } from '../../components/SocialIcon'
 import ListItem, { ListIcon } from './ListItem'
 import SmallProfile from './SmallProfile'
 
@@ -236,13 +234,5 @@ function End({ colorScheme: s }: { colorScheme: ColorScheme }) {
         App Version v{versionName}({versionCode})
       </Medium>
     </View>
-  )
-}
-
-function SocialIcon({ link, Icon, color }: { color?: string; Icon: React.FC<SvgProps>; link: string }) {
-  return (
-    <Press onPress={() => Linking.openURL(link)}>
-      <Icon height={21} width={21} color={color} />
-    </Press>
   )
 }

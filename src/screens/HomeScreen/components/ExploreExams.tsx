@@ -30,10 +30,7 @@ export default function ExploreExams() {
   )
 }
 
-type ExamElementProps = {
-  image?: ImageSourcePropType
-  text?: string
-}
+type ExamElementProps = { image?: ImageSourcePropType; text?: string; description?: string }
 function ExamElement({ image, text }: ExamElementProps) {
   return (
     <TouchableOpacity

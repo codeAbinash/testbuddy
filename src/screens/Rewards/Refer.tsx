@@ -1,4 +1,5 @@
 import { playStoreUrl } from '@/constants'
+import Animations from '@assets/animations/animations'
 import Btn from '@components/Button'
 import { Lottie } from '@components/Lottie'
 import BackHeader from '@screens/BackHeader'
@@ -24,10 +25,7 @@ export default function Refer({ navigation }: NavProps) {
     <>
       <BackHeader title='Referral' navigation={navigation} />
       <ScrollView contentContainerClassName='px-5 py-3 pt-0 gap-5 screen-bg flex-1'>
-        <Lottie
-          source={require('../../assets/animations/lottie/refer.lottie')}
-          style={{ width: '100%', height: W * 0.9 }}
-        />
+        <Lottie source={Animations.refer} style={{ width: '100%', height: W * 0.9 }} />
         <View className='-mt-5 gap-10 px-5'>
           <View className='gap-5'>
             <SemiBold className='text text-center text-xl'>Share with a friend</SemiBold>
@@ -37,7 +35,7 @@ export default function Refer({ navigation }: NavProps) {
             <View className='mt-3 flex-row items-center justify-center gap-3'>
               <TouchableOpacity
                 className='flex-1 rounded-xl border border-dashed border-black/50 bg-white p-3 px-6 dark:border-white/50 dark:bg-black'
-                onPress={() => copyToClipboard('ABINASH65445')}
+                onPress={() => copyToClipboard(referralCode)}
                 activeOpacity={0.7}
               >
                 <SemiBold className='text text-center text-sm'>{referralCode}</SemiBold>
