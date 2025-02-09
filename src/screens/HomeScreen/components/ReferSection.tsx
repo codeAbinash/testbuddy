@@ -7,7 +7,7 @@ import { Button } from './Button'
 
 export default function ReferSection({ navigation }: { navigation: StackNav }) {
   return (
-    <View className='flex-row items-center justify-between px-5 mt-5'>
+    <View className='mt-5 flex-row items-center justify-between px-5'>
       <View className='flex-[1.5]'>
         <Lottie source={Animations.refer} style={{ width: '100%' }} />
       </View>

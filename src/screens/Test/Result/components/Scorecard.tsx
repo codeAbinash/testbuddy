@@ -108,7 +108,8 @@ function Cell({ name, prefix }: { name: string | number; prefix?: string }) {
       }}
     >
       <Medium className='text text-center text-xs capitalize'>
-        {typeof name === 'number' ? twoDigits(name) : name}{prefix}
+        {typeof name === 'number' ? twoDigits(name) : name}
+        {prefix}
       </Medium>
     </View>
   )

@@ -26,7 +26,9 @@ const SocialIcons = () => {
         <SocialIcon link={whatsappUrl} Icon={WhatsappIcon} />
         <SocialIcon link={telegramUrl} Icon={TelegramIcon} />
       </View>
-      <SemiBold className='text text-center text-sm mt-2 opacity-80'>Follow us on social media for updates and more!</SemiBold>
+      <SemiBold className='text mt-2 text-center text-sm opacity-80'>
+        Follow us on social media for updates and more!
+      </SemiBold>
     </View>
   )
 }

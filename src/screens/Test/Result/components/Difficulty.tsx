@@ -75,7 +75,7 @@ export const DifficultyV2 = React.memo<{ diff: DifficultyAnalysis }>(({ diff }) 
   return (
     <View>
       <Medium className='text text-md capitalize'>{diff.subject}</Medium>
-      <View className='mx-auto gap-2 mt-2.5 flex-row'>
+      <View className='mx-auto mt-2.5 flex-row gap-2'>
         <View>
           {diff.levels?.map((level) => (
             <View key={level.level} className='w-full flex-row justify-between border border-b-0 border-zinc-500/50'>
