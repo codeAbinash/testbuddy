@@ -18,8 +18,10 @@ import { useColorScheme } from 'nativewind'
 import React, { type ReactNode } from 'react'
 import { TouchableOpacity, View, type ColorSchemeName } from 'react-native'
 import colors from 'tailwindcss/colors'
-import HomeScreen from './HomeScreen/HomeScreen'
 import TopArea from './components/TopArea'
+import HomeScreen from './HomeScreen/HomeScreen'
+import Tests from './Tests/Tests'
+import UnderConstruction from './UnderConstruction'
 
 const Tab = createBottomTabNavigator()
 
@@ -101,11 +103,41 @@ function getColor(theme: ColorSchemeName) {
 }
 
 const screens = [
-  { name: 'HomeScreen', label: 'Home', focusedIcon: Home01Icon, defaultIcon: Home01StrokeRoundedIcon },
-  { name: 'Learn', label: 'Learn', focusedIcon: BookOpen01Icon, defaultIcon: BookOpen01StrokeRoundedIcon },
-  { name: 'Tests', label: 'Tests', focusedIcon: LicenseDraftIcon, defaultIcon: LicenseDraftStrokeRoundedIcon },
-  { name: 'Analyse', label: 'Analyse', focusedIcon: AnalyticsUpIcon, defaultIcon: AnalyticsUpStrokeRoundedIcon },
-  { name: 'Profile', label: 'Profile', focusedIcon: UserIcon, defaultIcon: UserStrokeRoundedIcon },
+  {
+    name: 'HomeScreen',
+    label: 'Home',
+    focusedIcon: Home01Icon,
+    defaultIcon: Home01StrokeRoundedIcon,
+    screen: HomeScreen,
+  },
+  {
+    name: 'Learn',
+    label: 'Learn',
+    focusedIcon: BookOpen01Icon,
+    defaultIcon: BookOpen01StrokeRoundedIcon,
+    screen: UnderConstruction,
+  },
+  {
+    name: 'Tests',
+    label: 'Tests',
+    focusedIcon: LicenseDraftIcon,
+    defaultIcon: LicenseDraftStrokeRoundedIcon,
+    screen: Tests,
+  },
+  {
+    name: 'Analyse',
+    label: 'Analyse',
+    focusedIcon: AnalyticsUpIcon,
+    defaultIcon: AnalyticsUpStrokeRoundedIcon,
+    screen: UnderConstruction,
+  },
+  {
+    name: 'Profile',
+    label: 'Profile',
+    focusedIcon: UserIcon,
+    defaultIcon: UserStrokeRoundedIcon,
+    screen: UnderConstruction,
+  },
 ]
 
 export default function Home({ navigation }: DrawerProps) {
@@ -117,7 +149,7 @@ export default function Home({ navigation }: DrawerProps) {
           <Tab.Screen
             key={screen.name}
             name={screen.name}
-            component={HomeScreen}
+            component={screen.screen}
             options={{
               tabBarLabel: screen.label,
               headerShown: false,

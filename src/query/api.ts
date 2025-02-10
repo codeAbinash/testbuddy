@@ -199,7 +199,12 @@ function updateTest(data: UpdateTestT) {
   return postApi('test/update', data)
 }
 
+function testList() {
+  return postApi('page/tests')
+}
+
 const api = {
+  testList,
   startTest,
   updateProfilePic,
   sendEmailOtp,

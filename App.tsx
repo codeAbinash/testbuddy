@@ -39,6 +39,7 @@ import Instructions from '@screens/Test/Instructions'
 import Analysis, { AnalysisParams } from '@screens/Test/Result/Analysis'
 import Solution, { SolutionParamList } from '@screens/Test/Result/Solution'
 import Test, { TestParamList } from '@screens/Test/Test'
+import Tests from '@screens/Tests/Tests'
 import Update, { type UpdateParamList } from '@screens/Update'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { H, W } from '@utils/dimensions'
@@ -168,6 +169,7 @@ function Navigation(): React.JSX.Element {
             gestureResponseDistance: H,
           }}
         />
+        <Stack.Screen name='Tests' component={Tests} />
         <Stack.Screen name='Solution' component={Solution} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -175,6 +177,7 @@ function Navigation(): React.JSX.Element {
 }
 
 export type RootStackParamList = {
+  Tests: undefined
   Solution: SolutionParamList
   Analysis: AnalysisParams
   Test: TestParamList

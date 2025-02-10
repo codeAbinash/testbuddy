@@ -36,7 +36,7 @@ export default function HomeScreen({ navigation }: NavProps) {
       >
         <CarouselElem carousel={carousel} />
         <ExploreExams />
-        <ExploreTests />
+        <ExploreTests navigation={navigation} />
         <ReferSection navigation={navigation} />
         <FormulaSection navigation={navigation} />
         <ContactSection navigation={navigation} />
