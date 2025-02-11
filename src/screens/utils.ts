@@ -8,8 +8,8 @@ import {
 import type { DropdownData } from '@components/DropdownExtended'
 
 export const Stream: DropdownData[] = [
-  { label: 'Engineering', value: 'Engineering', Icon: WindPowerStrokeRoundedIcon },
-  { label: 'Medical', value: 'Medical', Icon: AmbulanceStrokeRoundedIcon },
+  { label: 'Engineering', value: 'engineering', Icon: WindPowerStrokeRoundedIcon },
+  { label: 'Medical', value: 'medical', Icon: AmbulanceStrokeRoundedIcon },
 ]
 export const Std: DropdownData[] = [
   { label: '11th', value: '11th', Icon: Mortarboard02StrokeRoundedIcon },

@@ -49,6 +49,8 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import type { ProgramsParamList } from '@screens/Tests/Programs'
+import Programs from '@screens/Tests/Programs'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -169,14 +171,16 @@ function Navigation(): React.JSX.Element {
             gestureResponseDistance: H,
           }}
         />
-        <Stack.Screen name='Tests' component={Tests} />
         <Stack.Screen name='Solution' component={Solution} />
+        <Stack.Screen name='Tests' component={Tests} />
+        <Stack.Screen name='Programs' component={Programs} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  Programs: ProgramsParamList
   Tests: undefined
   Solution: SolutionParamList
   Analysis: AnalysisParams

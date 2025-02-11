@@ -1,5 +1,6 @@
 import { Result } from '@screens/Test/Result/types/result'
 import timeStore from '@screens/Test/zustand/timeStore'
+import type { Stream } from '@utils/types'
 import { postApi } from '.'
 import { versionName } from '../constants'
 
@@ -36,7 +37,7 @@ function profile() {
     emailVerified?: boolean
     profilePic?: string
     name?: string
-    stream?: string
+    stream?: Stream
     std?: string
     newUser?: boolean
     email?: string
@@ -199,8 +200,19 @@ function updateTest(data: UpdateTestT) {
   return postApi('test/update', data)
 }
 
-function testList() {
-  return postApi('page/tests')
+export type TestApiT = {
+  examTitle?: string
+  examName?: string
+  logo?: string
+  programs?: Program[]
+}
+
+type Program = {
+  _id?: string
+  title?: string
+}
+function testList(data: { stream: 'engineering' | 'medical' }) {
+  return postApi<TestApiT[]>('tests', data)
 }
 
 const api = {

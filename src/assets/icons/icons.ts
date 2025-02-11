@@ -73,3 +73,5 @@ export { default as ListViewIcon } from '@icons/list-view-solid-rounded.svg'
 export { default as InformationCircleStrokeRoundedIcon } from '@icons/information-circle-stroke-rounded.svg'
 export { default as MultiplicationSignIcon } from '@icons/multiplication-sign-solid-rounded.svg'
 export { default as DocumentValidationStrokeRoundedIcon } from '@icons/document-validation-stroke-rounded.svg'
+
+export { default as ArrowRight01StrokeStandardIcon } from '@icons/arrow-right-01-stroke-standard.svg'

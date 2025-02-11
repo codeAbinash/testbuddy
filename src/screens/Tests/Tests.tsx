@@ -1,31 +1,96 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
-import api from '@query/api'
+import { ArrowRight01StrokeStandardIcon } from '@assets/icons/icons'
+import api, { type TestApiT } from '@query/api'
 import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
+import type { ColorScheme, NavProps, StackNav, Stream } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { ScrollView } from 'react-native'
-import { RefreshControl } from 'react-native-gesture-handler'
+import { useEffect } from 'react'
+import { Image, TouchableOpacity, View, type ImageSourcePropType } from 'react-native'
+import { FlatList, RefreshControl } from 'react-native-gesture-handler'
 import colors from 'tailwindcss/colors'
 
-export default function Tests() {
-  const { data, refetch } = useQuery({ queryKey: ['tests'], queryFn: api.testList })
-  const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
+const jeeAdv = require('../../assets/images/src/jee-adv.png') as ImageSourcePropType
+
+export default function Tests({ navigation }: NavProps) {
   const { colorScheme } = useColorScheme()
+  const { data: profile } = useQuery({ queryKey: ['profile'], queryFn: api.profile })
+  const { data, refetch, isLoading } = useQuery({
+    queryKey: ['tests', profile, profile?.stream],
+    queryFn: () => api.testList({ stream: (profile?.stream?.toLowerCase() as Stream) || 'engineering' }),
+    enabled: !!profile,
+  })
+
+  const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
 
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl
-          refreshing={isRefetchingByUser}
-          onRefresh={refetchByUser}
-          style={{ zIndex: 1000 }}
-          progressBackgroundColor={colorScheme === 'dark' ? colors.zinc[800] : 'white'}
-          colors={colorScheme === 'dark' ? ['white'] : ['black']}
-        />
-      }
+    <View>
+      <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefetchingByUser}
+            onRefresh={refetchByUser}
+            style={{ zIndex: 1000 }}
+            progressBackgroundColor={colorScheme === 'dark' ? colors.zinc[800] : 'white'}
+            colors={colorScheme === 'dark' ? ['white'] : ['black']}
+          />
+        }
+        data={data}
+        keyExtractor={(item, index) => item.examName ? `${item.examName}-${index}` : `${index}`}
+        renderItem={({ item }) => <TestItem navigation={navigation} scheme={colorScheme} {...item} />}
+        ListEmptyComponent={
+          isLoading ? null : (
+            <View className='flex-1 items-center justify-center'>
+              <Medium className='text text-lg'>No Tests Available</Medium>
+            </View>
+          )
+        }
+        contentContainerStyle={{
+          borderColor: colorScheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
+          borderTopWidth: 1,
+          borderRightWidth: 0,
+          borderLeftWidth: 0,
+          borderBottomWidth: 0,
+        }}
+        contentContainerClassName=''
+      ></FlatList>
+    </View>
+  )
+}
+
+type TestProps = TestApiT & {
+  scheme: ColorScheme
+  navigation: StackNav
+}
+
+function TestItem({ scheme, navigation, ...t }: TestProps) {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={() => navigation.navigate('Programs', { test: t })}
+      className='h-100 flex-row items-center justify-between gap-5 p-5 py-3'
+      style={{
+        borderWidth: 1,
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
+        borderColor: scheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
+      }}
     >
-      <Medium className='text'>Tests</Medium>
-      <Medium className='text text-xs'>{JSON.stringify(data, null, 2)}</Medium>
-    </ScrollView>
+      <Image source={jeeAdv} style={{ height: 40, width: 40 }} />
+      <View className='flex-1'>
+        <Medium className='text text-sm'>{t.examTitle}</Medium>
+        <Medium className='text text-xs opacity-80'>{t?.programs?.length ?? 0} Programs Available</Medium>
+      </View>
+      <ArrowRight01StrokeStandardIcon
+        height={22}
+        width={22}
+        color={scheme === 'dark' ? colors.zinc[500] : colors.zinc[500]}
+      />
+    </TouchableOpacity>
   )
 }
