@@ -1,6 +1,7 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import { ArrowRight01StrokeStandardIcon } from '@assets/icons/icons'
-import api, { type TestApiT } from '@query/api'
+import { PaddingBottom } from '@components/SafePadding'
+import api, { type ProgramList } from '@query/api'
 import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import type { ColorScheme, NavProps, StackNav, Stream } from '@utils/types'
@@ -17,7 +18,7 @@ export default function Tests({ navigation }: NavProps) {
   const { data: profile } = useQuery({ queryKey: ['profile'], queryFn: api.profile })
   const { data, refetch, isLoading } = useQuery({
     queryKey: ['tests', profile, profile?.stream],
-    queryFn: () => api.testList({ stream: (profile?.stream?.toLowerCase() as Stream) || 'engineering' }),
+    queryFn: () => api.programList({ stream: (profile?.stream?.toLowerCase() as Stream) || 'engineering' }),
     enabled: !!profile,
   })
 
@@ -40,7 +41,7 @@ export default function Tests({ navigation }: NavProps) {
           />
         }
         data={data}
-        keyExtractor={(item, index) => item.examName ? `${item.examName}-${index}` : `${index}`}
+        keyExtractor={(item, index) => (item.examName ? `${item.examName}-${index}` : `${index}`)}
         renderItem={({ item }) => <TestItem navigation={navigation} scheme={colorScheme} {...item} />}
         ListEmptyComponent={
           isLoading ? null : (
@@ -57,12 +58,13 @@ export default function Tests({ navigation }: NavProps) {
           borderBottomWidth: 0,
         }}
         contentContainerClassName=''
-      ></FlatList>
+        ListFooterComponent={<PaddingBottom />}
+      />
     </View>
   )
 }
 
-type TestProps = TestApiT & {
+type TestProps = ProgramList & {
   scheme: ColorScheme
   navigation: StackNav
 }
@@ -81,7 +83,7 @@ function TestItem({ scheme, navigation, ...t }: TestProps) {
         borderColor: scheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
       }}
     >
-      <Image source={jeeAdv} style={{ height: 40, width: 40 }} />
+      <Image source={{ uri: t.logo }} style={{ height: 40, width: 40 }} />
       <View className='flex-1'>
         <Medium className='text text-sm'>{t.examTitle}</Medium>
         <Medium className='text text-xs opacity-80'>{t?.programs?.length ?? 0} Programs Available</Medium>

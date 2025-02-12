@@ -1,21 +1,20 @@
-import popupStore from '@/zustand/popupStore'
 import { ArrowRight01StrokeStandardIcon } from '@assets/icons/icons'
-import type { TestApiT } from '@query/api'
+import { PaddingBottom } from '@components/SafePadding'
+import type { ProgramList } from '@query/api'
 import type { RouteProp } from '@react-navigation/native'
 import BackHeader from '@screens/BackHeader'
 import { Medium } from '@utils/fonts'
 import type { ColorScheme, StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { FlatList, Image, TouchableOpacity, View, type ImageSourcePropType } from 'react-native'
+import { FlatList, Image, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
-const jeeAdv = require('../../assets/images/src/jee-adv.png') as ImageSourcePropType
 
 type ParamList = {
   Programs: ProgramsParamList
 }
 
 export type ProgramsParamList = {
-  test: TestApiT
+  test: ProgramList
 }
 
 type ProgramsProps = {
@@ -37,7 +36,7 @@ export default function Programs({ navigation, route }: ProgramsProps) {
         )}
         ListEmptyComponent={
           <View className='flex-1 items-center justify-center'>
-            <Medium className='text text-lg'>No Programs Available</Medium>
+            <Medium style={{ fontSize: 18 }}>No Programs Available</Medium>
           </View>
         }
         contentContainerStyle={{
@@ -48,7 +47,8 @@ export default function Programs({ navigation, route }: ProgramsProps) {
           borderBottomWidth: 0,
         }}
         contentContainerClassName=''
-      ></FlatList>
+        ListFooterComponent={<PaddingBottom />}
+      />
     </>
   )
 }
@@ -56,18 +56,14 @@ export default function Programs({ navigation, route }: ProgramsProps) {
 type ProgramProps = {
   scheme: ColorScheme
   navigation: StackNav
-  program: NonNullable<TestApiT['programs']>[0]
+  program: NonNullable<ProgramList['programs']>[0]
   image: string
 }
 
 function Program({ scheme, navigation, image, program }: ProgramProps) {
-  const alert = popupStore((state) => state.alert)
   const navigateToTest = () => {
     if (!program._id) return
-    alert('Are you sure?', 'Are you sure you want to start this test?', [
-      { text: 'No' },
-      { text: 'Yes', onPress: () => navigation.navigate('Test', { testId: program._id || '' }) },
-    ])
+    navigation.navigate('TestList', { programId: program._id || '' })
   }
   return (
     <TouchableOpacity
@@ -82,7 +78,7 @@ function Program({ scheme, navigation, image, program }: ProgramProps) {
         borderColor: scheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
       }}
     >
-      <Image source={jeeAdv} style={{ height: 40, width: 40 }} />
+      <Image source={{ uri: image }} style={{ height: 40, width: 40 }} />
       <View className='flex-1'>
         <Medium className='text text-sm'>{program?.title}</Medium>
         <Medium className='text text-xs opacity-80'>{program._id}</Medium>

@@ -1,36 +1,34 @@
 import { SemiBold } from '@utils/fonts'
 import { Image, TouchableOpacity, View, type ImageSourcePropType } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const jeeAdv = require('../../../assets/images/src/jee-adv.png') as ImageSourcePropType
 
 export default function ExploreExams() {
-  const data = Array(10).fill({ image: jeeAdv, text: 'JEE Advanced' })
-
   return (
     <View className='mt-5'>
       <SemiBold className='text px-5 text-lg'>Explore Exams</SemiBold>
-      <FlatList
-        horizontal
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(_, index) => index.toString()}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 10, gap: 15 }}
-      />
-      <FlatList
-        horizontal
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(_, index) => index.toString()}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 10, gap: 15 }}
-      />
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <View className='flex-row gap-3.5 p-5 pt-4'>
+          {Array(10)
+            .fill(0)
+            .map((_, i) => (
+              <ExamElement key={i} image={jeeAdv} text='JEE Advanced' />
+            ))}
+        </View>
+      </ScrollView>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <View className='flex-row gap-3.5 p-5 pt-4'>
+          {Array(10)
+            .fill(0)
+            .map((_, i) => (
+              <ExamElement key={i} image={jeeAdv} text='JEE Advanced' />
+            ))}
+        </View>
+      </ScrollView>
     </View>
   )
 }
-
-const renderItem = ({ item }: { item: any }) => <ExamElement image={item.image} text={item.text} />
 
 type ExamElementProps = { image?: ImageSourcePropType; text?: string; description?: string }
 function ExamElement({ image, text }: ExamElementProps) {
@@ -40,8 +38,8 @@ function ExamElement({ image, text }: ExamElementProps) {
       style={{
         shadowColor: '#00000055',
         shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 15,
-        elevation: 5,
+        shadowRadius: 10,
+        elevation: 10,
         height: 110,
         width: 100,
       }}

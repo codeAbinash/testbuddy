@@ -51,6 +51,8 @@ import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import type { ProgramsParamList } from '@screens/Tests/Programs'
 import Programs from '@screens/Tests/Programs'
+import type { TestListParamList } from '@screens/Tests/TestList'
+import TestList from '@screens/Tests/TestList'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -174,12 +176,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Solution' component={Solution} />
         <Stack.Screen name='Tests' component={Tests} />
         <Stack.Screen name='Programs' component={Programs} />
+        <Stack.Screen name='TestList' component={TestList} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  TestList : TestListParamList
   Programs: ProgramsParamList
   Tests: undefined
   Solution: SolutionParamList

@@ -200,7 +200,7 @@ function updateTest(data: UpdateTestT) {
   return postApi('test/update', data)
 }
 
-export type TestApiT = {
+export type ProgramList = {
   examTitle?: string
   examName?: string
   logo?: string
@@ -211,12 +211,48 @@ type Program = {
   _id?: string
   title?: string
 }
-function testList(data: { stream: 'engineering' | 'medical' }) {
-  return postApi<TestApiT[]>('tests', data)
+function programList(data: { stream: 'engineering' | 'medical' }) {
+  return postApi<ProgramList[]>('tests', data)
+}
+
+function testList(programId: string) {
+  type TestList = {
+    programId: string
+    programTitle: string
+    examName: string
+    testCombinations: TestCombinations
+    status: string
+    tests: Test[]
+  }
+
+  type TestCombinations = {
+    partTests: number
+    unitTests: number
+    FullTests: number
+  }
+
+  type Test = {
+    testId: string
+    testTitle: string
+    programName: string
+    testAbr: string
+    testDescription: string
+    syllabus: string
+    qCount: number
+    maxMarks: number
+    attemptTime: number
+    subjects: string[]
+    attemptsCount: number
+    language: string
+    status: string
+    totalTimeCompleted: number
+  }
+  return postApi<TestList[]>('tests/details', { programId })
 }
 
 const api = {
   testList,
+  programList,
   startTest,
   updateProfilePic,
   sendEmailOtp,
