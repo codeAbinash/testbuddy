@@ -4,7 +4,7 @@ import { PlayIcon, SquareLock02Icon, SquareUnlock01Icon } from '@assets/icons/ic
 import { PaddingBottom } from '@components/SafePadding'
 import api from '@query/api'
 import { useNavigation, type RouteProp } from '@react-navigation/native'
-import BackHeader from '@screens/BackHeader'
+import BackHeader from '@screens/components/BackHeader'
 import { useQuery } from '@tanstack/react-query'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { ColorScheme, StackNav } from '@utils/types'

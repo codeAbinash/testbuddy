@@ -16,7 +16,7 @@ import { useColorScheme } from 'nativewind'
 import { Linking, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { Lottie } from '../components/Lottie'
-import BackHeader from './BackHeader'
+import BackHeader from './components/BackHeader'
 
 type Notification = Awaited<ReturnType<typeof api.notifications>>[number]
 

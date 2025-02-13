@@ -1,4 +1,4 @@
-import BackHeader from '@screens/BackHeader'
+import BackHeader from '@screens/components/BackHeader'
 import type { NavProps } from '@utils/types'
 import { ScrollView } from 'react-native-gesture-handler'
 

@@ -3,7 +3,7 @@ import { Medium } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import BackHeader from './BackHeader'
+import BackHeader from './components/BackHeader'
 import { Lottie } from '@components/Lottie'
 import Animations from '@assets/animations/animations'
 
