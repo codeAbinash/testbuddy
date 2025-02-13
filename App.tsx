@@ -27,6 +27,9 @@ import Sidebar from '@screens/components/Sidebar'
 import Example from '@screens/Example'
 import Home from '@screens/Home/Home'
 import HomeProfile from '@screens/Home/HomeProfile/HomeProfile'
+import type { TestListParamList } from '@screens/Home/Tests/TestList'
+import TestList from '@screens/Home/Tests/TestList'
+import Tests from '@screens/Home/Tests/Tests'
 import Notifications from '@screens/Notifications'
 import ChangeStream from '@screens/Profile/ChangeStream'
 import EditProfile from '@screens/Profile/EditProfile'
@@ -40,11 +43,6 @@ import Instructions from '@screens/Test/Instructions'
 import Analysis, { AnalysisParams } from '@screens/Test/Result/Analysis'
 import Solution, { SolutionParamList } from '@screens/Test/Result/Solution'
 import Test, { TestParamList } from '@screens/Test/Test'
-import type { ProgramsParamList } from '@screens/Home/Tests/Programs'
-import Programs from '@screens/Home/Tests/Programs'
-import type { TestListParamList } from '@screens/Home/Tests/TestList'
-import TestList from '@screens/Home/Tests/TestList'
-import Tests from '@screens/Home/Tests/Tests'
 import Update, { type UpdateParamList } from '@screens/Update'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { H, W } from '@utils/dimensions'
@@ -176,7 +174,6 @@ function Navigation(): React.JSX.Element {
         />
         <Stack.Screen name='Solution' component={Solution} />
         <Stack.Screen name='Tests' component={Tests} />
-        <Stack.Screen name='Programs' component={Programs} />
         <Stack.Screen name='TestList' component={TestList} />
         <Stack.Screen name='HomeProfile' component={HomeProfile} />
       </Stack.Navigator>
@@ -187,7 +184,6 @@ function Navigation(): React.JSX.Element {
 export type RootStackParamList = {
   HomeProfile: undefined
   TestList: TestListParamList
-  Programs: ProgramsParamList
   Tests: undefined
   Solution: SolutionParamList
   Analysis: AnalysisParams

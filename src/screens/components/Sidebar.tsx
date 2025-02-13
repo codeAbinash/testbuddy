@@ -55,6 +55,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Bold, Medium } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
+import { useMemo } from 'react'
 import { Linking, View } from 'react-native'
 import { SocialIcon } from '../../components/SocialIcon'
 import ListItem, { ListIcon } from './ListItem'
@@ -90,13 +91,14 @@ type StreamProps = {
 }
 
 function Stream({ colorScheme: s, stream, navigation }: StreamProps) {
+  const str = useMemo(() => (stream ? stream.charAt(0).toUpperCase() + stream.slice(1) : ''), [stream])
   return (
     <View className='gap-0'>
       <Bold className='text mt-5 pb-2 text-lg'>Stream</Bold>
       <ListItem
         icon={<ListIcon scheme={s} Icon={Mortarboard02Icon} />}
         title='Change Stream'
-        subtitle={stream}
+        subtitle={str}
         onPress={() => navigation.navigate('ChangeStream')}
       />
     </View>

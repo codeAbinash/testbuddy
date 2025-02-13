@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import type { ColorScheme, NavProps, StackNav, Stream } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { useEffect } from 'react'
+import { useState } from 'react'
 import { Image, TouchableOpacity, View } from 'react-native'
 import { FlatList, RefreshControl } from 'react-native-gesture-handler'
 import colors from 'tailwindcss/colors'
@@ -21,10 +21,6 @@ export default function Tests({ navigation }: NavProps) {
   })
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
-
-  useEffect(() => {
-    console.log(data)
-  }, [data])
 
   return (
     <View>
@@ -68,23 +64,92 @@ type TestProps = ProgramList & {
 }
 
 function TestItem({ scheme, navigation, ...t }: TestProps) {
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  return (
+    <>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        // onPress={() => navigation.navigate('Programs', { test: t })}
+        onPress={() => setIsExpanded((prev) => !prev)}
+        className='h-100 flex-row items-center justify-between gap-6 p-5 py-3'
+        style={{
+          borderWidth: 1,
+          borderTopWidth: 0,
+          borderLeftWidth: 0,
+          borderRightWidth: 0,
+          borderColor: scheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
+        }}
+      >
+        <Image source={{ uri: t.logo }} style={{ height: 40, width: 40 }} />
+        <View className='flex-1'>
+          <Medium className='text text-sm'>{t.examTitle}</Medium>
+          <Medium className='text text-xs opacity-80'>{t?.programs?.length ?? 0} Programs Available</Medium>
+        </View>
+        <ArrowRight01StrokeStandardIcon
+          height={24}
+          width={24}
+          color={scheme === 'dark' ? colors.zinc[500] : colors.zinc[500]}
+          style={{
+            transform: [{ rotate: isExpanded ? '90deg' : '0deg' }],
+          }}
+        />
+      </TouchableOpacity>
+      {isExpanded && (
+        <FlatList
+          data={t.programs}
+          keyExtractor={(item) => item._id || ''}
+          renderItem={({ item }) => (
+            <Program navigation={navigation} program={item} scheme={scheme} image={t.logo || ''} />
+          )}
+          ListEmptyComponent={
+            <View className='flex-1 items-center justify-center'>
+              <Medium className='text text-lg'>No Programs Available</Medium>
+            </View>
+          }
+          contentContainerStyle={{
+            borderColor: scheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
+            borderTopWidth: 1,
+            borderRightWidth: 0,
+            borderLeftWidth: 0,
+            borderBottomWidth: 0,
+          }}
+          contentContainerClassName=''
+          ListFooterComponent={<PaddingBottom />}
+        />
+      )}
+    </>
+  )
+}
+
+type ProgramProps = {
+  scheme: ColorScheme
+  navigation: StackNav
+  program: NonNullable<ProgramList['programs']>[0]
+  image: string
+}
+
+function Program({ scheme, navigation, image, program }: ProgramProps) {
+  const navigateToTest = () => {
+    if (!program._id) return
+    navigation.navigate('TestList', { programId: program._id || '' })
+  }
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      onPress={() => navigation.navigate('Programs', { test: t })}
-      className='h-100 flex-row items-center justify-between gap-5 p-5 py-3'
+      onPress={navigateToTest}
+      className='h-100 flex-row items-center justify-between gap-6 bg-zinc-100 px-5 py-3 pl-9 dark:bg-zinc-900'
       style={{
         borderWidth: 1,
         borderTopWidth: 0,
         borderLeftWidth: 0,
         borderRightWidth: 0,
-        borderColor: scheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
+        borderColor: scheme === 'dark' ? colors.zinc[800] : colors.zinc[200],
       }}
     >
-      <Image source={{ uri: t.logo }} style={{ height: 40, width: 40 }} />
+      <Image source={{ uri: image }} style={{ height: 30, width: 30 }} />
       <View className='flex-1'>
-        <Medium className='text text-sm'>{t.examTitle}</Medium>
-        <Medium className='text text-xs opacity-80'>{t?.programs?.length ?? 0} Programs Available</Medium>
+        <Medium className='text text-sm'>{program?.title}</Medium>
       </View>
       <ArrowRight01StrokeStandardIcon
         height={22}
