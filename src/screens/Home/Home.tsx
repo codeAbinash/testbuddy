@@ -13,7 +13,7 @@ import {
 import { PaddingBottom } from '@components/SafePadding'
 import { createBottomTabNavigator, type BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import TopArea from '@screens/components/TopArea'
-import Tests from '@screens/Tests/Tests'
+import Tests from '@screens/Home/Tests/Tests'
 import UnderConstruction from '@screens/UnderConstruction'
 import { SemiBold } from '@utils/fonts'
 import type { DrawerProps } from '@utils/types'

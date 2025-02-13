@@ -7,11 +7,9 @@ import { Medium } from '@utils/fonts'
 import type { ColorScheme, NavProps, StackNav, Stream } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { useEffect } from 'react'
-import { Image, TouchableOpacity, View, type ImageSourcePropType } from 'react-native'
+import { Image, TouchableOpacity, View } from 'react-native'
 import { FlatList, RefreshControl } from 'react-native-gesture-handler'
 import colors from 'tailwindcss/colors'
-
-const jeeAdv = require('../../assets/images/src/jee-adv.png') as ImageSourcePropType
 
 export default function Tests({ navigation }: NavProps) {
   const { colorScheme } = useColorScheme()
