@@ -25,7 +25,8 @@ import VerifyEmail, { VerifyEmailParamList } from '@screens/Auth/VerifyEmail'
 import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Sidebar from '@screens/components/Sidebar'
 import Example from '@screens/Example'
-import Home from '@screens/Home'
+import Home from '@screens/Home/Home'
+import HomeProfile from '@screens/Home/HomeProfile/HomeProfile'
 import Notifications from '@screens/Notifications'
 import ChangeStream from '@screens/Profile/ChangeStream'
 import EditProfile from '@screens/Profile/EditProfile'
@@ -39,6 +40,10 @@ import Instructions from '@screens/Test/Instructions'
 import Analysis, { AnalysisParams } from '@screens/Test/Result/Analysis'
 import Solution, { SolutionParamList } from '@screens/Test/Result/Solution'
 import Test, { TestParamList } from '@screens/Test/Test'
+import type { ProgramsParamList } from '@screens/Tests/Programs'
+import Programs from '@screens/Tests/Programs'
+import type { TestListParamList } from '@screens/Tests/TestList'
+import TestList from '@screens/Tests/TestList'
 import Tests from '@screens/Tests/Tests'
 import Update, { type UpdateParamList } from '@screens/Update'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -49,10 +54,6 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import type { ProgramsParamList } from '@screens/Tests/Programs'
-import Programs from '@screens/Tests/Programs'
-import type { TestListParamList } from '@screens/Tests/TestList'
-import TestList from '@screens/Tests/TestList'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -177,13 +178,15 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Tests' component={Tests} />
         <Stack.Screen name='Programs' component={Programs} />
         <Stack.Screen name='TestList' component={TestList} />
+        <Stack.Screen name='HomeProfile' component={HomeProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
-  TestList : TestListParamList
+  HomeProfile: undefined
+  TestList: TestListParamList
   Programs: ProgramsParamList
   Tests: undefined
   Solution: SolutionParamList

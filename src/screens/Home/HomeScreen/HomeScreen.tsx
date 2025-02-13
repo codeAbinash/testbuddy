@@ -1,6 +1,6 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import api from '@query/api'
-import SocialIcons from '@screens/HomeScreen/components/SocialIcons'
+import SocialIcons from '@screens/Home/HomeScreen/components/SocialIcons'
 import { useQuery } from '@tanstack/react-query'
 import type { NavProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'

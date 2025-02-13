@@ -1,9 +1,9 @@
-import { allColors } from '@utils/colors';
-import { SemiBold } from '@utils/fonts';
-import { View } from 'react-native';
-import type { Test } from './TestList';
+import { allColors } from '@utils/colors'
+import { SemiBold } from '@utils/fonts'
+import { View } from 'react-native'
+import type { Test } from '../TestList'
 
-export function LeftBox({ test, index }: { test: Test; index: number; }) {
+export function LeftBox({ test, index }: { test: Test; index: number }) {
   return (
     <View
       className='flex-0 h-12 min-w-12 items-center justify-center border p-2'
@@ -17,5 +17,5 @@ export function LeftBox({ test, index }: { test: Test; index: number; }) {
         {test.testAbr}
       </SemiBold>
     </View>
-  );
+  )
 }

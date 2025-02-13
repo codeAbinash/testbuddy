@@ -2,7 +2,7 @@ import { SemiBold } from '@utils/fonts'
 import { Image, TouchableOpacity, View, type ImageSourcePropType } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
-const jeeAdv = require('../../../assets/images/src/jee-adv.png') as ImageSourcePropType
+const jeeAdv = require('../../../../assets/images/src/jee-adv.png') as ImageSourcePropType
 
 export default function ExploreExams() {
   return (

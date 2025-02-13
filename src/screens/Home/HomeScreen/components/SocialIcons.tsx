@@ -9,7 +9,7 @@ import YoutubeIcon from '@assets/icons/social/youtube.svg'
 
 import { useColorScheme } from 'nativewind'
 import { View } from 'react-native'
-import { SocialIcon } from '../../../components/SocialIcon'
+import { SocialIcon } from '../../../../components/SocialIcon'
 import { Bold, SemiBold } from '@utils/fonts'
 const SocialIcons = () => {
   const { colorScheme: s } = useColorScheme()

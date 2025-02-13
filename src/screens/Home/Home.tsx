@@ -12,16 +12,17 @@ import {
 } from '@assets/icons/icons'
 import { PaddingBottom } from '@components/SafePadding'
 import { createBottomTabNavigator, type BottomTabBarProps } from '@react-navigation/bottom-tabs'
+import TopArea from '@screens/components/TopArea'
+import Tests from '@screens/Tests/Tests'
+import UnderConstruction from '@screens/UnderConstruction'
 import { SemiBold } from '@utils/fonts'
 import type { DrawerProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import React, { type ReactNode } from 'react'
 import { TouchableOpacity, View, type ColorSchemeName } from 'react-native'
 import colors from 'tailwindcss/colors'
-import TopArea from './components/TopArea'
+import HomeProfile from './HomeProfile/HomeProfile'
 import HomeScreen from './HomeScreen/HomeScreen'
-import Tests from './Tests/Tests'
-import UnderConstruction from './UnderConstruction'
 
 const Tab = createBottomTabNavigator()
 
@@ -136,7 +137,7 @@ const screens = [
     label: 'Profile',
     focusedIcon: UserIcon,
     defaultIcon: UserStrokeRoundedIcon,
-    screen: UnderConstruction,
+    screen: HomeProfile,
   },
 ]
 

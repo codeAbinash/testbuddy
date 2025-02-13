@@ -2,7 +2,7 @@ import { Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import { Image, TouchableOpacity, View, type ImageSourcePropType, type TouchableOpacityProps } from 'react-native'
 
-const jeeAdv = require('../../../assets/images/src/jee-adv.png') as ImageSourcePropType
+const jeeAdv = require('../../../../assets/images/src/jee-adv.png') as ImageSourcePropType
 
 export default function ExploreTests({ navigation }: { navigation: StackNav }) {
   return (
