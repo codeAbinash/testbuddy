@@ -10,6 +10,7 @@ const Animations = {
   refer: require('./lottie/refer.lottie'),
   formula: require('./lottie/formula.lottie'),
   contact: require('./lottie/contact.lottie'),
+  premium: require('./lottie/premium.lottie'),
 }
 
 export default Animations

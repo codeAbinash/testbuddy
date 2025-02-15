@@ -177,7 +177,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Tests' component={Tests} />
         <Stack.Screen name='TestList' component={TestList} />
         <Stack.Screen name='HomeProfile' component={HomeProfile} />
-        <Stack.Screen name='Premium' component={Premium} options={IOS_BOTTOM_STYLE}/>
+        <Stack.Screen name='Premium' component={Premium} options={IOS_BOTTOM_STYLE} />
       </Stack.Navigator>
     </NavigationContainer>
   )

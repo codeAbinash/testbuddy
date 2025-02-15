@@ -47,7 +47,7 @@ function TestElement({ image, text, description, ...rest }: ExamElementProps) {
       <SemiBold className='text px-3 pt-2 text-center text-sm opacity-90' numberOfLines={1}>
         {text}
       </SemiBold>
-      <Medium className='px-3 text text-center text-xs opacity-70' numberOfLines={1} style={{ fontSize: 9 }}>
+      <Medium className='text px-3 text-center text-xs opacity-70' numberOfLines={1} style={{ fontSize: 9 }}>
         {description}
       </Medium>
     </TouchableOpacity>
