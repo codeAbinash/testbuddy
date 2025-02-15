@@ -78,3 +78,4 @@ export { default as ArrowRight01StrokeStandardIcon } from '@icons/arrow-right-01
 export { default as PlayIcon } from '@icons/play-solid-rounded.svg'
 export { default as SquareUnlock01Icon } from '@icons/square-unlock-01-solid-rounded.svg'
 export { default as SquareLock02Icon } from '@icons/square-lock-02-solid-rounded.svg'
+export { default as Diamond02Icon } from '@icons/diamond-02-solid-rounded.svg'

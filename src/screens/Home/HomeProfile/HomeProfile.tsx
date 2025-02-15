@@ -1,67 +1,65 @@
+import { defaultProfilePic } from '@/constants'
+import { Diamond02Icon, PencilEdit01Icon } from '@assets/icons/icons'
+import Press from '@components/Press'
 import { PaddingTop } from '@components/SafePadding'
-import { Medium, SemiBold } from '@utils/fonts'
-import React, { useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import api from '@query/api'
+import { useQuery } from '@tanstack/react-query'
+import { F, Medium, SemiBold } from '@utils/fonts'
+import type { NavProps } from '@utils/types'
+import { getFirstName } from '@utils/utils'
+import { Image, View } from 'react-native'
+import colors from 'tailwindcss/colors'
+import { Tabs, type TabData } from './Tabs'
 
-export default function HomeProfile() {
-  return (
-    <View className='pt-3'>
-      <Tabs tabsData={tabData} />
-    </View>
-  )
-}
+function ProfileTopArea({ navigation }: NavProps) {
+  const { data } = useQuery({
+    queryKey: ['profile'],
+    queryFn: api.profile,
+  })
 
-function Tabs({ tabsData }: { tabsData: TabData[] }) {
-  const [activeTab, setActiveTab] = useState(0)
   return (
     <>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        className='flex flex-row flex-nowrap'
-        contentContainerClassName='px-5 gap-3'
-      >
-        {tabsData.map((tab, index) => (
-          <Tab key={index} index={index} setActiveTab={setActiveTab} activeTab={activeTab} {...tab} />
-        ))}
-      </ScrollView>
-      <ScrollView>{tabsData[activeTab]?.content}</ScrollView>
+      <View className='w-full bg-white px-5 pb-2 pr-4 dark:bg-zinc-950'>
+        <PaddingTop />
+        <View className='flex-row items-center justify-between'>
+          <Press className='flex-shrink flex-row items-center gap-3' onPress={() => navigation.navigate('EditProfile')}>
+            <View className='flex-shrink flex-row items-center justify-center gap-3'>
+              <Image source={{ uri: data?.profilePic || defaultProfilePic }} className='h-14 w-14 rounded-full' />
+              <View className='flex-shrink'>
+                <SemiBold className='text mr-2 flex-shrink text-sm' numberOfLines={1}>
+                  Hi, {getFirstName(data?.name) ?? 'User'}
+                </SemiBold>
+                <Medium className='text text-xs opacity-80'>{data?.std}</Medium>
+              </View>
+            </View>
+            <PencilEdit01Icon height={20} width={20} color={colors.zinc[500]} />
+          </Press>
+          <View className='flex-row items-center justify-center gap-3'>
+            <Press
+              className='flex-row items-center justify-center gap-1 rounded-xl bg-amber-500 px-3.5 py-3'
+              onPress={() => navigation.navigate('Premium')}
+            >
+              <Diamond02Icon color={'white'} height={15} width={15} />
+              <Medium className='text-xs text-white' style={F.F10_5}>
+                Upgrade to Premium
+              </Medium>
+            </Press>
+          </View>
+        </View>
+      </View>
     </>
   )
 }
 
-type TabProps = TabData & {
-  setActiveTab: (index: number) => void
-  activeTab: number
-  index: number
-}
-
-function Tab({ title, setActiveTab, index, activeTab }: TabProps) {
-  const active = activeTab === index
+export default function HomeProfile({ navigation }: NavProps) {
   return (
-    <View>
-      <PaddingTop />
-      <TouchableOpacity
-        className={`${active ? 'bg-accent dark:bg-white/80' : 'bg-zinc-200 dark:bg-zinc-800'} rounded-full p-2.5 px-5 pt-3`}
-        onPress={() => {
-          setActiveTab(index)
-        }}
-        activeOpacity={0.7}
-      >
-        <SemiBold
-          className={`text-center text-sm ${active ? 'text-white dark:text-black' : 'text-zinc-600 dark:text-zinc-400'} text-xs`}
-        >
-          {title}
-        </SemiBold>
-      </TouchableOpacity>
+    <View className='pt-3'>
+      <ProfileTopArea navigation={navigation} />
+      <View className='pt-3'>
+        <Tabs tabsData={tabData} />
+      </View>
     </View>
   )
-}
-
-type TabData = {
-  title: string
-  content: React.ReactNode
 }
 
 const tabData: TabData[] = [

@@ -52,6 +52,7 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Premium from '@screens/Premium'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -176,12 +177,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Tests' component={Tests} />
         <Stack.Screen name='TestList' component={TestList} />
         <Stack.Screen name='HomeProfile' component={HomeProfile} />
+        <Stack.Screen name='Premium' component={Premium} options={IOS_BOTTOM_STYLE}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  Premium: undefined
   HomeProfile: undefined
   TestList: TestListParamList
   Tests: undefined

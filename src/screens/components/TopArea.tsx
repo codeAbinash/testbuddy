@@ -4,7 +4,7 @@ import Press from '@components/Press'
 import { PaddingTop } from '@components/SafePadding'
 import api from '@query/api'
 import { useQuery } from '@tanstack/react-query'
-import { Medium } from '@utils/fonts'
+import { Medium, SemiBold } from '@utils/fonts'
 import type { DrawerProps } from '@utils/types'
 import { getFirstName } from '@utils/utils'
 import { useColorScheme } from 'nativewind'
@@ -42,9 +42,9 @@ export default function TopArea({ navigation }: DrawerProps) {
             <Menu02Icon height={24} width={24} color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
             <View className='flex-shrink flex-row items-center justify-center gap-3'>
               <Image source={{ uri: data?.profilePic || defaultProfilePic }} className='h-9 w-9 rounded-full' />
-              <Medium className='text mr-2 flex-shrink' numberOfLines={1}>
+              <SemiBold className='text mr-2 flex-shrink' numberOfLines={1}>
                 Hi, {getFirstName(data?.name) ?? 'User'}
-              </Medium>
+              </SemiBold>
             </View>
           </Press>
           <View className='flex-row items-center justify-between'>

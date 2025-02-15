@@ -144,7 +144,7 @@ function RightLockOrPlayIcon({ test, colorScheme }: { test: Test; colorScheme: C
   const navigation = useNavigation<StackNav>()
   const locked = test.status === 'locked'
   function navigateToTest() {
-    if (locked) return ToastAndroid.show('Test is locked', ToastAndroid.SHORT)
+    if (locked) return navigation.navigate('Premium')
     alert('Are you sure?', 'Do you want to start the test?', [
       { text: 'Yes', onPress: () => navigation.navigate('Test', { testId: test.testId }) },
       { text: 'No', onPress: () => {} },
