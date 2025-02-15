@@ -2,6 +2,7 @@ import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import { ArrowRight01StrokeStandardIcon } from '@assets/icons/icons'
 import { PaddingBottom } from '@components/SafePadding'
 import api, { type ProgramList } from '@query/api'
+import TopArea from '@screens/components/TopArea'
 import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import type { ColorScheme, NavProps, StackNav, Stream } from '@utils/types'
@@ -24,6 +25,7 @@ export default function Tests({ navigation }: NavProps) {
 
   return (
     <View>
+      <TopArea navigation={navigation as any} />
       <FlatList
         refreshControl={
           <RefreshControl

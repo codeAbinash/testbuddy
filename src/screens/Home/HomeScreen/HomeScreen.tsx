@@ -1,5 +1,6 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import api from '@query/api'
+import TopArea from '@screens/components/TopArea'
 import SocialIcons from '@screens/Home/HomeScreen/components/SocialIcons'
 import { useQuery } from '@tanstack/react-query'
 import type { NavProps } from '@utils/types'
@@ -20,6 +21,7 @@ export default function HomeScreen({ navigation }: NavProps) {
 
   return (
     <>
+      <TopArea navigation={navigation as any} />
       <StatusBar barStyle='dark-content' backgroundColor={'transparent'} />
       <ScrollView
         className='bg-zinc-50 dark:bg-black'

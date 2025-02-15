@@ -1,3 +1,4 @@
+import { PaddingTop } from '@components/SafePadding'
 import { Medium, SemiBold } from '@utils/fonts'
 import React, { useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -40,10 +41,10 @@ function Tab({ title, setActiveTab, index, activeTab }: TabProps) {
   const active = activeTab === index
   return (
     <View>
+      <PaddingTop />
       <TouchableOpacity
-        className={` ${active ? 'bg-accent dark:bg-white/80' : 'bg-zinc-200 dark:bg-zinc-800'} rounded-full p-2.5 px-5 pt-3`}
+        className={`${active ? 'bg-accent dark:bg-white/80' : 'bg-zinc-200 dark:bg-zinc-800'} rounded-full p-2.5 px-5 pt-3`}
         onPress={() => {
-          console.log('Tab clicked:', title)
           setActiveTab(index)
         }}
         activeOpacity={0.7}
