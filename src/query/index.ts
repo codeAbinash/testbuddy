@@ -14,13 +14,23 @@ interface ServerResponse {
   message?: string
   isAlert?: boolean
 }
-export async function postApi<T>(path: string, data?: any, config?: AxiosRequestConfig) {
+
+async function apiRequest<T>(method: 'get' | 'post', path: string, data?: any, config?: AxiosRequestConfig) {
   type ServerT = T & ServerResponse
   try {
-    return (await axios.post<ServerT>(path, data, config)).data
+    const response = await axios[method]<ServerT>(path, method === 'get' ? config : data, config)
+    return response.data
   } catch (error: any) {
     return handleError(error) as ServerT
   }
+}
+
+export async function postApi<T>(path: string, data?: any, config?: AxiosRequestConfig) {
+  return apiRequest<T>('post', path, data, config)
+}
+
+export async function getApi<T>(path: string, config?: AxiosRequestConfig) {
+  return apiRequest<T>('get', path, undefined, config)
 }
 
 function handleError(error: any) {

@@ -1,8 +1,9 @@
 import { Result } from '@screens/Test/Result/types/result'
 import timeStore from '@screens/Test/zustand/timeStore'
 import type { Stream } from '@utils/types'
-import { postApi } from '.'
+import { getApi, postApi } from '.'
 import { versionName } from '../constants'
+import { getAp } from '@utils/utils'
 
 export type checkForUpdatesT = {
   updateRequired?: boolean
@@ -250,7 +251,44 @@ function testList(programId: string) {
   return postApi<TestList[]>('tests/details', { programId })
 }
 
+type Blog = {
+  _id: string
+  title: string
+  blogContent: string
+  tags: string[]
+  category: string
+  readTime: string
+  subject: string
+  chapter: string
+  postedBy: {
+    _id: string
+    name: string
+  }
+  relatedBlogs: any[]
+  status: string
+  createdAt: Date
+  updatedAt: Date
+  noOfLikes: number
+  noOfViews: number
+}
+function testBlog() {
+  return getApi<Blog>('test/blog')
+  // return postApi<Blog>('https://api.testbuddy.live/v1/admin/blogs')
+  // return getApi<Blog>('admin/blog/6725d515b110f3fb01b57701')
+}
+
+function blogs() {
+  return postApi<Blog[]>('admin/blogs')
+}
+
+function blog(id: string) {
+  return getApi<Blog>(`admin/blog/${id}`)
+}
+
 const api = {
+  blog,
+  blogs,
+  testBlog,
   testList,
   programList,
   startTest,

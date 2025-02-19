@@ -1,11 +1,12 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
+import Btn from '@components/Button'
 import api from '@query/api'
 import TopArea from '@screens/components/TopArea'
 import SocialIcons from '@screens/Home/HomeScreen/components/SocialIcons'
 import { useQuery } from '@tanstack/react-query'
 import type { NavProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { RefreshControl, ScrollView, StatusBar } from 'react-native'
+import { RefreshControl, ScrollView, StatusBar, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import CarouselElem from './components/CarouselElem'
 import ContactSection from './components/ContactSection'
@@ -37,6 +38,9 @@ export default function HomeScreen({ navigation }: NavProps) {
         }
       >
         <CarouselElem carousel={carousel} />
+        <View className='p-5'>
+          <Btn onPress={() => navigation.navigate('Blogs')} title='Blogs'></Btn>
+        </View>
         <ExploreExams />
         <ExploreTests navigation={navigation} />
         <ReferSection navigation={navigation} />
