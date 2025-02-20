@@ -199,3 +199,17 @@ export function useInteraction() {
 
   return renderRest
 }
+
+/**
+ * Formats a number using the compact notation.
+ *
+ * This function takes a number and returns a string representation of the number
+ * formatted using the compact notation (e.g., 1K, 1M).
+ *
+ * @param num - The number to format.
+ * @returns The formatted number as a string.
+ */
+export function nFormatter(num: number) {
+  const formatter = Intl.NumberFormat('en', { notation: 'compact' })
+  return formatter.format(num)
+}
