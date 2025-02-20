@@ -16,6 +16,7 @@ import modalStore from '../zustand/modalStore'
 import testStore from '../zustand/testStore'
 import timeStore from '../zustand/timeStore'
 import { MoreOption } from './MoreOption'
+import BackButton from '@components/BackButton'
 
 type HeaderProps = {
   navigation: StackNav
@@ -96,13 +97,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
     <View className='bg-white dark:bg-zinc-950'>
       <PaddingTop />
       <View className='flex-row items-center' style={{ gap: 10 }}>
-        <TouchableOpacity className='pb-2.5 pl-2.5 pr-0 pt-2' onPress={onBackPress} activeOpacity={0.7}>
-          <ArrowLeft01StrokeRoundedIcon
-            width={26}
-            height={26}
-            color={colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]}
-          />
-        </TouchableOpacity>
+        <BackButton onPress={onBackPress} colorScheme={colorScheme} />
         <View className='flex-1 flex-col'>
           <View className='flex-row justify-between gap-1'>
             <SemiBold
