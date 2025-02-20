@@ -81,3 +81,5 @@ export { default as SquareLock02Icon } from '@icons/square-lock-02-solid-rounded
 export { default as Diamond02Icon } from '@icons/diamond-02-solid-rounded.svg'
 export { default as ThumbsUpIcon } from '@icons/thumbs-up-solid-rounded.svg'
 export { default as ThumbsUpStrokeRoundedIcon } from '@icons/thumbs-up-stroke-rounded.svg'
+export { default as UnfoldLessStrokeRoundedIcon } from '@icons/unfold-less-stroke-rounded.svg'
+export { default as Share01StrokeRoundedIcon } from '@icons/share-01-stroke-rounded.svg'
