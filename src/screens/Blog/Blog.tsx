@@ -1,16 +1,26 @@
-import { SmallBtn } from '@components/Button'
-import { Loading } from '@components/Loading'
-import { PaddingBottom } from '@components/SafePadding'
-import api from '@query/api'
-import type { RouteProp } from '@react-navigation/native'
-import BackHeader from '@screens/components/BackHeader'
+import { useMemo } from 'react'
+import { View, type TouchableOpacityProps } from 'react-native'
+
 import { useQuery } from '@tanstack/react-query'
-import type { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { useEffect, useMemo } from 'react'
-import { ToastAndroid, View } from 'react-native'
 import WebView from 'react-native-webview'
 import colors from 'tailwindcss/colors'
+
+import {
+  AllBookmarkStrokeRoundedIcon,
+  ArrowLeft01StrokeRoundedIcon,
+  ArrowRight01StrokeRoundedIcon,
+  Share01StrokeRoundedIcon,
+} from '@assets/icons/icons'
+import { SmallBtn } from '@components/Button'
+import { Loading } from '@components/Loading'
+import Press from '@components/Press'
+import { PaddingBottom } from '@components/SafePadding'
+import api from '@query/api'
+import { type RouteProp } from '@react-navigation/native'
+import type { StackNav } from '@utils/types'
+
+import Header from './components/Header'
 import { wrapHtmlBlog } from './utils'
 
 type ParamList = {
@@ -29,6 +39,10 @@ type BlogProps = {
 export default function Blog({ navigation, route }: BlogProps) {
   const id = route.params.id
   const { colorScheme } = useColorScheme()
+
+  const secondaryIcon = colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]
+  const primaryIcon = colorScheme === 'dark' ? colors.zinc[800] : colors.zinc[200]
+
   const { data } = useQuery({
     queryKey: ['blog', id],
     queryFn: () => api.blog(id),
@@ -39,10 +53,14 @@ export default function Blog({ navigation, route }: BlogProps) {
     [data?.blogContent, colorScheme],
   )
 
-
   return (
     <>
-      <BackHeader navigation={navigation} title={data?.title || 'Loading...'} />
+      <Header
+        title={data?.title || 'Loading...'}
+        readTime={data?.readTime || 'Calculating read time...'}
+        tags={data?.tags || []}
+        navigation={navigation}
+      />
       <View className='screen-bg flex-1 justify-between'>
         <View className='flex-1'>
           {data ? (
@@ -56,13 +74,56 @@ export default function Blog({ navigation, route }: BlogProps) {
           )}
         </View>
         <View>
-          <View className='flex-row gap-2.5 px-4 pb-1 pt-2.5'>
-            <SmallBtn variant='secondary' style={{ flex: 0.7 }} title='Attempt Test' />
-            <SmallBtn variant='secondary' style={{ flex: 0.7 }} title='Next' />
+          <View className='flex-row justify-between gap-2.5 px-4 pb-1 pt-2.5'>
+            <View className='flex-row gap-2'>
+              <ButtonSecondary>
+                <Share01StrokeRoundedIcon color={secondaryIcon} height={18} width={18} />
+              </ButtonSecondary>
+              <ButtonSecondary>
+                <AllBookmarkStrokeRoundedIcon color={secondaryIcon} height={18} width={18} />
+              </ButtonSecondary>
+            </View>
+            <SmallBtn className='flex-1' variant='secondary' style={{ flex: 1 }} title='Attempt Test' />
+            <View className='flex-row gap-2'>
+              <ButtonPrimary>
+                <ArrowLeft01StrokeRoundedIcon color={primaryIcon} height={25} width={25} style={{ marginRight: 2 }} />
+              </ButtonPrimary>
+              <ButtonPrimary>
+                <ArrowRight01StrokeRoundedIcon color={primaryIcon} height={25} width={25} style={{ marginLeft: 2 }} />
+              </ButtonPrimary>
+            </View>
           </View>
           <PaddingBottom />
         </View>
       </View>
     </>
+  )
+}
+
+type ButtonPrimaryProps = TouchableOpacityProps & {}
+function ButtonPrimary({ children }: ButtonPrimaryProps) {
+  return (
+    <Press
+      className='items-center justify-center rounded-xl bg-accent dark:bg-zinc-100'
+      style={{ height: 40, width: 40 }}
+      activeOpacity={0.8}
+      activeScale={0.9}
+    >
+      {children}
+    </Press>
+  )
+}
+
+type ButtonSecondaryProps = TouchableOpacityProps & {}
+function ButtonSecondary({ children }: ButtonSecondaryProps) {
+  return (
+    <Press
+      className='items-center justify-center rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900'
+      style={{ height: 40, width: 40 }}
+      activeOpacity={0.8}
+      activeScale={0.9}
+    >
+      {children}
+    </Press>
   )
 }

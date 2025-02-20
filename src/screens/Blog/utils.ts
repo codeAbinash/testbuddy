@@ -1,6 +1,8 @@
 import { ColorScheme } from '@utils/types'
 import colors from 'tailwindcss/colors'
 
+// TODO(codeAbinash) : Add mathjax support
+
 export const css = `
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
