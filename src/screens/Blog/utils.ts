@@ -25,7 +25,7 @@ export const css = `
     border-radius: 5px;
   }
   .blog {
-    padding: 5px 15px;
+    padding: 0.1px 15px;
   }
 </style>`
 
