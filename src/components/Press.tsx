@@ -3,7 +3,7 @@ import { Pressable, type PressableProps } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 export type CustomPressProps = PressableProps & {
-  children: React.ReactNode
+  children?: React.ReactNode
   activeOpacity?: number
   activeScale?: number
   duration?: number
