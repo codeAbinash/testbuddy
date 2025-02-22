@@ -1,10 +1,10 @@
-import { StatusBar, Text, View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
 import { PaddingBottom } from '@components/SafePadding'
-import TopBar from '@components/TopBar'
+import { AppBar } from '@components/TopBar'
 import { RouteProp } from '@react-navigation/native'
-import { SemiBold } from '@utils/fonts'
+import { Bold, Medium } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 
 type ParamList = {
@@ -26,12 +26,12 @@ const OnThisPage: React.FC<OnThisPageProps> = ({ route }) => {
     <>
       <StatusBar barStyle='default' />
       <View className='flex-1'>
-        <View className='pb-3.5'>
-          <TopBar />
-        </View>
-        <ScrollView contentContainerClassName='px-4'>
-          <SemiBold className='text mb-2.5 text-center text-base'>On This Page</SemiBold>
-          <Text>{html}</Text>
+        <AppBar />
+        <ScrollView contentContainerClassName='px-4 pb-4'>
+          <Bold className='text mb-2.5 text-xl'>On This Page</Bold>
+          <Medium className='text text-justify text-xs opacity-80' style={{ fontFamily: 'monospace' }}>
+            {html}
+          </Medium>
           <PaddingBottom />
         </ScrollView>
       </View>
