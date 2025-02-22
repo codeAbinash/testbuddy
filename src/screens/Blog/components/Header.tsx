@@ -30,19 +30,21 @@ export default function Header({ title, readTime, tags, navigation, html }: Head
         <PaddingTop />
         <View className='flex-row items-center' style={{ gap: 2 }}>
           <BackButton colorScheme={colorScheme} onPress={() => navigation.goBack()} />
-          <Press className='flex-1 flex-col justify-center gap-0.5' onPress={goToOnThisPage}>
-            <SemiBold
-              style={{ fontSize: 12, lineHeight: 14 }}
-              className='text-zinc-800 dark:text-zinc-200'
-              numberOfLines={1}
-            >
-              {title}
-            </SemiBold>
-            <Medium style={{ fontSize: 10, lineHeight: 11 }} className='text-zinc-500 dark:text-zinc-400'>
-              {readTime} • {tags.join(' • ')}
-            </Medium>
+          <Press onPress={goToOnThisPage} className='flex-1 flex-row items-center'>
+            <View className='flex-1 flex-col justify-center gap-0.5'>
+              <SemiBold
+                style={{ fontSize: 12, lineHeight: 14 }}
+                className='text-zinc-800 dark:text-zinc-200'
+                numberOfLines={1}
+              >
+                {title}
+              </SemiBold>
+              <Medium style={{ fontSize: 10, lineHeight: 11 }} className='text-zinc-500 dark:text-zinc-400'>
+                {readTime} • {tags.join(' • ')}
+              </Medium>
+            </View>
+            <UnfoldIcon colorScheme={colorScheme} onPress={goToOnThisPage} />
           </Press>
-          <UnfoldIcon colorScheme={colorScheme} onPress={goToOnThisPage} />
           <ThumbsIcon isLiked={false} colorScheme={colorScheme} likeCount={10000} />
         </View>
       </View>

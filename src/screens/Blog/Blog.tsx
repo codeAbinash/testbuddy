@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { View, type TouchableOpacityProps } from 'react-native'
 
 import { useQuery } from '@tanstack/react-query'
@@ -39,6 +39,7 @@ type BlogProps = {
 export default function Blog({ navigation, route }: BlogProps) {
   const id = route.params.id
   const { colorScheme } = useColorScheme()
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false)
 
   const secondaryIcon = colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]
   const primaryIcon = colorScheme === 'dark' ? colors.zinc[800] : colors.zinc[200]
@@ -53,6 +54,13 @@ export default function Blog({ navigation, route }: BlogProps) {
     [data?.blogContent, colorScheme],
   )
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsAnimationComplete(true)
+    }, 250)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <>
       <Header
@@ -63,7 +71,7 @@ export default function Blog({ navigation, route }: BlogProps) {
         navigation={navigation}
       />
       <View className='screen-bg flex-1 justify-between'>
-        {data ? (
+        {data && isAnimationComplete ? (
           <View className='flex-1'>
             <WebView
               source={{ html: wrappedHtml }}
