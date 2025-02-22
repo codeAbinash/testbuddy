@@ -59,6 +59,7 @@ export default function Blog({ navigation, route }: BlogProps) {
         title={data?.title || 'Loading...'}
         readTime={data?.readTime || 'Calculating read time...'}
         tags={data?.tags || []}
+        html={data?.blogContent || ''}
         navigation={navigation}
       />
       <View className='screen-bg flex-1 justify-between'>

@@ -55,6 +55,7 @@ import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Blogs from '@screens/Blog/Blogs'
+import OnThisPage, { OnThisPageParamList } from '@screens/Blog/OnThisPage'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -182,12 +183,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Premium' component={Premium} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='Blog' component={Blog} />
         <Stack.Screen name='Blogs' component={Blogs} />
+        <Stack.Screen name='OnThisPage' component={OnThisPage} options={IOS_BOTTOM_STYLE} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  OnThisPage: OnThisPageParamList
   Blogs: undefined
   Blog: BlogParamList
   Premium: undefined
