@@ -62,17 +62,19 @@ export default function Blog({ navigation, route }: BlogProps) {
         navigation={navigation}
       />
       <View className='screen-bg flex-1 justify-between'>
-        <View className='flex-1'>
-          {data ? (
+        {data ? (
+          <View className='flex-1'>
             <WebView
               source={{ html: wrappedHtml }}
               style={{ backgroundColor: colorScheme === 'dark' ? 'black' : colors.zinc[50] }}
               scalesPageToFit={true}
             />
-          ) : (
+          </View>
+        ) : (
+          <View className='flex-1 items-center justify-center'>
             <Loading colorScheme={colorScheme} />
-          )}
-        </View>
+          </View>
+        )}
         <View>
           <View className='flex-row justify-between gap-2.5 px-4 pb-1 pt-2.5'>
             <View className='flex-row gap-2'>

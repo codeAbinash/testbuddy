@@ -32,7 +32,7 @@ export default function Header({ title, readTime, tags, navigation }: HeaderProp
             {title}
           </SemiBold>
           <Medium style={{ fontSize: 10, lineHeight: 11 }} className='text-zinc-500 dark:text-zinc-400'>
-            {readTime} read • {tags.join(' • ')}
+            {readTime} • {tags.join(' • ')}
           </Medium>
         </Press>
         <UnfoldIcon colorScheme={colorScheme} />
