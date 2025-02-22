@@ -1,11 +1,15 @@
+import React from 'react'
 import { StatusBar, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
 import { PaddingBottom } from '@components/SafePadding'
 import { AppBar } from '@components/TopBar'
 import { RouteProp } from '@react-navigation/native'
-import { Bold, Medium } from '@utils/fonts'
+import { SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
+
+import HeadingsList from '../components/HeadingsList'
+import { extractHeadings } from '../utils/extractHeadings'
 
 type ParamList = {
   OnThisPage: OnThisPageParamList
@@ -13,6 +17,8 @@ type ParamList = {
 
 export type OnThisPageParamList = {
   html: string
+  title: string
+  id: string
 }
 
 type OnThisPageProps = {
@@ -21,17 +27,18 @@ type OnThisPageProps = {
 }
 
 const OnThisPage: React.FC<OnThisPageProps> = ({ route }) => {
-  const { html } = route.params
+  const title = route.params.title
+  const html = route.params.html
+  const headings = React.useMemo(() => extractHeadings(html), [html])
+
   return (
     <>
       <StatusBar barStyle='default' />
       <View className='flex-1'>
         <AppBar />
-        <ScrollView contentContainerClassName='px-4 pb-4'>
-          <Bold className='text mb-2.5 text-xl'>On This Page</Bold>
-          <Medium className='text text-justify text-xs opacity-80' style={{ fontFamily: 'monospace' }}>
-            {html}
-          </Medium>
+        <SemiBold className='textBlack -mt-2 mb-3 text-center text-xs'>{title}</SemiBold>
+        <ScrollView contentContainerClassName='px-5 pb-4'>
+          <HeadingsList headings={headings} />
           <PaddingBottom />
         </ScrollView>
       </View>

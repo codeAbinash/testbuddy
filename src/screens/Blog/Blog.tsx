@@ -21,7 +21,7 @@ import { type RouteProp } from '@react-navigation/native'
 import type { StackNav } from '@utils/types'
 
 import Header from './components/Header'
-import { wrapHtmlBlog } from './utils'
+import { wrapHtmlBlog } from './utils/wrapHtmlBlog'
 
 type ParamList = {
   Blog: BlogParamList
@@ -69,6 +69,7 @@ export default function Blog({ navigation, route }: BlogProps) {
         tags={data?.tags || []}
         html={data?.blogContent || ''}
         navigation={navigation}
+        id={id}
       />
       <View className='screen-bg flex-1 justify-between'>
         {data && isAnimationComplete ? (

@@ -15,13 +15,15 @@ type HeaderProps = {
   tags: string[]
   navigation: StackNav
   html: string
+  id: string
 }
 
-export default function Header({ title, readTime, tags, navigation, html }: HeaderProps) {
+export default function Header({ title, readTime, tags, navigation, html, id }: HeaderProps) {
   const { colorScheme } = useColorScheme()
 
   function goToOnThisPage() {
-    navigation.navigate('OnThisPage', { html })
+    if (!html) return
+    navigation.navigate('OnThisPage', { html, title, id })
   }
 
   return (
