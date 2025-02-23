@@ -57,7 +57,7 @@ export default function Blog({ navigation, route }: BlogProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsAnimationComplete(true)
-    }, 300)
+    }, 350)
     return () => clearTimeout(timer)
   }, [])
 

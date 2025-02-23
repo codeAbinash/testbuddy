@@ -55,7 +55,7 @@ import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Blogs from '@screens/Blog/Blogs'
-import OnThisPage, { OnThisPageParamList } from '@screens/Blog/OnThisPage/OnThisPage'
+import OnThisPage, { OnThisPageParamList } from '@screens/Blog/OnThisPage'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
