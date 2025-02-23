@@ -17,8 +17,8 @@ const HeadingsList: React.FC<HeadingsListProps> = ({ headings }) => {
   if (headings.length === 0)
     return (
       <View className='items-center justify-center' style={{ height: H * 0.7 }}>
-        <Lottie source={Animations['no-data']} style={{ height: W * 0.6, width: W * 0.6 }} />
-        <Medium className='text text-center text-sm'>No headings found</Medium>
+        <Lottie source={Animations['no-data']} style={{ height: W * 0.65, width: W * 0.65 }} />
+        <Medium className='text text-center text-sm'>Nothing to show here</Medium>
       </View>
     )
   return (

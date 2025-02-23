@@ -8,8 +8,8 @@ import { RouteProp } from '@react-navigation/native'
 import { SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 
-import HeadingsList from './components/HeadingsList'
-import { extractHeadings } from './utils/extractHeadings'
+import HeadingsList from '../components/HeadingsList'
+import { extractHeadings } from '../utils/extractHeadings'
 
 type ParamList = {
   OnThisPage: OnThisPageParamList
@@ -34,15 +34,13 @@ const OnThisPage: React.FC<OnThisPageProps> = ({ route }) => {
   return (
     <>
       <StatusBar barStyle='default' />
-      <View className='flex-1 dark:bg-zinc-900/70'>
+      <View className='flex-1'>
         <AppBar />
-        <SemiBold className='textBlack -mt-0.5 mb-3 text-center text-xs'>{title}</SemiBold>
-        <View className='flex-1 bg-zinc-100 dark:bg-zinc-900'>
-          <ScrollView contentContainerClassName='px-5 pb-4 pt-4'>
-            <HeadingsList headings={headings} />
-            <PaddingBottom />
-          </ScrollView>
-        </View>
+        <SemiBold className='textBlack -mt-2 mb-3 text-center text-xs'>{title}</SemiBold>
+        <ScrollView contentContainerClassName='px-5 pb-4'>
+          <HeadingsList headings={headings} />
+          <PaddingBottom />
+        </ScrollView>
       </View>
     </>
   )
