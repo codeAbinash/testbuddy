@@ -14,7 +14,7 @@ export default function Blogs({ navigation }: NavProps) {
 
   return (
     <>
-      <BackHeader title='Blogs' />
+      <BackHeader title='Blogs' navigation={navigation} />
       <View className='screen-bg flex-1'>
         <ScrollView contentContainerClassName='screen-bg gap-3 px-3 pb-0 py-5'>
           <Btn

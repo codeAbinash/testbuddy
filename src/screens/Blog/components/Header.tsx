@@ -23,7 +23,7 @@ export default function Header({ title, readTime, tags, navigation, html, id }: 
 
   function goToOnThisPage() {
     if (!html) return
-    navigation.navigate('OnThisPage', { html, title, id })
+    navigation.navigate('OnThisPage', { html, title, id, tags })
   }
 
   return (
