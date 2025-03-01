@@ -1,7 +1,7 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import { ArrowRight01StrokeStandardIcon } from '@assets/icons/icons'
 import { PaddingBottom } from '@components/SafePadding'
-import api, { type ProgramList } from '@query/api'
+import api, { ProgramList } from '@query/api/api'
 import TopArea from '@screens/components/TopArea'
 import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'

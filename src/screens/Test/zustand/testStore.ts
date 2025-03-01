@@ -1,4 +1,4 @@
-import api from '@query/api'
+import api from '@query/api/api'
 import { create } from 'zustand'
 
 export type Test = Awaited<ReturnType<typeof api.startTest>> | undefined

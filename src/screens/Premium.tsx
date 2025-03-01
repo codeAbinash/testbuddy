@@ -1,21 +1,40 @@
-import Animations from '@assets/animations/animations'
 import Btn from '@components/Button'
-import { Lottie } from '@components/Lottie'
-import TopBar from '@components/TopBar'
-import { W } from '@utils/dimensions'
+import { AppBar } from '@components/TopBar'
+import { premiumInformation } from '@query/api/index'
+import { RouteProp } from '@react-navigation/native'
+import { useQuery } from '@tanstack/react-query'
 import { Bold, SemiBold } from '@utils/fonts'
-import type { NavProps } from '@utils/types'
+import type { StackNav } from '@utils/types'
+import { FC } from 'react'
 import { StatusBar, ToastAndroid, View } from 'react-native'
 
-const Premium = ({ navigation }: NavProps) => {
+type ParamList = {
+  Premium: PremiumParamList
+}
+
+export type PremiumParamList = {
+  programId: string
+}
+
+type PremiumProps = {
+  route: RouteProp<ParamList, 'Premium'>
+  navigation: StackNav
+}
+
+const Premium: FC<PremiumProps> = ({ navigation, route }) => {
+  const { programId } = route.params
+  const { data } = useQuery({
+    queryKey: ['premium', programId],
+    queryFn: () => premiumInformation(programId),
+  })
+
+  console.log(data)
+
   return (
     <>
       <StatusBar barStyle='default' />
       <View className='flex-1 justify-between bg-white dark:bg-zinc-950'>
-        <View>
-          <TopBar />
-        </View>
-        <Lottie source={Animations.premium} style={{ width: W * 0.8, height: W * 0.8 }} />
+        <AppBar />
         <View className='items-center justify-center gap-5 px-8'>
           <Bold className='text text-center' style={{ fontSize: 20 }}>
             Upgrade to Premium

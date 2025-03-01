@@ -1,6 +1,6 @@
 import Btn from '@components/Button'
 import { PaddingBottom } from '@components/SafePadding'
-import api from '@query/api'
+import api from '@query/api/api'
 import BackHeader from '@screens/components/BackHeader'
 import { useQuery } from '@tanstack/react-query'
 import type { NavProps } from '@utils/types'

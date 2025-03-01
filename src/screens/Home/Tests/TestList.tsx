@@ -2,14 +2,14 @@ import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import popupStore from '@/zustand/popupStore'
 import { PlayIcon, SquareLock02Icon, SquareUnlock01Icon } from '@assets/icons/icons'
 import { PaddingBottom } from '@components/SafePadding'
-import api from '@query/api'
+import api from '@query/api/api'
 import { useNavigation, type RouteProp } from '@react-navigation/native'
 import BackHeader from '@screens/components/BackHeader'
 import { useQuery } from '@tanstack/react-query'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { ColorScheme, StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { FlatList, RefreshControl, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { LeftBox } from './components/LeftBox'
 import { SubjectBadgeList } from './components/SubjectBadgeList'
@@ -62,7 +62,7 @@ export default function TestList({ navigation, route }: TestListProps) {
             colors={colorScheme === 'dark' ? ['white'] : ['black']}
           />
         }
-        renderItem={({ item, index }) => <Test scheme={colorScheme} test={item} index={index} />}
+        renderItem={({ item, index }) => <Test scheme={colorScheme} test={item} index={index} programId={programId} />}
         ListEmptyComponent={
           isLoading ? null : (
             <View className='flex-1 items-center justify-center'>
@@ -90,9 +90,15 @@ function calculatePercentage(completed: number, total: number) {
   return percentage
 }
 
-export function Test({ test, scheme, index }: { test: Test; scheme: ColorScheme; index: number }) {
+type TestProps = {
+  test: Test
+  scheme: ColorScheme
+  index: number
+  programId: string
+}
+
+export function Test({ test, scheme, index, programId }: TestProps) {
   const timeCompleted = calculatePercentage(test.totalTimeCompleted, test.attemptTime)
-  // const timeCompleted = Math.random() * 100
 
   return (
     <>
@@ -123,7 +129,7 @@ export function Test({ test, scheme, index }: { test: Test; scheme: ColorScheme;
             </Medium>
           </View>
         </View>
-        <RightLockOrPlayIcon test={test} colorScheme={scheme} />
+        <RightLockOrPlayIcon test={test} colorScheme={scheme} programId={programId} />
       </View>
       {timeCompleted === 0 ? null : (
         <View className='h-0.5 w-full bg-blue-500/30'>
@@ -139,12 +145,17 @@ function secondToHour(seconds: number) {
   return `${hours} hr`
 }
 
-function RightLockOrPlayIcon({ test, colorScheme }: { test: Test; colorScheme: ColorScheme }) {
+type RightLockOrPlayIconProps = {
+  test: Test
+  colorScheme: ColorScheme
+  programId: string
+}
+function RightLockOrPlayIcon({ test, colorScheme, programId }: RightLockOrPlayIconProps) {
   const alert = popupStore((state) => state.alert)
   const navigation = useNavigation<StackNav>()
   const locked = test.status === 'locked'
   function navigateToTest() {
-    if (locked) return navigation.navigate('Premium')
+    if (locked) return navigation.navigate('Premium', { programId: programId })
     alert('Are you sure?', 'Do you want to start the test?', [
       { text: 'Yes', onPress: () => navigation.navigate('Test', { testId: test.testId }) },
       { text: 'No', onPress: () => {} },

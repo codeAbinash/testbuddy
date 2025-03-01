@@ -5,7 +5,7 @@ import Animations from '@assets/animations/animations'
 import Btn from '@components/Button'
 import { KeyboardAvoid } from '@components/KeyboardAvoid'
 import { Lottie } from '@components/Lottie'
-import api from '@query/api'
+import api from '@query/api/api'
 import type { RouteProp } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
@@ -67,7 +67,8 @@ export default function VerifyEmail({ route, navigation }: VerifyEmailProps) {
   const verifyOtp = (userOtp: string) => {
     if (!userOtp) return alert('OTP is required', 'Please enter the OTP sent to your mobile number.')
     if (userOtp.length !== 4) return alert('Invalid OTP', 'Please enter a valid OTP. It should be 4 digits long.')
-    mutate({ mobile: normalizePhoneNumber(email), otp: userOtp })
+    // TODO: Verify OTP from email instead of mobile
+    // mutate({ mobile: normalizePhoneNumber(email), otp: userOtp })
   }
 
   function handleResend() {

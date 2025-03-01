@@ -32,7 +32,7 @@ import type { TestListParamList } from '@screens/Home/Tests/TestList'
 import TestList from '@screens/Home/Tests/TestList'
 import Tests from '@screens/Home/Tests/Tests'
 import Notifications from '@screens/Notifications'
-import Premium from '@screens/Premium'
+import Premium, { PremiumParamList } from '@screens/Premium'
 import ChangeStream from '@screens/Profile/ChangeStream'
 import EditProfile from '@screens/Profile/EditProfile'
 import MyRewards from '@screens/Rewards/MyRewards'
@@ -193,7 +193,7 @@ export type RootStackParamList = {
   OnThisPage: OnThisPageParamList
   Blogs: undefined
   Blog: BlogParamList
-  Premium: undefined
+  Premium: PremiumParamList
   HomeProfile: undefined
   TestList: TestListParamList
   Tests: undefined

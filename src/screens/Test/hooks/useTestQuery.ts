@@ -1,4 +1,4 @@
-import api from '@query/api'
+import api from '@query/api/api'
 import { useQuery } from '@tanstack/react-query'
 
 export default function useTestQuery(testId: string) {

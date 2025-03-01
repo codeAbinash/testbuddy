@@ -16,7 +16,7 @@ import { SmallBtn } from '@components/Button'
 import { Loading } from '@components/Loading'
 import Press from '@components/Press'
 import { PaddingBottom } from '@components/SafePadding'
-import api from '@query/api'
+import api from '@query/api/api'
 import { type RouteProp } from '@react-navigation/native'
 import type { StackNav } from '@utils/types'
 

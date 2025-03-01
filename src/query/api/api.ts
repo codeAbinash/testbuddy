@@ -1,9 +1,8 @@
 import { Result } from '@screens/Test/Result/types/result'
 import timeStore from '@screens/Test/zustand/timeStore'
 import type { Stream } from '@utils/types'
-import { getApi, postApi } from '.'
-import { versionName } from '../constants'
-import { getAp } from '@utils/utils'
+import { getApi, postApi } from '..'
+import { versionName } from '../../constants'
 
 export type checkForUpdatesT = {
   updateRequired?: boolean

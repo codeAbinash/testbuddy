@@ -7,7 +7,7 @@ import {
   Search01Icon,
 } from '@assets/icons/icons'
 import { PaddingBottom } from '@components/SafePadding'
-import api from '@query/api'
+import api from '@query/api/api'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'

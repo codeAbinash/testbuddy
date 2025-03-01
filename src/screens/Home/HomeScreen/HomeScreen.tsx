@@ -1,6 +1,6 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import Btn from '@components/Button'
-import api from '@query/api'
+import api from '@query/api/api'
 import TopArea from '@screens/components/TopArea'
 import SocialIcons from '@screens/Home/HomeScreen/components/SocialIcons'
 import { useQuery } from '@tanstack/react-query'

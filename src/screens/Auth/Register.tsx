@@ -13,7 +13,7 @@ import DropdownExtended from '@components/DropdownExtended'
 import Input, { InputIcon } from '@components/Input'
 import { KeyboardAvoid } from '@components/KeyboardAvoid'
 import Label from '@components/Label'
-import api from '@query/api'
+import api from '@query/api/api'
 import type { RouteProp } from '@react-navigation/native'
 import TermsAndConditions from '@screens/components/TermsAndConditions'
 import { Std, Stream } from '@screens/utils'
@@ -75,7 +75,6 @@ export default function Register({ navigation, route }: RegisterProps) {
 
     mutate({ name: finalName, email: finalEmail, std, stream, referralKey: finalReferral })
 
-    console.log(fName, std, stream, email, referral)
   }
 
   return (

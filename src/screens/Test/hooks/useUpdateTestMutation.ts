@@ -1,4 +1,4 @@
-import api from '@query/api'
+import api from '@query/api/api'
 import { useMutation } from '@tanstack/react-query'
 import currentQnStore from '../zustand/currentQn'
 

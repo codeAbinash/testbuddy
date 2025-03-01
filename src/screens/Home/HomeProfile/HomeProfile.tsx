@@ -2,7 +2,7 @@ import { defaultProfilePic } from '@/constants'
 import { Diamond02Icon, PencilEdit01Icon } from '@assets/icons/icons'
 import Press from '@components/Press'
 import { PaddingTop } from '@components/SafePadding'
-import api from '@query/api'
+import api from '@query/api/api'
 import { useQuery } from '@tanstack/react-query'
 import { F, Medium, SemiBold } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
@@ -37,7 +37,8 @@ function ProfileTopArea({ navigation }: NavProps) {
           <View className='flex-row items-center justify-center gap-3'>
             <Press
               className='flex-row items-center justify-center gap-1 rounded-xl bg-amber-500 px-3.5 py-3'
-              onPress={() => navigation.navigate('Premium')}
+              // TODO: send programId to Premium screen
+              // onPress={() => navigation.navigate('Premium')}
             >
               <Diamond02Icon color={'white'} height={15} width={15} />
               <Medium className='text-xs text-white' style={F.F10_5}>

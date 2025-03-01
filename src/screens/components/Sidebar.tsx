@@ -47,7 +47,7 @@ import {
   youtubeUrl,
 } from '@/constants'
 import popupStore from '@/zustand/popupStore'
-import api from '@query/api'
+import api from '@query/api/api'
 import type { DrawerContentComponentProps } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { logout } from '@screens/Auth/utils'
