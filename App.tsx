@@ -24,6 +24,8 @@ import Register, { type RegisterParamList } from '@screens/Auth/Register'
 import VerifyEmail, { VerifyEmailParamList } from '@screens/Auth/VerifyEmail'
 import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Blog, { type BlogParamList } from '@screens/Blog/Blog'
+import Blogs from '@screens/Blog/Blogs'
+import OnThisPage, { OnThisPageParamList } from '@screens/Blog/OnThisPage'
 import Sidebar from '@screens/components/Sidebar'
 import Example from '@screens/Example'
 import Home from '@screens/Home/Home'
@@ -32,7 +34,8 @@ import type { TestListParamList } from '@screens/Home/Tests/TestList'
 import TestList from '@screens/Home/Tests/TestList'
 import Tests from '@screens/Home/Tests/Tests'
 import Notifications from '@screens/Notifications'
-import Premium, { PremiumParamList } from '@screens/Premium'
+import PricingDetails, { PricingDetailsParamList } from '@screens/Premium/PricingDetails'
+import Premium, { PremiumParamList } from '@screens/Premium/Premium'
 import ChangeStream from '@screens/Profile/ChangeStream'
 import EditProfile from '@screens/Profile/EditProfile'
 import MyRewards from '@screens/Rewards/MyRewards'
@@ -54,8 +57,6 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import Blogs from '@screens/Blog/Blogs'
-import OnThisPage, { OnThisPageParamList } from '@screens/Blog/OnThisPage'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -184,12 +185,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Blog' component={Blog} />
         <Stack.Screen name='Blogs' component={Blogs} />
         <Stack.Screen name='OnThisPage' component={OnThisPage} options={IOS_BOTTOM_STYLE} />
+        <Stack.Screen name='PricingDetails' component={PricingDetails} options={IOS_BOTTOM_STYLE} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  PricingDetails: PricingDetailsParamList
   OnThisPage: OnThisPageParamList
   Blogs: undefined
   Blog: BlogParamList
