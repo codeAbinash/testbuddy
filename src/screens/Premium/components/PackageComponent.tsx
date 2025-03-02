@@ -9,7 +9,7 @@ export type PackageProps = {
   index: number
 }
 
-export function PackageComponent({ item, selectedPackage, setSelectedPackage, index }: PackageProps) {
+export function PackageSelector({ item, selectedPackage, setSelectedPackage, index }: PackageProps) {
   const isSelected = selectedPackage === index
   const selectedClassName = isSelected ? selectedClassname : defaultClassName
 
@@ -42,6 +42,6 @@ export function PackageComponent({ item, selectedPackage, setSelectedPackage, in
 const selectedClassname = 'border-green-500 bg-green-100 text-green-500 dark:bg-green-900'
 const defaultClassName = 'border-zinc-500/20 bg-white text-black dark:border-zinc-500/50 dark:bg-black dark:text-white'
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   tag: { borderWidth: 1.5, fontSize: 9, height: 30, marginTop: -15, lineHeight: 28 },
 })

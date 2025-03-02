@@ -28,9 +28,7 @@ const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages })
       <View className='flex-row justify-between px-3.5 pb-3 pt-3'>
         <Press activeScale={0.99} onPress={handlePress}>
           <View className='flex-row items-center'>
-            <SemiBold className='text-xl text-white'>
-              ₹ {selectedPricingData?.pricePerMonth || selectedPricingData?.price}
-            </SemiBold>
+            <SemiBold className='text-xl text-white'>₹ {selectedPricingData?.price}</SemiBold>
             <InformationCircleStrokeRoundedIcon color={'#fff'} height={18} width={18} style={{ marginLeft: 5 }} />
           </View>
           <Medium className='text-xs text-white'>{selectedPackageData?.packageName}</Medium>
