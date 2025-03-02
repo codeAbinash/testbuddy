@@ -1,33 +1,98 @@
-import Press from '@components/Press'
-import { AppBar } from '@components/TopBar'
-import { RouteProp } from '@react-navigation/native'
-import { Medium } from '@utils/fonts'
-import type { StackNav } from '@utils/types'
 import { FC } from 'react'
 import { ScrollView, StatusBar, View } from 'react-native'
+
+import { RouteProp } from '@react-navigation/native'
+
+import Btn from '@components/Button'
+import { PaddingBottom } from '@components/SafePadding'
+import { AppBar } from '@components/TopBar'
+import { Coupon, Package } from '@query/api'
+import { Medium, SemiBold } from '@utils/fonts'
+import type { StackNav } from '@utils/types'
+import CouponsList from './components/CouponsList'
+import couponStore from './couponStore'
 
 type ParamList = {
   PricingDetails: PricingDetailsParamList
 }
 
-export type PricingDetailsParamList = {}
+export type PricingDetailsParamList = {
+  packages: Package[]
+  selectedPackage: number
+  selectedPricing: number
+  coupons: Coupon[]
+}
 
 type PricingDetailsProps = {
   route: RouteProp<ParamList, 'PricingDetails'>
   navigation: StackNav
 }
 
-const PricingDetails: FC<PricingDetailsProps> = ({ navigation, route }) => {
+const PricingDetails: FC<PricingDetailsProps> = ({ route }) => {
+  const { coupons, selectedPackage, packages } = route.params
+  const packageData = packages[selectedPackage]
+  const { selectedCoupon } = couponStore()
+  const coupon = coupons[selectedCoupon]
+
+  const originalPrice = packageData?.pricings?.[0]?.price ?? 0
+  const couponDiscount = parseFloat(coupon?.discount ?? '0')
+  const gst = packageData?.gst ?? 0
+
+  const discountPrice = (originalPrice * couponDiscount) / 100
+  const discountedPrice = originalPrice - discountPrice
+  const gstPrice = (discountedPrice * gst) / 100
+  const total = discountedPrice + gstPrice
+
+  const validUpto = packageData?.pricings?.[0]?.validity ?? new Date()
+  const couponCode = coupon?.code ?? ''
+
   return (
     <>
       <StatusBar barStyle='default' />
       <View className='flex-1 justify-between bg-white dark:bg-zinc-950'>
         <AppBar />
         <ScrollView className='p-5 pt-0'>
-          <Medium className='text-center text-lg'>Pricing Details</Medium>
+          <SemiBold className='text text-center'>Pricing Details</SemiBold>
+          <View className='mt-5 gap-3 rounded-3xl border border-dashed border-zinc-500/50 bg-zinc-100 p-5 dark:bg-zinc-900'>
+            <Row
+              title='Valid Upto'
+              value={new Date(validUpto).toLocaleString('en-IN', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                minute: 'numeric',
+                hour: 'numeric',
+              })}
+            />
+            <Row title='Original Price:' value={originalPrice} />
+            <Row title='Coupon:' value={couponCode} />
+          </View>
+          <CouponsList coupons={coupons} />
+          <View className='mt-5 gap-3 rounded-3xl border border-dashed border-zinc-500/50 bg-zinc-100 p-5 dark:bg-zinc-900'>
+            <Row title='Discount:' value={discountPrice} />
+            <Row title='Discounted Price:' value={discountedPrice} />
+            <Row title={`GST(${gst}%):`} value={gstPrice} />
+          </View>
+          <View className='mt-5 gap-3 rounded-3xl border border-dashed border-zinc-500/50 bg-zinc-100 p-5 dark:bg-zinc-900'>
+            <Row title='Total:' value={total} />
+          </View>
         </ScrollView>
+        <View className='p-5 pb-3'>
+          <Btn title={`Buy Now for ₹${Math.round(total)}`} />
+          <PaddingBottom />
+        </View>
       </View>
     </>
   )
 }
+
+function Row({ title, value }: { title: string; value: string | number }) {
+  return (
+    <View className='flex-row justify-between'>
+      <Medium className='text'>{title}</Medium>
+      <Medium className='text'>{typeof value === 'number' ? `₹ ${Math.round(value)}` : value}</Medium>
+    </View>
+  )
+}
+
 export default PricingDetails

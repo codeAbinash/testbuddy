@@ -1,17 +1,19 @@
+import { FC } from 'react'
+import { View } from 'react-native'
+
+import { useNavigation } from '@react-navigation/native'
+
 import { InformationCircleStrokeRoundedIcon } from '@assets/icons/icons'
 import Press from '@components/Press'
 import { PaddingBottom } from '@components/SafePadding'
 import { Package } from '@query/api'
-import { useNavigation } from '@react-navigation/native'
 import { Medium, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
-import { FC } from 'react'
-import { View } from 'react-native'
+import couponStore from '../couponStore'
 
 type BuyNowProps = {
   selectedPackage: number
   selectedPricing: number
-  selectedCoupon: number
   packages: Package[]
 }
 
@@ -20,9 +22,10 @@ function calculateFinalPrice(price: number, couponDiscount: number, gst: number)
   return Math.round(discountedPrice + (discountedPrice * gst) / 100)
 }
 
-const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, selectedCoupon, packages }) => {
+const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages }) => {
   const selectedPackageData = packages[selectedPackage]
   const selectedPricingData = selectedPackageData?.pricings?.[selectedPricing]
+  const { selectedCoupon } = couponStore()
 
   const price = selectedPricingData?.price ?? 0
   const couponDiscount = parseFloat(selectedPackageData?.coupons?.[selectedCoupon]?.discount ?? '0')
@@ -32,7 +35,12 @@ const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, selectedCou
   const navigation = useNavigation<StackNav>()
 
   const handlePress = () => {
-    navigation.navigate('PricingDetails', {})
+    navigation.navigate('PricingDetails', {
+      selectedPackage,
+      selectedPricing,
+      coupons: selectedPackageData?.coupons ?? [],
+      packages,
+    })
   }
 
   return (
