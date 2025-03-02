@@ -1,3 +1,4 @@
+import { Coupon01StrokeRoundedIcon } from '@assets/icons/icons'
 import { AppBar } from '@components/TopBar'
 import { Coupon, premiumInformation } from '@query/api'
 import { RouteProp } from '@react-navigation/native'
@@ -106,12 +107,15 @@ function CouponsList({ selectedCoupon, setSelectedCoupon, coupons }: CouponProps
           coupons.map((coupon, index) => (
             <TouchableOpacity
               key={coupon._id}
-              className={`flex-row items-center justify-between rounded-2xl border-dashed px-5 py-4 ${selectedCoupon === index ? 'border-blue-500' : 'border-zinc-500/50'}`}
+              className={`flex-row items-center justify-between rounded-2xl border-dashed px-4 py-4 ${selectedCoupon === index ? 'border-blue-500' : 'border-zinc-500/50'}`}
               onPress={() => setSelectedCoupon(index)}
               activeOpacity={0.7}
               style={{ borderWidth: 1.5 }}
             >
-              <SemiBold className='text text-sm'>{coupon.code}</SemiBold>
+              <View className='flex-row items-center gap-3'>
+                <Coupon01StrokeRoundedIcon width={20} height={20} />
+                <SemiBold className='text text-sm'>{coupon.code}</SemiBold>
+              </View>
               <SemiBold className='text-xs text-green-500'>Discount {coupon.discount}</SemiBold>
             </TouchableOpacity>
           ))
