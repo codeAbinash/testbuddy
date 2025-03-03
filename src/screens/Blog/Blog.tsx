@@ -82,7 +82,7 @@ export default function Blog({ navigation, route }: BlogProps) {
           </View>
         ) : (
           <View className='flex-1 items-center justify-center'>
-            <Loading colorScheme={colorScheme} />
+            <Loading />
           </View>
         )}
         <View>

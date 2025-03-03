@@ -111,7 +111,7 @@ export default function EditProfile({ navigation }: NavProps) {
     <>
       <BackHeader title='Edit Profile' navigation={navigation} />
       {isPending ? (
-        <Loading colorScheme={colorScheme} />
+        <Loading />
       ) : (
         <KeyboardAvoid>
           <View className='screen-bg flex-1 gap-5 px-5 py-3'>
