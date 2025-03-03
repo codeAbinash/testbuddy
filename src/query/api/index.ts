@@ -1,1 +1,1 @@
-export * from './premiumInformation'
+export * from './premium/premiumInformation'

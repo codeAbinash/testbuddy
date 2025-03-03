@@ -1,4 +1,4 @@
-import { Pricing } from '@query/api'
+import { Pricing } from '@query/api/premium/premiumInformation'
 import { SemiBold } from '@utils/fonts'
 import { FC } from 'react'
 import { TouchableOpacity, View } from 'react-native'

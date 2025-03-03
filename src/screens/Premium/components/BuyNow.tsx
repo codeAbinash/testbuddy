@@ -6,10 +6,10 @@ import { useNavigation } from '@react-navigation/native'
 import { InformationCircleStrokeRoundedIcon } from '@assets/icons/icons'
 import Press from '@components/Press'
 import { PaddingBottom } from '@components/SafePadding'
-import { Package } from '@query/api'
 import { Medium, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 import couponStore from '../couponStore'
+import { Package } from '@query/api/premium/premiumInformation'
 
 type BuyNowProps = {
   selectedPackage: number

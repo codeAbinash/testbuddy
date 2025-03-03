@@ -1,4 +1,4 @@
-import { Package } from '@query/api'
+import { Package } from '@query/api/premium/premiumInformation'
 import { Medium, SemiBold } from '@utils/fonts'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 

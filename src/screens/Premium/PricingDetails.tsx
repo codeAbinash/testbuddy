@@ -6,11 +6,11 @@ import { RouteProp } from '@react-navigation/native'
 import Btn from '@components/Button'
 import { PaddingBottom } from '@components/SafePadding'
 import { AppBar } from '@components/TopBar'
-import { Coupon, Package } from '@query/api'
 import { Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import CouponsList from './components/CouponsList'
 import couponStore from './couponStore'
+import { Package, Coupon } from '@query/api/premium/premiumInformation'
 
 type ParamList = {
   PricingDetails: PricingDetailsParamList

@@ -1,4 +1,4 @@
-import { postApi } from '..'
+import { postApi } from '@query/index'
 
 export type PremiumInformation = {
   programPackages?: {

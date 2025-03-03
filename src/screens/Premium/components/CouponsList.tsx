@@ -5,10 +5,10 @@ import { useColorScheme } from 'nativewind'
 import colors from 'tailwindcss/colors'
 
 import { Coupon01StrokeRoundedIcon } from '@assets/icons/icons'
-import { Coupon } from '@query/api'
 import { Medium, SemiBold } from '@utils/fonts'
 import { secToHrMinSec } from '@utils/utils'
 import couponStore from '../couponStore'
+import { Coupon } from '@query/api/premium/premiumInformation'
 
 type CouponProps = {
   coupons: Coupon[]
