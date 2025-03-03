@@ -7,13 +7,13 @@ import { ScrollView } from 'react-native-gesture-handler'
 
 import { Loading } from '@components/Loading'
 import { AppBar } from '@components/TopBar'
+import { premiumInformation } from '@query/api/premium/premiumInformation'
 import { Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import BuyNow from './components/BuyNow'
 import CouponsList from './components/CouponsList'
 import { PackageSelector } from './components/PackageComponent'
 import { PricingComponent } from './components/PricingComponent'
-import { premiumInformation } from '@query/api/premium/premiumInformation'
 
 type ParamList = {
   Premium: PremiumParamList
@@ -89,7 +89,12 @@ const Premium: FC<PremiumProps> = ({ route }) => {
           </ScrollView>
         )}
         {!isLoading && (
-          <BuyNow selectedPackage={selectedPackage} packages={packages || []} selectedPricing={selectedPricing} />
+          <BuyNow
+            selectedPackage={selectedPackage}
+            packages={packages || []}
+            selectedPricing={selectedPricing}
+            coupons={coupons || []}
+          />
         )}
       </View>
     </>

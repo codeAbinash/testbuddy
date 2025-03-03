@@ -10,7 +10,7 @@ axios.defaults.baseURL = API
 
 const DEFAULT_ERR = 'Error occurred. Please check your internet connection and try again'
 
-interface ServerResponse {
+export interface ServerResponse {
   message?: string
   isAlert?: boolean
 }

@@ -6,11 +6,14 @@ import { RouteProp } from '@react-navigation/native'
 import Btn from '@components/Button'
 import { PaddingBottom } from '@components/SafePadding'
 import { AppBar } from '@components/TopBar'
+import { createOrder } from '@query/api/premium/createOrder'
+import { Coupon, Package } from '@query/api/premium/premiumInformation'
+import { useMutation } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import CouponsList from './components/CouponsList'
 import couponStore from './couponStore'
-import { Package, Coupon } from '@query/api/premium/premiumInformation'
+import { razorpayPayment } from './utils'
 
 type ParamList = {
   PricingDetails: PricingDetailsParamList
@@ -29,22 +32,45 @@ type PricingDetailsProps = {
 }
 
 const PricingDetails: FC<PricingDetailsProps> = ({ route }) => {
-  const { coupons, selectedPackage, packages } = route.params
-  const packageData = packages[selectedPackage]
   const { selectedCoupon } = couponStore()
+  const { coupons, selectedPackage, selectedPricing, packages } = route.params
+
+  const packageData = packages[selectedPackage]
   const coupon = coupons[selectedCoupon]
 
-  const originalPrice = packageData?.pricings?.[0]?.price ?? 0
+  const pricing = packageData?.pricings?.[selectedPricing]
+  const originalPrice = pricing?.price ?? 0
   const couponDiscount = parseFloat(coupon?.discount ?? '0')
   const gst = packageData?.gst ?? 0
 
   const discountPrice = (originalPrice * couponDiscount) / 100
   const discountedPrice = originalPrice - discountPrice
   const gstPrice = (discountedPrice * gst) / 100
-  const total = discountedPrice + gstPrice
+  const finalAmount = Math.round(discountedPrice + gstPrice)
 
-  const validUpto = packageData?.pricings?.[0]?.validity ?? new Date()
+  const validUpto = pricing?.validity ?? new Date()
   const couponCode = coupon?.code ?? ''
+
+  const packageId = packageData?._id || ''
+  const pricingId = pricing?._id || ''
+
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['order', 'create', couponCode, finalAmount],
+    mutationFn: () =>
+      createOrder({
+        couponCode,
+        finalAmount,
+        packageId,
+        pricingId,
+      }),
+    onSuccess: (data) => {
+      razorpayPayment(data, console.log, console.log)
+    },
+  })
+
+  function handlePress() {
+    mutate()
+  }
 
   return (
     <>
@@ -74,11 +100,15 @@ const PricingDetails: FC<PricingDetailsProps> = ({ route }) => {
             <Row title={`GST(${gst}%):`} value={gstPrice} />
           </View>
           <View className='mt-5 gap-3 rounded-3xl border border-dashed border-zinc-500/50 bg-zinc-100 p-5 dark:bg-zinc-900'>
-            <Row title='Total:' value={total} />
+            <Row title='Total:' value={finalAmount} />
           </View>
         </ScrollView>
         <View className='p-5 pb-3'>
-          <Btn title={`Buy Now for ₹${Math.round(total)}`} />
+          <Btn
+            title={isPending ? 'Processing...' : `Buy Now for ₹${Math.round(finalAmount)}`}
+            onPress={handlePress}
+            disabled={isPending}
+          />
           <PaddingBottom />
         </View>
       </View>
