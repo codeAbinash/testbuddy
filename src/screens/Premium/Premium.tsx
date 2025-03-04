@@ -5,7 +5,7 @@ import { RouteProp } from '@react-navigation/native'
 import { useQuery } from '@tanstack/react-query'
 import { ScrollView } from 'react-native-gesture-handler'
 
-import { Loading } from '@components/Loading'
+import { LoadingFullScreen } from '@components/Loading'
 import { AppBar } from '@components/TopBar'
 import { premiumInformation } from '@query/api/premium/premiumInformation'
 import { Medium, SemiBold } from '@utils/fonts'
@@ -49,7 +49,7 @@ const Premium: FC<PremiumProps> = ({ route }) => {
       <StatusBar barStyle='default' />
       <View className='flex-1 justify-between bg-white dark:bg-zinc-950'>
         <AppBar />
-        {isLoading && <PremiumLoading />}
+        {isLoading && <LoadingFullScreen />}
         {!isLoading && (
           <ScrollView className='flex-1 p-5 pt-0' contentContainerClassName='pb-10'>
             <SemiBold className='text text-center text-lg'>Choose a package</SemiBold>
@@ -98,15 +98,6 @@ const Premium: FC<PremiumProps> = ({ route }) => {
         )}
       </View>
     </>
-  )
-}
-
-const PremiumLoading: FC = () => {
-  return (
-    <View className='flex-1 items-center justify-center'>
-      <Loading />
-      <Medium className='text mt-3 text-center text-sm opacity-90'>Loading Plans...</Medium>
-    </View>
   )
 }
 

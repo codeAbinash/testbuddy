@@ -21,7 +21,7 @@ export const LoadingFullScreen: FC<LoadingFullScreenProps> = ({ text }) => {
   return (
     <View className='flex-1 items-center justify-center' style={{ height: H * 0.7 }}>
       <Loading />
-      {text && <Medium className='text text-sm opacity-90'>{text}</Medium>}
+      {text && <Medium className='text mt-3 text-center text-sm opacity-90'>{text}</Medium>}
     </View>
   )
 }
