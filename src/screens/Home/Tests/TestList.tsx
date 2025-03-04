@@ -1,6 +1,8 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import popupStore from '@/zustand/popupStore'
 import { PlayIcon, SquareLock02Icon, SquareUnlock01Icon } from '@assets/icons/icons'
+import { LoadingFullScreen } from '@components/Loading'
+import NoData from '@components/NoData'
 import { PaddingBottom } from '@components/SafePadding'
 import api from '@query/api/api'
 import { useNavigation, type RouteProp } from '@react-navigation/native'
@@ -9,6 +11,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { ColorScheme, StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
+import { FC } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { LeftBox } from './components/LeftBox'
@@ -63,13 +66,7 @@ export default function TestList({ navigation, route }: TestListProps) {
           />
         }
         renderItem={({ item, index }) => <Test scheme={colorScheme} test={item} index={index} programId={programId} />}
-        ListEmptyComponent={
-          isLoading ? null : (
-            <View className='flex-1 items-center justify-center'>
-              <Medium className='text text-lg'>No Tests Available</Medium>
-            </View>
-          )
-        }
+        ListEmptyComponent={<EmptyList isLoading={isLoading} />}
         contentContainerStyle={{
           borderColor: colorScheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
           borderTopWidth: 1,
@@ -82,6 +79,10 @@ export default function TestList({ navigation, route }: TestListProps) {
       />
     </>
   )
+}
+
+const EmptyList: FC<{ isLoading: boolean }> = ({ isLoading }) => {
+  return isLoading ? <LoadingFullScreen text='Loading Tests...' /> : <NoData text='No tests available' />
 }
 
 function calculatePercentage(completed: number, total: number) {

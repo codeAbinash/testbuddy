@@ -1,5 +1,7 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import { ArrowRight01StrokeStandardIcon } from '@assets/icons/icons'
+import { LoadingFullScreen } from '@components/Loading'
+import NoData from '@components/NoData'
 import { PaddingBottom } from '@components/SafePadding'
 import api, { ProgramList } from '@query/api/api'
 import TopArea from '@screens/components/TopArea'
@@ -7,7 +9,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
 import type { ColorScheme, NavProps, StackNav, Stream } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { Image, TouchableOpacity, View } from 'react-native'
 import { FlatList, RefreshControl } from 'react-native-gesture-handler'
 import colors from 'tailwindcss/colors'
@@ -27,6 +29,7 @@ export default function Tests({ navigation }: NavProps) {
     <View>
       <TopArea navigation={navigation as any} />
       <FlatList
+        data={data}
         refreshControl={
           <RefreshControl
             refreshing={isRefetchingByUser}
@@ -36,28 +39,26 @@ export default function Tests({ navigation }: NavProps) {
             colors={colorScheme === 'dark' ? ['white'] : ['black']}
           />
         }
-        data={data}
         keyExtractor={(item, index) => (item.examName ? `${item.examName}-${index}` : `${index}`)}
         renderItem={({ item }) => <TestItem navigation={navigation} scheme={colorScheme} {...item} />}
-        ListEmptyComponent={
-          isLoading ? null : (
-            <View className='flex-1 items-center justify-center'>
-              <Medium className='text text-lg'>No Tests Available</Medium>
-            </View>
-          )
-        }
+        ListEmptyComponent={<EmptyList isLoading={isLoading} />}
         contentContainerStyle={{
           borderColor: colorScheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
           borderTopWidth: 1,
           borderRightWidth: 0,
           borderLeftWidth: 0,
           borderBottomWidth: 0,
+          paddingBottom: 100,
         }}
         contentContainerClassName=''
         ListFooterComponent={<PaddingBottom />}
       />
     </View>
   )
+}
+
+const EmptyList: FC<{ isLoading: boolean }> = ({ isLoading }) => {
+  return isLoading ? <LoadingFullScreen text='Loading Tests...' /> : <NoData text='No tests available' />
 }
 
 type TestProps = ProgramList & {

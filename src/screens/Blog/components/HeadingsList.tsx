@@ -1,9 +1,7 @@
 import { View } from 'react-native'
 
-import Animations from '@assets/animations/animations'
-import { Lottie } from '@components/Lottie'
-import { H, W } from '@utils/dimensions'
-import { Bold, Medium, SemiBold } from '@utils/fonts'
+import NoData from '@components/NoData'
+import { Bold, SemiBold } from '@utils/fonts'
 
 type HeadingsListProps = {
   headings: Heading[]
@@ -14,13 +12,7 @@ export interface Heading {
 }
 
 const HeadingsList: React.FC<HeadingsListProps> = ({ headings }) => {
-  if (headings.length === 0)
-    return (
-      <View className='items-center justify-center' style={{ height: H * 0.7 }}>
-        <Lottie source={Animations['no-data']} style={{ height: W * 0.65, width: W * 0.65 }} />
-        <Medium className='text text-center text-sm'>Nothing to show here</Medium>
-      </View>
-    )
+  if (headings.length === 0) return <NoData />
   return (
     <View className='gap-0.5'>
       {headings.map((heading, index) => {
