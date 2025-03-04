@@ -9,7 +9,6 @@ import { AppBar } from '@components/TopBar'
 import { Coupon, Package } from '@query/api/premium/premiumInformation'
 import { Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
-import CouponsList from './components/CouponsList'
 import couponStore from './couponStore'
 
 type ParamList = {
@@ -69,7 +68,6 @@ const PricingDetails: FC<PricingDetailsProps> = ({ route, navigation }) => {
             <Row title='Original Price:' value={originalPrice} />
             <Row title='Coupon:' value={couponCode} />
           </View>
-          <CouponsList coupons={coupons} />
           <View className='mt-5 gap-3 rounded-3xl border border-dashed border-zinc-500/50 bg-zinc-100 p-5 dark:bg-zinc-900'>
             <Row title='Discount:' value={discountPrice} />
             <Row title='Discounted Price:' value={discountedPrice} />

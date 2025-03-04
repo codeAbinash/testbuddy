@@ -5,10 +5,10 @@ import { useColorScheme } from 'nativewind'
 import colors from 'tailwindcss/colors'
 
 import { Coupon01StrokeRoundedIcon } from '@assets/icons/icons'
+import { Coupon } from '@query/api/premium/premiumInformation'
 import { Medium, SemiBold } from '@utils/fonts'
 import { secToHrMinSec } from '@utils/utils'
 import couponStore from '../couponStore'
-import { Coupon } from '@query/api/premium/premiumInformation'
 
 type CouponProps = {
   coupons: Coupon[]
@@ -27,6 +27,16 @@ const CouponsList = React.memo<CouponProps>(({ coupons }) => {
     }, 1000)
     return () => clearInterval(interval)
   }, [])
+
+  useEffect(() => {
+    if (coupons) {
+      // Select the coupon with the highest discount
+      const maxCouponIndex = coupons.reduce((acc, curr, index) => {
+        return curr.discount > (coupons[acc]?.discount ?? 0) ? index : acc
+      }, 0)
+      setSelectedCoupon(maxCouponIndex)
+    }
+  }, [coupons, setSelectedCoupon])
 
   return (
     <View className='mt-5'>
