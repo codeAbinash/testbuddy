@@ -19,6 +19,7 @@ export type CreateOrder = {
   __v: number
   receipt: string
   transactionOrderId: string
+  paymentKey: string
 }
 export function createOrder(orderDetails: OrderDetails) {
   return postApi<CreateOrder>('order/create', orderDetails)

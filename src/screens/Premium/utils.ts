@@ -19,7 +19,7 @@ export function razorpayPayment(
     // TODO(abinash): Change this icon to app type icon
     image: 'https://testbuddy.live/logo.png',
     order_id: data.transactionOrderId,
-    key: 'rzp_test_zyr1Gcf0ChNi6x',
+    key: data.paymentKey,
     amount: data.amount,
     currency: 'INR',
     name: 'Testbuddy',

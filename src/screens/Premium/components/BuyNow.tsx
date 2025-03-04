@@ -7,10 +7,12 @@ import { InformationCircleStrokeRoundedIcon } from '@assets/icons/icons'
 import Press, { CustomPressProps } from '@components/Press'
 import { PaddingBottom } from '@components/SafePadding'
 import { createOrder } from '@query/api/premium/createOrder'
+import getPaymentKey from '@query/api/premium/getPaymentKey'
 import { Coupon, Package } from '@query/api/premium/premiumInformation'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
+import { SuccessResponse } from 'react-native-razorpay'
 import couponStore from '../couponStore'
 import { razorpayPayment } from '../utils'
 
@@ -42,6 +44,11 @@ const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, c
   const pricingId = selectedPricingData?._id || ''
   const couponCode = coupons[selectedCoupon]?.code ?? ''
 
+  const { data: paymentKey, isLoading: isPaymentKeyLoading } = useQuery({
+    queryKey: ['payment', 'key'],
+    queryFn: getPaymentKey,
+  })
+
   const { mutate, isPending } = useMutation({
     mutationKey: ['order', 'create', couponCode, finalAmount],
     mutationFn: () =>
@@ -52,6 +59,7 @@ const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, c
         pricingId,
       }),
     onSuccess: (res) => {
+      res.paymentKey = paymentKey?.key || ''
       razorpayPayment(res, console.log, console.log)
     },
   })
@@ -79,7 +87,11 @@ const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, c
           </View>
           <Medium className='text-xs text-white'>{selectedPackageData?.packageName}</Medium>
         </Press>
-        <BuyNowButton onPress={buyNow} disabled={isPending} text={isPending ? 'Processing...' : 'Buy Now'} />
+        <BuyNowButton
+          onPress={buyNow}
+          disabled={isPending || isPaymentKeyLoading}
+          text={isPending ? 'Processing...' : 'Buy Now'}
+        />
       </View>
       <PaddingBottom />
     </View>
