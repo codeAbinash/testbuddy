@@ -44,7 +44,7 @@ const OnThisPage: React.FC<OnThisPageProps> = ({ route }) => {
           <View className='flex-row flex-wrap items-center gap-2 px-5 pt-4'>
             <Medium className='text-xs text-zinc-500'>Tags:</Medium>
             {tags.map((tag, index) => (
-              <Medium key={index} className='rounded-full bg-zinc-500/10 p-1.5 px-4 text-xs'>
+              <Medium key={index} className='rounded-full bg-zinc-500/10 p-1.5 px-4 text-xs text'>
                 {tag}
               </Medium>
             ))}
