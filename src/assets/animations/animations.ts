@@ -11,6 +11,9 @@ const Animations = {
   formula: require('./lottie/formula.lottie'),
   contact: require('./lottie/contact.lottie'),
   premium: require('./lottie/premium.lottie'),
+  verifying: require('./lottie/verifying.lottie'),
+  successful: require('./lottie/successful.lottie'),
+  failed: require('./lottie/failed.lottie'),
 }
 
 export default Animations

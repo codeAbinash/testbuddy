@@ -1,19 +1,26 @@
-import popupStore from '@/zustand/popupStore'
 import { createOrder } from '@query/api/premium/createOrder'
 import Colors from '@utils/colors'
 import RazorpayCheckout, { CheckoutOptions, SuccessResponse } from 'react-native-razorpay'
 
-export function razorpayPayment(
-  data: Awaited<ReturnType<typeof createOrder>>,
-  onSuccess?: (res: SuccessResponse) => void,
-  onError?: () => void,
-) {
-  const { alert } = popupStore.getState()
-
-  if (data.isAlert) {
-    return alert('Wrong', data.message || 'Unknown Error Occurred')
+export interface Error {
+  description: string
+  code: number
+  error: {
+    reason: string
+    metadata: {}
+    step: string
+    source: string
+    description: string
+    code: string
   }
+}
 
+type PaymentResponse = {
+  error?: Error
+  success?: SuccessResponse
+}
+
+export async function razorpayPayment(data: Awaited<ReturnType<typeof createOrder>>): Promise<PaymentResponse> {
   const options: CheckoutOptions = {
     description: 'Test Transaction',
     // TODO(abinash): Change this icon to app type icon
@@ -28,5 +35,14 @@ export function razorpayPayment(
     },
   }
 
-  RazorpayCheckout.open(options).then(onSuccess).catch(onError)
+  try {
+    const paymentResponse = await RazorpayCheckout.open(options)
+    return {
+      success: paymentResponse,
+    }
+  } catch (error: unknown) {
+    return {
+      error: error as Error,
+    }
+  }
 }

@@ -6,15 +6,11 @@ import { RouteProp } from '@react-navigation/native'
 import Btn from '@components/Button'
 import { PaddingBottom } from '@components/SafePadding'
 import { AppBar } from '@components/TopBar'
-import { createOrder } from '@query/api/premium/createOrder'
-import getPaymentKey from '@query/api/premium/getPaymentKey'
 import { Coupon, Package } from '@query/api/premium/premiumInformation'
-import { useMutation, useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import CouponsList from './components/CouponsList'
 import couponStore from './couponStore'
-import { razorpayPayment } from './utils'
 
 type ParamList = {
   PricingDetails: PricingDetailsParamList
@@ -32,7 +28,7 @@ type PricingDetailsProps = {
   navigation: StackNav
 }
 
-const PricingDetails: FC<PricingDetailsProps> = ({ route }) => {
+const PricingDetails: FC<PricingDetailsProps> = ({ route, navigation }) => {
   const { selectedCoupon } = couponStore()
   const { coupons, selectedPackage, selectedPricing, packages } = route.params
 
@@ -51,33 +47,6 @@ const PricingDetails: FC<PricingDetailsProps> = ({ route }) => {
 
   const validUpto = pricing?.validity ?? new Date()
   const couponCode = coupon?.code ?? ''
-
-  const packageId = packageData?._id || ''
-  const pricingId = pricing?._id || ''
-
-  const { data: paymentKey, isLoading: isPaymentKeyLoading } = useQuery({
-    queryKey: ['payment', 'key'],
-    queryFn: getPaymentKey,
-  })
-
-  const { mutate, isPending } = useMutation({
-    mutationKey: ['order', 'create', couponCode, finalAmount],
-    mutationFn: () =>
-      createOrder({
-        couponCode,
-        finalAmount,
-        packageId,
-        pricingId,
-      }),
-    onSuccess: (data) => {
-      data.paymentKey = paymentKey?.key || ''
-      razorpayPayment(data, console.log, console.log)
-    },
-  })
-
-  function handlePress() {
-    mutate()
-  }
 
   return (
     <>
@@ -111,11 +80,7 @@ const PricingDetails: FC<PricingDetailsProps> = ({ route }) => {
           </View>
         </ScrollView>
         <View className='p-5 pb-3'>
-          <Btn
-            title={isPending ? 'Processing...' : `Buy Now for ₹${Math.round(finalAmount)}`}
-            onPress={handlePress}
-            disabled={isPending || isPaymentKeyLoading}
-          />
+          <Btn title='Got it!' onPress={() => navigation.goBack()} />
           <PaddingBottom />
         </View>
       </View>

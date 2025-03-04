@@ -57,6 +57,7 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import VerifyPayment, { VerifyPaymentParamList } from '@screens/Premium/VerifyPayment'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -186,12 +187,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Blogs' component={Blogs} />
         <Stack.Screen name='OnThisPage' component={OnThisPage} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='PricingDetails' component={PricingDetails} options={IOS_BOTTOM_STYLE} />
+        <Stack.Screen name='VerifyPayment' component={VerifyPayment} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  VerifyPayment: VerifyPaymentParamList
   PricingDetails: PricingDetailsParamList
   OnThisPage: OnThisPageParamList
   Blogs: undefined

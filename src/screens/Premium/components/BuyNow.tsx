@@ -3,6 +3,7 @@ import { View } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
 
+import popupStore from '@/zustand/popupStore'
 import { InformationCircleStrokeRoundedIcon } from '@assets/icons/icons'
 import Press, { CustomPressProps } from '@components/Press'
 import { PaddingBottom } from '@components/SafePadding'
@@ -12,7 +13,6 @@ import { Coupon, Package } from '@query/api/premium/premiumInformation'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
-import { SuccessResponse } from 'react-native-razorpay'
 import couponStore from '../couponStore'
 import { razorpayPayment } from '../utils'
 
@@ -30,6 +30,7 @@ function calculateFinalPrice(price: number, couponDiscount: number, gst: number)
 
 const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, coupons }) => {
   const navigation = useNavigation<StackNav>()
+  const alert = popupStore((store) => store.alert)
 
   const selectedPackageData = packages[selectedPackage]
   const selectedPricingData = selectedPackageData?.pricings?.[selectedPricing]
@@ -58,9 +59,17 @@ const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, c
         packageId,
         pricingId,
       }),
-    onSuccess: (res) => {
+    onSuccess: async (res) => {
       res.paymentKey = paymentKey?.key || ''
-      razorpayPayment(res, console.log, console.log)
+      const data = await razorpayPayment(res)
+      if (data.error) return alert('Payment Failed', 'Payment is not successful. Please try again.')
+
+      // On successful payment navigate to verification page
+      navigation.navigate('VerifyPayment', {
+        transactionId: res.transactionOrderId,
+        razorpayPaymentId: data.success?.razorpay_payment_id ?? '',
+        razorpaySignature: data.success?.razorpay_signature ?? '',
+      })
     },
   })
 
