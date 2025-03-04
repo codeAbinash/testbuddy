@@ -66,7 +66,7 @@ export default function TestList({ navigation, route }: TestListProps) {
           />
         }
         renderItem={({ item, index }) => <Test scheme={colorScheme} test={item} index={index} programId={programId} />}
-        ListEmptyComponent={<EmptyList isLoading={isLoading} />}
+        ListEmptyComponent={<EmptyList isLoading={isLoading} data={data} />}
         contentContainerStyle={{
           borderColor: colorScheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
           borderTopWidth: 1,
@@ -81,8 +81,12 @@ export default function TestList({ navigation, route }: TestListProps) {
   )
 }
 
-const EmptyList: FC<{ isLoading: boolean }> = ({ isLoading }) => {
-  return isLoading ? <LoadingFullScreen text='Loading Tests...' /> : <NoData text='No tests available' />
+type EmptyListProps = {
+  isLoading: boolean
+  data?: any[]
+}
+const EmptyList: FC<EmptyListProps> = ({ isLoading, data }) => {
+  return !data || isLoading ? <LoadingFullScreen text='Loading Tests...' /> : <NoData text='No tests available' />
 }
 
 function calculatePercentage(completed: number, total: number) {

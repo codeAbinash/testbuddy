@@ -41,7 +41,7 @@ export default function Tests({ navigation }: NavProps) {
         }
         keyExtractor={(item, index) => (item.examName ? `${item.examName}-${index}` : `${index}`)}
         renderItem={({ item }) => <TestItem navigation={navigation} scheme={colorScheme} {...item} />}
-        ListEmptyComponent={<EmptyList isLoading={isLoading} />}
+        ListEmptyComponent={<EmptyList isLoading={isLoading} data={data} />}
         contentContainerStyle={{
           borderColor: colorScheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
           borderTopWidth: 1,
@@ -57,8 +57,12 @@ export default function Tests({ navigation }: NavProps) {
   )
 }
 
-const EmptyList: FC<{ isLoading: boolean }> = ({ isLoading }) => {
-  return isLoading ? <LoadingFullScreen text='Loading Tests...' /> : <NoData text='No tests available' />
+type EmptyListProps = {
+  isLoading: boolean
+  data?: any[]
+}
+const EmptyList: FC<EmptyListProps> = ({ isLoading, data }) => {
+  return !data || isLoading ? <LoadingFullScreen text='Loading Tests...' /> : <NoData text='No tests available' />
 }
 
 type TestProps = ProgramList & {
