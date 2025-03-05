@@ -73,7 +73,6 @@ export { default as ListViewIcon } from '@icons/list-view-solid-rounded.svg'
 export { default as InformationCircleStrokeRoundedIcon } from '@icons/information-circle-stroke-rounded.svg'
 export { default as MultiplicationSignIcon } from '@icons/multiplication-sign-solid-rounded.svg'
 export { default as DocumentValidationStrokeRoundedIcon } from '@icons/document-validation-stroke-rounded.svg'
-
 export { default as ArrowRight01StrokeStandardIcon } from '@icons/arrow-right-01-stroke-standard.svg'
 export { default as PlayIcon } from '@icons/play-solid-rounded.svg'
 export { default as SquareUnlock01Icon } from '@icons/square-unlock-01-solid-rounded.svg'
@@ -83,5 +82,4 @@ export { default as ThumbsUpIcon } from '@icons/thumbs-up-solid-rounded.svg'
 export { default as ThumbsUpStrokeRoundedIcon } from '@icons/thumbs-up-stroke-rounded.svg'
 export { default as UnfoldLessStrokeRoundedIcon } from '@icons/unfold-less-stroke-rounded.svg'
 export { default as Share01StrokeRoundedIcon } from '@icons/share-01-stroke-rounded.svg'
-
 export { default as Coupon01StrokeRoundedIcon } from '@icons/coupon-01-stroke-rounded.svg'

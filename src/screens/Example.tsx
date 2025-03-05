@@ -17,8 +17,6 @@ export default function Example() {
   )
 }
 
-
-
 export function Successful() {
   const navigation = useNavigation<StackNav>()
   const lastRoute = navigation.getState().routes.at(-2)?.name

@@ -74,7 +74,6 @@ export default function Register({ navigation, route }: RegisterProps) {
       return alert('Invalid Input', 'Please enter a valid email')
 
     mutate({ name: finalName, email: finalEmail, std, stream, referralKey: finalReferral })
-
   }
 
   return (

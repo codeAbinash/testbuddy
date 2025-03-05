@@ -16,7 +16,7 @@ export const Bar = () => (
 )
 
 export const AppBar = () => (
-  <View className='pt-4 pb-3.5'>
+  <View className='pb-3.5 pt-4'>
     <Bar />
   </View>
 )

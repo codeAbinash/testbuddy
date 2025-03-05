@@ -20,7 +20,7 @@ export const PricingComponent: FC<PricingProps> = ({ isSelected, item, setSelect
       </SemiBold>
       <TouchableOpacity
         onPress={() => setSelectedPricing(index)}
-        className={`w-40 rounded-2xl p-5 border-dashed ${isSelected ? 'border-green-500 bg-green-500/15' : 'border-zinc-500/40 bg-zinc-100 dark:bg-zinc-900'}`}
+        className={`w-40 rounded-2xl border-dashed p-5 ${isSelected ? 'border-green-500 bg-green-500/15' : 'border-zinc-500/40 bg-zinc-100 dark:bg-zinc-900'}`}
         activeOpacity={0.7}
         style={{ borderWidth: 1.5 }}
       >
