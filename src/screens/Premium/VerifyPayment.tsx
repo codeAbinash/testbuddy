@@ -48,8 +48,6 @@ function VerifyPayment({ route, navigation }: VerifyPaymentProps) {
           },
         ])
 
-      if (data.success) return navigation.replace('PaymentSuccessful')
-
       navigation.goBack()
     },
   })
