@@ -52,6 +52,7 @@ function handleError(error: any) {
         message: 'Internal Server Error. Please try again later.',
         statusCode: 500,
         isAlert: true,
+        error: error.response.data.error,
       }
   }
 }

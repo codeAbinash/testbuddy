@@ -6,6 +6,10 @@ export type VerifyOrderParams = {
   razorpaySignature: string
 }
 
+type VerifyResponse = {
+  success: boolean
+  redirectTo: string
+}
 export function verifyOrder(data: VerifyOrderParams) {
-  return postApi('order/verify', data)
+  return postApi<VerifyResponse>('order/verify', data)
 }

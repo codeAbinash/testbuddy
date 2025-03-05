@@ -82,7 +82,7 @@ export default function Register({ navigation, route }: RegisterProps) {
         {/* <View className='items-center justify-center'>
           <RegisterImage width={W * 0.8} height={W * 0.8} />
         </View> */}
-        <View className='mb-5 mt-8'>
+        <View className='mb-5 mt-12'>
           <Bold className='text w-full text-center text-3xl'>Welcome to TestBuddy</Bold>
           <SemiBold className='text w-full text-center text-sm opacity-80'>
             Please enter your mobile number and name to continue

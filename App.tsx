@@ -34,8 +34,9 @@ import type { TestListParamList } from '@screens/Home/Tests/TestList'
 import TestList from '@screens/Home/Tests/TestList'
 import Tests from '@screens/Home/Tests/Tests'
 import Notifications from '@screens/Notifications'
-import PricingDetails, { PricingDetailsParamList } from '@screens/Premium/PricingDetails'
 import Premium, { PremiumParamList } from '@screens/Premium/Premium'
+import PricingDetails, { PricingDetailsParamList } from '@screens/Premium/PricingDetails'
+import VerifyPayment, { VerifyPaymentParamList } from '@screens/Premium/VerifyPayment'
 import ChangeStream from '@screens/Profile/ChangeStream'
 import EditProfile from '@screens/Profile/EditProfile'
 import MyRewards from '@screens/Rewards/MyRewards'
@@ -57,7 +58,7 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import VerifyPayment, { VerifyPaymentParamList } from '@screens/Premium/VerifyPayment'
+import PaymentSuccessful from '@screens/Premium/PaymentSuccessful'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -188,12 +189,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='OnThisPage' component={OnThisPage} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='PricingDetails' component={PricingDetails} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='VerifyPayment' component={VerifyPayment} />
+        <Stack.Screen name='PaymentSuccessful' component={PaymentSuccessful} options={SMOOTH_ANIMATION} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  PaymentSuccessful: undefined
   VerifyPayment: VerifyPaymentParamList
   PricingDetails: PricingDetailsParamList
   OnThisPage: OnThisPageParamList
