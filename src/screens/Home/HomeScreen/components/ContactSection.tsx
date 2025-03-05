@@ -10,7 +10,7 @@ export default function ContactSection({ navigation }: { navigation: StackNav })
   return (
     <View className='flex-row items-center justify-between px-5'>
       <View className='flex-1'>
-        <Lottie source={Animations.contact} style={{ width: '100%', height: W * 0.5 }} />
+        <Lottie source={Animations.contact} style={{ width: '100%', height: W * 0.5 }} loop={false} />
       </View>
       <View className='flex-1 gap-2'>
         <Bold className='text text-xl'>Contact Us</Bold>

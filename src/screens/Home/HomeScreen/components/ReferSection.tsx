@@ -9,7 +9,7 @@ export default function ReferSection({ navigation }: { navigation: StackNav }) {
   return (
     <View className='mt-5 flex-row items-center justify-between px-5'>
       <View className='flex-[1.5]'>
-        <Lottie source={Animations.refer} style={{ width: '100%' }} />
+        <Lottie source={Animations.refer} style={{ width: '100%' }} loop={false} />
       </View>
       <View className='flex-1 gap-2'>
         <Bold className='text text-xl'>EARN ₹100!</Bold>
