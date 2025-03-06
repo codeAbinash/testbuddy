@@ -21,6 +21,7 @@ export type BuyNowProps = {
   selectedPricing: number
   packages: Package[]
   coupons: Coupon[]
+  programId: string
 }
 
 function calculateFinalPrice(price: number, couponDiscount: number, gst: number) {
@@ -28,7 +29,7 @@ function calculateFinalPrice(price: number, couponDiscount: number, gst: number)
   return Math.round(discountedPrice + (discountedPrice * gst) / 100)
 }
 
-const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, coupons }) => {
+const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, coupons, programId }) => {
   const navigation = useNavigation<StackNav>()
   const alert = popupStore((store) => store.alert)
 
@@ -70,6 +71,7 @@ const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, c
         transactionId: res._id,
         razorpayPaymentId: data.success?.razorpay_payment_id ?? '',
         razorpaySignature: data.success?.razorpay_signature ?? '',
+        programId,
       })
     },
   })

@@ -10,6 +10,7 @@ import { RouteProp } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
 import { Bold, Medium } from '@utils/fonts'
 import { StackNav } from '@utils/types'
+import { queryClient } from '@query/query'
 
 type ParamList = {
   VerifyPayment: VerifyPaymentParamList
@@ -19,6 +20,7 @@ export type VerifyPaymentParamList = {
   transactionId: string
   razorpayPaymentId: string
   razorpaySignature: string
+  programId: string
 }
 
 type VerifyPaymentProps = {
@@ -27,7 +29,7 @@ type VerifyPaymentProps = {
 }
 
 function VerifyPayment({ route, navigation }: VerifyPaymentProps) {
-  const { transactionId, razorpayPaymentId, razorpaySignature } = route.params
+  const { transactionId, razorpayPaymentId, razorpaySignature, programId } = route.params
   const alert = popupStore((state) => state.alert)
 
   const { mutate } = useMutation({
@@ -48,7 +50,8 @@ function VerifyPayment({ route, navigation }: VerifyPaymentProps) {
           },
         ])
 
-      navigation.goBack()
+      queryClient.invalidateQueries({ queryKey: ['testList', programId] })
+      setTimeout(navigation.goBack, 3000)
     },
   })
 
