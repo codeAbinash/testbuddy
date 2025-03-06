@@ -18,7 +18,7 @@
         "react-native": "0.78.0",
         "react-native-element-dropdown": "^2.12.4",
         "react-native-gesture-handler": "^2.24.0",
-        "react-native-image-picker": "^7.2.3",
+        "react-native-image-picker": "^8.2.0",
         "react-native-mmkv": "^3.2.0",
         "react-native-otp-entry": "^1.8.3",
         "react-native-razorpay": "^2.3.0",
@@ -1539,7 +1539,7 @@
 
     "react-native-gesture-handler": ["react-native-gesture-handler@2.24.0", "", { "dependencies": { "@egjs/hammerjs": "^2.0.17", "hoist-non-react-statics": "^3.3.0", "invariant": "^2.2.4" }, "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-ZdWyOd1C8axKJHIfYxjJKCcxjWEpUtUWgTOVY2wynbiveSQDm8X/PDyAKXSer/GOtIpjudUbACOndZXCN3vHsw=="],
 
-    "react-native-image-picker": ["react-native-image-picker@7.2.3", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-zKIZUlQNU3EtqizsXSH92zPeve4vpUrsqHu2kkpCxWE9TZhJFZBb+irDsBOY8J21k0+Edgt06TMQGJ+iPUIXyA=="],
+    "react-native-image-picker": ["react-native-image-picker@8.2.0", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-jIGllQJuJIn0YKss/JEeb0Kos1HSsnIpU+i3bYxR27sOxSyDZQyP9dKR22olssQPlfH+rGNR/Jc6xKRkhm48vw=="],
 
     "react-native-mmkv": ["react-native-mmkv@3.2.0", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-9y7K//1MaU46TFrXkyU0wT5VGk9Y2FDLFV6NPl+z3jTbm2G7SC1UIxneF6CfhSmBX5CfKze9SO7kwDuRx7flpQ=="],
 
