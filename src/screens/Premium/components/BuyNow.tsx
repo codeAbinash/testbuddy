@@ -65,8 +65,6 @@ const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, c
       const data = await razorpayPayment(res)
       if (data.error) return alert('Payment Failed', 'Payment is not successful. Please try again.')
 
-      // On successful payment navigate to verification page
-
       navigation.replace('VerifyPayment', {
         transactionId: res._id,
         razorpayPaymentId: data.success?.razorpay_payment_id ?? '',

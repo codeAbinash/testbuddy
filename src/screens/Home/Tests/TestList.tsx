@@ -1,3 +1,9 @@
+import { FC } from 'react'
+import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
+
+import { useColorScheme } from 'nativewind'
+import colors from 'tailwindcss/colors'
+
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import popupStore from '@/zustand/popupStore'
 import { PlayIcon, SquareLock02Icon, SquareUnlock01Icon } from '@assets/icons/icons'
@@ -10,10 +16,7 @@ import BackHeader from '@screens/components/BackHeader'
 import { useQuery } from '@tanstack/react-query'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { ColorScheme, StackNav } from '@utils/types'
-import { useColorScheme } from 'nativewind'
-import { FC } from 'react'
-import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
-import colors from 'tailwindcss/colors'
+
 import { LeftBox } from './components/LeftBox'
 import { SubjectBadgeList } from './components/SubjectBadgeList'
 
@@ -51,7 +54,15 @@ export default function TestList({ navigation, route }: TestListProps) {
       <BackHeader
         title={details?.programTitle}
         navigation={navigation}
-        Right={<RightLockIcon locked={details?.status === 'locked'} colorScheme={colorScheme} isLoading={isLoading} />}
+        Right={
+          <RightLockIcon
+            locked={details?.status === 'locked'}
+            colorScheme={colorScheme}
+            isLoading={isLoading}
+            navigation={navigation}
+            programId={programId}
+          />
+        }
       />
       <FlatList
         data={tests}
@@ -193,10 +204,19 @@ type RightIconParamList = {
   locked: boolean
   colorScheme: ColorScheme
   isLoading: boolean
+  navigation: StackNav
+  programId: string
 }
-function RightLockIcon({ locked, colorScheme, isLoading }: RightIconParamList) {
-  if (isLoading) return null
-  return locked ? (
-    <SquareLock02Icon height={20} width={20} color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
-  ) : null
+const RightLockIcon: FC<RightIconParamList> = ({ locked, colorScheme, isLoading, navigation, programId }) => {
+  if (isLoading || !locked) return null
+  return (
+    <SquareLock02Icon
+      height={20}
+      width={20}
+      color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]}
+      onPress={() => {
+        navigation.navigate('Premium', { programId })
+      }}
+    />
+  )
 }

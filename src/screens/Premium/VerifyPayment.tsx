@@ -1,16 +1,17 @@
 import { FC, useEffect } from 'react'
 import { View } from 'react-native'
 
-import popupStore from '@/zustand/popupStore'
 import Animations from '@assets/animations/animations'
+import Btn, { BtnTransparent } from '@components/Button'
 import { Lottie } from '@components/Lottie'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import { verifyOrder } from '@query/api/premium/verifyOrder'
+import { queryClient } from '@query/query'
 import { RouteProp } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
+import { W } from '@utils/dimensions'
 import { Bold, Medium } from '@utils/fonts'
 import { StackNav } from '@utils/types'
-import { queryClient } from '@query/query'
 
 type ParamList = {
   VerifyPayment: VerifyPaymentParamList
@@ -30,9 +31,8 @@ type VerifyPaymentProps = {
 
 function VerifyPayment({ route, navigation }: VerifyPaymentProps) {
   const { transactionId, razorpayPaymentId, razorpaySignature, programId } = route.params
-  const alert = popupStore((state) => state.alert)
 
-  const { mutate } = useMutation({
+  const { mutate, data } = useMutation({
     mutationKey: ['verifyPayment', transactionId, razorpayPaymentId, razorpaySignature],
     mutationFn: () =>
       verifyOrder({
@@ -40,18 +40,11 @@ function VerifyPayment({ route, navigation }: VerifyPaymentProps) {
         razorpaySignature,
         transactionId,
       }),
-    onSuccess: (data) => {
-      console.log(data)
-      if (!data.success)
-        return alert('Payment verification failed', 'Your payment has been failed. Please try again.', [
-          {
-            text: 'OK',
-            onPress: () => navigation.goBack(),
-          },
-        ])
-
-      queryClient.invalidateQueries({ queryKey: ['testList', programId] })
-      setTimeout(navigation.goBack, 3000)
+    onSuccess: (d) => {
+      if (d.success) {
+        queryClient.invalidateQueries({ queryKey: ['testList', programId] })
+        setTimeout(navigation.goBack, 3000)
+      }
     },
   })
 
@@ -63,7 +56,13 @@ function VerifyPayment({ route, navigation }: VerifyPaymentProps) {
   return (
     <View className='bg-screen flex-1'>
       <PaddingTop />
-      <Verifying />
+      {!data ? (
+        <Verifying />
+      ) : data?.success === true ? (
+        <Verified />
+      ) : (
+        <VerificationFailed mutate={mutate} navigation={navigation} />
+      )}
       <PaddingBottom />
     </View>
   )
@@ -78,6 +77,42 @@ const Verifying: FC = () => {
         <Medium className='text text-center text-sm opacity-80'>
           Please wait while we verify your payment. Do not close the app otherwise your payment will not be processed.
         </Medium>
+      </View>
+    </View>
+  )
+}
+
+const Verified: FC = () => {
+  return (
+    <View className='flex-1 items-center justify-center pb-10'>
+      <Lottie source={Animations.successful} style={{ height: W * 0.6, width: W }} loop={false} />
+      <View className='mt-8 gap-5 px-10'>
+        <Bold className='text text-center text-2xl'>Payment Verified</Bold>
+        <Medium className='text text-center text-sm opacity-80'>
+          Your payment has been verified. You will be redirected to the program page.
+        </Medium>
+      </View>
+    </View>
+  )
+}
+
+type VerifyFailedProps = {
+  mutate: () => void
+  navigation: StackNav
+}
+const VerificationFailed: FC<VerifyFailedProps> = ({ mutate, navigation }) => {
+  return (
+    <View className='flex-1 items-center justify-center pb-10'>
+      <Lottie source={Animations.failed} style={{ height: W * 0.6, width: W }} loop={false} />
+      <View className='mt-8 gap-5 px-10'>
+        <Bold className='text text-center text-2xl'>Payment Verification Failed</Bold>
+        <Medium className='text text-center text-sm opacity-80'>
+          Your payment verification has failed. Please try again.
+        </Medium>
+      </View>
+      <View className='mt-16 w-full gap-5 px-10'>
+        <Btn title='Verify Again' onPress={mutate} />
+        <BtnTransparent title='Go Back' onPress={() => navigation.goBack()} />
       </View>
     </View>
   )
