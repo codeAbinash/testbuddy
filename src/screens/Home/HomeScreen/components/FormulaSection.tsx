@@ -19,7 +19,13 @@ export default function FormulaSection({ navigation }: { navigation: StackNav })
         </View>
       </View>
       <View className='flex-1'>
-        <Lottie source={Animations.formula} style={{ width: '100%', height: W * 0.5 }} loop={false} />
+        <Lottie
+          source={Animations.formula}
+          style={{ width: '100%', height: W * 0.5 }}
+          loop={false}
+          autoPlay={false}
+          frame={100}
+        />
       </View>
     </View>
   )

@@ -14,6 +14,7 @@ import ExploreExams from './components/ExploreExams'
 import ExploreTests from './components/ExploreTests'
 import FormulaSection from './components/FormulaSection'
 import ReferSection from './components/ReferSection'
+import { Counselling } from './components/Counselling'
 
 export default function HomeScreen({ navigation }: NavProps) {
   const { colorScheme } = useColorScheme()
@@ -46,6 +47,7 @@ export default function HomeScreen({ navigation }: NavProps) {
         <ReferSection navigation={navigation} />
         <FormulaSection navigation={navigation} />
         <ContactSection navigation={navigation} />
+        <Counselling navigation={navigation} />
         <SocialIcons />
       </ScrollView>
     </>

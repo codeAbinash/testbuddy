@@ -14,6 +14,7 @@ const Animations = {
   verifying: require('./lottie/verifying.lottie'),
   successful: require('./lottie/successful.lottie'),
   failed: require('./lottie/failed.lottie'),
+  college: require('./lottie/college.lottie'),
 }
 
 export default Animations
