@@ -16,12 +16,11 @@ export interface ServerResponse {
 }
 
 async function apiRequest<T>(method: 'get' | 'post', path: string, data?: any, config?: AxiosRequestConfig) {
-  type ServerT = T & ServerResponse
   try {
-    const response = await axios[method]<ServerT>(path, method === 'get' ? config : data, config)
+    const response = await axios[method]<T & ServerResponse>(path, method === 'get' ? config : data, config)
     return response.data
   } catch (error: any) {
-    return handleError(error) as ServerT
+    return handleError(error) as T & ServerResponse
   }
 }
 

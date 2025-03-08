@@ -84,3 +84,7 @@ export { default as UnfoldLessStrokeRoundedIcon } from '@icons/unfold-less-strok
 export { default as Share01StrokeRoundedIcon } from '@icons/share-01-stroke-rounded.svg'
 export { default as Coupon01StrokeRoundedIcon } from '@icons/coupon-01-stroke-rounded.svg'
 export { default as CheckmarkSquare01Icon } from '@icons/checkmark-square-01-solid-rounded.svg'
+
+
+export { default as FemaleSymbolStrokeRoundedIcon } from '@icons/female-symbol-stroke-rounded.svg'
+export { default as MaleSymbolStrokeRoundedIcon } from '@icons/male-symbol-stroke-rounded.svg'

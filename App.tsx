@@ -27,6 +27,8 @@ import Blog, { type BlogParamList } from '@screens/Blog/Blog'
 import Blogs from '@screens/Blog/Blogs'
 import OnThisPage, { OnThisPageParamList } from '@screens/Blog/OnThisPage'
 import Sidebar from '@screens/components/Sidebar'
+import CollegeList, { CollegeListParamList } from '@screens/Counselling/CollegeList'
+import Counselling from '@screens/Counselling/Counselling'
 import Example from '@screens/Example'
 import Home from '@screens/Home/Home'
 import HomeProfile from '@screens/Home/HomeProfile/HomeProfile'
@@ -58,7 +60,6 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import Counselling from '@screens/Counselling/Counselling'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -190,12 +191,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='PricingDetails' component={PricingDetails} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='VerifyPayment' component={VerifyPayment} />
         <Stack.Screen name='Counselling' component={Counselling} />
+        <Stack.Screen name='CollegeList' component={CollegeList} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  CollegeList: CollegeListParamList
   Counselling: undefined
   VerifyPayment: VerifyPaymentParamList
   PricingDetails: PricingDetailsParamList
