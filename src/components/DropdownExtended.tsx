@@ -18,7 +18,7 @@ export type DropdownData = {
 export type DropdownExtendedT<T> = {
   value: string | null
   colorScheme: ColorScheme
-  Left: React.ReactNode
+  Left?: React.ReactNode
 } & DropdownProps<T>
 
 export default function DropdownExtended<T extends DropdownData>({ colorScheme, Left, ...rest }: DropdownExtendedT<T>) {

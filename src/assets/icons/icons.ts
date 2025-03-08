@@ -83,3 +83,4 @@ export { default as ThumbsUpStrokeRoundedIcon } from '@icons/thumbs-up-stroke-ro
 export { default as UnfoldLessStrokeRoundedIcon } from '@icons/unfold-less-stroke-rounded.svg'
 export { default as Share01StrokeRoundedIcon } from '@icons/share-01-stroke-rounded.svg'
 export { default as Coupon01StrokeRoundedIcon } from '@icons/coupon-01-stroke-rounded.svg'
+export { default as CheckmarkSquare01Icon } from '@icons/checkmark-square-01-solid-rounded.svg'

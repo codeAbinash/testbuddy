@@ -2,7 +2,7 @@ import { SemiBold } from '@utils/fonts'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, type TouchableOpacityProps } from 'react-native'
 
-type ButtonProps = TouchableOpacityProps & { title?: string; Content?: React.ReactNode }
+type ButtonProps = TouchableOpacityProps & { title?: string; Content?: React.ReactNode; className?: string }
 
 const styles = StyleSheet.create({
   container: {
@@ -13,12 +13,12 @@ const styles = StyleSheet.create({
   },
 })
 
-const Btn = React.memo(({ title, onPress, disabled, children, style, ...rest }: ButtonProps) => {
+const Btn = React.memo(({ title, onPress, disabled, children, style, className, ...rest }: ButtonProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPress}
-      className='w-full bg-accent dark:bg-zinc-100'
+      className={'w-full bg-accent dark:bg-zinc-100 ' + className}
       style={[styles.container, { opacity: disabled ? 0.5 : 1 }, style]}
       disabled={disabled}
       {...rest}
@@ -32,12 +32,12 @@ const Btn = React.memo(({ title, onPress, disabled, children, style, ...rest }: 
 
 export default Btn
 
-export const BtnTransparent = React.memo(({ title, onPress, children, style }: ButtonProps) => {
+export const BtnTransparent = React.memo(({ title, onPress, children, className, style }: ButtonProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={onPress}
-      className='w-full border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900'
+      className={'w-full border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 ' + className}
       style={[{ borderRadius: 14.5, paddingVertical: 12 }]}
     >
       {title && (
