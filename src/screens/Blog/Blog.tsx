@@ -71,7 +71,7 @@ export default function Blog({ navigation, route }: BlogProps) {
         navigation={navigation}
         id={id}
       />
-      <View className='screen-bg flex-1 justify-between'>
+      <View className='bg-screen flex-1 justify-between'>
         {data && isAnimationComplete ? (
           <View className='flex-1'>
             <WebView

@@ -54,7 +54,7 @@ export default function Solution({ navigation, route }: SolutionProps) {
     <>
       <Header navigation={navigation} colorScheme={colorScheme} testId={testId} mode='solution' />
       <ModalOptions colorScheme={colorScheme} mode='solution' testId={testId} />
-      <ScrollView contentContainerClassName='py-3 screen-bg' contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
+      <ScrollView contentContainerClassName='py-3 bg-screen' contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}>
         <QuestionHeading qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />
         <QuestionDisplayArea colorScheme={colorScheme} mode='solution' />
         <Explanation colorScheme={colorScheme} />

@@ -54,7 +54,7 @@ export default function Notifications({ navigation }: NavProps) {
     )
 
   return (
-    <View className='screen-bg flex-1'>
+    <View className='bg-screen flex-1'>
       <BackHeader
         title='Notifications'
         navigation={navigation}
@@ -121,7 +121,7 @@ type ScreenProps = {
 
 export function Screen({ message, animation, name, size }: ScreenProps) {
   return (
-    <View className='screen-bg flex-1 justify-between'>
+    <View className='bg-screen flex-1 justify-between'>
       <BackHeader title={name} />
       <View className='items-center justify-center'>
         <Lottie size={size} source={animation} />

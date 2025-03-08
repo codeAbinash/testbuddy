@@ -32,11 +32,11 @@ export default function Analysis({ route }: AnalysisProps) {
 
   return (
     <>
-      <View className='screen-bg pb-5'>
+      <View className='bg-screen pb-5'>
         <PaddingTop />
         <TopBar />
       </View>
-      <ScrollView className='screen-bg flex-1 px-5 py-5' contentContainerClassName='pb-10 gap-12'>
+      <ScrollView className='bg-screen flex-1 px-5 py-5' contentContainerClassName='pb-10 gap-12'>
         <View className='mt-10 rounded-xl'>
           <Regular className='text text-center text-8xl'>
             <React.Suspense fallback={'Loading...'}>{data?.result?.marks || 0}</React.Suspense>

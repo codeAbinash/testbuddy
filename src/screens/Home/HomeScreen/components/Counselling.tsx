@@ -20,7 +20,7 @@ export const Counselling: FC<CounsellingProps> = ({ navigation }) => {
           Predict your college based on your grades and interests.
         </Medium>
         <View className='flex-row'>
-          <Button title='Predict Now' onPress={() => navigation.navigate('Refer')} className='bg-accent' />
+          <Button title='Predict Now' onPress={() => navigation.navigate('Counselling')} className='bg-accent' />
         </View>
       </View>
       <View className='flex-1'>

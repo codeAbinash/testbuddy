@@ -114,7 +114,7 @@ export default function EditProfile({ navigation }: NavProps) {
         <Loading />
       ) : (
         <KeyboardAvoid>
-          <View className='screen-bg flex-1 gap-5 px-5 py-3'>
+          <View className='bg-screen flex-1 gap-5 px-5 py-3'>
             <ProfilePicture picture={profile?.profilePic} scheme={colorScheme} />
             <View className='gap-3'>
               <Pressable onPress={() => ToastAndroid.show('Mobile number cannot be changed', ToastAndroid.SHORT)}>

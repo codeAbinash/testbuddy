@@ -6,7 +6,7 @@ export default function Blank({ navigation }: NavProps) {
   return (
     <>
       <BackHeader title='Blank Page' navigation={navigation} />
-      <ScrollView contentContainerClassName='px-5 py-3 gap-5 screen-bg flex-1'></ScrollView>
+      <ScrollView contentContainerClassName='px-5 py-3 gap-5 bg-screen flex-1'></ScrollView>
     </>
   )
 }

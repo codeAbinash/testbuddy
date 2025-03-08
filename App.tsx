@@ -58,6 +58,7 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Counselling from '@screens/Counselling/Counselling'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -123,7 +124,7 @@ function App(): React.JSX.Element {
 function NoInternet() {
   return (
     <View
-      className='screen-bg absolute top-0 z-10 flex-1 items-center justify-center px-5 pb-10'
+      className='bg-screen absolute top-0 z-10 flex-1 items-center justify-center px-5 pb-10'
       style={{ height: H, width: W }}
     >
       <Lottie source={Animations.astronaut} style={{ width: W * 0.8, height: W * 0.8 }} />
@@ -188,12 +189,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='OnThisPage' component={OnThisPage} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='PricingDetails' component={PricingDetails} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='VerifyPayment' component={VerifyPayment} />
+        <Stack.Screen name='Counselling' component={Counselling} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  Counselling: undefined
   VerifyPayment: VerifyPaymentParamList
   PricingDetails: PricingDetailsParamList
   OnThisPage: OnThisPageParamList

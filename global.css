@@ -14,7 +14,7 @@
   @apply text-blue-500 active:underline;
 }
 
-.screen-bg {
+.bg-screen {
   @apply bg-zinc-50 dark:bg-black;
 }
 

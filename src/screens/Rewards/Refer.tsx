@@ -24,7 +24,7 @@ export default function Refer({ navigation }: NavProps) {
   return (
     <>
       <BackHeader title='Referral' navigation={navigation} />
-      <ScrollView contentContainerClassName='px-5 py-3 pt-0 gap-5 screen-bg flex-1'>
+      <ScrollView contentContainerClassName='px-5 py-3 pt-0 gap-5 bg-screen flex-1'>
         <Lottie source={Animations.refer} style={{ width: '100%', height: W * 0.9 }} />
         <View className='-mt-5 gap-10 px-5'>
           <View className='gap-5'>

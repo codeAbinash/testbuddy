@@ -70,7 +70,7 @@ export default function Test({ navigation, route }: TestProps) {
     <>
       <Header navigation={navigation} colorScheme={colorScheme} testId={testId} mode='test' />
       <ModalOptions colorScheme={colorScheme} testId={testId} mode='test' />
-      <ScrollView contentContainerClassName='py-3 screen-bg' contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerClassName='py-3 bg-screen' contentContainerStyle={{ flexGrow: 1 }}>
         <QuestionHeading qnNo={qnNo} allQn={allQn} colorScheme={colorScheme} />
         <QuestionDisplayArea colorScheme={colorScheme} mode='test' />
       </ScrollView>
