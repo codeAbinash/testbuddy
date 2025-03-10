@@ -30,7 +30,11 @@ const QuestionWise = React.memo<{ q?: QuestionWiseAnalysis[] }>(({ q }) => {
   return (
     <View>
       <QuestionWiseColors />
-      <View className='gap-3'>{qns?.map((qn, i) => <Question q={qn} key={qn.questionId} i={i + 1} />)}</View>
+      <View className='gap-3'>
+        {qns?.map((qn, i) => (
+          <Question q={qn} key={qn.questionId} i={i + 1} />
+        ))}
+      </View>
       <TouchableOpacity
         className='mt-10 flex-row items-center justify-center'
         onPress={() => setShowMore((prev) => !prev)}

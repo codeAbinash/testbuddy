@@ -52,7 +52,9 @@ export default function Analysis({ route }: AnalysisProps) {
         </View>
         <View className='gap-3'>
           <SemiBold className='text mb-3 text-center text-xl'>Scorecard</SemiBold>
-          {data?.result?.scorecard?.map((score, i) => <Scorecard score={score} key={score.sectionName} i={i + 2} />)}
+          {data?.result?.scorecard?.map((score, i) => (
+            <Scorecard score={score} key={score.sectionName} i={i + 2} />
+          ))}
           <ScoreboardTable board={data?.result?.scorecard!} />
         </View>
         <View className='gap-3.5'>
@@ -61,7 +63,9 @@ export default function Analysis({ route }: AnalysisProps) {
         </View>
         <View className='gap-3'>
           <SemiBold className='text text-center text-xl'>Difficulty Analysis</SemiBold>
-          {data?.result?.difficultyAnalysis?.map((diff, i) => <DifficultyV2 diff={diff} key={i} />)}
+          {data?.result?.difficultyAnalysis?.map((diff, i) => (
+            <DifficultyV2 diff={diff} key={i} />
+          ))}
           <AttemptColors />
         </View>
         {/* <View className='gap-3'>
