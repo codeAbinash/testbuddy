@@ -38,7 +38,7 @@ export default function VerifyEmail({ route, navigation }: VerifyEmailProps) {
   const alert = popupStore((store) => store.alert)
   const { colorScheme } = useColorScheme()
   const setToken = authStore((store) => store.setToken)
-  const { mutate, isPending } = useMutation({
+  const { isPending } = useMutation({
     mutationKey: ['verifyOtp', email, otp],
     mutationFn: api.verifyOtp,
     onSuccess(data) {

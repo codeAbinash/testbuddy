@@ -39,11 +39,12 @@ export default function Test({ navigation, route }: TestProps) {
 
   const { data, isSuccess } = useTestQuery(testId)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (isSuccess && data) setTest(data)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!allQn[qnNo]) return
@@ -63,7 +64,6 @@ export default function Test({ navigation, route }: TestProps) {
       })
     }, 50000)
     return () => clearTimeout(timer)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastApiCallTime])
 
   return (

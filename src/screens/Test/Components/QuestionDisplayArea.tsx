@@ -23,6 +23,7 @@ export default function QuestionDisplayArea({ colorScheme, mode }: { colorScheme
 
   const { mutate } = useUpdateTestMutation(testSeriesId!)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (mode === 'solution') return
     if (!qn) return
@@ -38,9 +39,9 @@ export default function QuestionDisplayArea({ colorScheme, mode }: { colorScheme
 
     // Clear timer on question change
     return () => clearInterval(timer)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qn])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (mode === 'solution') return
     if (!allQn[lastOpenedQn]) return
@@ -58,7 +59,6 @@ export default function QuestionDisplayArea({ colorScheme, mode }: { colorScheme
       ],
       testSeriesId: testSeriesId!,
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastOpenedQn])
 
   return (

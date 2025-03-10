@@ -136,7 +136,7 @@ type ProgramProps = {
   image: string
 }
 
-function Program({ scheme, navigation, image, program }: ProgramProps) {
+function Program({ scheme, navigation, program }: ProgramProps) {
   const navigateToTest = () => {
     if (!program._id) return
     navigation.navigate('TestList', { programId: program._id || '' })

@@ -7,18 +7,18 @@ import { getWrappedHtml, MathJaxProps } from './utils'
 
 const MathJax = React.memo<MathJaxProps>(({ html, mathJaxOptions, colorScheme, ...rest }) => {
   const height = useSharedValue(0)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const wrappedHtml = useMemo(() => getWrappedHtml(html || '', colorScheme), [html, mathJaxOptions, colorScheme])
   const style = useAnimatedStyle(() => ({ height: height.value }), [height.value, html])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const handleMessage = useCallback((event: WebViewEvent) => {
     height.value = withTiming(Number((event.nativeEvent as any).data))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     height.value = withTiming(0)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [html])
 
   return (

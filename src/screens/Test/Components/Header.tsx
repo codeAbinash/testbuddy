@@ -88,6 +88,7 @@ export const Header = React.memo<HeaderProps>(({ navigation, colorScheme, testId
   }
 
   // Handle back press
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress)
     return () => backHandler.remove()

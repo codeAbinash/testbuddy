@@ -48,9 +48,9 @@ function VerifyPayment({ route, navigation }: VerifyPaymentProps) {
     },
   })
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     mutate()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

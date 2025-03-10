@@ -1,8 +1,8 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
 import Btn from '@components/Button'
 import api from '@query/api/api'
-import TopArea from '@screens/components/TopArea'
 import SocialIcons from '@screens/Home/HomeScreen/components/SocialIcons'
+import TopArea from '@screens/components/TopArea'
 import { useQuery } from '@tanstack/react-query'
 import type { NavProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
@@ -10,15 +10,15 @@ import { RefreshControl, ScrollView, StatusBar, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import CarouselElem from './components/CarouselElem'
 import ContactSection from './components/ContactSection'
+import { Counselling } from './components/Counselling'
 import ExploreExams from './components/ExploreExams'
 import ExploreTests from './components/ExploreTests'
 import FormulaSection from './components/FormulaSection'
 import ReferSection from './components/ReferSection'
-import { Counselling } from './components/Counselling'
 
 export default function HomeScreen({ navigation }: NavProps) {
   const { colorScheme } = useColorScheme()
-  const { data, refetch } = useQuery({ queryKey: ['homeScreen'], queryFn: api.homeScreen })
+  const { refetch } = useQuery({ queryKey: ['homeScreen'], queryFn: api.homeScreen })
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
 
   return (

@@ -27,6 +27,7 @@ export const Footer = React.memo<FooterProps>(({ colorScheme, mode }) => {
 
   const { mutate } = useUpdateTestMutation(testSeriesId!)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const toggleBookmark = useCallback(() => {
     if (!allQn[qnNo]) return
     allQn[qnNo].isBookMarked = !allQn[qnNo].isBookMarked
@@ -45,7 +46,6 @@ export const Footer = React.memo<FooterProps>(({ colorScheme, mode }) => {
       ],
       testSeriesId: testSeriesId!,
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allQn, qnNo, setAllQn])
 
   function handleNext() {

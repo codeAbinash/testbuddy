@@ -10,20 +10,16 @@ export default function ExploreExams() {
       <SemiBold className='text px-5 text-lg'>Explore Exams</SemiBold>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className='flex-row gap-3.5 p-5 pt-4'>
-          {Array(10)
-            .fill(0)
-            .map((_, i) => (
-              <ExamElement key={i} image={jeeAdv} text='JEE Advanced' />
-            ))}
+          {new Array(10).fill(0).map((_, i) => (
+            <ExamElement key={i} image={jeeAdv} text='JEE Advanced' />
+          ))}
         </View>
       </ScrollView>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className='flex-row gap-3.5 p-5 pt-4'>
-          {Array(10)
-            .fill(0)
-            .map((_, i) => (
-              <ExamElement key={i} image={jeeAdv} text='JEE Advanced' />
-            ))}
+          {new Array(10).fill(0).map((_, i) => (
+            <ExamElement key={i} image={jeeAdv} text='JEE Advanced' />
+          ))}
         </View>
       </ScrollView>
     </View>

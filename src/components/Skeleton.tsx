@@ -4,6 +4,7 @@ import Animated, { Easing, useAnimatedStyle, useSharedValue, withRepeat, withTim
 export function Skeleton({ children }: { children: React.ReactNode }) {
   const opacity = useSharedValue(1)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const randomDuration = Math.random() * 700 + 500
     opacity.value = withRepeat(
@@ -14,7 +15,6 @@ export function Skeleton({ children }: { children: React.ReactNode }) {
       -1,
       true,
     )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const animatedStyle = useAnimatedStyle(() => ({ opacity: opacity.value }))

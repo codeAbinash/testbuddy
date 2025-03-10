@@ -71,7 +71,7 @@ type CollegeProps = {
   navigation?: StackNav
 }
 
-const College: FC<CollegeProps> = ({ item, scheme, isBlur, navigation }) => {
+const College: FC<CollegeProps> = ({ item, scheme, isBlur }) => {
   const alert = popupStore((state) => state.alert)
   return (
     <TouchableOpacity

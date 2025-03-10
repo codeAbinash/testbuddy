@@ -2,7 +2,7 @@ import { CheckmarkSquare01Icon } from '@assets/icons/icons'
 import Colors from '@utils/colors'
 import { SemiBold } from '@utils/fonts'
 import { useColorScheme } from 'nativewind'
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { TouchableOpacity } from 'react-native'
 import colors from 'tailwindcss/colors'
 

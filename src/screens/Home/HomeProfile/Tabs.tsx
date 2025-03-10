@@ -1,7 +1,7 @@
 import { SemiBold } from '@utils/fonts'
 import { TouchableOpacity } from 'react-native'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 
 export type TabData = {

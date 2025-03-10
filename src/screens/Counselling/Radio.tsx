@@ -1,6 +1,6 @@
 import Press from '@components/Press'
 import { SemiBold } from '@utils/fonts'
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { View } from 'react-native'
 
 type RadioProps = {

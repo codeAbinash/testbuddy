@@ -140,7 +140,7 @@ const screens = [
   },
 ]
 
-export default function Home({ navigation }: DrawerProps) {
+export default function Home({}: DrawerProps) {
   return (
     <>
       <Tab.Navigator tabBar={BottomTabBar} screenOptions={{ animation: 'shift' }}>
@@ -152,7 +152,6 @@ export default function Home({ navigation }: DrawerProps) {
             options={{
               tabBarLabel: screen.label,
               headerShown: false,
-              // eslint-disable-next-line react/no-unstable-nested-components
               tabBarIcon: (props) => (
                 <TabIcon {...props} focusedIcon={screen.focusedIcon} defaultIcon={screen.defaultIcon} />
               ),

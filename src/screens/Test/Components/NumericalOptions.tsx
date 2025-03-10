@@ -40,6 +40,7 @@ const NumericalOptions = React.memo(({ mode }: { mode: mode }) => {
     })
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const onChange = useCallback(
     (txt: string) => {
       if (mode === 'solution') return
@@ -49,7 +50,6 @@ const NumericalOptions = React.memo(({ mode }: { mode: mode }) => {
       setAllQn([...allQn])
       mutateTest()
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [allQn, qnNo, setAllQn],
   )
 

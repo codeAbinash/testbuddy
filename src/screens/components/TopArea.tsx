@@ -24,13 +24,13 @@ export default function TopArea({ navigation }: DrawerProps) {
     queryFn: api.notifications,
   })
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (data) {
       if (data.newUser) {
         navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile: data.mobile } }] })
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   return (

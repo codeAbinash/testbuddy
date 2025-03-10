@@ -12,7 +12,8 @@ onlineManager.setEventListener((setOnline) => {
 })
 
 // Refetch on App Focus
-function onAppStateChange(status: AppStateStatus) {
+// biome-ignore lint/correctness/noUnusedVariables: <explanation>
+const onAppStateChange = (status: AppStateStatus) => {
   if (Platform.OS !== 'web') {
     focusManager.setFocused(status === 'active')
   }

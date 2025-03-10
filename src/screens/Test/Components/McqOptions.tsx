@@ -38,6 +38,7 @@ const McqOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme
     })
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const onSelect = useCallback(
     (i: number) => {
       if (mode === 'solution') return
@@ -46,16 +47,15 @@ const McqOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme
       setAllQn([...allQn])
       mutateTest()
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [allQn, qn, setAllQn],
   )
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const clearSelection = useCallback(() => {
     if (!qn) return
     qn.markedAnswer = ''
     setAllQn([...allQn])
     mutateTest()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allQn, qn, setAllQn])
 
   return (

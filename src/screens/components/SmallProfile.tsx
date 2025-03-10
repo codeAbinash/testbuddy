@@ -20,12 +20,12 @@ export default function SmallProfile({ navigation, data }: SmallProfileProps) {
   const { colorScheme } = useColorScheme()
   const alert = popupStore((state) => state.alert)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const handleLogout = useCallback(() => {
     alert('Are you sure?', 'You will be logged out of the app.', [
       { text: 'Cancel' },
       { text: 'Log out', onPress: logout },
     ])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

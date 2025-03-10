@@ -2,6 +2,7 @@ import { View } from 'react-native'
 
 import NoData from '@components/NoData'
 import { Bold, SemiBold } from '@utils/fonts'
+import React from 'react'
 
 type HeadingsListProps = {
   headings: Heading[]

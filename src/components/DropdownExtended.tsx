@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { W } from '@utils/dimensions'
 import { JosefinSansMedium, Medium } from '@utils/fonts'
 import { ColorScheme } from '@utils/types'

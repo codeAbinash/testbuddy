@@ -38,9 +38,9 @@ export default function Solution({ navigation, route }: SolutionProps) {
   const allQn = testStore((store) => store.allQn)
   const { data, isSuccess } = useTestQuery(testId)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (isSuccess && data) setTest(data)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess])
 
   useEffect(() => {

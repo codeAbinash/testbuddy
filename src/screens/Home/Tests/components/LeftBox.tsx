@@ -2,7 +2,7 @@ import { SemiBold } from '@utils/fonts'
 import { View } from 'react-native'
 import type { Test } from '../TestList'
 
-export function LeftBox({ test, index }: { test: Test; index: number }) {
+export function LeftBox({ test }: { test: Test; index: number }) {
   return (
     <View
       className='flex-0 h-12 min-w-12 items-center justify-center border border-black/10 bg-black/5 p-2 dark:border-white/20 dark:bg-white/10'
