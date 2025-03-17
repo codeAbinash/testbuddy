@@ -15,7 +15,7 @@ import { H } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import CheckBox from './CheckBox'
+import CheckBox from '../components/CheckBox'
 import Radio from './Radio'
 import { categories, quotas, states } from './utils'
 
@@ -41,7 +41,7 @@ const Counselling: FC<CounsellingProps> = ({ navigation }) => {
   const alert = popupStore((state) => state.alert)
 
   const { mutate, isPending } = useMutation({
-    mutationKey: ['counsellingList', mainRank, advanceCLRRank],
+    mutationKey: ['counsellingList'],
     mutationFn: counsellingApi,
     onSuccess: (data) => {
       console.log(data)

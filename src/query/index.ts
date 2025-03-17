@@ -13,6 +13,8 @@ const DEFAULT_ERR = 'Error occurred. Please check your internet connection and t
 export interface ServerResponse {
   message?: string
   isAlert?: boolean
+  statusCode?: number
+  error?: string
 }
 
 async function apiRequest<T>(method: 'get' | 'post', path: string, data?: any, config?: AxiosRequestConfig) {
@@ -49,7 +51,7 @@ function handleError(error: any) {
     default:
       return {
         message: 'Internal Server Error. Please try again later.',
-        statusCode: 500,
+        statusCode: error.response.status || 500,
         isAlert: true,
         error: error.response.data.error,
       }
