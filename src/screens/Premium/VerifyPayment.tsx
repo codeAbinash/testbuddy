@@ -43,10 +43,12 @@ function VerifyPayment({ route, navigation }: VerifyPaymentProps) {
       }),
     onSuccess: (d) => {
       if (d.success) {
-        if (programId)
+        if (programId) {
           queryClient.invalidateQueries({ queryKey: ['testList', programId] })
-        if (isCounselling)
+        }
+        if (isCounselling) {
           queryClient.invalidateQueries({ queryKey: ['counsellingList'] })
+        }
         setTimeout(navigation.goBack, 3000)
       }
     },

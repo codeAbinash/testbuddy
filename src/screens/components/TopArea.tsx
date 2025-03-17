@@ -28,7 +28,10 @@ export default function TopArea({ navigation }: DrawerProps) {
   useEffect(() => {
     if (data) {
       if (data.newUser) {
-        navigation.reset({ index: 0, routes: [{ name: 'Register', params: { mobile: data.mobile } }] })
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Register', params: { mobile: data.mobile } }],
+        })
       }
     }
   }, [data])

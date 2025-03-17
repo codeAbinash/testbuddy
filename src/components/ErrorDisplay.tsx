@@ -1,15 +1,12 @@
-import Animations from "@assets/animations/animations"
-import { H, W } from "@utils/dimensions"
-import { Medium } from "@utils/fonts"
-import { FC } from "react"
-import { View } from "react-native"
-import { Lottie } from "./Lottie"
-
+import Animations from '@assets/animations/animations'
+import { H, W } from '@utils/dimensions'
+import { Medium } from '@utils/fonts'
+import { FC } from 'react'
+import { View } from 'react-native'
+import { Lottie } from './Lottie'
 
 export const ErrorDisplay: FC = () => {
-  return (
-    <Lottie size={W * 0.5} source={Animations.astronaut} />
-  )
+  return <Lottie size={W * 0.5} source={Animations.astronaut} />
 }
 
 type ErrorFullScreenProps = {

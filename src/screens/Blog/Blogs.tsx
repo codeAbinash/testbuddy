@@ -24,10 +24,7 @@ export default function Blogs({ navigation }: NavProps) {
       <BackHeader title='Blogs' navigation={navigation} />
       <View className='bg-screen flex-1'>
         <ScrollView contentContainerClassName='bg-screen gap-3 px-3 pb-0 py-5'>
-          <Btn
-            title={blogPostId}
-            onPress={() => navigation.navigate('Blog', { id: blogPostId })}
-          />
+          <Btn title={blogPostId} onPress={() => navigation.navigate('Blog', { id: blogPostId })} />
           <List navigation={navigation} data={data} />
           <PaddingBottom />
         </ScrollView>
@@ -41,16 +38,13 @@ type ListProps = {
   data: Awaited<ReturnType<typeof api.blogs>> | undefined
 }
 const List: FC<ListProps> = ({ navigation, data }) => {
-  if (data?.isAlert)
-    return <ErrorFullScreen text={data.message || 'Internal Server Error'} />
+  if (data?.isAlert) return <ErrorFullScreen text={data.message || 'Internal Server Error'} />
 
   return (
     <>
-      {
-        data?.map((blog) => (
-          <Btn title={blog.title} key={blog._id} onPress={() => navigation.navigate('Blog', { id: blog._id })} />
-        ))
-      }
+      {data?.map((blog) => (
+        <Btn title={blog.title} key={blog._id} onPress={() => navigation.navigate('Blog', { id: blog._id })} />
+      ))}
     </>
   )
-} 
+}

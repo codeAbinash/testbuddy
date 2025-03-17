@@ -2,7 +2,11 @@ import { SemiBold } from '@utils/fonts'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, type TouchableOpacityProps } from 'react-native'
 
-type ButtonProps = TouchableOpacityProps & { title?: string; Content?: React.ReactNode; className?: string }
+type ButtonProps = TouchableOpacityProps & {
+  title?: string
+  Content?: React.ReactNode
+  className?: string
+}
 
 const styles = StyleSheet.create({
   container: {

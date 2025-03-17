@@ -27,7 +27,11 @@ export default function ExploreTests({ navigation }: { navigation: StackNav }) {
   )
 }
 
-type ExamElementProps = { image?: ImageSourcePropType; text?: string; description?: string } & TouchableOpacityProps
+type ExamElementProps = {
+  image?: ImageSourcePropType
+  text?: string
+  description?: string
+} & TouchableOpacityProps
 
 function TestElement({ image, text, description, ...rest }: ExamElementProps) {
   return (
