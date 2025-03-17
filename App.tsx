@@ -18,7 +18,7 @@ import {
   type DrawerContentComponentProps,
 } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
-import { CardStyleInterpolators, createStackNavigator, type StackNavigationOptions } from '@react-navigation/stack'
+import { CardStyleInterpolators, type StackNavigationOptions, createStackNavigator } from '@react-navigation/stack'
 import Login from '@screens/Auth/Login'
 import Register, { type RegisterParamList } from '@screens/Auth/Register'
 import VerifyEmail, { VerifyEmailParamList } from '@screens/Auth/VerifyEmail'
@@ -26,9 +26,9 @@ import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Blog, { type BlogParamList } from '@screens/Blog/Blog'
 import Blogs from '@screens/Blog/Blogs'
 import OnThisPage, { OnThisPageParamList } from '@screens/Blog/OnThisPage'
-import Sidebar from '@screens/components/Sidebar'
 import CollegeList, { CollegeListParamList } from '@screens/Counselling/CollegeList'
 import Counselling from '@screens/Counselling/Counselling'
+import CounsellingPremium from '@screens/Counselling/CounsellingPremium'
 import Example from '@screens/Example'
 import Home from '@screens/Home/Home'
 import HomeProfile from '@screens/Home/HomeProfile/HomeProfile'
@@ -52,6 +52,7 @@ import Analysis, { AnalysisParams } from '@screens/Test/Result/Analysis'
 import Solution, { SolutionParamList } from '@screens/Test/Result/Solution'
 import Test, { TestParamList } from '@screens/Test/Test'
 import Update, { type UpdateParamList } from '@screens/Update'
+import Sidebar from '@screens/components/Sidebar'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { H, W } from '@utils/dimensions'
 import { Medium, SemiBold } from '@utils/fonts'
@@ -192,12 +193,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='VerifyPayment' component={VerifyPayment} />
         <Stack.Screen name='Counselling' component={Counselling} />
         <Stack.Screen name='CollegeList' component={CollegeList} />
+        <Stack.Screen name='CounsellingPremium' component={CounsellingPremium} options={IOS_BOTTOM_STYLE} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  CounsellingPremium: undefined
   CollegeList: CollegeListParamList
   Counselling: undefined
   VerifyPayment: VerifyPaymentParamList

@@ -71,7 +71,7 @@ type CollegeProps = {
   navigation?: StackNav
 }
 
-const College: FC<CollegeProps> = ({ item, scheme, isBlur }) => {
+const College: FC<CollegeProps> = ({ item, scheme, isBlur, navigation }) => {
   const alert = popupStore((state) => state.alert)
   return (
     <TouchableOpacity
@@ -83,8 +83,7 @@ const College: FC<CollegeProps> = ({ item, scheme, isBlur }) => {
         borderColor: scheme === 'dark' ? colors.zinc[800] : colors.zinc[100],
       }}
       disabled={!isBlur}
-      // TODO: Add navigation to Premium screen
-      onPress={() => alert('Unlock Premium.', 'You will be redirected to the premium screen.')}
+      onPress={() => navigation?.navigate('CounsellingPremium')}
       activeOpacity={0.8}
     >
       <View className='w-full'>

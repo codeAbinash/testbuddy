@@ -1,4 +1,3 @@
-import { createOrder } from '@query/api/premium/createOrder'
 import Colors from '@utils/colors'
 import RazorpayCheckout, { CheckoutOptions, SuccessResponse } from 'react-native-razorpay'
 
@@ -20,7 +19,12 @@ type PaymentResponse = {
   success?: SuccessResponse
 }
 
-export async function razorpayPayment(data: Awaited<ReturnType<typeof createOrder>>): Promise<PaymentResponse> {
+type OrderDetails = {
+  transactionOrderId: string
+  paymentKey: string
+  amount: number
+}
+export async function razorpayPayment(data: OrderDetails): Promise<PaymentResponse> {
   const options: CheckoutOptions = {
     description: 'Test Transaction',
     // TODO(abinash): Change this icon to app type icon

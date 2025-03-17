@@ -41,7 +41,7 @@ const Counselling: FC<CounsellingProps> = ({ navigation }) => {
   const alert = popupStore((state) => state.alert)
 
   const { mutate, isPending } = useMutation({
-    mutationKey: ['counselling', mainRank, advanceCLRRank],
+    mutationKey: ['counsellingList', mainRank, advanceCLRRank],
     mutationFn: counsellingApi,
     onSuccess: (data) => {
       console.log(data)
