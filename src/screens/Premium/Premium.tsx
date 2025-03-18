@@ -94,7 +94,6 @@ const Premium: FC<PremiumProps> = ({ route }) => {
             packages={packages || []}
             selectedPricing={selectedPricing}
             coupons={coupons || []}
-            programId={programId}
           />
         )}
       </View>

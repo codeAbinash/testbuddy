@@ -21,7 +21,6 @@ export type BuyNowProps = {
   selectedPricing: number
   packages: Package[]
   coupons: Coupon[]
-  programId: string
 }
 
 function calculateFinalPrice(price: number, couponDiscount: number, gst: number) {
@@ -29,7 +28,7 @@ function calculateFinalPrice(price: number, couponDiscount: number, gst: number)
   return Math.round(discountedPrice + (discountedPrice * gst) / 100)
 }
 
-const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, coupons, programId }) => {
+const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, coupons }) => {
   const navigation = useNavigation<StackNav>()
   const alert = popupStore((store) => store.alert)
 
