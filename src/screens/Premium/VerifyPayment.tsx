@@ -6,7 +6,6 @@ import Btn, { BtnTransparent } from '@components/Button'
 import { Lottie } from '@components/Lottie'
 import { PaddingBottom, PaddingTop } from '@components/SafePadding'
 import { verifyOrder } from '@query/api/premium/verifyOrder'
-import { queryClient } from '@query/query'
 import { RouteProp } from '@react-navigation/native'
 import { useMutation } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
@@ -21,8 +20,6 @@ export type VerifyPaymentParamList = {
   transactionId: string
   razorpayPaymentId: string
   razorpaySignature: string
-  programId?: string // If programId is not present, it will not invalidate the queryClient
-  isCounselling?: boolean
 }
 
 type VerifyPaymentProps = {
@@ -31,7 +28,7 @@ type VerifyPaymentProps = {
 }
 
 function VerifyPayment({ route, navigation }: VerifyPaymentProps) {
-  const { transactionId, razorpayPaymentId, razorpaySignature, programId, isCounselling } = route.params
+  const { transactionId, razorpayPaymentId, razorpaySignature } = route.params
 
   const { mutate, data } = useMutation({
     mutationKey: ['verifyPayment', transactionId, razorpayPaymentId, razorpaySignature],
@@ -43,12 +40,6 @@ function VerifyPayment({ route, navigation }: VerifyPaymentProps) {
       }),
     onSuccess: (d) => {
       if (d.success) {
-        if (programId) {
-          queryClient.invalidateQueries({ queryKey: ['testList', programId] })
-        }
-        if (isCounselling) {
-          queryClient.invalidateQueries({ queryKey: ['counsellingList'] })
-        }
         setTimeout(navigation.goBack, 3000)
       }
     },

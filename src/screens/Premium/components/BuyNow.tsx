@@ -69,7 +69,6 @@ const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, c
         transactionId: res._id,
         razorpayPaymentId: data.success?.razorpay_payment_id ?? '',
         razorpaySignature: data.success?.razorpay_signature ?? '',
-        programId,
       })
     },
   })

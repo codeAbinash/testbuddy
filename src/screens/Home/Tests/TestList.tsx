@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 
 import { useColorScheme } from 'nativewind'
@@ -11,7 +11,7 @@ import { LoadingFullScreen } from '@components/Loading'
 import NoData from '@components/NoData'
 import { PaddingBottom } from '@components/SafePadding'
 import api from '@query/api/api'
-import { useNavigation, type RouteProp } from '@react-navigation/native'
+import { type RouteProp, useIsFocused, useNavigation } from '@react-navigation/native'
 import BackHeader from '@screens/components/BackHeader'
 import { useQuery } from '@tanstack/react-query'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
@@ -36,7 +36,7 @@ type TestListProps = {
 export type Test = Awaited<ReturnType<typeof api.testList>>[0]['tests'][0]
 
 export default function TestList({ navigation, route }: TestListProps) {
-  // const test = route.params.test
+  const isFocused = useIsFocused()
   const { programId } = route.params
   const { colorScheme } = useColorScheme()
   const { data, refetch, isLoading } = useQuery({
@@ -45,6 +45,10 @@ export default function TestList({ navigation, route }: TestListProps) {
   })
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
+
+  useEffect(() => {
+    if (isFocused) refetch()
+  }, [isFocused, refetch])
 
   const details = data?.[0]
   const tests = data?.[0]?.tests

@@ -8,9 +8,8 @@ import Input from '@components/Input'
 import { KeyboardAvoid } from '@components/KeyboardAvoid'
 import Label from '@components/Label'
 import { PaddingBottom } from '@components/SafePadding'
-import { CounselingRequestData, counsellingApi } from '@query/api'
+import { CounselingRequestData } from '@query/api'
 import BackHeader from '@screens/components/BackHeader'
-import { useMutation } from '@tanstack/react-query'
 import { H } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
 import { StackNav } from '@utils/types'
@@ -40,16 +39,6 @@ const Counselling: FC<CounsellingProps> = ({ navigation }) => {
   const { colorScheme } = useColorScheme()
   const alert = popupStore((state) => state.alert)
 
-  const { mutate, isPending } = useMutation({
-    mutationKey: ['counsellingList'],
-    mutationFn: counsellingApi,
-    onSuccess: (data) => {
-      console.log(data)
-      if (data.isAlert) alert('Error', data.message || 'Something went wrong')
-      navigation.navigate('CollegeList', data)
-    },
-  })
-
   function handlePredictCollege() {
     if (!mainRank) return alert('Missing Main Rank', 'Please enter your JEE Main CRL Rank')
     if (!mainCategoryRank) return alert('Missing Category Rank', 'Please enter your JEE Main Category Rank')
@@ -75,7 +64,7 @@ const Counselling: FC<CounsellingProps> = ({ navigation }) => {
       pwdCategory: pwd === 'Yes',
     }
 
-    mutate(data)
+    navigation.navigate('CollegeList', data)
   }
 
   return (
@@ -173,12 +162,7 @@ const Counselling: FC<CounsellingProps> = ({ navigation }) => {
               <Medium className='text text-sm'>Are you from PWD category?</Medium>
               <Radio options={['Yes', 'No']} value={pwd} onChange={setPwd} />
             </View>
-            <Btn
-              title={isPending ? 'Predicting Colleges...' : 'Predict Colleges'}
-              className='mt-5'
-              onPress={handlePredictCollege}
-              disabled={isPending}
-            />
+            <Btn title={'Predict Colleges'} className='mt-5' onPress={handlePredictCollege} />
           </View>
         </View>
         <PaddingBottom />

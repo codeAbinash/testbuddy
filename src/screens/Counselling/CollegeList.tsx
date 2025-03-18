@@ -1,5 +1,5 @@
-import { FC, useMemo } from 'react'
-import { FlatList, TouchableOpacity, View } from 'react-native'
+import { FC, useEffect, useMemo } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 
 import popupStore from '@/zustand/popupStore'
 import {
@@ -7,21 +7,31 @@ import {
   InformationCircleStrokeRoundedIcon,
   MaleSymbolStrokeRoundedIcon,
 } from '@assets/icons/icons'
-import { type College } from '@query/api'
-import { RouteProp } from '@react-navigation/native'
+import { LoadingFullScreen } from '@components/Loading'
+import { PaddingBottom } from '@components/SafePadding'
+import { type College, counsellingApi } from '@query/api'
+import { RouteProp, useIsFocused } from '@react-navigation/native'
 import BackHeader from '@screens/components/BackHeader'
+import { useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
 import { ColorScheme, StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
+import { FlatList } from 'react-native-gesture-handler'
 import colors from 'tailwindcss/colors'
-import { PaddingBottom } from '@components/SafePadding'
 
 type ParamList = {
   CollegeList: CollegeListParamList
 }
 
 export type CollegeListParamList = {
-  data: College[]
+  mainsCRLRank: number
+  mainsCategoryRank: number
+  advancedCRLRank?: number
+  advancedCategoryRank?: number
+  homeState: string
+  category: string
+  quota: string
+  pwdCategory: boolean
 }
 
 type CollegeListProps = {
@@ -30,36 +40,55 @@ type CollegeListProps = {
 }
 
 const CollegeList: FC<CollegeListProps> = ({ route, navigation }) => {
-  const { data } = route.params
+  const isFocused = useIsFocused()
+  const collegeInfo = route.params
   const { colorScheme } = useColorScheme()
 
+  const {
+    data: collegeList,
+    isPending,
+    refetch,
+  } = useQuery({
+    queryKey: ['counsellingList'],
+    queryFn: () => counsellingApi(collegeInfo),
+  })
+
   const allData = useMemo(() => {
+    const data = collegeList?.data || []
     if (data.length === 5) {
       const extraData = Array.from({ length: 10 }, () => ({ ...data[0], isBlur: true }) as College)
       return [...data, ...extraData]
     }
     return data
-  }, [data])
+  }, [collegeList])
+
+  useEffect(() => {
+    if (isFocused) refetch()
+  }, [isFocused, refetch])
 
   return (
     <>
       <BackHeader navigation={navigation} title='Predicted College List' />
-      <FlatList
-        className='bg-screen flex-1'
-        data={allData}
-        renderItem={({ item }) => (
-          <College item={item} scheme={colorScheme} isBlur={item.isBlur} navigation={navigation} />
-        )}
-        contentContainerStyle={{
-          borderColor: colorScheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
-          borderTopWidth: 1,
-          borderRightWidth: 0,
-          borderLeftWidth: 0,
-          borderBottomWidth: 0,
-        }}
-        keyExtractor={(item, index) => item._id + index}
-        ListFooterComponent={<PaddingBottom />}
-      />
+      {isPending ? (
+        <LoadingFullScreen text='Fetching College List...' />
+      ) : (
+        <FlatList
+          className='bg-screen flex-1'
+          data={allData}
+          renderItem={({ item }) => (
+            <College item={item} scheme={colorScheme} isBlur={item.isBlur} navigation={navigation} />
+          )}
+          contentContainerStyle={{
+            borderColor: colorScheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
+            borderTopWidth: 1,
+            borderRightWidth: 0,
+            borderLeftWidth: 0,
+            borderBottomWidth: 0,
+          }}
+          keyExtractor={(item, index) => item._id + index}
+          ListFooterComponent={<PaddingBottom />}
+        />
+      )}
     </>
   )
 }
