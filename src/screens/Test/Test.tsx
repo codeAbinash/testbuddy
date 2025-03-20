@@ -41,7 +41,10 @@ export default function Test({ navigation, route }: TestProps) {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    if (isSuccess && data) setTest(data)
+    if (isSuccess && data) {
+      setTest(data)
+      if (data.completed === true) navigation.replace('Solution', { testId })
+    }
   }, [isSuccess])
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
