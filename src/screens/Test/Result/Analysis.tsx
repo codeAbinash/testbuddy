@@ -75,7 +75,7 @@ export default function Analysis({ route }: AnalysisProps) {
             </View> */}
         <View className='gap-3'>
           <SemiBold className='text text-center text-xl'>Questionwise Analysis</SemiBold>
-          <QuestionWise q={data?.result?.timeSpentAnalysis?.questionWiseAnalysis} />
+          <QuestionWise q={data?.result?.questionWiseAnalysis} />
         </View>
         <PaddingBottom />
       </ScrollView>

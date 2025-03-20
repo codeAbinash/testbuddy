@@ -1,14 +1,15 @@
+import React, { useEffect } from 'react'
+import { BackHandler, ToastAndroid, View } from 'react-native'
+
 import popupStore from '@/zustand/popupStore'
-import { ArrowLeft01StrokeRoundedIcon } from '@assets/icons/icons'
+import BackButton from '@components/BackButton'
 import { SmallBtn } from '@components/Button'
 import { PaddingTop } from '@components/SafePadding'
 import { queryClient } from '@query/query'
 import { SemiBold } from '@utils/fonts'
-import { ColorScheme, type mode, StackNav } from '@utils/types'
+import { ColorScheme, StackNav, type mode } from '@utils/types'
 import { timeDiffFromNow } from '@utils/utils'
-import React, { useEffect } from 'react'
-import { BackHandler, ToastAndroid, TouchableOpacity, View } from 'react-native'
-import colors from 'tailwindcss/colors'
+
 import useUpdateTestMutation from '../hooks/useUpdateTestMutation'
 import { handleSubmit } from '../utils/utils'
 import currentQnStore from '../zustand/currentQn'
@@ -16,7 +17,6 @@ import modalStore from '../zustand/modalStore'
 import testStore from '../zustand/testStore'
 import timeStore from '../zustand/timeStore'
 import { MoreOption } from './MoreOption'
-import BackButton from '@components/BackButton'
 
 type HeaderProps = {
   navigation: StackNav

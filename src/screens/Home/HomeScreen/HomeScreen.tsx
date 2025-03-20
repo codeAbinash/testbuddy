@@ -39,8 +39,16 @@ export default function HomeScreen({ navigation }: NavProps) {
         }
       >
         <CarouselElem carousel={carousel} />
-        <View className='p-5'>
+        <View className='p-5 gap-4'>
           <Btn onPress={() => navigation.navigate('Blogs')} title='Blogs'></Btn>
+          <Btn
+            onPress={() =>
+              navigation.navigate('Test', {
+                testId: '6621321123c322caf6992919',
+              })
+            }
+            title='Test'
+          ></Btn>
         </View>
         <ExploreExams />
         <ExploreTests navigation={navigation} />

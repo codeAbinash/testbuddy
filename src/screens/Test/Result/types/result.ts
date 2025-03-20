@@ -11,6 +11,7 @@ export interface Result {
   scorecard?: Scorecard[]
   difficultyAnalysis?: DifficultyAnalysis[]
   timeSpentAnalysis?: TimeSpentAnalysis
+  questionWiseAnalysis?: QuestionWiseAnalysis[]
 }
 
 export interface DifficultyAnalysis {
@@ -35,13 +36,14 @@ export interface Scorecard {
   accuracyPercentage?: number
   attemptedPercentage?: number
   percentile?: number
+  timeSpent?: number
+  score?: number
 }
 
 export interface TimeSpentAnalysis {
   totalTimeSpentOnCorrect?: number
   totalTimeSpentOnIncorrect?: number
   totalTimeSpentOnUnattempted?: number
-  questionWiseAnalysis?: QuestionWiseAnalysis[]
 }
 
 export interface QuestionWiseAnalysis {
