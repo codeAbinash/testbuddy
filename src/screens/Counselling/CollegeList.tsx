@@ -58,15 +58,13 @@ const CollegeList: FC<CollegeListProps> = ({ route, navigation }) => {
   })
 
   const data = collegeList?.data || []
-  const isPremium = data.length > 5
-
   const allData = useMemo(() => {
-    if (!isPremium) {
+    if (data.length <= 5) {
       const extraData = Array.from({ length: 5 }, () => ({ ...data[0], isBlur: true }) as College)
       return [...data, ...extraData]
     }
     return data
-  }, [data, isPremium])
+  }, [data])
 
   useEffect(() => {
     if (isFocused) refetch()
