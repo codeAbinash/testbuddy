@@ -12,6 +12,14 @@ export interface Result {
   difficultyAnalysis?: DifficultyAnalysis[]
   timeSpentAnalysis?: TimeSpentAnalysis
   questionWiseAnalysis?: QuestionWiseAnalysis[]
+  toppersScoresTable?: ToppersScoreTable[]
+}
+
+type ToppersScoreTable = {
+  rank: number
+  name: string
+  score: number
+  _id: string
 }
 
 export interface DifficultyAnalysis {

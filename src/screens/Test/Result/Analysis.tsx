@@ -12,6 +12,7 @@ import { AttemptColors, DifficultyV2 } from './components/Difficulty'
 import QuestionWise from './components/QuestionWise'
 import Scorecard, { ScoreboardTable } from './components/Scorecard'
 import TimeSpend from './components/TimeSpend'
+import ToppersScoreTable from './components/ToppersScoreTable'
 
 type ParamList = {
   Analysis: AnalysisParams
@@ -73,6 +74,10 @@ export default function Analysis({ route }: AnalysisProps) {
               {data?.result?.difficultyAnalysis?.map((diff, i) => <Attempt diff={diff} key={i} />)}
               <AttemptColors />
             </View> */}
+        <View className='gap-3'>
+          <SemiBold className='text text-center text-xl'>Toppers Score List</SemiBold>
+          <ToppersScoreTable toppersScoreTable={data?.result?.toppersScoresTable} />
+        </View>
         <View className='gap-3'>
           <SemiBold className='text text-center text-xl'>Questionwise Analysis</SemiBold>
           <QuestionWise q={data?.result?.questionWiseAnalysis} />

@@ -58,7 +58,11 @@ export default function Scorecard({ score, i }: { score: Scorecard; i: number })
   )
 }
 
-export const ScoreboardTable = React.memo<{ board: Scorecard[] }>(({ board }) => {
+type ScoreboardTableProps = {
+  board?: Scorecard[]
+}
+export const ScoreboardTable = React.memo<ScoreboardTableProps>(({ board }) => {
+  if (!board) return null
   return (
     <View
       className='mt-5'
