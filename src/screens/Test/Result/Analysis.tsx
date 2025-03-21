@@ -13,6 +13,8 @@ import QuestionWise from './components/QuestionWise'
 import Scorecard, { ScoreboardTable } from './components/Scorecard'
 import TimeSpend from './components/TimeSpend'
 import ToppersScoreTable from './components/ToppersScoreTable'
+import SubjectWise from './components/SubjectWise'
+import TimeframeAnalysis from './components/TimeframeAnalysis'
 
 type ParamList = {
   Analysis: AnalysisParams
@@ -50,6 +52,14 @@ export default function Analysis({ route }: AnalysisProps) {
             </Regular>
           </View>
           <ColorBoxes result={data?.result} />
+        </View>
+        <View className='gap-3'>
+          <SemiBold className='text mb-3 text-center text-xl'>Time Frame Analysis</SemiBold>
+          <TimeframeAnalysis result={data?.result} />
+        </View>
+        <View className='gap-3'>
+          <SemiBold className='text mb-3 text-center text-xl'>Subject Wise Analysis</SemiBold>
+          <SubjectWise subjectWiseAnalysis={data?.result?.subjectWiseAnalysis} />
         </View>
         <View className='gap-3'>
           <SemiBold className='text mb-3 text-center text-xl'>Scorecard</SemiBold>

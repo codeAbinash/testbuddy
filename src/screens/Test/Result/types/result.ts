@@ -13,6 +13,27 @@ export interface Result {
   timeSpentAnalysis?: TimeSpentAnalysis
   questionWiseAnalysis?: QuestionWiseAnalysis[]
   toppersScoresTable?: ToppersScoreTable[]
+  subjectWiseAnalysis?: SubjectWiseAnalysis[]
+  performanceTimeMetrics?: PerformanceTimeMetrics[]
+}
+
+type PerformanceTimeMetrics = {
+  resultAfterSeconds: number
+  totalScore: number
+  questionsAttempts: number
+  correctAnswers: number
+  incorrectAnswers: number
+  accuracy: number
+  averageTimePerQuestion: number
+  _id: string
+}
+
+type SubjectWiseAnalysis = {
+  subject: string
+  averageMarks: number
+  toppersMarks: number
+  marks: number
+  _id: string
 }
 
 type ToppersScoreTable = {
