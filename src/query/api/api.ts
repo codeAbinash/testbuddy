@@ -167,7 +167,7 @@ function startTest(data: { testId: string }) {
     totalTimeSpent?: number
     isBookMarked?: boolean
     markedAnswer?: string
-    correct_options?: string[]
+    correctOptions?: string[]
     answerExplanation?: string
     isCorrect?: boolean
     answer?: string

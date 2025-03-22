@@ -70,7 +70,7 @@ const McqOptions = React.memo(({ colorScheme, mode }: { colorScheme: ColorScheme
           colorScheme={colorScheme}
           mode={mode}
           isCorrect={qn?.isCorrect}
-          correct_options={qn?.correct_options}
+          correctOptions={qn?.correctOptions}
         />
       ))}
       {mode === 'test' && qn?.markedAnswer && (
