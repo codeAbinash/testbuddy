@@ -41,13 +41,12 @@ const TimeframeAnalysis: FC<SubjectWiseProps> = ({ result }) => {
   return (
     <View style={{ flex: 1 }}>
       <LineChart
-        disableScroll
         isAnimated
         data={correct}
         data2={incorrect}
         data3={attempt}
         data4={accuracy}
-        spacing={10}
+        spacing={20}
         color1={colors.purple[500]}
         color2={colors.red[500]}
         color3={colors.blue[500]}
@@ -56,10 +55,10 @@ const TimeframeAnalysis: FC<SubjectWiseProps> = ({ result }) => {
         hideDataPoints2
         hideDataPoints3
         hideDataPoints4
-        width={W - 100}
+        width={W}
         maxValue={maxValue}
-        xAxisColor={colors.zinc[500] + '88'}
-        yAxisColor={colors.zinc[500] + '88'}
+        xAxisColor={colors.zinc[500] + '55'}
+        yAxisColor={colors.zinc[500] + '55'}
         curveType={CurveType.CUBIC}
       />
     </View>
