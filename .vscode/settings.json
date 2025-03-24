@@ -40,5 +40,6 @@
   },
   "[jsonc]": {
     "editor.defaultFormatter": "biomejs.biome"
-  }
+  },
+  "editor.defaultFormatter": "biomejs.biome"
 }

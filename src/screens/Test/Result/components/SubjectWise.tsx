@@ -41,10 +41,7 @@ type SubjectWiseProps = {
 }
 
 const SubjectWise: FC<SubjectWiseProps> = ({ subjectWiseAnalysis }) => {
-  console.log(subjectWiseAnalysis)
-
-  // const data = subjectWiseAnalysis || demoSubjectAnalysis
-  const data = demoSubjectAnalysis
+  const data = subjectWiseAnalysis || demoSubjectAnalysis
 
   const maxMarks = Math.max(
     ...data.map((item) => item.marks),
@@ -56,8 +53,6 @@ const SubjectWise: FC<SubjectWiseProps> = ({ subjectWiseAnalysis }) => {
     ...data.map((item) => item.averageMarks),
     ...data.map((item) => item.toppersMarks),
   )
-
-  console.log(maxMarks, minMarks)
 
   const maxHeight = 150
   const minHeight = 80
@@ -74,9 +69,9 @@ const SubjectWise: FC<SubjectWiseProps> = ({ subjectWiseAnalysis }) => {
             </View>
             <View className='flex-1'>
               <View className='flex-1 flex-row gap-4 justify-center items-end'>
-                {data.map((item) => (
+                {data.map((item, i) => (
                   <MarksColumn
-                    key={item._id}
+                    key={item._id || i}
                     max={maxMarks}
                     height={maxHeight}
                     self={item.marks > 0 ? item.marks : 0}
@@ -86,9 +81,9 @@ const SubjectWise: FC<SubjectWiseProps> = ({ subjectWiseAnalysis }) => {
                 ))}
               </View>
               <View className='flex-1 flex-row gap-4 justify-center'>
-                {data.map((item) => (
+                {data.map((item, i) => (
                   <MarksColumn
-                    key={item._id}
+                    key={item._id || i}
                     max={minMarks}
                     height={minHeight}
                     self={item.marks < 0 ? item.marks : 0}
@@ -101,8 +96,8 @@ const SubjectWise: FC<SubjectWiseProps> = ({ subjectWiseAnalysis }) => {
             </View>
           </View>
           <View className='flex-1 flex-row gap-4 justify-between items-center mt-2'>
-            {data.map((item) => (
-              <Medium key={item._id} className='text-center flex-1 text-xs text opacity-80'>
+            {data.map((item, i) => (
+              <Medium key={item._id || i} className='text-center flex-1 text-xs text opacity-80'>
                 {item.subject}
               </Medium>
             ))}
@@ -135,15 +130,27 @@ function MarksColumn({ self, topper, average, isDown, height, max }: MarksColumn
     <View className={`flex-1 flex-row gap-0.5 justify-end ${isDown ? 'items-start' : 'items-end'}`} style={{ height }}>
       <View className={`flex-1 ${isDown ? 'flex-col' : 'flex-col-reverse'}`}>
         <View className='rounded-lg bg-green-500' style={{ height: averageHeight }} />
-        {average !== 0 && <Medium className='text' style={styles.chartLabel}>{average}</Medium>}
+        {average !== 0 && (
+          <Medium className='text' style={styles.chartLabel}>
+            {average}
+          </Medium>
+        )}
       </View>
       <View className={`flex-1 ${isDown ? 'flex-col' : 'flex-col-reverse'}`}>
         <View className='rounded-lg bg-blue-500' style={{ height: topperHeight }} />
-        {topper !== 0 && <Medium className='text' style={styles.chartLabel}>{topper}</Medium>}
+        {topper !== 0 && (
+          <Medium className='text' style={styles.chartLabel}>
+            {topper}
+          </Medium>
+        )}
       </View>
       <View className={`flex-1 ${isDown ? 'flex-col' : 'flex-col-reverse'}`}>
         <View className='rounded-lg bg-orange-500' style={{ height: selfHeight }} />
-        {self !== 0 && <Medium className='text' style={styles.chartLabel}>{self}</Medium>}
+        {self !== 0 && (
+          <Medium className='text' style={styles.chartLabel}>
+            {self}
+          </Medium>
+        )}
       </View>
     </View>
   )
@@ -155,7 +162,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     opacity: 0.8,
     paddingVertical: 1.5,
-  }
+  },
 })
 
 export default SubjectWise

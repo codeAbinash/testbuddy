@@ -244,7 +244,7 @@ function testList(programId: string) {
     subjects: string[]
     attemptsCount: number
     language: string
-    status: string
+    status: 'inactive' | 'locked' | 'unlocked' | 'in-progress' | 'completed'
     totalTimeCompleted: number
   }
   return postApi<TestList[]>('tests/details', { programId })

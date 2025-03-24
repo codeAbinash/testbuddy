@@ -149,7 +149,13 @@ export function Test({ test, scheme, index, programId }: TestProps) {
             </Medium>
           </View>
         </View>
-        <RightLockOrPlayIcon test={test} colorScheme={scheme} programId={programId} />
+        {test.status === 'inactive' ? (
+          <Medium className='text' style={{ fontSize: 9.5 }}>
+            Will live soon
+          </Medium>
+        ) : (
+          <RightLockOrPlayIcon test={test} colorScheme={scheme} programId={programId} />
+        )}
       </View>
       {timeCompleted === 0 ? null : (
         <View className='h-0.5 w-full bg-blue-500/30'>
@@ -173,12 +179,12 @@ type RightLockOrPlayIconProps = {
 function RightLockOrPlayIcon({ test, colorScheme, programId }: RightLockOrPlayIconProps) {
   const alert = popupStore((state) => state.alert)
   const navigation = useNavigation<StackNav>()
-  const locked = test.status === 'locked'
+  const status = test.status
   function navigateToTest() {
-    if (locked) return navigation.navigate('Premium', { programId: programId })
+    if (status === 'locked') return navigation.navigate('Premium', { programId: programId })
     alert('Are you sure?', 'Do you want to start the test?', [
-      { text: 'Yes', onPress: () => navigation.navigate('Test', { testId: test.testId }) },
       { text: 'No', onPress: () => {} },
+      { text: 'Yes', onPress: () => navigation.navigate('Test', { testId: test.testId }) },
     ])
     console.log('navigating to test')
   }
@@ -189,9 +195,9 @@ function RightLockOrPlayIcon({ test, colorScheme, programId }: RightLockOrPlayIc
       onPress={navigateToTest}
     >
       <Bold className='text text-xs opacity-80' style={{ fontSize: 9 }}>
-        {locked ? 'Unlock' : 'Start'}
+        {getStatusText(status)}
       </Bold>
-      {locked ? (
+      {status === 'locked' ? (
         <SquareUnlock01Icon
           height={15}
           width={15}
@@ -202,6 +208,14 @@ function RightLockOrPlayIcon({ test, colorScheme, programId }: RightLockOrPlayIc
       )}
     </TouchableOpacity>
   )
+}
+
+function getStatusText(status: string) {
+  if (status === 'locked') return 'Locked'
+  if (status === 'completed') return 'Completed'
+  if (status === 'in-progress') return 'Resume'
+  if (status === 'unlocked') return 'Start'
+  return 'Start'
 }
 
 type RightIconParamList = {
