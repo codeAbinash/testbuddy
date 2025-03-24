@@ -6,7 +6,7 @@ import TopArea from '@screens/components/TopArea'
 import { useQuery } from '@tanstack/react-query'
 import type { NavProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { RefreshControl, ScrollView, StatusBar, View } from 'react-native'
+import { BackHandler, RefreshControl, ScrollView, StatusBar, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import CarouselElem from './components/CarouselElem'
 import ContactSection from './components/ContactSection'
@@ -15,11 +15,31 @@ import ExploreExams from './components/ExploreExams'
 import ExploreTests from './components/ExploreTests'
 import FormulaSection from './components/FormulaSection'
 import ReferSection from './components/ReferSection'
+import popupStore from '@/zustand/popupStore'
+import { useIsFocused } from '@react-navigation/native'
+import { useCallback, useEffect } from 'react'
 
 export default function HomeScreen({ navigation }: NavProps) {
   const { colorScheme } = useColorScheme()
+  const alert = popupStore((store) => store.alert)
+  const isFocused = useIsFocused()
+
   const { refetch } = useQuery({ queryKey: ['homeScreen'], queryFn: api.homeScreen })
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
+
+  const onBackPress = useCallback(() => {
+    if (!isFocused) return false
+    alert('Exit test?', 'Do you want to exit the test?', [
+      { text: 'Cancel' },
+      { text: 'Exit', onPress: BackHandler.exitApp },
+    ])
+    return true
+  }, [isFocused, alert])
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress)
+    return () => backHandler.remove()
+  }, [onBackPress])
 
   return (
     <>
