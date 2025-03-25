@@ -130,6 +130,8 @@ function Tests({ colorScheme: s }: { colorScheme: ColorScheme }) {
 }
 
 function MyProgress({ colorScheme: s }: { colorScheme: ColorScheme }) {
+  const navigation = useNavigation<StackNav>()
+
   return (
     <View className='gap-0'>
       <Bold className='text mt-5 pb-2 text-lg'>My Progress</Bold>
@@ -138,7 +140,11 @@ function MyProgress({ colorScheme: s }: { colorScheme: ColorScheme }) {
       <ListItem icon={<ListIcon Icon={Time04Icon} scheme={s} />} title='Ongoing Tests' />
       <ListItem icon={<ListIcon Icon={AnalyticsUpIcon} scheme={s} />} title='Analyse' />
       <ListItem icon={<ListIcon Icon={AnalyticsDownIcon} scheme={s} />} title='Weak Topic Analysis' />
-      <ListItem icon={<ListIcon Icon={AllBookmarkIcon} scheme={s} />} title='Bookmarked blogs' />
+      <ListItem
+        icon={<ListIcon Icon={AllBookmarkIcon} scheme={s} />}
+        title='Bookmarked blogs'
+        onPress={() => navigation.navigate('BookmarkedBlogs')}
+      />
     </View>
   )
 }

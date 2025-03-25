@@ -42,7 +42,7 @@ const List: FC<ListProps> = ({ navigation, data }) => {
 
   return (
     <>
-      {data?.map((blog) => (
+      {data?.blogs.map((blog) => (
         <Btn title={blog.title} key={blog._id} onPress={() => navigation.navigate('Blog', { id: blog._id })} />
       ))}
     </>

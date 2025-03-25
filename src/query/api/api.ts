@@ -251,8 +251,14 @@ function testList(programId: string) {
 }
 
 type Blog = {
+  organization: {
+    sameAs: any[]
+  }
+  blogImages: any[]
   _id: string
+  blogType: string
   title: string
+  description: string
   blogContent: string
   tags: string[]
   category: string
@@ -263,6 +269,7 @@ type Blog = {
     _id: string
     name: string
   }
+
   relatedBlogs: any[]
   status: string
   createdAt: Date
@@ -270,18 +277,23 @@ type Blog = {
   noOfLikes: number
   noOfViews: number
 }
+
 function testBlog() {
   return getApi<Blog>('test/blog')
-  // return postApi<Blog>('https://api.testbuddy.live/v1/admin/blogs')
-  // return getApi<Blog>('admin/blog/6725d515b110f3fb01b57701')
+}
+
+export interface Blogs {
+  totalPages: number
+  totalBlogs: number
+  blogs: Blog[]
 }
 
 function blogs() {
-  return postApi<Blog[]>('admin/blogs')
+  return postApi<Blogs>('blogs')
 }
 
 function blog(id: string) {
-  return getApi<Blog>(`admin/blog/${id}`)
+  return getApi<Blog>(`blog/${id}`)
 }
 
 const api = {

@@ -13,9 +13,9 @@ import { AutoStatusBar } from '@components/StatusBar'
 import { queryClient } from '@query/query'
 import { useNetInfo } from '@react-native-community/netinfo'
 import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
   type DrawerContentComponentProps,
+  DrawerContentScrollView,
+  createDrawerNavigator,
 } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import { CardStyleInterpolators, type StackNavigationOptions, createStackNavigator } from '@react-navigation/stack'
@@ -25,6 +25,7 @@ import VerifyEmail, { VerifyEmailParamList } from '@screens/Auth/VerifyEmail'
 import VerifyOtp, { type OtpParamList } from '@screens/Auth/VerifyOtp'
 import Blog, { type BlogParamList } from '@screens/Blog/Blog'
 import Blogs from '@screens/Blog/Blogs'
+import BookmarkedBlogs from '@screens/Blog/BookmarkedBlogs'
 import OnThisPage, { OnThisPageParamList } from '@screens/Blog/OnThisPage'
 import CollegeList, { CollegeListParamList } from '@screens/Counselling/CollegeList'
 import Counselling from '@screens/Counselling/Counselling'
@@ -188,6 +189,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Premium' component={Premium} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='Blog' component={Blog} />
         <Stack.Screen name='Blogs' component={Blogs} />
+        <Stack.Screen name='BookmarkedBlogs' component={BookmarkedBlogs} />
         <Stack.Screen name='OnThisPage' component={OnThisPage} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='PricingDetails' component={PricingDetails} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='VerifyPayment' component={VerifyPayment} />
@@ -206,6 +208,7 @@ export type RootStackParamList = {
   VerifyPayment: VerifyPaymentParamList
   PricingDetails: PricingDetailsParamList
   OnThisPage: OnThisPageParamList
+  BookmarkedBlogs: undefined
   Blogs: undefined
   Blog: BlogParamList
   Premium: PremiumParamList

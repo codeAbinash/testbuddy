@@ -23,12 +23,12 @@ import type { StackNav } from '@utils/types'
 import Header from './components/Header'
 import { wrapHtmlBlog } from './utils/wrapHtmlBlog'
 
-type ParamList = {
-  Blog: BlogParamList
-}
-
 export type BlogParamList = {
   id: string
+}
+
+type ParamList = {
+  Blog: BlogParamList
 }
 
 type BlogProps = {
@@ -60,6 +60,8 @@ export default function Blog({ navigation, route }: BlogProps) {
     }, 350)
     return () => clearTimeout(timer)
   }, [])
+
+
 
   return (
     <>
