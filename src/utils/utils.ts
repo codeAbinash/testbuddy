@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Alert, InteractionManager, Share } from 'react-native'
-import { FadeIn } from 'react-native-reanimated'
+import { FadeIn, LinearTransition } from 'react-native-reanimated'
 import { SCREEN_TRANSITION } from './constants'
 
 export type TimeFormat = '12h' | '24h'
@@ -213,3 +213,7 @@ export function nFormatter(num: number) {
   const formatter = Intl.NumberFormat('en', { notation: 'compact' })
   return formatter.format(num)
 }
+
+export const layout = LinearTransition.duration(150)
+export const layout50 = LinearTransition.duration(50)
+export const layout100 = LinearTransition.duration(100)
