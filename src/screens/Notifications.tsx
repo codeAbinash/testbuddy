@@ -11,7 +11,6 @@ import api from '@query/api/api'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
-import type { NavProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { Linking, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
@@ -20,7 +19,7 @@ import BackHeader from './components/BackHeader'
 
 type Notification = Awaited<ReturnType<typeof api.notifications>>[number]
 
-export default function Notifications({ navigation }: NavProps) {
+export default function Notifications() {
   const { colorScheme } = useColorScheme()
   const { isError, data, isPending, refetch } = useSuspenseQuery({
     queryKey: ['notificationsPage'],
@@ -57,7 +56,6 @@ export default function Notifications({ navigation }: NavProps) {
     <View className='bg-screen flex-1'>
       <BackHeader
         title='Notifications'
-        navigation={navigation}
         Right={
           <Search01Icon color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} height={20} width={20} />
         }

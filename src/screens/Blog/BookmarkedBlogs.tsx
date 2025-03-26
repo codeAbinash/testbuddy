@@ -3,10 +3,10 @@ import { NavProps } from '@utils/types'
 import { FC } from 'react'
 import { View } from 'react-native'
 
-const BookmarkedBlogs: FC<NavProps> = ({ navigation }) => {
+const BookmarkedBlogs: FC<NavProps> = () => {
   return (
     <>
-      <BackHeader title='Bookmarked Blogs' navigation={navigation} />
+      <BackHeader title='Bookmarked Blogs' />
       <View></View>
     </>
   )

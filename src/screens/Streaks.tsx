@@ -1,16 +1,15 @@
+import Animations from '@assets/animations/animations'
+import { Lottie } from '@components/Lottie'
 import { W } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
-import type { NavProps } from '@utils/types'
 import { View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import BackHeader from './components/BackHeader'
-import { Lottie } from '@components/Lottie'
-import Animations from '@assets/animations/animations'
 
-export default function Streaks({ navigation }: NavProps) {
+export default function Streaks() {
   return (
     <>
-      <BackHeader title='Streaks' navigation={navigation} />
+      <BackHeader title='Streaks' />
       <ScrollView contentContainerClassName='px-5 py-3 gap-5 bg-screen flex-1 ie'>
         <View className='m-auto'>
           <Lottie source={Animations.fire} size={W * 0.65} />

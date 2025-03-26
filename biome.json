@@ -41,6 +41,7 @@
         "noUndeclaredVariables": "error",
         "noUnreachable": "error",
         "noUnusedVariables": "warn",
+        "noUnusedImports": "warn",
         "useArrayLiterals": "warn",
         "useExhaustiveDependencies": "warn",
         "useHookAtTopLevel": "error",

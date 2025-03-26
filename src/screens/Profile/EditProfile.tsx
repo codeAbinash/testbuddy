@@ -109,7 +109,7 @@ export default function EditProfile({ navigation }: NavProps) {
 
   return (
     <>
-      <BackHeader title='Edit Profile' navigation={navigation} />
+      <BackHeader title='Edit Profile' />
       {isPending ? (
         <Loading />
       ) : (

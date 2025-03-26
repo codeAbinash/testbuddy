@@ -12,11 +12,10 @@ import { RefreshControl } from 'react-native-gesture-handler'
 import colors from 'tailwindcss/colors'
 import { attemptedTestsList } from './api/attemptedTests'
 import { Test } from './components/Test'
-import { NavProps } from '@utils/types'
 
 export type Test = Awaited<ReturnType<typeof api.testList>>[0]['tests'][0]
 
-export default function AttemptedTests({ navigation }: NavProps) {
+export default function AttemptedTests() {
   const { colorScheme } = useColorScheme()
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['completedTests'],
@@ -28,7 +27,7 @@ export default function AttemptedTests({ navigation }: NavProps) {
   return (
     <>
       {isLoading ? <LoadingFullScreen text={'Loading Attempted Tests'} /> : null}
-      <BackHeader title='Attempted Tests' navigation={navigation} />
+      <BackHeader title='Attempted Tests' />
       <FlatList
         data={data}
         keyExtractor={(item) => item._id || ''}

@@ -21,7 +21,7 @@ export default function Blogs({ navigation }: NavProps) {
 
   return (
     <>
-      <BackHeader title='Blogs' navigation={navigation} />
+      <BackHeader title='Blogs' />
       <View className='bg-screen flex-1'>
         <ScrollView contentContainerClassName='bg-screen gap-3 px-3 pb-0 py-5'>
           <Btn title={blogPostId} onPress={() => navigation.navigate('Blog', { id: blogPostId })} />

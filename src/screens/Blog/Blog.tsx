@@ -61,8 +61,6 @@ export default function Blog({ navigation, route }: BlogProps) {
     return () => clearTimeout(timer)
   }, [])
 
-
-
   return (
     <>
       <Header

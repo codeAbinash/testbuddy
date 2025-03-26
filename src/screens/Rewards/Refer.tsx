@@ -5,7 +5,6 @@ import { Lottie } from '@components/Lottie'
 import BackHeader from '@screens/components/BackHeader'
 import { W } from '@utils/dimensions'
 import { Medium, SemiBold } from '@utils/fonts'
-import type { NavProps } from '@utils/types'
 import { Clipboard, Share, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
@@ -19,11 +18,11 @@ function shareWithFriends(referralCode: string) {
   })
 }
 
-export default function Refer({ navigation }: NavProps) {
+export default function Refer() {
   const referralCode = 'ABINASH65445'
   return (
     <>
-      <BackHeader title='Referral' navigation={navigation} />
+      <BackHeader title='Referral' />
       <ScrollView contentContainerClassName='px-5 py-3 pt-0 gap-5 bg-screen flex-1'>
         <Lottie source={Animations.refer} style={{ width: '100%', height: W * 0.9 }} />
         <View className='-mt-5 gap-10 px-5'>

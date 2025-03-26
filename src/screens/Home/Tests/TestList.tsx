@@ -53,7 +53,6 @@ export default function TestList({ navigation, route }: TestListProps) {
     <>
       <BackHeader
         title={details?.programTitle}
-        navigation={navigation}
         Right={
           <RightLockIcon
             locked={details?.status === 'locked'}

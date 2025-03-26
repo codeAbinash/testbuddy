@@ -1,11 +1,10 @@
-import type { NavProps } from '@utils/types'
 import { ScrollView } from 'react-native-gesture-handler'
 import BackHeader from './components/BackHeader'
 
-export default function Search({ navigation }: NavProps) {
+export default function Search() {
   return (
     <>
-      <BackHeader title='Search' navigation={navigation} />
+      <BackHeader title='Search' />
       <ScrollView contentContainerClassName='px-5 py-3 flex-1 gap-5 bg-screen'></ScrollView>
     </>
   )

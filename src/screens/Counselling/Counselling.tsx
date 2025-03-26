@@ -69,7 +69,7 @@ const Counselling: FC<CounsellingProps> = ({ navigation }) => {
 
   return (
     <>
-      <BackHeader navigation={navigation} title='Predict College' />
+      <BackHeader title='Predict College' />
       <KeyboardAvoid>
         <View className='bg-screen flex-1 px-5 pb-4'>
           <View className='mt-3 gap-3'>

@@ -5,19 +5,21 @@ import { useColorScheme } from 'nativewind'
 
 import BackButton from '@components/BackButton'
 import { PaddingTop } from '@components/SafePadding'
+import { useNavigation } from '@react-navigation/native'
 import { SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 
 type BackHeaderProps = ViewProps & {
-  navigation?: StackNav
   title?: string
   Title?: React.ReactNode
   Right?: React.ReactNode
   onBackPress?: () => void
 }
 
-export default function BackHeader({ navigation, Right, title, Title, onBackPress }: BackHeaderProps) {
+export default function BackHeader({ Right, title, Title, onBackPress }: BackHeaderProps) {
   const { colorScheme } = useColorScheme()
+  const navigation = useNavigation<StackNav>()
+
   return (
     <View className='bg-white dark:bg-zinc-950'>
       <PaddingTop />

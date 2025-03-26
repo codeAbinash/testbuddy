@@ -72,7 +72,7 @@ const CollegeList: FC<CollegeListProps> = ({ route, navigation }) => {
 
   return (
     <>
-      <BackHeader navigation={navigation} title='Predicted College List' />
+      <BackHeader title='Predicted College List' />
       {isPending ? (
         <LoadingFullScreen text='Fetching College List...' />
       ) : (

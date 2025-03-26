@@ -1,4 +1,3 @@
-import ColorIndicator from '@components/ColorIndicator'
 import { W } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
 import React from 'react'

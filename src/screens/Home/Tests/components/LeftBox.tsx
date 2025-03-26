@@ -1,7 +1,7 @@
-import { SemiBold } from '@utils/fonts';
-import { layout } from '@utils/utils';
-import Animated from 'react-native-reanimated';
-import type { Test } from '../TestList';
+import { SemiBold } from '@utils/fonts'
+import { layout } from '@utils/utils'
+import Animated from 'react-native-reanimated'
+import type { Test } from '../TestList'
 
 export function LeftBox({ test }: { test: Test; index: number }) {
   return (
