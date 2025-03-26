@@ -6,9 +6,9 @@ import {
   Book02Icon,
   Book03Icon,
   BookEditIcon,
-  Bookmark03Icon,
   BookOpen01Icon,
   BookOpen02Icon,
+  Bookmark03Icon,
   GiftIcon,
   InformationCircleIcon,
   LicenseDraftIcon,
@@ -136,7 +136,11 @@ function MyProgress({ colorScheme: s }: { colorScheme: ColorScheme }) {
     <View className='gap-0'>
       <Bold className='text mt-5 pb-2 text-lg'>My Progress</Bold>
       <ListItem icon={<ListIcon Icon={Bookmark03Icon} scheme={s} />} title='Bookmarks' />
-      <ListItem icon={<ListIcon Icon={BookEditIcon} scheme={s} />} title='Attempted Tests' />
+      <ListItem
+        icon={<ListIcon Icon={BookEditIcon} scheme={s} />}
+        title='Attempted Tests'
+        onPress={() => navigation.navigate('AttemptedTests')}
+      />
       <ListItem icon={<ListIcon Icon={Time04Icon} scheme={s} />} title='Ongoing Tests' />
       <ListItem icon={<ListIcon Icon={AnalyticsUpIcon} scheme={s} />} title='Analyse' />
       <ListItem icon={<ListIcon Icon={AnalyticsDownIcon} scheme={s} />} title='Weak Topic Analysis' />

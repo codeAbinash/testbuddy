@@ -1,25 +1,20 @@
-import { FC, useEffect, useState } from 'react'
-import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
+import { FC, useEffect } from 'react'
+import { FlatList, RefreshControl } from 'react-native'
 
 import { useColorScheme } from 'nativewind'
-import Animated from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
-import popupStore from '@/zustand/popupStore'
-import { PlayIcon, SquareLock02Icon, SquareUnlock01Icon } from '@assets/icons/icons'
+import { SquareLock02Icon } from '@assets/icons/icons'
 import { LoadingFullScreen } from '@components/Loading'
 import NoData from '@components/NoData'
 import { PaddingBottom } from '@components/SafePadding'
 import api from '@query/api/api'
-import { type RouteProp, useIsFocused, useNavigation } from '@react-navigation/native'
+import { type RouteProp, useIsFocused } from '@react-navigation/native'
 import BackHeader from '@screens/components/BackHeader'
 import { useQuery } from '@tanstack/react-query'
-import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { ColorScheme, StackNav } from '@utils/types'
-import { layout, layout100 } from '@utils/utils'
-import { LeftBox } from './components/LeftBox'
-import { SubjectBadgeList } from './components/SubjectBadgeList'
+import { Test } from './components/Test'
 
 type ParamList = {
   TestList: TestListParamList
@@ -103,129 +98,6 @@ type EmptyListProps = {
 }
 const EmptyList: FC<EmptyListProps> = ({ isLoading, data }) => {
   return !data || isLoading ? <LoadingFullScreen text='Loading Tests...' /> : <NoData text='No tests available' />
-}
-
-function calculatePercentage(completed: number, total: number) {
-  if (completed === 0) return 0
-  const percentage = (completed / total) * 100
-  return percentage
-}
-
-type TestProps = {
-  test: Test
-  scheme: ColorScheme
-  index: number
-  programId: string
-}
-
-const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity)
-
-export function Test({ test, scheme, index, programId }: TestProps) {
-  const timeCompleted = calculatePercentage(test.totalTimeCompleted, test.attemptTime)
-  const [expanded, setExpanded] = useState(false)
-
-  return (
-    <>
-      <AnimatedTouchableOpacity
-        className='flex-row items-center justify-between gap-2 p-3 px-4'
-        style={{
-          borderBottomWidth: timeCompleted === 0 ? 1 : 0,
-          borderColor: scheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
-        }}
-        onPress={() => setExpanded((prev) => !prev)}
-        activeOpacity={0.7}
-        layout={layout}
-      >
-        <View className='flex-shrink flex-row items-center gap-3'>
-          <LeftBox test={test} index={index} />
-          <Animated.View className='flex-shrink' layout={layout}>
-            <SemiBold className='text text-xs' numberOfLines={1}>
-              {test.testTitle}
-            </SemiBold>
-            {expanded && (
-              <Animated.View className='flex-row items-center gap-1'>
-                <Medium className='text text-xs opacity-70'>
-                  {test.qCount} Q | {secondToHour(test.attemptTime)} | FM: {test.maxMarks}
-                </Medium>
-                <SubjectBadgeList subjects={test.subjects} />
-              </Animated.View>
-            )}
-            <Animated.View layout={layout100}>
-              <Medium className='text text-xs opacity-60' style={{ fontSize: 9 }}>
-                {test.syllabus}
-              </Medium>
-            </Animated.View>
-          </Animated.View>
-        </View>
-        <Animated.View layout={layout}>
-          {test.status === 'inactive' ? (
-            <Medium className='text' style={{ fontSize: 9.5 }}>
-              Will live soon
-            </Medium>
-          ) : (
-            <RightLockOrPlayIcon test={test} colorScheme={scheme} programId={programId} />
-          )}
-        </Animated.View>
-      </AnimatedTouchableOpacity>
-      {timeCompleted === 0 ? null : (
-        <View className='h-0.5 w-full bg-blue-500/30'>
-          <View className='h-0.5 bg-blue-500' style={{ width: `${timeCompleted}%` }}></View>
-        </View>
-      )}
-    </>
-  )
-}
-
-function secondToHour(seconds: number) {
-  const hours = Math.floor(seconds / 3600)
-  return `${hours} hr`
-}
-
-type RightLockOrPlayIconProps = {
-  test: Test
-  colorScheme: ColorScheme
-  programId: string
-}
-function RightLockOrPlayIcon({ test, colorScheme, programId }: RightLockOrPlayIconProps) {
-  const alert = popupStore((state) => state.alert)
-  const navigation = useNavigation<StackNav>()
-  const status = test.status
-  function navigateToTest() {
-    if (status === 'locked') return navigation.navigate('Premium', { programId: programId })
-    alert('Are you sure?', 'Do you want to start the test?', [
-      { text: 'No', onPress: () => {} },
-      { text: 'Yes', onPress: () => navigation.navigate('Test', { testId: test.testId }) },
-    ])
-    console.log('navigating to test')
-  }
-  return (
-    <TouchableOpacity
-      className='flex-row items-center justify-center gap-1.5 rounded-lg border border-dashed border-zinc-500 p-1.5 px-2.5 pr-2'
-      activeOpacity={0.6}
-      onPress={navigateToTest}
-    >
-      <Bold className='text text-xs opacity-80' style={{ fontSize: 9 }}>
-        {getStatusText(status)}
-      </Bold>
-      {status === 'locked' ? (
-        <SquareUnlock01Icon
-          height={15}
-          width={15}
-          color={colorScheme === 'dark' ? colors.zinc[400] : colors.zinc[700]}
-        />
-      ) : (
-        <PlayIcon height={16} width={16} color={colorScheme === 'dark' ? colors.zinc[400] : colors.zinc[700]} />
-      )}
-    </TouchableOpacity>
-  )
-}
-
-function getStatusText(status: string) {
-  if (status === 'locked') return 'Locked'
-  if (status === 'completed') return 'Completed'
-  if (status === 'in-progress') return 'Resume'
-  if (status === 'unlocked') return 'Start'
-  return 'Start'
 }
 
 type RightIconParamList = {

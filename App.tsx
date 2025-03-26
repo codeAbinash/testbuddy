@@ -33,6 +33,7 @@ import CounsellingPremium from '@screens/Counselling/CounsellingPremium'
 import Example from '@screens/Example'
 import Home from '@screens/Home/Home'
 import HomeProfile from '@screens/Home/HomeProfile/HomeProfile'
+import AttemptedTests from '@screens/Home/Tests/AttemptedTests'
 import type { TestListParamList } from '@screens/Home/Tests/TestList'
 import TestList from '@screens/Home/Tests/TestList'
 import Tests from '@screens/Home/Tests/Tests'
@@ -185,6 +186,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Solution' component={Solution} />
         <Stack.Screen name='Tests' component={Tests} />
         <Stack.Screen name='TestList' component={TestList} />
+        <Stack.Screen name='AttemptedTests' component={AttemptedTests} />
         <Stack.Screen name='HomeProfile' component={HomeProfile} />
         <Stack.Screen name='Premium' component={Premium} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='Blog' component={Blog} />
@@ -218,6 +220,7 @@ export type RootStackParamList = {
   Solution: SolutionParamList
   Analysis: AnalysisParams
   Test: TestParamList
+  AttemptedTests: undefined
   Instructions: undefined
   MyRewards: undefined
   Refer: undefined
