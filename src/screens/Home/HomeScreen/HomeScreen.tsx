@@ -29,9 +29,9 @@ export default function HomeScreen({ navigation }: NavProps) {
 
   const onBackPress = useCallback(() => {
     if (!isFocused) return false
-    alert('Exit test?', 'Do you want to exit the test?', [
+    alert('Close App?', 'Do you want to close the app?', [
       { text: 'Cancel' },
-      { text: 'Exit', onPress: BackHandler.exitApp },
+      { text: 'Close', onPress: BackHandler.exitApp },
     ])
     return true
   }, [isFocused, alert])
