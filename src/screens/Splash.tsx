@@ -12,6 +12,7 @@ import { useColorScheme } from 'nativewind'
 import { useEffect } from 'react'
 import { Platform, View } from 'react-native'
 
+// todo: Add locations and device information to the start api, also get the premium status from the api 
 export default function Splash({ navigation }: NavProps) {
   const { token } = authStore()
   const { colorScheme } = useColorScheme()
