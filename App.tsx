@@ -27,7 +27,7 @@ import Blog, { type BlogParamList } from '@screens/Blog/Blog'
 import Blogs from '@screens/Blog/Blogs'
 import BookmarkedBlogs from '@screens/Blog/BookmarkedBlogs'
 import OnThisPage, { OnThisPageParamList } from '@screens/Blog/OnThisPage'
-import CollegeList, { CollegeListParamList } from '@screens/Counselling/CollegeList'
+import CollegeList from '@screens/Counselling/CollegeList'
 import Counselling from '@screens/Counselling/Counselling'
 import CounsellingPremium from '@screens/Counselling/CounsellingPremium'
 import Example from '@screens/Example'
@@ -195,7 +195,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='OnThisPage' component={OnThisPage} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='PricingDetails' component={PricingDetails} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='VerifyPayment' component={VerifyPayment} />
-        <Stack.Screen name='Counselling' component={Counselling} />
+        <Stack.Screen name='Counselling' component={Counselling} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='CollegeList' component={CollegeList} />
         <Stack.Screen name='CounsellingPremium' component={CounsellingPremium} options={IOS_BOTTOM_STYLE} />
       </Stack.Navigator>
@@ -205,7 +205,7 @@ function Navigation(): React.JSX.Element {
 
 export type RootStackParamList = {
   CounsellingPremium: undefined
-  CollegeList: CollegeListParamList
+  CollegeList: undefined
   Counselling: undefined
   VerifyPayment: VerifyPaymentParamList
   PricingDetails: PricingDetailsParamList

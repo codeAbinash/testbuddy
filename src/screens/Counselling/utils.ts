@@ -54,6 +54,11 @@ export const quotas: DropdownData[] = [
   { label: 'OS', value: 'OS' },
 ]
 
+export const genders: DropdownData[] = [
+  { label: 'Male', value: 'Male' },
+  { label: 'Female', value: 'Female' },
+]
+
 export const SearchCollegeSchema = z.object({
   mainsCRLRank: z.number(),
   mainsCategoryRank: z.number(),

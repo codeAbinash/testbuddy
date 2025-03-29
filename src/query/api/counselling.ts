@@ -28,17 +28,6 @@ type CollegeResponse = {
   }
 }
 
-export type CounselingRequestData = {
-  mainsCRLRank: number
-  mainsCategoryRank: number
-  advancedCRLRank?: number
-  advancedCategoryRank?: number
-  homeState: string
-  category: string
-  quota: string
-  pwdCategory: boolean
-}
-
-export const counsellingApi = async (data: CounselingRequestData) => {
-  return postApi<CollegeResponse>('/jee/counselling/result', data)
+export const counsellingApi = async () => {
+  return postApi<CollegeResponse>('/jee/counselling/result')
 }

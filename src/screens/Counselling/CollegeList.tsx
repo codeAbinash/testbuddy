@@ -1,6 +1,7 @@
 import { FC, useEffect, useMemo, useRef } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
+import useFocusCallback from '@/hooks/useFocusCallback'
 import popupStore from '@/zustand/popupStore'
 import Animations from '@assets/animations/animations'
 import {
@@ -15,45 +16,24 @@ import { Lottie } from '@components/Lottie'
 import Press from '@components/Press'
 import { PaddingBottom } from '@components/SafePadding'
 import { type College, counsellingApi } from '@query/api'
-import { RouteProp, useIsFocused } from '@react-navigation/native'
 import BackHeader from '@screens/components/BackHeader'
 import { useQuery } from '@tanstack/react-query'
 import { Bold, F, Medium, SemiBold } from '@utils/fonts'
-import { ColorScheme, StackNav } from '@utils/types'
+import { ColorScheme, NavProps, StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { FlatList } from 'react-native-gesture-handler'
 import colors from 'tailwindcss/colors'
 
-type ParamList = {
-  CollegeList: CollegeListParamList
-}
-
-export type CollegeListParamList = {
-  mainsCRLRank: number
-  mainsCategoryRank: number
-  advancedCRLRank?: number
-  advancedCategoryRank?: number
-  homeState: string
-  category: string
-  quota: string
-  pwdCategory: boolean
-}
-
-type CollegeListProps = {
-  route: RouteProp<ParamList, 'CollegeList'>
-  navigation: StackNav
-}
-
-const CollegeList: FC<CollegeListProps> = ({ route, navigation }) => {
-  const isFocused = useIsFocused()
-  const collegeInfo = route.params
+const CollegeList: FC<NavProps> = ({ navigation }) => {
   const { colorScheme } = useColorScheme()
   const flatListRef = useRef<FlatList<any>>(null)
 
   const { data, isPending, refetch } = useQuery({
     queryKey: ['counsellingList'],
-    queryFn: () => counsellingApi(collegeInfo),
+    queryFn: counsellingApi,
   })
+
+  useFocusCallback(refetch)
 
   const collegeList = data?.data || []
   const allData = useMemo(() => {
@@ -82,10 +62,6 @@ const CollegeList: FC<CollegeListProps> = ({ route, navigation }) => {
     return [...resultList, ...extraData]
   }, [collegeList, data])
 
-  useEffect(() => {
-    if (isFocused) refetch()
-  }, [isFocused, refetch])
-
   // Auto scroll to user's rank position when data is loaded
   useEffect(() => {
     if (!isPending && data?.rankIndex !== undefined && flatListRef.current) {
@@ -105,7 +81,9 @@ const CollegeList: FC<CollegeListProps> = ({ route, navigation }) => {
         title='Predicted College List'
         Right={
           data?.editAllowed ? (
-            <PencilEdit01Icon height={24} width={24} color={colorScheme === 'dark' ? colors.white : colors.black} />
+            <Press onPress={() => navigation.navigate('Counselling')}>
+              <PencilEdit01Icon height={24} width={24} color={colorScheme === 'dark' ? colors.white : colors.black} />
+            </Press>
           ) : null
         }
       />
@@ -118,7 +96,6 @@ const CollegeList: FC<CollegeListProps> = ({ route, navigation }) => {
             className='bg-screen flex-1'
             data={allData}
             onScrollToIndexFailed={(info) => {
-              console.log('Scroll to index failed:', info)
               setTimeout(() => {
                 if (flatListRef.current && data?.rankIndex !== undefined) {
                   flatListRef.current.scrollToOffset({

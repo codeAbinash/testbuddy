@@ -1,9 +1,12 @@
 import { postApi } from '..'
 
-type StartRes = {
+export type StartRes = {
   loggedIn: boolean
   jeeCounsellingData: boolean
-  premiumSubscription: PremiumSubscription
+  premiumSubscription: {
+    isPremium: boolean
+    package: string
+  }
   appVersions: AppVersions
   userDetails: UserDetails
   latestNotifications: LatestNotification[]
@@ -22,11 +25,6 @@ type LatestNotification = {
   body: string
   redirectTo: string
   createdAt: Date
-}
-
-type PremiumSubscription = {
-  isPremium: boolean
-  package: string
 }
 
 type UserDetails = {

@@ -12,7 +12,7 @@ import { useColorScheme } from 'nativewind'
 import { useEffect } from 'react'
 import { Platform, View } from 'react-native'
 
-// todo: Add locations and device information to the start api, also get the premium status from the api 
+// todo: Add locations and device information to the start api, also get the premium status from the api
 export default function Splash({ navigation }: NavProps) {
   const { token } = authStore()
   const { colorScheme } = useColorScheme()
@@ -54,7 +54,6 @@ export default function Splash({ navigation }: NavProps) {
     navigation.replace('HomeDrawer')
   }, [startData, navigation])
 
-  // Set profile data
   useEffect(() => {
     if (!startData) return
     queryClient.setQueryData(['profile'], startData.userDetails)
