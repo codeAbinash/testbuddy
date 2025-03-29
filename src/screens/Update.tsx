@@ -22,7 +22,6 @@ type UpdateProps = {
 }
 
 export default function Update({ route }: UpdateProps) {
-  // const { critical, message, latestVersion, updateRequired, versionCode: vCode } = route.params
   const { latestVersion } = route.params
   return (
     <>
@@ -38,7 +37,7 @@ export default function Update({ route }: UpdateProps) {
             continue using the application.
           </Medium>
         </View>
-        <View className='pb-2'>
+        <View className='pb-2 w-full'>
           <Medium className='text pb-2 text-center text-xs opacity-80'>
             from v{versionName} to v{latestVersion}
           </Medium>
@@ -49,8 +48,3 @@ export default function Update({ route }: UpdateProps) {
     </>
   )
 }
-
-/* <Medium className='mt-2 text-center text-zinc-900 opacity-70 dark:text-zinc-100' style={{ fontSize: 13 }}>
-  The installed version is {versionName}({versionCode}) and the latest version is {latestVersion}({vCode}).
-  Please update the application.
-</Medium> */
