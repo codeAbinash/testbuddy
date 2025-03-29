@@ -76,14 +76,11 @@ const CollegeList: FC<CollegeListProps> = ({ route, navigation }) => {
     if (nextCollege) nextCollege.position = 'next'
     if (prevCollege) prevCollege.position = 'previous'
 
-    if (data?.subscribed) {
-      const extraData = data.subscribed
-        ? []
-        : Array.from({ length: 5 }, () => ({ ...collegeList[0], isBlur: true }) as College)
-      return [...resultList, ...extraData]
-    }
-    return resultList
-  }, [collegeList, data?.subscribed, data?.rankIndex, data?.userDetails])
+    const extraData = data?.subscribed
+      ? []
+      : Array.from({ length: 5 }, () => ({ ...collegeList[0], isBlur: true }) as College)
+    return [...resultList, ...extraData]
+  }, [collegeList, data])
 
   useEffect(() => {
     if (isFocused) refetch()
@@ -138,7 +135,7 @@ const CollegeList: FC<CollegeListProps> = ({ route, navigation }) => {
                 isBlur={item.isBlur}
                 navigation={navigation}
                 index={index}
-                isPremium={data?.subscribed}
+                subscribed={data?.subscribed}
                 position={item.position}
               />
             )}
@@ -162,7 +159,7 @@ type CollegeProps = {
   item: College
   index: number
   scheme: ColorScheme
-  isPremium?: boolean
+  subscribed?: boolean
   isBlur?: boolean
   navigation?: StackNav
   position: College['position']
@@ -181,11 +178,11 @@ function getColorClassName(position: College['position']) {
   }
 }
 
-const College: FC<CollegeProps> = ({ item, scheme, isBlur, navigation, index, isPremium, position }) => {
+const College: FC<CollegeProps> = ({ item, scheme, isBlur, navigation, index, subscribed, position }) => {
   const alert = popupStore((state) => state.alert)
   return (
     <View>
-      {!isPremium && index === 5 && <UpgradeToPremium onPress={() => navigation?.navigate('CounsellingPremium')} />}
+      {!subscribed && index === 6 && <UpgradeToPremium onPress={() => navigation?.navigate('CounsellingPremium')} />}
       <TouchableOpacity
         className={`relative items-center justify-center border ${getColorClassName(item.position)} p-4 py-3`}
         style={{
