@@ -41,5 +41,9 @@
   "[jsonc]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "editor.defaultFormatter": "biomejs.biome"
+  "editor.defaultFormatter": "biomejs.biome",
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "react-native-reanimated/lib/typescript/*",
+    "react-native-svg"
+  ]
 }

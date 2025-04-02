@@ -1,8 +1,7 @@
+import images from '@assets/images/images'
 import { SemiBold } from '@utils/fonts'
-import { Image, TouchableOpacity, View, type ImageSourcePropType } from 'react-native'
+import { Image, type ImageSourcePropType, TouchableOpacity, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-
-const jeeAdv = require('../../../../assets/images/src/jee-adv.png') as ImageSourcePropType
 
 export default function ExploreExams() {
   return (
@@ -11,14 +10,14 @@ export default function ExploreExams() {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className='flex-row gap-3.5 p-5 pt-4'>
           {new Array(10).fill(0).map((_, i) => (
-            <ExamElement key={i} image={jeeAdv} text='JEE Advanced' />
+            <ExamElement key={i} image={images.jeeAdv} text='JEE Advanced' />
           ))}
         </View>
       </ScrollView>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View className='flex-row gap-3.5 p-5 pt-4'>
           {new Array(10).fill(0).map((_, i) => (
-            <ExamElement key={i} image={jeeAdv} text='JEE Advanced' />
+            <ExamElement key={i} image={images.jeeAdv} text='JEE Advanced' />
           ))}
         </View>
       </ScrollView>

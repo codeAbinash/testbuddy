@@ -1,8 +1,7 @@
+import images from '@assets/images/images'
 import { Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import { Image, TouchableOpacity, View, type ImageSourcePropType, type TouchableOpacityProps } from 'react-native'
-
-const jeeAdv = require('../../../../assets/images/src/jee-adv.png') as ImageSourcePropType
 
 export default function ExploreTests({ navigation }: { navigation: StackNav }) {
   return (
@@ -10,18 +9,18 @@ export default function ExploreTests({ navigation }: { navigation: StackNav }) {
       <SemiBold className='text px-5 text-lg'>Explore Tests</SemiBold>
       <View className='mt-4 flex-row gap-3 px-5'>
         <TestElement
-          image={jeeAdv}
+          image={images.jeeAdv}
           text='Test Series'
           description='12 Test Papers | 3 Chapters'
           onPress={() => navigation.navigate('Tests')}
         />
-        <TestElement image={jeeAdv} text='Mock Test' description='5 Mock Tests Available' />
-        <TestElement image={jeeAdv} text='Chapter wise PYQs' description='All Chapters Covered' />
+        <TestElement image={images.jeeAdv} text='Mock Test' description='5 Mock Tests Available' />
+        <TestElement image={images.jeeAdv} text='Chapter wise PYQs' description='All Chapters Covered' />
       </View>
       <View className='mt-4 flex-row gap-3 px-5'>
-        <TestElement image={jeeAdv} text='Subject wise question' description='Variety of Questions Available' />
-        <TestElement image={jeeAdv} text='Blogs' description='Latest Articles and Updates' />
-        <TestElement image={jeeAdv} text='PYQs' description='Previous Year Questions' />
+        <TestElement image={images.jeeAdv} text='Subject wise question' description='Variety of Questions Available' />
+        <TestElement image={images.jeeAdv} text='Blogs' description='Latest Articles and Updates' />
+        <TestElement image={images.jeeAdv} text='PYQs' description='Previous Year Questions' />
       </View>
     </View>
   )

@@ -87,3 +87,5 @@ export { default as CheckmarkSquare01Icon } from '@icons/checkmark-square-01-sol
 
 export { default as FemaleSymbolStrokeRoundedIcon } from '@icons/female-symbol-stroke-rounded.svg'
 export { default as MaleSymbolStrokeRoundedIcon } from '@icons/male-symbol-stroke-rounded.svg'
+export { default as Idea01Icon } from '@icons/idea-01-solid-rounded.svg'
+export { default as Time02Icon } from '@icons/time-02-solid-rounded.svg'

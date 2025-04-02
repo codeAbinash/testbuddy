@@ -24,3 +24,8 @@ export const termsAndConditionsUrl = 'https://testbuddy.live/terms'
 
 export const citySearchAPIToken = 'R0p4ZEB4Q8I5ljgzuTYPTDPCNL36mWZK7Kf9NkOZkJuj4wH6LeajXKAWHD8dBaWCXKM'
 export const userEmail = 'codeAbinash2@gmail.com'
+
+
+// Images
+export const defaultSubjectImage = 'https://cdn-icons-png.flaticon.com/512/4720/4720458.png'
+export const defaultChapterImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz0ybhMLXR1Gc1n8LdzbK7tkQGuYbnd6ea3A&s'

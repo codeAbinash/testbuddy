@@ -22,6 +22,7 @@ import { TouchableOpacity, View, type ColorSchemeName } from 'react-native'
 import colors from 'tailwindcss/colors'
 import HomeProfile from './HomeProfile/HomeProfile'
 import HomeScreen from './HomeScreen/HomeScreen'
+import Learn from './Learn/Learn'
 
 const Tab = createBottomTabNavigator()
 
@@ -115,7 +116,7 @@ const screens = [
     label: 'Learn',
     focusedIcon: BookOpen01Icon,
     defaultIcon: BookOpen01StrokeRoundedIcon,
-    screen: UnderConstruction,
+    screen: Learn,
   },
   {
     name: 'Tests',
