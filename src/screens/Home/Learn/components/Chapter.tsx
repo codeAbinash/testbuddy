@@ -16,10 +16,10 @@ const Chapter: FC<ChapterProps> = ({ chapter }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      className='items-center gap-1.5 p-3 w-[31%] border rounded-xl border-zinc-500/40'
+      className='items-center gap-1.5 p-3 w-[31%] border rounded-xl border-zinc-500/40 justify-center'
     >
       <Image source={{ uri: defaultChapterImage }} className='size-12' />
-      <Medium className='text-center text-xs' numberOfLines={2}>
+      <Medium className='text-center text text-xs' numberOfLines={2}>
         {chapter.chapter}
       </Medium>
       <Medium className='text opacity-70' style={{ lineHeight: 17, fontSize: 10 }}>

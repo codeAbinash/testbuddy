@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Image, View } from 'react-native'
 
 import { defaultChapterImage } from '@/constants'
-import { Medium } from '@utils/fonts'
+import { SemiBold } from '@utils/fonts'
 
 import { ChaptersCategory } from '../api/chaptersList'
 import Chapter from './Chapter'
@@ -21,7 +21,7 @@ const Categories: FC<CategoriesProps> = ({ categories }) => {
               {/*TODO(abinash): remove hardcoded image */}
               {/* <Image source={{ uri: category.icon }} className='w-8 h-8' /> */}
               <Image source={{ uri: defaultChapterImage }} className='size-6' />
-              <Medium key={category.icon}>{category.category}</Medium>
+              <SemiBold className='text text-lg' key={category.icon}>{category.category}</SemiBold>
             </View>
             <View className='flex-row flex-wrap gap-2.5 px-5'>
               {chapters.map((chapter) => (
