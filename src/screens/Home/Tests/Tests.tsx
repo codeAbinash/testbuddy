@@ -1,5 +1,5 @@
 import { useRefreshByUser } from '@/hooks/useRefreshByUser'
-import { ArrowRight01StrokeStandardIcon } from '@assets/icons/icons'
+import { ArrowRight01StrokeStandardIcon, BookEditIcon } from '@assets/icons/icons'
 import { LoadingFullScreen } from '@components/Loading'
 import NoData from '@components/NoData'
 import { PaddingBottom } from '@components/SafePadding'
@@ -121,8 +121,6 @@ function TestItem({ scheme, navigation, ...t }: TestProps) {
             borderLeftWidth: 0,
             borderBottomWidth: 0,
           }}
-          contentContainerClassName=''
-          ListFooterComponent={<PaddingBottom />}
         />
       )}
     </>
@@ -145,7 +143,7 @@ function Program({ scheme, navigation, program }: ProgramProps) {
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={navigateToTest}
-      className='h-100 flex-row items-center justify-between gap-6 bg-zinc-50 px-5 py-3 pl-9 dark:bg-zinc-900'
+      className='h-100 flex-row items-center justify-between gap-6 bg-zinc-50 px-5 py-3 dark:bg-zinc-900'
       style={{
         borderWidth: 1,
         borderTopWidth: 0,
@@ -154,7 +152,7 @@ function Program({ scheme, navigation, program }: ProgramProps) {
         borderColor: scheme === 'dark' ? colors.zinc[800] : colors.zinc[200],
       }}
     >
-      {/* <Image source={{ uri: image }} style={{ height: 30, width: 30 }} /> */}
+      <BookEditIcon height={22} width={22} color={scheme === 'dark' ? colors.zinc[300] : colors.zinc[700]} />
       <View className='flex-1'>
         <Medium className='text text-sm'>{program?.title}</Medium>
       </View>
