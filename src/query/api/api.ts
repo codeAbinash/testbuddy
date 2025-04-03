@@ -53,28 +53,6 @@ function homeScreen() {
   return postApi('page/home')
 }
 
-function notifications() {
-  type Notification = {
-    _id?: string
-    body?: string
-    createdAt?: Date
-    notificationType?: 'group' | 'general' | 'specific'
-    redirectTo?: string
-  }
-  return postApi<Notification[]>('notifications')
-}
-
-function notificationsPage() {
-  type Notification = {
-    _id?: string
-    body?: string
-    createdAt?: Date
-    notificationType?: 'group' | 'general' | 'specific'
-    redirectTo?: string
-  }
-  return postApi<Notification[]>('page/notifications')
-}
-
 function updateProfile(data: {
   name?: string
   gender?: string
@@ -306,8 +284,6 @@ const api = {
   updateProfilePic,
   sendEmailOtp,
   updateProfile,
-  notificationsPage,
-  notifications,
   verifyOtp,
   profile,
   homeScreen,

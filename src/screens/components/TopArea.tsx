@@ -3,6 +3,7 @@ import { FireIcon, Menu02Icon, Notification03Icon, Search01Icon } from '@assets/
 import Press from '@components/Press'
 import { PaddingTop } from '@components/SafePadding'
 import api from '@query/api/api'
+import { getNotifications } from '@query/api/notifications/getNotifications'
 import { useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
 import type { DrawerProps } from '@utils/types'
@@ -19,9 +20,9 @@ export default function TopArea({ navigation }: DrawerProps) {
     queryFn: api.profile,
   })
 
-  const notifications = useQuery({
+  const { data: notifications } = useQuery({
     queryKey: ['notifications'],
-    queryFn: api.notifications,
+    queryFn: getNotifications,
   })
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -68,7 +69,7 @@ export default function TopArea({ navigation }: DrawerProps) {
                 width={23}
                 color={colorScheme === 'dark' ? colors.zinc[300] : colors.zinc[700]}
               />
-              <NotificationCount count={notifications.data?.length || 0} />
+              <NotificationCount count={notifications?.data.length || 0} />
             </Press>
           </View>
         </View>

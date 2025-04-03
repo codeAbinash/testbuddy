@@ -7,7 +7,8 @@ import {
   Search01Icon,
 } from '@assets/icons/icons'
 import { PaddingBottom } from '@components/SafePadding'
-import api from '@query/api/api'
+import { getAllNotifications } from '@query/api/notifications/getAllNotifications'
+import { type Notification } from '@query/api/notifications/types'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { W } from '@utils/dimensions'
 import { Medium } from '@utils/fonts'
@@ -17,16 +18,16 @@ import colors from 'tailwindcss/colors'
 import { Lottie } from '../components/Lottie'
 import BackHeader from './components/BackHeader'
 
-type Notification = Awaited<ReturnType<typeof api.notifications>>[number]
-
 export default function Notifications() {
   const { colorScheme } = useColorScheme()
   const { isError, data, isPending, refetch } = useSuspenseQuery({
     queryKey: ['notificationsPage'],
-    queryFn: api.notificationsPage,
+    queryFn: getAllNotifications,
   })
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
+
+  const notifications = data.data || []
 
   if (isError || data.isAlert)
     return (
@@ -42,7 +43,7 @@ export default function Notifications() {
       />
     )
 
-  if (data.length === 0)
+  if (notifications.length === 0)
     return (
       <Screen
         size={W * 0.5}
@@ -72,7 +73,7 @@ export default function Notifications() {
           />
         }
       >
-        {data.map((noti) => (
+        {notifications.map((noti) => (
           <Notification key={noti._id} noti={noti} />
         ))}
         <PaddingBottom />

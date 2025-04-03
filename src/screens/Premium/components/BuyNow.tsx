@@ -16,7 +16,6 @@ import { StackNav } from '@utils/types'
 import couponStore from '../couponStore'
 import { razorpayPayment, removeGST } from '../utils'
 
-
 export type BuyNowProps = {
   selectedPackage: number
   selectedPricing: number

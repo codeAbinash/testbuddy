@@ -21,7 +21,9 @@ const Categories: FC<CategoriesProps> = ({ categories }) => {
               {/*TODO(abinash): remove hardcoded image */}
               {/* <Image source={{ uri: category.icon }} className='w-8 h-8' /> */}
               <Image source={{ uri: defaultChapterImage }} className='size-6' />
-              <SemiBold className='text text-lg' key={category.icon}>{category.category}</SemiBold>
+              <SemiBold className='text text-lg' key={category.icon}>
+                {category.category}
+              </SemiBold>
             </View>
             <View className='flex-row flex-wrap gap-2.5 px-5'>
               {chapters.map((chapter) => (
