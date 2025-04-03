@@ -1,3 +1,4 @@
+import { DeviceDetails } from '@utils/utils'
 import { postApi } from '..'
 
 export type StartRes = {
@@ -41,13 +42,7 @@ type UserDetails = {
   state: string
 }
 
-export type StartReq = {
-  lat?: string
-  lng?: string
-  deviceName?: string
-  macAddress?: string
-}
-
+export type StartReq = DeviceDetails
 export default function startApi(data?: StartReq) {
   return postApi<StartRes>('start', data)
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Alert, InteractionManager, Share } from 'react-native'
 import { FadeIn, LinearTransition } from 'react-native-reanimated'
 import { SCREEN_TRANSITION } from './constants'
+import DeviceInfo from 'react-native-device-info'
 
 export type TimeFormat = '12h' | '24h'
 
@@ -217,3 +218,15 @@ export function nFormatter(num: number) {
 export const layout = LinearTransition.duration(150)
 export const layout50 = LinearTransition.duration(50)
 export const layout100 = LinearTransition.duration(100)
+
+export type DeviceDetails = {
+  deviceName?: string
+  macAddress?: string
+}
+
+export function getDeviceInformation(): DeviceDetails {
+  return {
+    deviceName: DeviceInfo.getManufacturerSync() + ' ' + DeviceInfo.getModel() + ' ' + DeviceInfo.getUniqueIdSync(),
+    macAddress: DeviceInfo.getMacAddressSync(),
+  }
+}
