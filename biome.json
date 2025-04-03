@@ -15,7 +15,7 @@
     "lineWidth": 120,
     "attributePosition": "auto",
     "bracketSpacing": true,
-    "ignore": ["src/assets/animations/json"]
+    "ignore": ["src/assets/animations/json", "src/android"]
   },
   "organizeImports": { "enabled": true },
   "linter": {
