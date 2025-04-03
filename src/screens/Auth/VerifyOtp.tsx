@@ -17,6 +17,7 @@ import { StyleSheet, ToastAndroid, View } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
 import colors from 'tailwindcss/colors'
 import { normalizePhoneNumber } from './utils'
+import DeviceInfo from 'react-native-device-info'
 
 type ParamList = {
   VerifyOtp: OtpParamList
@@ -67,7 +68,12 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
   const verifyOtp = (userOtp: string) => {
     if (!userOtp) return alert('OTP is required', 'Please enter the OTP sent to your mobile number.')
     if (userOtp.length !== 4) return alert('Invalid OTP', 'Please enter a valid OTP. It should be 4 digits long.')
-    mutate({ mobile: normalizePhoneNumber(mobile), otp: userOtp })
+    mutate({
+      mobile: normalizePhoneNumber(mobile),
+      otp: userOtp,
+      deviceName: DeviceInfo.getDeviceNameSync(),
+      macAddress: DeviceInfo.getMacAddressSync(),
+    })
   }
 
   function handleResend() {

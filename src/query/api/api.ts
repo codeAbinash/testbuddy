@@ -3,6 +3,7 @@ import timeStore from '@screens/Test/zustand/timeStore'
 import type { Stream } from '@utils/types'
 import { getApi, postApi } from '..'
 import { versionName } from '../../constants'
+import { StartReq } from './start'
 
 export type checkForUpdatesT = {
   updateRequired?: boolean
@@ -12,7 +13,7 @@ export type checkForUpdatesT = {
   message?: string
 }
 
-function verifyOtp(d: { mobile: string; otp: string }) {
+function verifyOtp(d: { mobile: string; otp: string } & StartReq) {
   type VerifyOtpT = {
     verified?: boolean
     newUser?: boolean

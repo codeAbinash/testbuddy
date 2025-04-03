@@ -41,7 +41,7 @@ type UserDetails = {
   state: string
 }
 
-type StartReq = {
+export type StartReq = {
   lat?: string
   lng?: string
   deviceName?: string
