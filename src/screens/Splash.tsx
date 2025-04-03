@@ -5,12 +5,13 @@ import AppIcon from '@assets/icon.svg'
 import AppIconLight from '@assets/icon_light.svg'
 import startApi from '@query/api/start'
 import { queryClient } from '@query/query'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { SemiBold } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { useEffect } from 'react'
 import { Platform, View } from 'react-native'
+import DeviceInfo from 'react-native-device-info'
 
 // todo: Add locations and device information to the start api, also get the premium status from the api
 export default function Splash({ navigation }: NavProps) {
@@ -18,10 +19,18 @@ export default function Splash({ navigation }: NavProps) {
   const { colorScheme } = useColorScheme()
   const setNavigation = navigationStore((state) => state.setNavigation)
 
-  const { data: startData } = useQuery({
-    queryKey: ['start'],
-    queryFn: () => startApi(),
+  const { data: startData, mutate } = useMutation({
+    mutationKey: ['start'],
+    mutationFn: startApi,
   })
+
+  useEffect(() => {
+    const deviceDetails = {
+      deviceName: DeviceInfo.getModel(),
+      macAddress: DeviceInfo.getMacAddressSync(),
+    }
+    mutate(deviceDetails)
+  }, [mutate])
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {

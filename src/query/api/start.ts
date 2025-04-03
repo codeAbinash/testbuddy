@@ -42,10 +42,10 @@ type UserDetails = {
 }
 
 type StartReq = {
-  lat: string
-  lng: string
-  deviceName: string
-  macAddress: string
+  lat?: string
+  lng?: string
+  deviceName?: string
+  macAddress?: string
 }
 
 export default function startApi(data?: StartReq) {
