@@ -1,13 +1,13 @@
 import { FC, useState } from 'react'
-import { StatusBar, View } from 'react-native'
+import { View } from 'react-native'
 
 import { RouteProp } from '@react-navigation/native'
 import { useQuery } from '@tanstack/react-query'
 import { ScrollView } from 'react-native-gesture-handler'
 
 import { LoadingFullScreen } from '@components/Loading'
-import { AppBar } from '@components/TopBar'
 import { premiumInformation } from '@query/api/premium/premiumInformation'
+import BackHeader from '@screens/components/BackHeader'
 import { Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import BuyNow from './components/BuyNow'
@@ -46,13 +46,11 @@ const Premium: FC<PremiumProps> = ({ route }) => {
 
   return (
     <>
-      <StatusBar barStyle='default' />
+      <BackHeader title='Choose a package' />
       <View className='flex-1 justify-between bg-white dark:bg-zinc-950'>
-        <AppBar />
         {isLoading && <LoadingFullScreen />}
         {!isLoading && (
-          <ScrollView className='flex-1 p-5 pt-0' contentContainerClassName='pb-10'>
-            <SemiBold className='text text-center text-lg'>Choose a package</SemiBold>
+          <ScrollView className='flex-1 p-5 pt-0 bg-screen' contentContainerClassName='pb-10'>
             <View className='mt-5 items-center justify-center gap-8'>
               {packages?.map((item, index) => (
                 <PackageSelector

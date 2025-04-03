@@ -188,7 +188,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='TestList' component={TestList} />
         <Stack.Screen name='AttemptedTests' component={AttemptedTests} />
         <Stack.Screen name='HomeProfile' component={HomeProfile} />
-        <Stack.Screen name='Premium' component={Premium} options={IOS_BOTTOM_STYLE} />
+        <Stack.Screen name='Premium' component={Premium} />
         <Stack.Screen name='Blog' component={Blog} />
         <Stack.Screen name='Blogs' component={Blogs} />
         <Stack.Screen name='BookmarkedBlogs' component={BookmarkedBlogs} />
