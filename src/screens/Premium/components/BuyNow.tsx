@@ -14,7 +14,8 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { Medium, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 import couponStore from '../couponStore'
-import { razorpayPayment } from '../utils'
+import { razorpayPayment, removeGST } from '../utils'
+
 
 export type BuyNowProps = {
   selectedPackage: number
@@ -31,12 +32,11 @@ function calculateFinalPrice(price: number, couponDiscount: number, gst: number)
 const BuyNow: FC<BuyNowProps> = ({ selectedPackage, selectedPricing, packages, coupons }) => {
   const navigation = useNavigation<StackNav>()
   const alert = popupStore((store) => store.alert)
-
   const selectedPackageData = packages[selectedPackage]
   const selectedPricingData = selectedPackageData?.pricings?.[selectedPricing]
   const { selectedCoupon } = couponStore()
 
-  const price = selectedPricingData?.price ?? 0
+  const price = removeGST(selectedPricingData?.price ?? 0)
   const couponDiscount = parseFloat(selectedPackageData?.coupons?.[selectedCoupon]?.discount ?? '0')
   const gst = selectedPackageData?.gst ?? 0
   const finalAmount = calculateFinalPrice(price, couponDiscount, gst)

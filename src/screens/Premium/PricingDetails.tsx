@@ -10,6 +10,7 @@ import { Coupon, Package } from '@query/api/premium/premiumInformation'
 import { Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import couponStore from './couponStore'
+import { removeGST } from './utils'
 
 type ParamList = {
   PricingDetails: PricingDetailsParamList
@@ -35,7 +36,7 @@ const PricingDetails: FC<PricingDetailsProps> = ({ route, navigation }) => {
   const coupon = coupons[selectedCoupon]
 
   const pricing = packageData?.pricings?.[selectedPricing]
-  const originalPrice = pricing?.price ?? 0
+  const originalPrice = removeGST(pricing?.price ?? 0)
   const couponDiscount = parseFloat(coupon?.discount ?? '0')
   const gst = packageData?.gst ?? 0
 

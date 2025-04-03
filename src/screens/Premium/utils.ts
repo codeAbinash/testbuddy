@@ -50,3 +50,8 @@ export async function razorpayPayment(data: OrderDetails): Promise<PaymentRespon
     }
   }
 }
+
+export function removeGST(price: number, gstRate = 18) {
+  const gstPrice = (price * gstRate) / (100 + gstRate);
+  return price - gstPrice;
+}
