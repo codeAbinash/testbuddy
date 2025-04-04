@@ -6,17 +6,15 @@ import { TouchableOpacity, View } from 'react-native'
 import type { SvgProps } from 'react-native-svg'
 import colors from 'tailwindcss/colors'
 
-export default function ListItem({
-  icon,
-  title,
-  subtitle,
-  onPress,
-}: {
+type ListItemProps = {
   icon: React.ReactNode
   title: string
   subtitle?: string
   onPress?: () => void
-}) {
+  RightComponent?: React.ReactNode
+}
+
+export default function ListItem({ icon, title, subtitle, onPress, RightComponent }: ListItemProps) {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -32,7 +30,7 @@ export default function ListItem({
       </View>
       <View className='flex-shrink flex-grow flex-row items-center justify-end'>
         {subtitle && <Medium className='text text-xs opacity-70'>{subtitle}</Medium>}
-        <ArrowRight01StrokeRoundedIcon height={18} width={18} color={colors.zinc[600]} />
+        {RightComponent || <ArrowRight01StrokeRoundedIcon height={18} width={18} color={colors.zinc[600]} />}
       </View>
     </TouchableOpacity>
   )

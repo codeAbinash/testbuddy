@@ -47,16 +47,18 @@ import {
   youtubeUrl,
 } from '@/constants'
 import popupStore from '@/zustand/popupStore'
+import { Toggle } from '@components/Toggle'
 import api from '@query/api/api'
 import type { DrawerContentComponentProps } from '@react-navigation/drawer'
 import { useNavigation } from '@react-navigation/native'
 import { logout } from '@screens/Auth/utils'
 import { useQuery } from '@tanstack/react-query'
 import { Bold, Medium } from '@utils/fonts'
+import { ls } from '@utils/storage'
 import { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { useMemo } from 'react'
-import { Linking, View } from 'react-native'
+import { useEffect, useMemo, useState } from 'react'
+import { Linking, TouchableOpacity, View } from 'react-native'
 import { SocialIcon } from '../../components/SocialIcon'
 import ListItem, { ListIcon } from './ListItem'
 import SmallProfile from './SmallProfile'
@@ -77,7 +79,7 @@ export default function Sidebar({ navigation }: { navigation: DrawerContentCompo
       <Tests colorScheme={colorScheme} />
       <MyProgress colorScheme={colorScheme} />
       <Rewards colorScheme={colorScheme} navigation={navigation} />
-      <Settings colorScheme={colorScheme} />
+      <Settings />
       <AboutUs colorScheme={colorScheme} />
       <End colorScheme={colorScheme} />
     </View>
@@ -175,12 +177,51 @@ function Rewards({ colorScheme: s, navigation }: RewardProps) {
   )
 }
 
-function Settings({ colorScheme: s }: { colorScheme: ColorScheme }) {
+type colorScheme = 'light' | 'dark' | 'system'
+
+type ThemeChangerProps = {
+  s: colorScheme
+  onPress: () => void
+}
+function ThemeChanger({ s, onPress }: ThemeChangerProps) {
+  return (
+    <TouchableOpacity onPress={onPress} className='h-8 flex-row items-center justify-center'>
+      {s === 'system' ? (
+        <Medium className='text text-sm opacity-70'>System</Medium>
+      ) : (
+        <Toggle isActive={s === 'dark'} />
+      )}
+    </TouchableOpacity>
+  )
+}
+
+function Settings() {
+  const { colorScheme } = useColorScheme()
+  const [s, setS] = useState<colorScheme>('system')
+  const { setColorScheme } = useColorScheme()
+  const onPress = () => {
+    const newScheme = s === 'light' ? 'dark' : s === 'dark' ? 'system' : 'light'
+    setS(newScheme)
+    ls.set('colorScheme', newScheme)
+    setTimeout(() => setColorScheme(newScheme))
+  }
+
+  useEffect(() => {
+    const storedScheme = ls.getString('colorScheme') as colorScheme | undefined
+    setS(storedScheme || 'system')
+    setColorScheme(storedScheme || 'system')
+  }, [setColorScheme])
+
   return (
     <View className='gap-0'>
       <Bold className='text mt-5 pb-2 text-lg'>Settings</Bold>
-      <ListItem icon={<ListIcon Icon={Sun03Icon} scheme={s} />} title='App Theme' />
-      <ListItem icon={<ListIcon Icon={Settings03Icon} scheme={s} />} title='Settings' />
+      <ListItem
+        icon={<ListIcon Icon={Sun03Icon} scheme={colorScheme} />}
+        title={`App Theme: (${colorScheme})`}
+        onPress={onPress}
+        RightComponent={<ThemeChanger s={s} onPress={onPress} />}
+      />
+      <ListItem icon={<ListIcon Icon={Settings03Icon} scheme={colorScheme} />} title='Settings' />
     </View>
   )
 }
