@@ -1,12 +1,12 @@
+import { emailUrl } from '@/constants'
 import Animations from '@assets/animations/animations'
 import { Lottie } from '@components/Lottie'
-import { Bold, Medium } from '@utils/fonts'
-import type { StackNav } from '@utils/types'
-import { View } from 'react-native'
-import { Button } from './Button'
 import { W } from '@utils/dimensions'
+import { Bold, Medium } from '@utils/fonts'
+import { Linking, View } from 'react-native'
+import { Button } from './Button'
 
-export default function ContactSection({ navigation }: { navigation: StackNav }) {
+export default function ContactSection() {
   return (
     <View className='flex-row items-center justify-between px-5'>
       <View className='flex-1'>
@@ -24,7 +24,7 @@ export default function ContactSection({ navigation }: { navigation: StackNav })
           Have a question? Reach out—we're here to help!
         </Medium>
         <View className='flex-row'>
-          <Button title='Write to us' onPress={() => navigation.navigate('Refer')} className='bg-violet-500' />
+          <Button title='Write to us' onPress={() => Linking.openURL(emailUrl)} className='bg-violet-500' />
         </View>
       </View>
     </View>

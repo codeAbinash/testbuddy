@@ -74,7 +74,7 @@ export default function HomeScreen({ navigation }: NavProps) {
         <ExploreTests navigation={navigation} />
         <ReferSection navigation={navigation} />
         <FormulaSection navigation={navigation} />
-        <ContactSection navigation={navigation} />
+        <ContactSection />
         <Counselling navigation={navigation} />
         <SocialIcons />
       </ScrollView>
