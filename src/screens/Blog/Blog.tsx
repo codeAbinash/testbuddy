@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
-import { View, type TouchableOpacityProps } from 'react-native'
+import { FC, useEffect, useMemo, useState } from 'react'
+import { ToastAndroid, type TouchableOpacityProps, View } from 'react-native'
 
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useColorScheme } from 'nativewind'
 import WebView from 'react-native-webview'
 import colors from 'tailwindcss/colors'
@@ -22,6 +22,7 @@ import type { StackNav } from '@utils/types'
 
 import Header from './components/Header'
 import { wrapHtmlBlog } from './utils/wrapHtmlBlog'
+import { bookmarkBlog } from './api/bookmarkBlog'
 
 export type BlogParamList = {
   id: string
@@ -91,9 +92,12 @@ export default function Blog({ navigation, route }: BlogProps) {
               <ButtonSecondary>
                 <Share01StrokeRoundedIcon color={secondaryIcon} height={18} width={18} />
               </ButtonSecondary>
-              <ButtonSecondary>
-                <AllBookmarkStrokeRoundedIcon color={secondaryIcon} height={18} width={18} />
-              </ButtonSecondary>
+              <BookmarkButton
+                blogId={id}
+                colorPrimary={primaryIcon}
+                colorSecondary={secondaryIcon}
+                isBookmarked={true}
+              />
             </View>
             <SmallBtn className='flex-1' variant='secondary' style={{ flex: 1 }} title='Attempt Test' />
             <View className='flex-row gap-2'>
@@ -112,14 +116,49 @@ export default function Blog({ navigation, route }: BlogProps) {
   )
 }
 
+type BookmarkButtonProps = {
+  blogId: string
+  colorPrimary: string
+  colorSecondary: string
+  isBookmarked?: boolean
+}
+const BookmarkButton: FC<BookmarkButtonProps> = ({ colorPrimary, colorSecondary, isBookmarked, blogId }) => {
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['bookmarkBlog', blogId, isBookmarked],
+    mutationFn: bookmarkBlog,
+    onSuccess: () => {
+      ToastAndroid.show('Bookmark added successfully', ToastAndroid.SHORT)
+    },
+  })
+
+  function onClick() {
+    // TODO(abinash): Implement add and remove bookmark logic
+    mutate({ action: isBookmarked ? 'remove' : 'add', blogId })
+  }
+
+  if (isBookmarked) {
+    return (
+      <ButtonPrimary disabled={isPending} onPress={onClick}>
+        <AllBookmarkStrokeRoundedIcon color={colorPrimary} height={18} width={18} />
+      </ButtonPrimary>
+    )
+  }
+  return (
+    <ButtonSecondary disabled={isPending} onPress={onClick}>
+      <AllBookmarkStrokeRoundedIcon color={colorSecondary} height={18} width={18} />
+    </ButtonSecondary>
+  )
+}
+
 type ButtonPrimaryProps = TouchableOpacityProps & {}
-function ButtonPrimary({ children }: ButtonPrimaryProps) {
+function ButtonPrimary({ children, ...props }: ButtonPrimaryProps) {
   return (
     <Press
       className='items-center justify-center rounded-xl bg-accent dark:bg-zinc-100'
       style={{ height: 40, width: 40 }}
       activeOpacity={0.8}
       activeScale={0.9}
+      {...props}
     >
       {children}
     </Press>
