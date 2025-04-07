@@ -19,42 +19,38 @@ export default function Press({
   activeOpacity = 0.8,
   activeScale = 0.98,
   duration = 100,
+  disabled = false,
   ...props
 }: CustomPressProps) {
   const scale = useSharedValue(1)
   const opacity = useSharedValue(1)
   const pan = Gesture.Pan()
     .onBegin(() => {
+      if (disabled) return
       scale.value = withTiming(activeScale, { duration })
       opacity.value = withTiming(activeOpacity, { duration })
     })
     .onEnd(() => {
+      if (disabled) return
       scale.value = withTiming(1, { duration })
       opacity.value = withTiming(1, { duration })
     })
     .onFinalize(() => {
+      if (disabled) return
       scale.value = withTiming(1, { duration })
       opacity.value = withTiming(1, { duration })
     })
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [{ scale: scale.value }],
-      opacity: opacity.value,
+      transform: [{ scale: disabled ? 1 : scale.value }],
+      opacity: disabled ? 0.7 : opacity.value,
     }
   })
 
-  if (props.disabled) {
-    return (
-      <Pressable style={style} disabled {...props} className='opacity-40'>
-        {children}
-      </Pressable>
-    )
-  }
-
   return (
     <GestureDetector gesture={pan}>
-      <AnimatedPressable style={[animatedStyles, style]} {...props}>
+      <AnimatedPressable style={[animatedStyles, style]} disabled={disabled} {...props}>
         {children}
       </AnimatedPressable>
     </GestureDetector>

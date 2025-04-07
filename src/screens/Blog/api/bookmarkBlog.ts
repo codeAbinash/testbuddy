@@ -2,7 +2,7 @@ import { postApi } from '@query/index'
 
 type BookmarkBlogReq = {
   blogId: string
-  action: 'add' | 'remove'
+  bookmark: boolean
 }
 
 export function bookmarkBlog(data: BookmarkBlogReq) {

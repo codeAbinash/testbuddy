@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo, useState } from 'react'
-import { ToastAndroid, type TouchableOpacityProps, View } from 'react-native'
+import { ToastAndroid, View } from 'react-native'
 
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useColorScheme } from 'nativewind'
@@ -14,15 +14,14 @@ import {
 } from '@assets/icons/icons'
 import { SmallBtn } from '@components/Button'
 import { Loading } from '@components/Loading'
-import Press from '@components/Press'
 import { PaddingBottom } from '@components/SafePadding'
 import api from '@query/api/api'
 import { type RouteProp } from '@react-navigation/native'
-import type { StackNav } from '@utils/types'
 
+import { IconButton } from '../../components/IconButton'
+import { bookmarkBlog } from './api/bookmarkBlog'
 import Header from './components/Header'
 import { wrapHtmlBlog } from './utils/wrapHtmlBlog'
-import { bookmarkBlog } from './api/bookmarkBlog'
 
 export type BlogParamList = {
   id: string
@@ -34,10 +33,9 @@ type ParamList = {
 
 type BlogProps = {
   route: RouteProp<ParamList, 'Blog'>
-  navigation: StackNav
 }
 
-export default function Blog({ navigation, route }: BlogProps) {
+export default function Blog({ route }: BlogProps) {
   const id = route.params.id
   const { colorScheme } = useColorScheme()
   const [isAnimationComplete, setIsAnimationComplete] = useState(false)
@@ -45,9 +43,10 @@ export default function Blog({ navigation, route }: BlogProps) {
   const secondaryIcon = colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]
   const primaryIcon = colorScheme === 'dark' ? colors.zinc[800] : colors.zinc[200]
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['blog', id],
     queryFn: () => api.blog(id),
+    staleTime: 0,
   })
 
   const wrappedHtml = useMemo(
@@ -64,14 +63,7 @@ export default function Blog({ navigation, route }: BlogProps) {
 
   return (
     <>
-      <Header
-        title={data?.title || 'Loading...'}
-        readTime={data?.readTime || 'Calculating read time...'}
-        tags={data?.tags || []}
-        html={data?.blogContent || ''}
-        navigation={navigation}
-        id={id}
-      />
+      <Header data={data} refetch={refetch} />
       <View className='bg-screen flex-1 justify-between'>
         {data && isAnimationComplete ? (
           <View className='flex-1'>
@@ -89,24 +81,25 @@ export default function Blog({ navigation, route }: BlogProps) {
         <View>
           <View className='flex-row justify-between gap-2.5 px-4 pb-1 pt-2.5'>
             <View className='flex-row gap-2'>
-              <ButtonSecondary>
+              <IconButton variant='secondary'>
                 <Share01StrokeRoundedIcon color={secondaryIcon} height={18} width={18} />
-              </ButtonSecondary>
+              </IconButton>
               <BookmarkButton
                 blogId={id}
                 colorPrimary={primaryIcon}
                 colorSecondary={secondaryIcon}
-                isBookmarked={true}
+                isBookmarked={data?.isBookmark}
+                refetch={refetch}
               />
             </View>
             <SmallBtn className='flex-1' variant='secondary' style={{ flex: 1 }} title='Attempt Test' />
             <View className='flex-row gap-2'>
-              <ButtonPrimary>
+              <IconButton variant='primary'>
                 <ArrowLeft01StrokeRoundedIcon color={primaryIcon} height={25} width={25} style={{ marginRight: 2 }} />
-              </ButtonPrimary>
-              <ButtonPrimary>
+              </IconButton>
+              <IconButton variant='primary'>
                 <ArrowRight01StrokeRoundedIcon color={primaryIcon} height={25} width={25} style={{ marginLeft: 2 }} />
-              </ButtonPrimary>
+              </IconButton>
             </View>
           </View>
           <PaddingBottom />
@@ -121,60 +114,36 @@ type BookmarkButtonProps = {
   colorPrimary: string
   colorSecondary: string
   isBookmarked?: boolean
+  refetch: () => void
 }
+
 const BookmarkButton: FC<BookmarkButtonProps> = ({ colorPrimary, colorSecondary, isBookmarked, blogId }) => {
-  const { mutate, isPending } = useMutation({
+  const [optimisticBookmarked, setOptimisticBookmarked] = useState(isBookmarked)
+
+  useEffect(() => {
+    setOptimisticBookmarked(isBookmarked)
+  }, [isBookmarked])
+
+  const { mutate } = useMutation({
     mutationKey: ['bookmarkBlog', blogId, isBookmarked],
     mutationFn: bookmarkBlog,
     onSuccess: () => {
-      ToastAndroid.show('Bookmark added successfully', ToastAndroid.SHORT)
+      ToastAndroid.show(isBookmarked ? 'Removed from bookmarks' : 'Added to bookmarks', ToastAndroid.SHORT)
     },
   })
 
   function onClick() {
-    // TODO(abinash): Implement add and remove bookmark logic
-    mutate({ action: isBookmarked ? 'remove' : 'add', blogId })
+    setOptimisticBookmarked(!optimisticBookmarked)
+    mutate({ bookmark: !optimisticBookmarked, blogId })
   }
 
-  if (isBookmarked) {
-    return (
-      <ButtonPrimary disabled={isPending} onPress={onClick}>
-        <AllBookmarkStrokeRoundedIcon color={colorPrimary} height={18} width={18} />
-      </ButtonPrimary>
-    )
-  }
   return (
-    <ButtonSecondary disabled={isPending} onPress={onClick}>
-      <AllBookmarkStrokeRoundedIcon color={colorSecondary} height={18} width={18} />
-    </ButtonSecondary>
-  )
-}
-
-type ButtonPrimaryProps = TouchableOpacityProps & {}
-function ButtonPrimary({ children, ...props }: ButtonPrimaryProps) {
-  return (
-    <Press
-      className='items-center justify-center rounded-xl bg-accent dark:bg-zinc-100'
-      style={{ height: 40, width: 40 }}
-      activeOpacity={0.8}
-      activeScale={0.9}
-      {...props}
-    >
-      {children}
-    </Press>
-  )
-}
-
-type ButtonSecondaryProps = TouchableOpacityProps & {}
-function ButtonSecondary({ children }: ButtonSecondaryProps) {
-  return (
-    <Press
-      className='items-center justify-center rounded-xl border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900'
-      style={{ height: 40, width: 40 }}
-      activeOpacity={0.8}
-      activeScale={0.9}
-    >
-      {children}
-    </Press>
+    <IconButton variant={optimisticBookmarked ? 'primary' : 'secondary'} onPress={onClick}>
+      <AllBookmarkStrokeRoundedIcon
+        color={optimisticBookmarked ? colorPrimary : colorSecondary}
+        height={18}
+        width={18}
+      />
+    </IconButton>
   )
 }

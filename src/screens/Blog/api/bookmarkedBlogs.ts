@@ -1,6 +1,6 @@
 import { postApi } from '@query/index'
 
-export interface BookmarkedBlogs {
+export type BookmarkedBlogsRes = {
   _id: string
   blogType: string
   title: string
@@ -13,5 +13,5 @@ export interface BookmarkedBlogs {
 }
 
 export function bookmarkedBlogs() {
-  return postApi<BookmarkedBlogs[]>('bookmarks/blogs')
+  return postApi<BookmarkedBlogsRes[]>('bookmarks/blogs')
 }

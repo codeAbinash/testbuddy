@@ -10,14 +10,20 @@ type ThumbsIconProps = {
   isLiked: boolean
   colorScheme: ColorScheme
   likeCount: number
+  onPress?: () => void
 }
 
 const iconSize = 20
 
-export default function ThumbsIcon({ isLiked, colorScheme, likeCount = 0 }: ThumbsIconProps) {
+export default function ThumbsIcon({ isLiked, colorScheme, likeCount = 0, ...props }: ThumbsIconProps) {
   const color = colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]
   return (
-    <Press className='flex-row items-center justify-center pb-3.5 pl-2 pr-4 pt-2' style={{ gap: 5 }} activeScale={0.93}>
+    <Press
+      className='flex-row items-center justify-center pb-3.5 pl-2 pr-4 pt-2'
+      style={{ gap: 5 }}
+      activeScale={0.93}
+      {...props}
+    >
       {isLiked ? (
         <ThumbsUpIcon width={iconSize} height={iconSize} color={color} />
       ) : (

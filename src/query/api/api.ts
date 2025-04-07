@@ -229,7 +229,7 @@ function testList(programId: string) {
   return postApi<TestList[]>('tests/details', { programId })
 }
 
-type Blog = {
+export type Blog = {
   organization: {
     sameAs: any[]
   }
@@ -248,7 +248,8 @@ type Blog = {
     _id: string
     name: string
   }
-
+  isBookmark: boolean
+  isLike: boolean
   relatedBlogs: any[]
   status: string
   createdAt: Date

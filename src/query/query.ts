@@ -25,7 +25,7 @@ const onAppStateChange = (status: AppStateStatus) => {
 // }, [])
 
 // Refetch on Screen Focus
-export function useRefreshOnFocus<T>(refetch: () => Promise<T>) {
+export function useRefetchOnFocus<T>(refetch: () => Promise<T>) {
   const firstTimeRef = React.useRef(true)
   useFocusEffect(
     React.useCallback(() => {
