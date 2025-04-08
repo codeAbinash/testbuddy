@@ -11,14 +11,14 @@ type RadioProps = {
   options?: ('Yes' | 'No')[]
 }
 
-const Radio: FC<RadioProps> = ({ value, onChange, options }) => {
+const Radio: FC<RadioProps> = ({ value, onChange, disabled, options }) => {
   return (
-    <View className='mt-3 flex-row gap-2'>
+    <View className='mt-3 flex-row gap-2' style={{ opacity: disabled ? 0.6 : 1 }}>
       {options?.map((option, index) => (
         <Press
           key={index}
           className={`${value === option ? 'bg-zinc-900 dark:bg-zinc-100' : 'bg-zinc-200 dark:bg-zinc-800'} rounded-full p-2.5 px-9`}
-          onPress={() => onChange?.(option)}
+          onPress={() => !disabled && onChange?.(option)}
         >
           <SemiBold
             className={`${value === option ? 'text-zinc-100 dark:text-zinc-900' : 'text-zinc-700 dark:text-zinc-300'} text-sm`}

@@ -80,11 +80,16 @@ const CollegeList: FC<NavProps> = ({ navigation }) => {
       <BackHeader
         title='Predicted College List'
         Right={
-          data?.editAllowed ? (
-            <Press onPress={() => navigation.navigate('Counselling')}>
-              <PencilEdit01Icon height={24} width={24} color={colorScheme === 'dark' ? colors.white : colors.black} />
-            </Press>
-          ) : null
+          <Press
+            onPress={() =>
+              navigation.navigate('Counselling', {
+                editAllowed: data?.editAllowed || false,
+                subscribed: data?.subscribed || false,
+              })
+            }
+          >
+            <PencilEdit01Icon height={24} width={24} color={colorScheme === 'dark' ? colors.white : colors.black} />
+          </Press>
         }
       />
       {isPending ? (

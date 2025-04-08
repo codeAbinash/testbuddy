@@ -24,7 +24,11 @@ export const Counselling: FC<CounsellingProps> = ({ navigation }) => {
 
   function handlePress() {
     if (data?.jeeCounsellingData) navigation.navigate('CollegeList')
-    else navigation.navigate('Counselling')
+    else
+      navigation.navigate('Counselling', {
+        editAllowed: false,
+        subscribed: false,
+      })
   }
 
   return (

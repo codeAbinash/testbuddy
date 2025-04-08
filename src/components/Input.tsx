@@ -14,7 +14,7 @@ export default function Input({ Left, Right, style, ...rest }: InputProps) {
     <View className='group'>
       <View
         className='w-full flex-row items-center gap-2 border border-zinc-200 bg-zinc-100 px-4 dark:border-zinc-800 dark:bg-zinc-900'
-        style={{ borderRadius: 14.5 }}
+        style={{ borderRadius: 14.5, opacity : rest.editable ? 1 : 0.6 }}
       >
         {Left}
         <TextInput

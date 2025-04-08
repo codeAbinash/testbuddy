@@ -12,16 +12,19 @@ type CheckBoxProps = {
   onChange?: (value: boolean) => void
   children?: React.ReactNode
   className?: string
+  disabled?: boolean
 }
 
-const CheckBox: FC<CheckBoxProps> = ({ label, checked, onChange, children, className }) => {
+const CheckBox: FC<CheckBoxProps> = ({ label, checked, onChange, children, className, disabled }) => {
   const { colorScheme } = useColorScheme()
 
   return (
     <TouchableOpacity
-      onPress={() => onChange?.(!checked)}
+      onPress={() => !disabled && onChange?.(!checked)}
       activeOpacity={0.7}
       className={`flex-row items-center gap-3 ${className}`}
+      style={{ opacity: disabled ? 0.6 : 1 }}
+      disabled={disabled}
     >
       <CheckmarkSquare01Icon
         height={22}

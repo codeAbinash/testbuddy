@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { StatusBar, View } from 'react-native'
+import { Linking, StatusBar, View } from 'react-native'
 
 import { useColorScheme } from 'nativewind'
 
@@ -16,14 +16,32 @@ import { AppBar } from '@components/TopBar'
 import { useMutation } from '@tanstack/react-query'
 import { H } from '@utils/dimensions'
 import { Medium, SemiBold } from '@utils/fonts'
-import { NavProps } from '@utils/types'
+import { StackNav } from '@utils/types'
 
+import { RouteProp } from '@react-navigation/native'
 import { counsellingProfileUpdate } from './api/counsellingProfileUpdate'
 import { categories, genders, states } from './utils'
 
-const Counselling: FC<NavProps> = ({ navigation }) => {
+type ParamList = {
+  Counselling: CounsellingParamList
+}
+
+export type CounsellingParamList = {
+  editAllowed: boolean
+  subscribed: boolean
+}
+
+type CounsellingProps = {
+  route: RouteProp<ParamList, 'Counselling'>
+  navigation: StackNav
+}
+
+const Counselling: FC<CounsellingProps> = ({ navigation, route }) => {
   const { routes, index } = navigation.getState()
   const previousRouteName = routes?.[index - 1]?.name
+
+  const { editAllowed, subscribed } = route.params
+  const isNotEditable = subscribed === true && editAllowed === false
 
   const [isAdvanced, setIsAdvanced] = useState(false)
 
@@ -93,6 +111,7 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
                 keyboardType='numeric'
                 value={mainRank}
                 onChangeText={setMainRank}
+                editable={!isNotEditable}
               />
             </View>
             <View>
@@ -106,6 +125,7 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
                 onChange={(item) => setCategory(item.value)}
                 colorScheme={colorScheme}
                 maxHeight={H}
+                disable={isNotEditable}
               />
             </View>
             {category !== 'OPEN' && (
@@ -116,6 +136,7 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
                   keyboardType='numeric'
                   value={mainCategoryRank}
                   onChangeText={setMainCategoryRank}
+                  editable={!isNotEditable}
                 />
               </View>
             )}
@@ -124,6 +145,7 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
               className='mb-1 mt-1'
               checked={isAdvanced}
               onChange={setIsAdvanced}
+              disabled={isNotEditable}
             />
             {isAdvanced && (
               <>
@@ -134,6 +156,7 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
                     keyboardType='numeric'
                     value={advanceCLRRank}
                     onChangeText={setAdvanceCLRRank}
+                    editable={!isNotEditable}
                   />
                 </View>
                 {category !== 'OPEN' && (
@@ -144,6 +167,7 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
                       keyboardType='numeric'
                       value={advanceCategoryRank}
                       onChangeText={setAdvanceCategoryRank}
+                      editable={!isNotEditable}
                     />
                   </View>
                 )}
@@ -160,6 +184,7 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
                 onChange={(item) => setHomeState(item.value)}
                 colorScheme={colorScheme}
                 maxHeight={H}
+                disable={isNotEditable}
               />
             </View>
             <View>
@@ -173,17 +198,33 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
                 onChange={(item) => setGender(item.value)}
                 colorScheme={colorScheme}
                 maxHeight={H}
+                disable={isNotEditable}
               />
             </View>
             <View>
               <Medium className='text text-sm'>Are you from PWD category?</Medium>
-              <Radio options={['Yes', 'No']} value={pwd} onChange={setPwd} />
+              <Radio options={['Yes', 'No']} value={pwd} onChange={setPwd} disabled={isNotEditable} />
             </View>
+            {subscribed === true && editAllowed === true && (
+              <Medium className='text-orange-500 text-center text-sm mt-7'>
+                Counselling data can be updated only 1 time
+              </Medium>
+            )}
+
+            {isNotEditable && (
+              <Medium className='text-orange-500 text-center text-sm mt-7'>
+                Contact to admin to edit your counselling data{' '}
+                <Medium className='text-blue-500' onPress={() => Linking.openURL('mailto:contact@testbuddy.live')}>
+                  contact@testbuddy.live
+                </Medium>
+              </Medium>
+            )}
+
             <Btn
               title={isPending ? 'Predicting College...' : 'Predict College'}
-              className='mt-5'
+              className='mt-1'
               onPress={handlePredictCollege}
-              disabled={isPending}
+              disabled={isPending || isNotEditable}
             />
           </View>
         </View>

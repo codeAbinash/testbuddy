@@ -28,7 +28,7 @@ import Blogs from '@screens/Blog/Blogs'
 import BookmarkedBlogs from '@screens/Blog/BookmarkedBlogs'
 import OnThisPage, { OnThisPageParamList } from '@screens/Blog/OnThisPage'
 import CollegeList from '@screens/Counselling/CollegeList'
-import Counselling from '@screens/Counselling/Counselling'
+import Counselling, { CounsellingParamList } from '@screens/Counselling/Counselling'
 import CounsellingPremium from '@screens/Counselling/CounsellingPremium'
 import Example from '@screens/Example'
 import Home from '@screens/Home/Home'
@@ -206,7 +206,7 @@ function Navigation(): React.JSX.Element {
 export type RootStackParamList = {
   CounsellingPremium: undefined
   CollegeList: undefined
-  Counselling: undefined
+  Counselling: CounsellingParamList
   VerifyPayment: VerifyPaymentParamList
   PricingDetails: PricingDetailsParamList
   OnThisPage: OnThisPageParamList

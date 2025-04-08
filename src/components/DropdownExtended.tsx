@@ -27,7 +27,7 @@ export default function DropdownExtended<T extends DropdownData>({ colorScheme, 
   const bottom = useSafeAreaInsets().bottom
   return (
     <View
-      style={{ borderRadius: 14.5 }}
+      style={{ borderRadius: 14.5, opacity: rest.disable ? 0.6 : 1 }}
       className='w-full flex-row items-center gap-3 border border-zinc-200 bg-zinc-100 px-4 dark:border-zinc-800 dark:bg-zinc-900'
     >
       {Left}
