@@ -19,7 +19,7 @@ import { Medium, SemiBold } from '@utils/fonts'
 import { NavProps } from '@utils/types'
 
 import { counsellingProfileUpdate } from './api/counsellingProfileUpdate'
-import { categories, genders, quotas, states } from './utils'
+import { categories, genders, states } from './utils'
 
 const Counselling: FC<NavProps> = ({ navigation }) => {
   const { routes, index } = navigation.getState()
@@ -35,7 +35,6 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
 
   const [homeState, setHomeState] = useState<string>(__DEV__ ? 'Maharashtra' : '')
   const [category, setCategory] = useState<string>(__DEV__ ? 'OPEN' : '')
-  const [quota, setQuota] = useState<string>(__DEV__ ? 'AI' : '')
   const [pwd, setPwd] = useState<'Yes' | 'No'>('No')
   const [gender, setGender] = useState<string>(__DEV__ ? 'Male' : '')
 
@@ -62,7 +61,6 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
     }
     if (!homeState) return alert('Missing Home State', 'Please select your home state')
     if (!category) return alert('Missing Category', 'Please select your category')
-    if (!quota) return alert('Missing Quota', 'Please select your quota')
 
     if (!pwd) return alert('Missing PWD', 'Please select if you are from PWD category')
 
@@ -98,14 +96,29 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
               />
             </View>
             <View>
-              <Label text='JEE Main Category Rank' />
-              <Input
-                placeholder='JEE Main Category Rank'
-                keyboardType='numeric'
-                value={mainCategoryRank}
-                onChangeText={setMainCategoryRank}
+              <Label text='Select Category' />
+              <DropdownExtended
+                placeholder='Select Category'
+                data={categories}
+                labelField='label'
+                valueField='value'
+                value={category}
+                onChange={(item) => setCategory(item.value)}
+                colorScheme={colorScheme}
+                maxHeight={H}
               />
             </View>
+            {category !== 'OPEN' && (
+              <View>
+                <Label text='JEE Main Category Rank' />
+                <Input
+                  placeholder='JEE Main Category Rank'
+                  keyboardType='numeric'
+                  value={mainCategoryRank}
+                  onChangeText={setMainCategoryRank}
+                />
+              </View>
+            )}
             <CheckBox
               label='Do you have JEE Advanced Rank?'
               className='mb-1 mt-1'
@@ -123,15 +136,17 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
                     onChangeText={setAdvanceCLRRank}
                   />
                 </View>
-                <View>
-                  <Label text='JEE Advanced Category Rank' />
-                  <Input
-                    placeholder='JEE Advanced Category Rank'
-                    keyboardType='numeric'
-                    value={advanceCategoryRank}
-                    onChangeText={setAdvanceCategoryRank}
-                  />
-                </View>
+                {category !== 'OPEN' && (
+                  <View>
+                    <Label text='JEE Advanced Category Rank' />
+                    <Input
+                      placeholder='JEE Advanced Category Rank'
+                      keyboardType='numeric'
+                      value={advanceCategoryRank}
+                      onChangeText={setAdvanceCategoryRank}
+                    />
+                  </View>
+                )}
               </>
             )}
             <View>
@@ -143,32 +158,6 @@ const Counselling: FC<NavProps> = ({ navigation }) => {
                 valueField='value'
                 value={homeState}
                 onChange={(item) => setHomeState(item.value)}
-                colorScheme={colorScheme}
-                maxHeight={H}
-              />
-            </View>
-            <View>
-              <Label text='Select Category' />
-              <DropdownExtended
-                placeholder='Select Category'
-                data={categories}
-                labelField='label'
-                valueField='value'
-                value={category}
-                onChange={(item) => setCategory(item.value)}
-                colorScheme={colorScheme}
-                maxHeight={H}
-              />
-            </View>
-            <View>
-              <Label text='Select Quota' />
-              <DropdownExtended
-                placeholder='Select Quota'
-                data={quotas}
-                labelField='label'
-                valueField='value'
-                value={quota}
-                onChange={(item) => setQuota(item.value)}
                 colorScheme={colorScheme}
                 maxHeight={H}
               />

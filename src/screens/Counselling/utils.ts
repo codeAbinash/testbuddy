@@ -45,15 +45,6 @@ export const categories: DropdownData[] = [
   { label: 'ST', value: 'ST' },
 ]
 
-export const quotas: DropdownData[] = [
-  { label: 'AI', value: 'AI' },
-  { label: 'GO', value: 'GO' },
-  { label: 'HS', value: 'HS' },
-  { label: 'JK', value: 'JK' },
-  { label: 'LA', value: 'LA' },
-  { label: 'OS', value: 'OS' },
-]
-
 export const genders: DropdownData[] = [
   { label: 'Male', value: 'Male' },
   { label: 'Female', value: 'Female' },
