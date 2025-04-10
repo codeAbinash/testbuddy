@@ -10,6 +10,7 @@ import {
   InformationCircleStrokeRoundedIcon,
   MaleSymbolStrokeRoundedIcon,
   PencilEdit01Icon,
+  SchoolStrokeRoundedIcon,
 } from '@assets/icons/icons'
 import { LoadingFullScreen } from '@components/Loading'
 import { Lottie } from '@components/Lottie'
@@ -67,7 +68,7 @@ const CollegeList: FC<NavProps> = ({ navigation }) => {
     if (!isPending && data?.rankIndex !== undefined && flatListRef.current) {
       setTimeout(() => {
         flatListRef.current?.scrollToIndex({
-          index: Math.max(data.rankIndex - 2, 0),
+          index: Math.max(data.rankIndex - 5, 0),
           animated: true,
           viewPosition: 0,
         })
@@ -104,7 +105,7 @@ const CollegeList: FC<NavProps> = ({ navigation }) => {
               setTimeout(() => {
                 if (flatListRef.current && data?.rankIndex !== undefined) {
                   flatListRef.current.scrollToOffset({
-                    offset: info.averageItemLength * (data.rankIndex - 2),
+                    offset: info.averageItemLength * (data.rankIndex - 5),
                     animated: true,
                   })
                 }
@@ -147,7 +148,7 @@ type CollegeProps = {
   position: College['position']
 }
 
-function getColorClassName(position: College['position']) {
+function getColorClassName(position: College['position'], index: number) {
   switch (position) {
     case 'self':
       return 'bg-blue-500/20'
@@ -156,7 +157,7 @@ function getColorClassName(position: College['position']) {
     case 'previous':
       return 'bg-green-500/20'
     default:
-      return 'bg-white dark:bg-black'
+      return index % 2 === 0 ? 'bg-white dark:bg-black' : 'bg-zinc-100 dark:bg-zinc-900'
   }
 }
 
@@ -166,7 +167,7 @@ const College: FC<CollegeProps> = ({ item, scheme, isBlur, navigation, index, su
     <View>
       {!subscribed && index === 6 && <UpgradeToPremium onPress={() => navigation?.navigate('CounsellingPremium')} />}
       <TouchableOpacity
-        className={`relative items-center justify-center border ${getColorClassName(item.position)} p-4 py-3`}
+        className={`relative items-center justify-center border ${getColorClassName(item.position, index)} p-4 py-3`}
         style={{
           borderTopWidth: 0,
           borderLeftWidth: 0,
@@ -179,11 +180,16 @@ const College: FC<CollegeProps> = ({ item, scheme, isBlur, navigation, index, su
       >
         <View className='w-full'>
           <View className='flex-row justify-between'>
-            <View className='flex-1' style={{ filter: isBlur ? 'blur(3px)' : 'none' }}>
-              <SemiBold className='text text-sm'>{item.instituteName}</SemiBold>
-              <Medium className='text text-xs opacity-70' numberOfLines={1}>
-                {item.academicProgramName}
-              </Medium>
+            <View className='flex-1 gap-2' style={{ filter: isBlur ? 'blur(3px)' : 'none' }}>
+              <View className='flex-row items-center gap-2'>
+                <SchoolStrokeRoundedIcon
+                  height={22}
+                  width={22}
+                  color={scheme === 'dark' ? colors.zinc[300] : colors.zinc[700]}
+                />
+                <SemiBold className='text text-sm'>{item.instituteName}</SemiBold>
+              </View>
+              <Medium className='text text-xs opacity-70'>{item.academicProgramName}</Medium>
             </View>
             {
               <TouchableOpacity
