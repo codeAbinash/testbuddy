@@ -21,6 +21,7 @@ import { StackNav } from '@utils/types'
 import { RouteProp } from '@react-navigation/native'
 import { counsellingProfileUpdate } from './api/counsellingProfileUpdate'
 import { categories, genders, states } from './utils'
+import BackHeader from '@screens/components/BackHeader'
 
 type ParamList = {
   Counselling: CounsellingParamList
@@ -97,140 +98,141 @@ const Counselling: FC<CounsellingProps> = ({ navigation, route }) => {
   }
 
   return (
-    <View className='flex-1 bg-screen dark:bg-zinc-950'>
-      <StatusBar barStyle='default' />
-      <AppBar />
-      <KeyboardAvoid>
-        <SemiBold className='text text-center text-sm mt-2'>Enter your JEE Rank and other details</SemiBold>
-        <View className='flex-1 px-5 pb-4'>
-          <View className='mt-3 gap-3'>
-            <View>
-              <Label text='JEE Main CRL Rank' />
-              <Input
-                placeholder='JEE Main CRL Rank'
-                keyboardType='numeric'
-                value={mainRank}
-                onChangeText={setMainRank}
-                editable={!isNotEditable}
-              />
-            </View>
-            <View>
-              <Label text='Select Category' />
-              <DropdownExtended
-                placeholder='Select Category'
-                data={categories}
-                labelField='label'
-                valueField='value'
-                value={category}
-                onChange={(item) => setCategory(item.value)}
-                colorScheme={colorScheme}
-                maxHeight={H}
-                disable={isNotEditable}
-              />
-            </View>
-            {category !== 'OPEN' && (
+    <>
+      <BackHeader title='Counselling' />
+      <View className='flex-1 bg-screen'>
+        <KeyboardAvoid>
+          <SemiBold className='text text-center text-xs mt-3.5'>Enter your JEE Rank and other details</SemiBold>
+          <View className='flex-1 px-5 pb-4'>
+            <View className='mt-3 gap-3'>
               <View>
-                <Label text='JEE Main Category Rank' />
+                <Label text='JEE Main CRL Rank' />
                 <Input
-                  placeholder='JEE Main Category Rank'
+                  placeholder='JEE Main CRL Rank'
                   keyboardType='numeric'
-                  value={mainCategoryRank}
-                  onChangeText={setMainCategoryRank}
+                  value={mainRank}
+                  onChangeText={setMainRank}
                   editable={!isNotEditable}
                 />
               </View>
-            )}
-            <CheckBox
-              label='Do you have JEE Advanced Rank?'
-              className='mb-1 mt-1'
-              checked={isAdvanced}
-              onChange={setIsAdvanced}
-              disabled={isNotEditable}
-            />
-            {isAdvanced && (
-              <>
+              <View>
+                <Label text='Select Category' />
+                <DropdownExtended
+                  placeholder='Select Category'
+                  data={categories}
+                  labelField='label'
+                  valueField='value'
+                  value={category}
+                  onChange={(item) => setCategory(item.value)}
+                  colorScheme={colorScheme}
+                  maxHeight={H}
+                  disable={isNotEditable}
+                />
+              </View>
+              {category !== 'OPEN' && (
                 <View>
-                  <Label text='JEE Advanced CRL Rank' />
+                  <Label text='JEE Main Category Rank' />
                   <Input
-                    placeholder='JEE Advanced CRL Rank'
+                    placeholder='JEE Main Category Rank'
                     keyboardType='numeric'
-                    value={advanceCLRRank}
-                    onChangeText={setAdvanceCLRRank}
+                    value={mainCategoryRank}
+                    onChangeText={setMainCategoryRank}
                     editable={!isNotEditable}
                   />
                 </View>
-                {category !== 'OPEN' && (
+              )}
+              <CheckBox
+                label='Do you have JEE Advanced Rank?'
+                className='mb-1 mt-1'
+                checked={isAdvanced}
+                onChange={setIsAdvanced}
+                disabled={isNotEditable}
+              />
+              {isAdvanced && (
+                <>
                   <View>
-                    <Label text='JEE Advanced Category Rank' />
+                    <Label text='JEE Advanced CRL Rank' />
                     <Input
-                      placeholder='JEE Advanced Category Rank'
+                      placeholder='JEE Advanced CRL Rank'
                       keyboardType='numeric'
-                      value={advanceCategoryRank}
-                      onChangeText={setAdvanceCategoryRank}
+                      value={advanceCLRRank}
+                      onChangeText={setAdvanceCLRRank}
                       editable={!isNotEditable}
                     />
                   </View>
-                )}
-              </>
-            )}
-            <View>
-              <Label text='Your home state' />
-              <DropdownExtended
-                placeholder='Select your home state'
-                data={states}
-                labelField='label'
-                valueField='value'
-                value={homeState}
-                onChange={(item) => setHomeState(item.value)}
-                colorScheme={colorScheme}
-                maxHeight={H}
-                disable={isNotEditable}
-              />
-            </View>
-            <View>
-              <Label text='Gender' />
-              <DropdownExtended
-                placeholder='Select Gender'
-                data={genders}
-                labelField='label'
-                valueField='value'
-                value={gender}
-                onChange={(item) => setGender(item.value)}
-                colorScheme={colorScheme}
-                maxHeight={H}
-                disable={isNotEditable}
-              />
-            </View>
-            <View>
-              <Medium className='text text-sm'>Are you from PWD category?</Medium>
-              <Radio options={['Yes', 'No']} value={pwd} onChange={setPwd} disabled={isNotEditable} />
-            </View>
-            {subscribed === true && editAllowed === true && (
-              <Medium className='text-orange-500 text-center text-sm mt-7'>
-                Counselling data can be updated only 1 time
-              </Medium>
-            )}
-
-            {isNotEditable && (
-              <Medium className='text-orange-500 text-center text-sm mt-7'>
-                Contact to admin to edit your counselling data{' '}
-                <Medium className='text-blue-500' onPress={() => Linking.openURL('mailto:contact@testbuddy.live')}>
-                  contact@testbuddy.live
+                  {category !== 'OPEN' && (
+                    <View>
+                      <Label text='JEE Advanced Category Rank' />
+                      <Input
+                        placeholder='JEE Advanced Category Rank'
+                        keyboardType='numeric'
+                        value={advanceCategoryRank}
+                        onChangeText={setAdvanceCategoryRank}
+                        editable={!isNotEditable}
+                      />
+                    </View>
+                  )}
+                </>
+              )}
+              <View>
+                <Label text='Your home state' />
+                <DropdownExtended
+                  placeholder='Select your home state'
+                  data={states}
+                  labelField='label'
+                  valueField='value'
+                  value={homeState}
+                  onChange={(item) => setHomeState(item.value)}
+                  colorScheme={colorScheme}
+                  maxHeight={H}
+                  disable={isNotEditable}
+                />
+              </View>
+              <View>
+                <Label text='Gender' />
+                <DropdownExtended
+                  placeholder='Select Gender'
+                  data={genders}
+                  labelField='label'
+                  valueField='value'
+                  value={gender}
+                  onChange={(item) => setGender(item.value)}
+                  colorScheme={colorScheme}
+                  maxHeight={H}
+                  disable={isNotEditable}
+                />
+              </View>
+              <View>
+                <Medium className='text text-sm'>Are you from PWD category?</Medium>
+                <Radio options={['Yes', 'No']} value={pwd} onChange={setPwd} disabled={isNotEditable} />
+              </View>
+              {subscribed === true && editAllowed === true && (
+                <Medium className='text-orange-500 text-center text-sm mt-7'>
+                  Counselling data can be updated only 1 time
                 </Medium>
-              </Medium>
-            )}
+              )}
 
-            <Btn
-              title={isPending ? 'Predicting College...' : 'Predict College'}
-              className='mt-1'
-              onPress={handlePredictCollege}
-              disabled={isPending || isNotEditable}
-            />
+              {isNotEditable && (
+                <Medium className='text-orange-500 text-center text-sm mt-7'>
+                  Contact to admin to edit your counselling data{' '}
+                  <Medium className='text-blue-500' onPress={() => Linking.openURL('mailto:contact@testbuddy.live')}>
+                    contact@testbuddy.live
+                  </Medium>
+                </Medium>
+              )}
+
+              <Btn
+                title={isPending ? 'Predicting College...' : 'Predict College'}
+                className='mt-1'
+                onPress={handlePredictCollege}
+                disabled={isPending || isNotEditable}
+              />
+            </View>
           </View>
-        </View>
-        <PaddingBottom />
-      </KeyboardAvoid>
-    </View>
+          <PaddingBottom />
+        </KeyboardAvoid>
+      </View>
+    </>
   )
 }
 

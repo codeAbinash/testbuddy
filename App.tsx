@@ -195,7 +195,7 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='OnThisPage' component={OnThisPage} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='PricingDetails' component={PricingDetails} options={IOS_BOTTOM_STYLE} />
         <Stack.Screen name='VerifyPayment' component={VerifyPayment} />
-        <Stack.Screen name='Counselling' component={Counselling} options={IOS_BOTTOM_STYLE} />
+        <Stack.Screen name='Counselling' component={Counselling} />
         <Stack.Screen name='CollegeList' component={CollegeList} />
         <Stack.Screen name='CounsellingPremium' component={CounsellingPremium} options={IOS_BOTTOM_STYLE} />
       </Stack.Navigator>

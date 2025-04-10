@@ -48,6 +48,7 @@ export const categories: DropdownData[] = [
 export const genders: DropdownData[] = [
   { label: 'Male', value: 'Male' },
   { label: 'Female', value: 'Female' },
+  { label: 'Other', value: 'Other' },
 ]
 
 export const SearchCollegeSchema = z.object({
