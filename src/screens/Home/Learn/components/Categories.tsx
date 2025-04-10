@@ -6,6 +6,8 @@ import { defaultChapterImage } from '@/constants'
 import { UnfoldLessStrokeRoundedIcon, UnfoldMoreStrokeRoundedIcon } from '@assets/icons/icons'
 import { SemiBold } from '@utils/fonts'
 import { layout } from '@utils/utils'
+import { colorScheme, useColorScheme } from 'nativewind'
+import colors from 'tailwindcss/colors'
 import { ChaptersCategory } from '../api/chaptersList'
 import Chapter from './Chapter'
 
@@ -44,11 +46,7 @@ const Categories: FC<CategoriesProps> = ({ categories }) => {
                   {category.category}
                 </SemiBold>
               </View>
-              {isCollapsed ? (
-                <UnfoldLessStrokeRoundedIcon width={20} height={20} />
-              ) : (
-                <UnfoldMoreStrokeRoundedIcon width={20} height={20} />
-              )}
+              <FoldUnfold fold={isCollapsed} />
             </TouchableOpacity>
 
             {!isCollapsed && (
@@ -63,6 +61,13 @@ const Categories: FC<CategoriesProps> = ({ categories }) => {
       })}
     </>
   )
+}
+
+function FoldUnfold({ fold }: { fold: boolean }) {
+  const { colorScheme } = useColorScheme()
+  const color = colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]
+  if (fold) return <UnfoldLessStrokeRoundedIcon width={20} height={20} color={color} />
+  return <UnfoldMoreStrokeRoundedIcon width={20} height={20} color={color} />
 }
 
 export default Categories
