@@ -91,3 +91,4 @@ export { default as Idea01Icon } from '@icons/idea-01-solid-rounded.svg'
 export { default as Time02Icon } from '@icons/time-02-solid-rounded.svg'
 
 export { default as SchoolStrokeRoundedIcon } from '@icons/school-stroke-rounded.svg'
+export { default as UnfoldMoreStrokeRoundedIcon } from '@icons/unfold-more-stroke-rounded.svg'

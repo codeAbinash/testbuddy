@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { Image, TouchableOpacity } from 'react-native'
 
 import colors from 'tailwindcss/colors'
@@ -39,4 +39,4 @@ const Chapter: FC<ChapterProps> = ({ chapter }) => {
   )
 }
 
-export default Chapter
+export default memo(Chapter)
