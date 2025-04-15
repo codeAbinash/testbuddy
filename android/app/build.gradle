@@ -107,6 +107,11 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        
+        // Add this for react-native-app-auth to work properly
+        manifestPlaceholders = [
+            appAuthRedirectScheme: "com.testbuddy"
+        ]
     }
     splits {
         abi {

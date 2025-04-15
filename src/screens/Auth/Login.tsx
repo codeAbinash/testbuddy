@@ -13,11 +13,13 @@ import { W } from '@utils/dimensions'
 import { Bold, Medium, SemiBold } from '@utils/fonts'
 import type { NavProps } from '@utils/types'
 import { useState } from 'react'
-import { View } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 import { normalizePhoneNumber } from './utils'
+import { handleGoogleLogin } from './googleLogin'
 
 export default function Login({ navigation }: NavProps) {
   const [mobile, setMobile] = useState('')
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false)
   const alert = popupStore((store) => store.alert)
 
   const { mutate, isPending } = useMutation({
@@ -34,6 +36,18 @@ export default function Login({ navigation }: NavProps) {
   const handlePress = () => {
     if (!mobile) return alert('Mobile number is required', 'Please enter your mobile number.')
     mutate({ mobile: normalizePhoneNumber(mobile) })
+  }
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setIsGoogleLoading(true)
+      await handleGoogleLogin()
+    } catch (error) {
+      console.error('Google sign-in error:', error)
+      alert('Login Failed', 'Could not log in with Google. Please try again later.')
+    } finally {
+      setIsGoogleLoading(false)
+    }
   }
 
   return (
@@ -71,11 +85,15 @@ export default function Login({ navigation }: NavProps) {
             <Medium className='text text-center text-xs opacity-80'>or</Medium>
             <View className='w-2/5 rounded-full bg-zinc-200 dark:bg-zinc-800' style={{ height: 1.5 }} />
           </View>
-          <BtnTransparent>
+          <BtnTransparent onPress={handleGoogleSignIn} disabled={isGoogleLoading}>
             <View className='flex-row items-center justify-center gap-5'>
-              <GoogleIcon height={22} width={22} />
+              {isGoogleLoading ? (
+                <ActivityIndicator size="small" color="#4285F4" />
+              ) : (
+                <GoogleIcon height={22} width={22} />
+              )}
               <Medium style={{ fontSize: 12.4 }} className='text-center text-xs text-zinc-900 dark:text-zinc-100'>
-                Continue with Google
+                {isGoogleLoading ? 'Signing in with Google...' : 'Continue with Google'}
               </Medium>
             </View>
           </BtnTransparent>

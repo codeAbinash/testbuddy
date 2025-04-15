@@ -276,6 +276,30 @@ function blog(id: string) {
   return getApi<Blog>(`blog/${id}`)
 }
 
+// Add Google authentication function
+type GoogleAuthResponse = {
+  token?: string
+  newUser?: boolean
+  email?: string
+  message?: string
+}
+function googleAuth(data: { code?: string; idToken?: string; accessToken?: string }) {
+  const obj = {
+    code: data.code,
+    accessToken: data.accessToken,
+    idToken: data.idToken,
+    redirectUri: 'com.testbuddy:/oauth2redirect/google',
+  }
+  console.log(obj)
+  // return postApi<GoogleAuthResponse>('auth/google', obj)
+  return new Promise<GoogleAuthResponse>((resolve, reject) => {
+    reject({
+      isAlert: true,
+      message: 'Demo',
+    })
+  })
+}
+
 const api = {
   blog,
   blogs,
@@ -289,6 +313,7 @@ const api = {
   verifyOtp,
   profile,
   homeScreen,
+  googleAuth,
   sendOtp: (d: { mobile: string }) =>
     postApi<{
       newUser?: boolean
