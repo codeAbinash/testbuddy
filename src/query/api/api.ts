@@ -179,6 +179,16 @@ function updateTest(data: UpdateTestT) {
   return postApi('test/update', data)
 }
 
+type ProgramListRes = {
+  message?: string
+  data?: ProgramList[]
+}
+
+type Program = {
+  _id?: string
+  title?: string
+}
+
 export type ProgramList = {
   examTitle?: string
   examName?: string
@@ -186,15 +196,24 @@ export type ProgramList = {
   programs?: Program[]
 }
 
-type Program = {
-  _id?: string
-  title?: string
-}
 function programList(data: { stream: 'engineering' | 'medical' }) {
-  return postApi<ProgramList[]>('tests', data)
+  return postApi<ProgramListRes>('tests', data)
 }
 
 function testList(programId: string) {
+  type TestListRes = {
+    message?: string
+    data: TestList[]
+    stats?: Stats
+  }
+
+  type Stats = {
+    totalQuestions: number
+    unlockedQuestions: number
+    solvedQuestions: number
+    unSolvedQuestions: number
+  }
+
   type TestList = {
     programId: string
     programTitle: string
@@ -226,7 +245,7 @@ function testList(programId: string) {
     status: 'inactive' | 'locked' | 'unlocked' | 'in-progress' | 'completed'
     totalTimeCompleted: number
   }
-  return postApi<TestList[]>('tests/details', { programId })
+  return postApi<TestListRes>('tests/details', { programId })
 }
 
 export type Blog = {

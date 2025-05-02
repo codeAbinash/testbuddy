@@ -29,7 +29,7 @@ type TestListProps = {
   navigation: StackNav
 }
 
-export type Test = Awaited<ReturnType<typeof api.testList>>[0]['tests'][0]
+export type Test = Awaited<ReturnType<typeof api.testList>>['data'][0]['tests'][number]
 
 export default function TestList({ navigation, route }: TestListProps) {
   const isFocused = useIsFocused()
@@ -46,8 +46,10 @@ export default function TestList({ navigation, route }: TestListProps) {
     if (isFocused) refetch()
   }, [isFocused, refetch])
 
-  const details = data?.[0]
-  const tests = data?.[0]?.tests
+  const details = data?.data?.[0]
+  const tests = data?.data?.[0]?.tests
+
+  console.log(data)
 
   return (
     <>
@@ -76,7 +78,7 @@ export default function TestList({ navigation, route }: TestListProps) {
           />
         }
         renderItem={({ item, index }) => <Test scheme={colorScheme} test={item} index={index} programId={programId} />}
-        ListEmptyComponent={<EmptyList isLoading={isLoading} data={data} />}
+        ListEmptyComponent={<EmptyList isLoading={isLoading} data={data as any} />}
         contentContainerStyle={{
           borderColor: colorScheme === 'dark' ? colors.zinc[900] : colors.zinc[100],
           borderTopWidth: 1,

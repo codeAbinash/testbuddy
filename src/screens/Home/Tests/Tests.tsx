@@ -3,7 +3,7 @@ import { ArrowRight01StrokeStandardIcon, BookEditIcon } from '@assets/icons/icon
 import { LoadingFullScreen } from '@components/Loading'
 import NoData from '@components/NoData'
 import { PaddingBottom } from '@components/SafePadding'
-import api, { ProgramList } from '@query/api/api'
+import api, { type ProgramList } from '@query/api/api'
 import TopArea from '@screens/components/TopArea'
 import { useQuery } from '@tanstack/react-query'
 import { Medium } from '@utils/fonts'
@@ -17,13 +17,19 @@ import colors from 'tailwindcss/colors'
 export default function Tests({ navigation }: NavProps) {
   const { colorScheme } = useColorScheme()
   const { data: profile } = useQuery({ queryKey: ['profile'], queryFn: api.profile })
-  const { data, refetch, isLoading } = useQuery({
+  const {
+    data: testData,
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ['tests', profile, profile?.stream],
     queryFn: () => api.programList({ stream: (profile?.stream?.toLowerCase() as Stream) || 'engineering' }),
     enabled: !!profile,
   })
 
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
+
+  const data = testData?.data || []
 
   return (
     <View>
