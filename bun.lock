@@ -25,6 +25,7 @@
         "react-native-linear-gradient": "^2.8.3",
         "react-native-mmkv": "^3.2.0",
         "react-native-otp-entry": "^1.8.4",
+        "react-native-otp-verify": "^1.1.8",
         "react-native-razorpay": "^2.3.0",
         "react-native-reanimated": "4.0.0-beta.2",
         "react-native-reanimated-carousel": "^3.5.1",
@@ -1584,6 +1585,8 @@
     "react-native-mmkv": ["react-native-mmkv@3.2.0", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-9y7K//1MaU46TFrXkyU0wT5VGk9Y2FDLFV6NPl+z3jTbm2G7SC1UIxneF6CfhSmBX5CfKze9SO7kwDuRx7flpQ=="],
 
     "react-native-otp-entry": ["react-native-otp-entry@1.8.4", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-7j7p/ZEz5QlS22DWYoFigbLqLDSwFbwTVlsl2QOuW6q9Jwai+y5C2GSdKZRkY7RAy0ZwG/ltkaciSdnoBNdcwQ=="],
+
+    "react-native-otp-verify": ["react-native-otp-verify@1.1.8", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-hlgNqVBhmsxh/LHJWEVrbku81GXMS0QDJiHLhQW96dr3awYYbrkVf7979zYqi5rSTEajUQzHShvMQwOc0gIlBA=="],
 
     "react-native-razorpay": ["react-native-razorpay@2.3.0", "", { "peerDependencies": { "react": ">=16.8.0", "react-native": ">=0.66.0" } }, "sha512-xxiZCPuZmiRq5UHDr+D4OoyxEjMu0ujC+RaE+rYo938EK0Vc21dZRUVxMVP1L2WgzA8PYwmD5FWvdHNtWLQC4Q=="],
 

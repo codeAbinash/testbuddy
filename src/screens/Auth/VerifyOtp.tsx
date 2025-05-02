@@ -12,9 +12,10 @@ import { W } from '@utils/dimensions'
 import { Bold, JosefinSansSemiBold, Medium, SemiBold } from '@utils/fonts'
 import type { StackNav } from '@utils/types'
 import { useColorScheme } from 'nativewind'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StyleSheet, ToastAndroid, View } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
+import { getHash, startOtpListener, removeListener } from 'react-native-otp-verify'
 import colors from 'tailwindcss/colors'
 import { normalizePhoneNumber } from './utils'
 import { getDeviceInformation } from '@utils/utils'
@@ -39,14 +40,40 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
   const { colorScheme } = useColorScheme()
   const alert = popupStore((store) => store.alert)
   const setToken = authStore((store) => store.setToken)
+
+  // Set up OTP auto-detection
+  useEffect(() => {
+    // Get the app hash for SMS Retriever API (Android only)
+    getHash().then(hash => {
+      console.log('SMS Retriever Hash:', hash);
+      // You might want to send this to your server for OTP SMS
+    }).catch(console.error);
+
+    // Start listening for incoming OTP SMS
+    startOtpListener(message => {
+      // Extract OTP code from the message using regex
+      // The format matches: <#> Your login OTP for TestBuddy is 3065. Do not share it with anyone.
+      const otpPattern = /Your login OTP for TestBuddy is (\d{4})/;
+      const match = message.match(otpPattern);
+      
+      if (match && match[1]) {
+        const otpCode = match[1];
+        console.log('OTP detected:', otpCode);
+        setOtp(otpCode);
+        // Auto verify after detection
+        verifyOtp(otpCode);
+      }
+    });
+
+    // Clean up listener when component unmounts
+    return () => removeListener();
+  }, []);
+
   const { mutate, isPending } = useMutation({
     mutationKey: ['verifyOtp', mobile, otp],
     mutationFn: api.verifyOtp,
     onSuccess(data) {
       if (!data) return alert(networkError, networkErrorMessage)
-      // if (data.isAlert) return alert('Error', data.message || 'Failed to send OTP. Please try again.')
-      // if (!data.verified)
-      //   return alert('Wrong OTP', data.message || 'Please enter the correct OTP sent to your mobile number.')
       if (data.isAlert || !data.verified)
         return setErrorMessages(data.message || 'Please enter the correct OTP sent to your mobile number.')
       if (data.token) setToken(data.token)
