@@ -13,7 +13,7 @@ import colors from 'tailwindcss/colors'
 import { attemptedTestsList } from './api/attemptedTests'
 import { Test } from './components/Test'
 
-export type Test = Awaited<ReturnType<typeof api.testList>>[0]['tests'][0]
+export type Test = Awaited<ReturnType<typeof api.testList>>['data'][0]['tests'][number]
 
 export default function AttemptedTests() {
   const { colorScheme } = useColorScheme()

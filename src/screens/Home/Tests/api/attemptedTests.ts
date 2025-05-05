@@ -3,7 +3,7 @@ import { postApi } from '@query/index'
 
 export interface Test {
   _id: string
-  test: Awaited<ReturnType<typeof api.testList>>[0]['tests'][0]
+  test: Awaited<ReturnType<typeof api.testList>>['data'][0]['tests'][number]
   status: string
   testStartTime: Date
   totalTimeCompleted: number
