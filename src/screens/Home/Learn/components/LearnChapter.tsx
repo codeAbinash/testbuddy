@@ -9,10 +9,10 @@ import { Medium } from '@utils/fonts'
 
 import { ChapterCategory } from '../api/chaptersList'
 
-type ChapterProps = {
+type LearnChapterProps = {
   chapter: ChapterCategory
 }
-const Chapter: FC<ChapterProps> = ({ chapter }) => {
+const LearnChapter: FC<LearnChapterProps> = ({ chapter }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -39,4 +39,4 @@ const Chapter: FC<ChapterProps> = ({ chapter }) => {
   )
 }
 
-export default memo(Chapter)
+export default memo(LearnChapter)

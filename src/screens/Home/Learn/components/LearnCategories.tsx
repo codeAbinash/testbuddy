@@ -3,18 +3,16 @@ import { Image, TouchableOpacity, View } from 'react-native'
 import Animated from 'react-native-reanimated'
 
 import { defaultChapterImage } from '@/constants'
-import { UnfoldLessStrokeRoundedIcon, UnfoldMoreStrokeRoundedIcon } from '@assets/icons/icons'
 import { SemiBold } from '@utils/fonts'
 import { layout } from '@utils/utils'
-import { colorScheme, useColorScheme } from 'nativewind'
-import colors from 'tailwindcss/colors'
 import { ChaptersCategory } from '../api/chaptersList'
-import Chapter from './Chapter'
+import FoldUnfold from './FoldUnfold'
+import LearnChapter from './LearnChapter'
 
-type CategoriesProps = {
+type LearnCategoriesProps = {
   categories?: ChaptersCategory[]
 }
-const Categories: FC<CategoriesProps> = ({ categories }) => {
+const LearnCategories: FC<LearnCategoriesProps> = ({ categories }) => {
   const [collapsedCategories, setCollapsedCategories] = useState<Record<string, boolean>>({})
 
   const toggleCategory = useCallback((categoryKey: string) => {
@@ -52,7 +50,7 @@ const Categories: FC<CategoriesProps> = ({ categories }) => {
             {!isCollapsed && (
               <View className='flex-row flex-wrap gap-2.5 px-5'>
                 {chapters.map((chapter) => (
-                  <Chapter key={chapter.chapter} chapter={chapter} />
+                  <LearnChapter key={chapter.chapter} chapter={chapter} />
                 ))}
               </View>
             )}
@@ -63,11 +61,4 @@ const Categories: FC<CategoriesProps> = ({ categories }) => {
   )
 }
 
-function FoldUnfold({ fold }: { fold: boolean }) {
-  const { colorScheme } = useColorScheme()
-  const color = colorScheme === 'dark' ? colors.zinc[200] : colors.zinc[800]
-  if (fold) return <UnfoldLessStrokeRoundedIcon width={20} height={20} color={color} />
-  return <UnfoldMoreStrokeRoundedIcon width={20} height={20} color={color} />
-}
-
-export default Categories
+export default LearnCategories

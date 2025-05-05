@@ -15,7 +15,7 @@ export default function FormulaSection({ navigation }: { navigation: StackNav })
           Formula Buddy: Your compact companion for understanding and recalling essential formulas with ease.
         </Medium>
         <View className='flex-row'>
-          <Button title='Explore Now' onPress={() => navigation.navigate('Refer')} className='bg-rose-500' />
+          <Button title='Explore Now' onPress={() => navigation.navigate('FormulaBuddy')} className='bg-rose-500' />
         </View>
       </View>
       <View className='flex-1'>

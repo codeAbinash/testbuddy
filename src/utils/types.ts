@@ -20,3 +20,8 @@ export type mode = 'solution' | 'test'
 export type NU = null | undefined
 
 export type Stream = 'engineering' | 'medical'
+
+/**
+ * A utility type that extracts the return type of a function and makes it awaitable.
+ */
+export type AwaitRet<T extends (...args: any) => any> = Awaited<ReturnType<T>>

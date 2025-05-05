@@ -63,6 +63,7 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import FormulaBuddy from '@screens/Home/Learn/FormulaBuddy/FormulaBuddy'
 
 const IOS_BOTTOM_STYLE: StackNavigationOptions = {
   cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
@@ -198,12 +199,14 @@ function Navigation(): React.JSX.Element {
         <Stack.Screen name='Counselling' component={Counselling} />
         <Stack.Screen name='CollegeList' component={CollegeList} />
         <Stack.Screen name='CounsellingPremium' component={CounsellingPremium} options={IOS_BOTTOM_STYLE} />
+        <Stack.Screen name='FormulaBuddy' component={FormulaBuddy} />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export type RootStackParamList = {
+  FormulaBuddy: undefined
   CounsellingPremium: undefined
   CollegeList: undefined
   Counselling: CounsellingParamList
