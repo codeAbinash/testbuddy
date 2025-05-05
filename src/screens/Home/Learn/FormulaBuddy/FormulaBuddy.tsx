@@ -5,21 +5,20 @@ import api from '@query/api/api'
 import { queryClient } from '@query/query'
 import BackHeader from '@screens/components/BackHeader'
 import { useQuery } from '@tanstack/react-query'
-import { AwaitedReturn } from '@utils/types'
+import { AwaitRet } from '@utils/types'
 import { useColorScheme } from 'nativewind'
 import { FC, useEffect, useState } from 'react'
 import { FlatList, RefreshControl, ScrollView } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { chaptersList } from '../api/chaptersList'
-import LearnCategories from '../components/LearnCategories'
-import { SubjectSelector } from '../components/SubjectSelector'
 import FormulaCategories from '../components/FormulaCategories'
+import { SubjectSelector } from '../components/SubjectSelector'
 
 type FormulaBuddyProps = {}
 
 const FormulaBuddy: FC<FormulaBuddyProps> = () => {
   const { colorScheme } = useColorScheme()
-  const profile = queryClient.getQueryData(['user']) as AwaitedReturn<typeof api.profile>
+  const profile = queryClient.getQueryData(['user']) as AwaitRet<typeof api.profile>
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['chaptersList'],
     queryFn: () => chaptersList({ stream: profile?.stream || 'engineering' }),
