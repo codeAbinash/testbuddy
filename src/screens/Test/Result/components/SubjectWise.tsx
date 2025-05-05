@@ -5,43 +5,12 @@ import { StyleSheet, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { Result } from '../types/result'
 
-const demoSubjectAnalysis: Result['subjectWiseAnalysis'] = [
-  {
-    subject: 'Overall',
-    averageMarks: -2,
-    toppersMarks: 260,
-    marks: 300,
-    _id: 'unique_id_1',
-  },
-  {
-    subject: 'Chemistry',
-    averageMarks: -50,
-    toppersMarks: -70,
-    marks: 300,
-    _id: 'unique_id_2',
-  },
-  {
-    subject: 'Maths',
-    averageMarks: -200,
-    toppersMarks: 260,
-    marks: -30,
-    _id: 'unique_id_3',
-  },
-  {
-    subject: 'Physics',
-    averageMarks: 200,
-    toppersMarks: 260,
-    marks: 300,
-    _id: 'unique_id_4',
-  },
-]
-
 type SubjectWiseProps = {
   subjectWiseAnalysis?: Result['subjectWiseAnalysis']
 }
 
 const SubjectWise: FC<SubjectWiseProps> = ({ subjectWiseAnalysis }) => {
-  const data = subjectWiseAnalysis || demoSubjectAnalysis
+  const data = subjectWiseAnalysis || []
 
   const maxMarks = Math.max(
     ...data.map((item) => item.marks),
