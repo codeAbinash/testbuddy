@@ -7,11 +7,6 @@ export const css = `
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
   *{font-family: 'Josefin Sans', sans-serif;}
-  mjx-container[jax="CHTML"][display="true"] {
-    display: inline-block !important ;
-    text-align: center !important;
-    line-height: normal !important;
-  }
   ul {
     padding-inline-start: 10px;
   }
@@ -59,6 +54,13 @@ const defaultOptions = {
   },
   TeX: {
     extensions: ['AMSmath.js', 'AMSsymbols.js', 'noErrors.js', 'noUndefined.js'],
+  },
+  'HTML-CSS': {
+    styles: {
+      '.MathJax_Display': {
+        display: 'inline !important',
+      },
+    },
   },
 }
 
