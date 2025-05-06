@@ -44,30 +44,32 @@ export default function VerifyOtp({ route, navigation }: VerifyOtpProps) {
   // Set up OTP auto-detection
   useEffect(() => {
     // Get the app hash for SMS Retriever API (Android only)
-    getHash().then(hash => {
-      console.log('SMS Retriever Hash:', hash);
-      // You might want to send this to your server for OTP SMS
-    }).catch(console.error);
+    getHash()
+      .then((hash) => {
+        console.log('SMS Retriever Hash:', hash)
+        // You might want to send this to your server for OTP SMS
+      })
+      .catch(console.error)
 
     // Start listening for incoming OTP SMS
-    startOtpListener(message => {
+    startOtpListener((message) => {
       // Extract OTP code from the message using regex
       // The format matches: <#> Your login OTP for TestBuddy is 3065. Do not share it with anyone.
-      const otpPattern = /Your login OTP for TestBuddy is (\d{4})/;
-      const match = message.match(otpPattern);
-      
+      const otpPattern = /Your login OTP for TestBuddy is (\d{4})/
+      const match = message.match(otpPattern)
+
       if (match && match[1]) {
-        const otpCode = match[1];
-        console.log('OTP detected:', otpCode);
-        setOtp(otpCode);
+        const otpCode = match[1]
+        console.log('OTP detected:', otpCode)
+        setOtp(otpCode)
         // Auto verify after detection
-        verifyOtp(otpCode);
+        verifyOtp(otpCode)
       }
-    });
+    })
 
     // Clean up listener when component unmounts
-    return () => removeListener();
-  }, []);
+    return () => removeListener()
+  }, [])
 
   const { mutate, isPending } = useMutation({
     mutationKey: ['verifyOtp', mobile, otp],

@@ -1,7 +1,6 @@
 import { FC, memo } from 'react'
 import { Image, TouchableOpacity } from 'react-native'
 
-
 import { defaultChapterImage } from '@/constants'
 import { Medium } from '@utils/fonts'
 

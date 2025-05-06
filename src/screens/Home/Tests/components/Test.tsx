@@ -1,14 +1,14 @@
+import { Medium, SemiBold } from '@utils/fonts'
 import type { ColorScheme } from '@utils/types'
-import { SemiBold, Medium } from '@utils/fonts'
 import { layout, layout100 } from '@utils/utils'
 import { useState } from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
+import Animated from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
+import { type Test } from '../TestList'
 import { LeftBox } from './LeftBox'
 import RightLockOrPlayIcon from './RightSideLockIcon'
 import { SubjectBadgeList } from './SubjectBadgeList'
-import { type Test } from '../TestList'
-import Animated from 'react-native-reanimated'
 
 type TestProps = {
   test: Test
@@ -21,6 +21,13 @@ const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpaci
 export function Test({ test, scheme, index, programId }: TestProps) {
   const timeCompleted = calculatePercentage(test.totalTimeCompleted, test.attemptTime)
   const [expanded, setExpanded] = useState(false)
+
+  // useEffect(() => {
+  //   if (test.status === 'inactive' || test.status === 'locked') {
+  //   } else if(test.totalTimeCompleted !== 0) {
+  //    console.log('timeCompleted', timeCompleted)
+  //   }
+  // }, [test])
 
   return (
     <>

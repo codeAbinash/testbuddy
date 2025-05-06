@@ -88,7 +88,7 @@ export default function Login({ navigation }: NavProps) {
           <BtnTransparent onPress={handleGoogleSignIn} disabled={isGoogleLoading}>
             <View className='flex-row items-center justify-center gap-5'>
               {isGoogleLoading ? (
-                <ActivityIndicator size="small" color="#4285F4" />
+                <ActivityIndicator size='small' color='#4285F4' />
               ) : (
                 <GoogleIcon height={22} width={22} />
               )}

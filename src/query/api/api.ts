@@ -310,13 +310,7 @@ function googleAuth(data: { code?: string; idToken?: string; accessToken?: strin
     redirectUri: 'com.testbuddy:/oauth2redirect/google',
   }
   console.log(obj)
-  // return postApi<GoogleAuthResponse>('auth/google', obj)
-  return new Promise<GoogleAuthResponse>((resolve, reject) => {
-    reject({
-      isAlert: true,
-      message: 'Demo',
-    })
-  })
+  return postApi<GoogleAuthResponse>('auth/google', obj)
 }
 
 const api = {

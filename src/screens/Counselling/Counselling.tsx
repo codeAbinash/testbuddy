@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Linking, StatusBar, View } from 'react-native'
+import { Linking, View } from 'react-native'
 
 import { useColorScheme } from 'nativewind'
 
@@ -12,16 +12,15 @@ import { KeyboardAvoid } from '@components/KeyboardAvoid'
 import Label from '@components/Label'
 import Radio from '@components/Radio'
 import { PaddingBottom } from '@components/SafePadding'
-import { AppBar } from '@components/TopBar'
 import { useMutation } from '@tanstack/react-query'
 import { H } from '@utils/dimensions'
 import { Medium, SemiBold } from '@utils/fonts'
 import { StackNav } from '@utils/types'
 
 import { RouteProp } from '@react-navigation/native'
+import BackHeader from '@screens/components/BackHeader'
 import { counsellingProfileUpdate } from './api/counsellingProfileUpdate'
 import { categories, genders, states } from './utils'
-import BackHeader from '@screens/components/BackHeader'
 
 type ParamList = {
   Counselling: CounsellingParamList

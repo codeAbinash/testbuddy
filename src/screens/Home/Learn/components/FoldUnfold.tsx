@@ -1,6 +1,6 @@
-import { UnfoldLessStrokeRoundedIcon, UnfoldMoreStrokeRoundedIcon } from "@assets/icons/icons"
-import { useColorScheme } from "nativewind"
-import colors from "tailwindcss/colors"
+import { UnfoldLessStrokeRoundedIcon, UnfoldMoreStrokeRoundedIcon } from '@assets/icons/icons'
+import { useColorScheme } from 'nativewind'
+import colors from 'tailwindcss/colors'
 
 function FoldUnfold({ fold }: { fold: boolean }) {
   const { colorScheme } = useColorScheme()

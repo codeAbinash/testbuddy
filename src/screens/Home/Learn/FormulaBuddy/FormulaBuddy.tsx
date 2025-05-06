@@ -25,15 +25,14 @@ const FormulaBuddy: FC<FormulaBuddyProps> = () => {
     enabled: !!profile,
   })
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
-  
+
   const [selectedIndex, setSelectedIndex] = useState(0)
-  
+
   useEffect(() => {
     console.log(data)
   }, [data])
-  
-  if (isLoading) return <LoadingFullScreen text='Loading Chapters...' />
 
+  if (isLoading) return <LoadingFullScreen text='Loading Chapters...' />
 
   return (
     <>
